@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+
+/*write */
+
+#wrap {margin: 0px auto; width: 100%; height: 1530px; background-color: #181818; } 
+.title{font-size: 30px; font-weight: bold; color: white; text-align: center;}
+.page{margin: 0px auto; width: 1100px; height: 750px; background-color: #2C2C2C;}
+.title-td {color: white; width: 150px; height: 80px; border-color: white; border-width: 1px; font-size: 17px; border-style: solid; text-align: center; font-weight: bold;}
+.title-td-input{color: white; border-width: 1px; width: 950px; border-color: white; border-style: solid; font-size: 17px; height: 80px;}
+.title-input {background-color:#2C2C2C; color: white; width: 950px; height: 80px; text-align: center; font-size: 17px;}
+.tr-border{border-style: solid; border-color: white; border-width: 1px;}
+.title-category{color: white; width: 150px; height: 80px; border-color: white; border-width: 1px; font-size: 17px; border-style: solid; text-align: center; font-weight: bold;}
+.select-td {color: white; width: 330px; height: 80px; border-color: white; border-width: 1px; font-size: 17px; border-style: solid; text-align: center; font-weight: bold;}
+.select-category{width: 200px; height: 60px; font-size: 17px; text-align-last: center;}
+.title-file {color: white; width: 150px; height: 80px; border-color: white; border-width: 1px; font-size: 17px; border-style: solid; text-align: center; font-weight: bold;}
+.file-name{width: 100px; font-size: 12px; color: white; text-align:center ;}
+.file-up{color: white; width: 180px; height: 80px;  font-size: 17px;  text-align: center; font-weight: bold;}
+.file-up-button{height: 60px; font-size: 17px; width: 100px; background-color: white; margin-left: 80px;}
+.content{height: 410px; font-size: 12px; color: white; margin: 30px;}
+.cancel-button{background-color: red; color: white; height: 30px; width: 140px; font-size: 17px;}
+.submit-button{background-color:#008916; color: white; height: 30px; width: 140px; font-size: 17px;}
+
+/* list*/
+
+.wrap-back{margin: 0px auto; width: 100%; height: 2200px; background-color: #181818; }
+.center  {margin: 0px auto; width: 1100px; height: 100%;  align-content: center;}
+.board {margin: 0px auto; width: 1100px; height: 1180px; background-color: #2c2c2c;}
+.title {margin: 0px auto; color: white; height: 100px; text-align: center; font-size: 30px; font-weight: bold;}
+.board-head{background-color:#008916; color: white;}
+.board-paging{width: 40px; border-style: solid; border-color: #585858; border-width: 1px;}
+.select{width: 150px; border-style: solid; border-color: #585858; border-width: 1px;}
+.select-content {width: 150px; font-size: 20px; height: 50px; text-align: center;}
+.td-search {width: 200px; border-style: solid; border-color: #585858; border-width: 1px; font-size: 20px; color: white; text-align: center;}
+.td-search-input{ width: 200px; height: 50px; font-size: 17px; background-color: #585858; color: white;}
+.btn-search {height: 50px; width: 110px; background-color: #008916; color: white; font-weight: bold; font-size: 20px; text-align: center; }
+.btn-write{height: 50px; width: 110px; background-color: #008916; color: white; font-weight: bold; font-size: 20px; text-align: center;}

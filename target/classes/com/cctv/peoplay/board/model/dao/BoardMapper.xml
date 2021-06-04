@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.cctv.peoplay.board.model.dao.BoardMapper">
+
+
+	<resultMap id="boardAndMemberResultSet" type="com.cctv.peoplay.board.model.dto.BoardAndMemberDTO">
+		<id column="POST_NO" property="no" />
+		<result column="USER_NO" property="userNo" />
+		<result column="POST_TITLE" property="title" />
+		<result column="POST_CONTENT" property="content" />
+		<result column="VIEW_NO" property="view" />
+		<result column="CREATION_DATE" property="creationDate" />
+		<result column="REPORT_COUNT" property="reportCount" />
+		<result column="POST_STATUS" property="status" />
+		<result column="COMMENT_COUNT" property="commentCount" />
+		<result column="POST_CATEGORY" property="category"/>
+		<association property="memberDTO" resultMap="memberResultMap"></association>
+	</resultMap>
+	
+		<resultMap type="com.cctv.peoplay.member.model.dto.MemberDTO" id="memberResultMap">
+ 		<id column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NAME" property="userName" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="USER_ADDRESS" property="userAddress" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="BIRTHDAY" property="birthday" />
+		<result column="USER_ROLE" property="userRole" />
+		<result column="USER_REGISTER" property="userRegister" />
+		<result column="USER_STATUS" property="userStatus" />
+		<result column="SPOILER_YN" property="spoilerYN" />
+		<result column="MOVIE_REVIEW_YN" property="movieReviewYN" />
+		<result column="BLACKLIST_DATE" property="blacklistDate" />
+		<result column="WITHDRAW_DATE" property="withdrawDate" />
+		<result column="REPORT_CUMULATIVE" property="reportCumulative" />
+ 	</resultMap>
+	
+<select id="selectBoardList" resultMap="boardAndMemberResultSet" >
+	   SELECT
+		        A.POST_NO
+		      , A.USER_NO
+   			  , B.NICKNAME
+  			  , A.POST_TITLE
+ 		      , A.VIEW_NO
+		      , A.CREATION_DATE
+		      , A.COMMENT_COUNT
+		      , A.POST_CATEGORY
+		      , A.POST_STATUS
+		 FROM USER_BOARD A
+		 JOIN USER_INFO B ON(A.USER_NO =B.USER_NO)
+		WHERE POST_STATUS= 'Y'
+	 ORDER BY POST_NO DESC 
+	</select>
+
+<insert id="insertBoard" parameterType="com.cctv.peoplay.board.model.dto.BoardDTO">
+	INSERT
+	  INTO USER_BOARD A
+	     (
+	       A.POST_NO
+          ,A.USER_NO
+		  ,A.POST_TITLE
+		  ,A.POST_CONTENT
+          ,A.POST_CATEGORY
+	     )
+	VALUES
+	     (
+	     SEQ_USER_BOARD.NEXTVAL
+	   , #{userNo}
+	   , #{title}
+	   , #{content}
+	   , #{category}
+	     )
+
+</insert>
+
+</mapper>

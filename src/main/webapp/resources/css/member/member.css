@@ -1,0 +1,169 @@
+@charset "UTF-8";
+#wrap {margin: 0px auto; width: 100%;}
+.main {margin: 0px auto; width: 100%;}
+
+/* login */
+.login_main{width: 100%; height: 700px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.login_box{width: 350px; height: 350px;}
+.welcome{text-align: center; color: #008916; font-size: 30px; font-weight: 600; margin-bottom: 50px;}
+.login_input_box{width: 350px; text-align: left; color: #fff; margin: 20px auto;}
+.login_input_box > input{width: 350px; height: 30px; text-align: center;}
+.login_input_box > button{width: 350px; height: 30px; background-color: #008916; color: #fff; font-weight: 600;}
+.id_pw_search{float: right; margin-bottom: 20px; color: #fff;}
+
+/* join */
+.join_main{width: 100%; height: 1400px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.join_box{width: 400px; height: 950px;}
+.email_input_box{width: 400px; text-align: left; color: #fff; margin: 20px auto; line-height: 30px;}
+.email_input_box > input{width: 140px; height: 30px; text-align: center; margin-left: 53px;}
+.email_input_box > select{width: 138.5px; height: 30px; text-align: center;}
+.join_input_box{width: 400px; text-align: left; color: #fff; margin: 20px auto; line-height: 30px;}
+.join_input_box > input{width: 300px; height: 30px; float: right; text-align: center;}
+.join_input_box > button{width: 400px; height: 30px; background-color: #008916; color: #fff; font-weight: 600;}
+.join_box > form > p {text-align: right; color: #A5A5A5;}
+
+/* agreeToS */
+.agreeToS_main {width: 100%; height: 1100px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.agreeToS_box {width: 1100px; height: 900px;}
+.agreeToS_title {width: 1100px; height: 50px; margin-top: 50px; background-color: #008916; text-align: center; font-size: 20px; line-height: 50px; color: #fff; font-weight: 600;}
+.agreeToS_body {width: 1100px; height: 600px; overflow: auto; background-color: #fff; font-size: 14px; padding: 20px;}
+.agreeToS_footer > button {width: 1100px; height: 50px; background-color: #606060; font-size: 20px; font-weight: 600; color: #fff; margin-top: 30px; border-radius: 20px;}
+.agreeToS_footer > button:hover {background-color: #008916;}
+
+/* searchId, searchPwd, searchPwd_res, modifySearchPwd */
+.search_main{width: 100%; height: 700px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.searchId_box{width: 370px; height: 400px;}
+.searchPwd_box{width: 370px; height: 450px;}
+.modifySearchPwd_box{width: 400px; height: 400px;}
+.search_comment_title{font-size: 20px; color: #fff; text-align: center; font-weight: 600;}
+.search_comment_body{font-size: 12px; color: #A5A5A5; text-align: center; margin-top: 10px;}
+.search_input_box{width: 370px; text-align: left; color: #fff; margin: 20px auto; line-height: 30px;}
+.search_input_box > input{width: 300px; height: 30px; float: right; text-align: center;}
+.search_email_input_box {width: 370px; text-align: left; color: #fff; margin: 20px auto; line-height: 30px;}
+.search_email_input_box > input{width: 140px; height: 30px; text-align: center; margin-left: 24px;}
+.search_email_input_box > select{width: 138.5px; height: 30px; text-align: center;}
+.search_input_box > button{width: 370px; height: 30px; background-color: #008916; color: #fff; font-weight: 600;}
+.modify_box > form > p {text-align: right; color: #A5A5A5;}
+.pRight {color: #A5A5A5; text-align: right;}
+
+/* checkFavorite */
+.check_main{width: 100%; height: 1450px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.check_contents{width: 1100px; height: 1200px;}
+.check_title{width: 1100px; height: 200px; text-align: center;}
+.check_title > form > button{font-size: 15px; width: 300px; height: 40px; background-color: #A5A5A5;}
+.check_title > form > button:hover{background-color: #008916;}
+.check_title_top{font-size: 25px; color: #fff; font-weight: 600;}
+.check_title_bottom{font-size: 12px; color: #A5A5A5; margin: 15px;}
+.check_body{width: 1100px; height: 1000px;}
+.check_body > img{width: 170px; height: 240px; float: left; margin: 6.6px;}
+.check_body > img:hover{background-color: rgba( 0, 0, 0, 0.5 )}
+.clickImg {background-color: rgba( 0, 0, 0, 0.5 )}
+
+/* mypage */
+.mypage_main{width: 100%; height: 1000px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.mypage_box{width: 1100px; height: 700px;}
+.my_nav {width: 150px; height: 700px; background-color: #6B6B6B; border-radius: 20px 0 0 20px; padding: 10px; float: left;}
+.my_nav > ul {margin: 30px 10px; font-size: 13px; color: #fff; line-height: 30px; cursor:pointer}
+.my_nav > p {margin: 30px 10px; font-size: 13px; color: #fff; line-height: 30px;}
+.my_nav_line {border-bottom: 1px solid #fff;}
+.my_contents {width: 950px; height: 700px; background-color: #2C2C2C; float: left; border-radius: 0 20px 20px 0; display: flex; justify-content: center; align-items: center;}
+.my_contents div {display: none;}
+.my_contents div.on {display: block;}
+.my_on{background-color: #008916;}
+.my_off{background-color: #606060;}
+.my_home {width: 900px; height: 700;}
+.my_home > div {display: block;}
+.my_home > div > hr {clear: both;}
+.my_home > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_home > div > button {float: right; width: 120px; height: 25px; margin-left: 20px; border-radius: 15px; color: #fff; font-weight: 600;}
+.my_home > div > div {display: block; width: 900px; height: 280px; font-size: 20px; margin-top: 30px; font-weight: 600; color: #fff;}
+.my_home > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 10px 10px 10px;}
+.my_modify {width: 900px; height: 700;}
+.my_modify > div {display: block;}
+.my_modify > div > hr {clear: both;}
+.my_modify > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_modify > div > form > table {display: block; width: 500px; text-align: left; color: #fff; margin: 0px auto; line-height: 30px; border-collapse: separate; border-spacing: 0 20px;}
+.my_modify_button {float: right; width: 80px; height: 25px; background-color: #008916; border-radius: 15px; color: #fff; font-weight: 600;}
+.my_modify_submit_button {width: 500px; height: 25px; background-color: #008916; border-radius: 15px; color: #fff; font-weight: 600;}
+.my_modify_input{width: 300px; height: 30px; text-align: center;}
+.my_modify_email_input {width: 148px; height: 30px; text-align: center;}
+.my_modify_email_select {width: 130px; height: 30px; float: right;}
+.my_subscribeHistory {width: 900px; height: 700;}
+.my_subscribeHistory > div {display: block;}
+.my_subscribeHistory > div > hr {clear: both;}
+.my_subscribeHistory > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_subscribeHistory > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_subscribeHistory > div > div::-webkit-scrollbar {width: 5px;}
+.my_subscribeHistory > div > div > table {margin: 10px auto;}
+.my_subscribeHistory_title {width: 200px; height: 40px; background-color: #008916; color: white; font-size: 16px; font-weight: 600;}
+.my_subscribeHistory_body {font-size: 15px;  height: 25px; border-bottom: 1px solid #ccc; text-align: center;  color: white;}
+.my_askHistory {width: 900px; height: 700;}
+.my_askHistory > div {display: block;}
+.my_askHistory > div > hr {clear: both;}
+.my_askHistory > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_askHistory > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_askHistory > div > div::-webkit-scrollbar {width: 5px;}
+.my_askHistory > div > div > table {margin: 10px auto;}
+.my_askHistory_title {width: 150px; height: 40px; background-color: #008916; color: white; font-size: 16px; font-weight: 600;}
+.my_askHistory_titleoftitle {width: 400px; height: 40px; background-color: #008916; color: white; font-size: 16px; font-weight: 600;}
+.my_askHistory_body {font-size: 15px;  height: 25px; border-bottom: 1px solid #ccc; text-align: center;  color: white;}
+.my_board {width: 900px; height: 700;}
+.my_board > div {display: block;}
+.my_board > div > hr {clear: both;}
+.my_board > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_board > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_board > div > div::-webkit-scrollbar {width: 5px;}
+.my_board > div > div > table {margin: 10px auto;}
+.my_board_title {width: 150px; height: 40px; background-color: #008916; color: white; font-size: 16px; font-weight: 600;}
+.my_board_titleoftitle {width: 400px; height: 40px; background-color: #008916; color: white; font-size: 16px; font-weight: 600;}
+.my_board_body {font-size: 15px;  height: 25px; border-bottom: 1px solid #ccc; text-align: center;  color: white;}
+.my_delete {width: 900px; height: 700;}
+.my_modifyPwd > div {display: block;}
+.my_modifyPwd > div > hr {clear: both;}
+.my_modifyPwd > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_modifyPwd > div > div {width: 900px; height: 600px; display: flex; justify-content: center; align-items: center;}
+.my_modifyPwd > div > div > div {display: block; width: 500px; height: 300px;}
+.my_modifyPwd > div > div > div > p {font-size: 15px; color: #fff; text-align: center; line-height: 30px;}
+.my_modifyPwd > div > div > div > form {height: 200px; text-align: left;}
+.my_modifyPwd > div > div > div > form > div {display: block; width: 500px; height: 30px; line-height: 30px; text-align: left; color: #fff; margin: 20px auto;}
+.my_modifyPwd > div > div > div > form > div > input {width: 300px; height: 30px; text-align: center; float: right;}
+.my_modifyPwd > div > div > div > form > div > button {width: 500px; height: 30px; background-color: #008916; color: #fff; text-align: center; margin-top: 20px; border-radius: 15px;}
+.my_delete {width: 900px; height: 700;}
+.my_delete > div {display: block;}
+.my_delete > div > hr {clear: both;}
+.my_delete > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_delete > div > div {width: 900px; height: 600px; display: flex; justify-content: center; align-items: center;}
+.my_delete > div > div > div {display: block; width: 300px; height: 200px;}
+.my_delete > div > div > div > p {font-size: 15px; color: #fff; text-align: center; line-height: 30px;}
+.my_delete > div > div > div > form > input {width: 300px; height: 30px; text-align: center; margin-top: 20px;}
+.my_delete > div > div > div > form > button {width: 300px; height: 30px; background-color: #008916; color: #fff; text-align: center; margin-top: 20px; border-radius: 15px;}
+.my_wishlist {width: 900px; height: 700;}
+.my_wishlist > div {display: block;}
+.my_wishlist > div > hr {clear: both;}
+.my_wishlist > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_wishlist > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_wishlist > div > div::-webkit-scrollbar {width: 5px;}
+.my_wishlist > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+.my_watchList {width: 900px; height: 700;}
+.my_watchList > div {display: block;}
+.my_watchList > div > hr {clear: both;}
+.my_watchList > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_watchList > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_watchList > div > div::-webkit-scrollbar {width: 5px;}
+.my_watchList > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+.my_basket {width: 900px; height: 700;}
+.my_basket > div {display: block;}
+.my_basket > div > hr {clear: both;}
+.my_basket > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_basket > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_basket > div > div::-webkit-scrollbar {width: 5px;}
+.my_basket > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+
+/* subscribe */
+.subscribe_main{width: 100%; height: 700px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.subscribe_box{width: 1100px; height: 350px;}
+.subscribe_contents{width: 1100px; height: 260px;}
+.subscribe_content{width: 350px; height: 260px; float: left; margin: 8.3px; text-align: center; border: #606060 1px solid; border-radius: 10px;}
+.subscribe_content:hover{border: #008916 5px solid; background-color: #2C2C2C;}
+.subscribe_month{color: #008916; font-size: 25px; font-weight: 600; margin-top: 60px;}
+.subscribe_price{color: #fff; font-size: 30px; font-weight: 600; margin-top: 30px;}
