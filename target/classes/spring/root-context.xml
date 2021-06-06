@@ -52,5 +52,6 @@
 	
 	<mybatis-spring:scan 
 		base-package="com.cctv.peoplay.member.model.dao, 
-					  com.cctv.peoplay.board.model.dao"/>
+					  com.cctv.peoplay.board.model.dao,
+					  com.cctv.peoplay.admin.member.model.dao"/>
 </beans>

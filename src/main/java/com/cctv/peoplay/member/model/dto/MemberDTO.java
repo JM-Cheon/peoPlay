@@ -21,7 +21,7 @@ public class MemberDTO implements Serializable{
 	private String userStatus;
 	private String spoilerYN;
 	private String movieReviewYN;
-	private java.sql.Date blcaklistDate;
+	private java.sql.Date blacklistDate;
 	private java.sql.Date withdrawDate;
 	private int reportCumulative;
 	private java.sql.Date subscribeValidity;
@@ -36,7 +36,7 @@ public class MemberDTO implements Serializable{
 
 	public MemberDTO(int userNo, String userId, String userPwd, String userName, String nickname, String userAddress,
 			String email, String phone, Date birthday, String userRole, Date userRegister, String userStatus,
-			String spoilerYN, String movieReviewYN, Date blcaklistDate, Date withdrawDate, int reportCumulative,
+			String spoilerYN, String movieReviewYN, Date blacklistDate, Date withdrawDate, int reportCumulative,
 			Date subscribeValidity, int action, int fantasy, int romance, int comedy, int horror) {
 		this.userNo = userNo;
 		this.userId = userId;
@@ -52,7 +52,7 @@ public class MemberDTO implements Serializable{
 		this.userStatus = userStatus;
 		this.spoilerYN = spoilerYN;
 		this.movieReviewYN = movieReviewYN;
-		this.blcaklistDate = blcaklistDate;
+		this.blacklistDate = blacklistDate;
 		this.withdrawDate = withdrawDate;
 		this.reportCumulative = reportCumulative;
 		this.subscribeValidity = subscribeValidity;
@@ -175,12 +175,12 @@ public class MemberDTO implements Serializable{
 		this.movieReviewYN = movieReviewYN;
 	}
 
-	public java.sql.Date getBlcaklistDate() {
-		return blcaklistDate;
+	public java.sql.Date getBlacklistDate() {
+		return blacklistDate;
 	}
 
-	public void setBlcaklistDate(java.sql.Date blcaklistDate) {
-		this.blcaklistDate = blcaklistDate;
+	public void setBlacklistDate(java.sql.Date blacklistDate) {
+		this.blacklistDate = blacklistDate;
 	}
 
 	public java.sql.Date getWithdrawDate() {
@@ -253,7 +253,7 @@ public class MemberDTO implements Serializable{
 				+ ", nickname=" + nickname + ", userAddress=" + userAddress + ", email=" + email + ", phone=" + phone
 				+ ", birthday=" + birthday + ", userRole=" + userRole + ", userRegister=" + userRegister
 				+ ", userStatus=" + userStatus + ", spoilerYN=" + spoilerYN + ", movieReviewYN=" + movieReviewYN
-				+ ", blcaklistDate=" + blcaklistDate + ", withdrawDate=" + withdrawDate + ", reportCumulative="
+				+ ", blacklistDate=" + blacklistDate + ", withdrawDate=" + withdrawDate + ", reportCumulative="
 				+ reportCumulative + ", subscribeValidity=" + subscribeValidity + ", action=" + action + ", fantasy="
 				+ fantasy + ", romance=" + romance + ", comedy=" + comedy + ", horror=" + horror + "]";
 	}

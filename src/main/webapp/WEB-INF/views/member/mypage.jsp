@@ -44,7 +44,6 @@
                         <p class="my_nav_line">굿즈</p>
                         <ul>
                             <li>장바구니</li>
-                            <li>배송조회</li>
                             <li>상품주문내역</li>
                         </ul>
                     </div>
@@ -58,8 +57,8 @@
                             	<c:if test="${ empty sessionScope.loginMember.subscribeValidity || sessionScope.loginMember.subscribeValidity < today } ">
 	                                <p>구독만료일 : 구독권 없음 }</p>
                             	</c:if>
-                                <button id="movie">영화 후기 ON</button>
-                                <button id="board">게시판 스포 ON</button>
+                                <button id="movie"></button>
+                                <button id="board"></button>
                                 <hr>
                                 <div>
                                     <p>시청 내역</p>
@@ -381,9 +380,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="my_delivery">
-
-                        </div>
                         <div class="my_productHistory">
 
                         </div>
@@ -409,14 +405,18 @@
             
             if("${sessionScope.loginMember.movieReviewYN}" == "Y"){
             	$("#movie").addClass("my_on");
+            	$("#movie").text("영화 후기 ON");
             } else {
             	$("#movie").addClass("my_off");
+            	$("#movie").text("영화 후기 OFF");
             }
 
             if("${sessionScope.loginMember.spoilerYN}" == "Y"){
             	$("#board").addClass("my_on");
+            	$("#board").text("게시판 스포 ON");
             } else {
             	$("#board").addClass("my_off");
+            	$("#board").text("게시판 스포 OFF");
             }
         });
         
@@ -429,9 +429,11 @@
 						if(data == "on"){
 							$("#movie").removeClass();
 							$("#movie").addClass("my_on");
+							$("#movie").text("영화 후기 ON");
 						} else {
 							$("#movie").removeClass();
 							$("#movie").addClass("my_off");
+							$("#movie").text("영화 후기 OFF");
 						}
 					} else {
 						alert("실패!");
@@ -453,9 +455,11 @@
 						if(data == "on"){
 							$("#board").removeClass();
 							$("#board").addClass("my_on");
+							$("#board").text("게시판 스포 ON");
 						} else {
 							$("#board").removeClass();
 							$("#board").addClass("my_off");
+							$("#board").text("게시판 스포 OFF");
 						}
 					} else {
 						alert("실패!");

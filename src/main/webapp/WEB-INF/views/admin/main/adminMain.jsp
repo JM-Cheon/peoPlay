@@ -34,6 +34,13 @@
             </div>
         </main>
 	<jsp:include page="../../common/footer.jsp"/>
+	
 	</div>
+	<script>
+		$('#admin').change(function() {
+			var value = $('#admin option:selected').text();
+			$("#title").text(value);
+		});
+	</script>
 </body>
 </html>
