@@ -52,6 +52,18 @@
 	    </div>
     </header>
     <script>
+    $(document).ready(function(){
+        $(window).on("scroll", function(){
+            var scroll = $(window).scrollTop();
+            if (scroll > 1) {
+                $(".header_box").css("background" , "#2c2c2c");
+            }
+            else{
+                $(".header_box").css("background" , "linear-gradient(to top, rgba(44, 44, 44, 0) 10%, rgba(44, 44, 44, 0.75) 75%)");   
+            }
+        })
+    })
+    
     $(".nav ul li").click(function(){
     	if("${ empty sessionScope.loginMember}" == "true"){
     		if($(this).text() != "홈"){

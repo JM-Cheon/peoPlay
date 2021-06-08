@@ -51,7 +51,8 @@
 	</aop:config>
 	
 	<mybatis-spring:scan 
-		base-package="com.cctv.peoplay.member.model.dao, 
+		base-package="com.cctv.peoplay.main.model.dao, 
+					  com.cctv.peoplay.member.model.dao, 
 					  com.cctv.peoplay.board.model.dao,
 					  com.cctv.peoplay.admin.member.model.dao"/>
 </beans>

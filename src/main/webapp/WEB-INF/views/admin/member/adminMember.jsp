@@ -519,7 +519,7 @@
 		$.ajax({
 			url: "${pageContext.servletContext.contextPath}/admin/member/black",
 			type: "post",
-			data: { no : no},
+			data: { no : no },
 			success: function(data){
 				if(data == 0){
 					alert("실패!");
