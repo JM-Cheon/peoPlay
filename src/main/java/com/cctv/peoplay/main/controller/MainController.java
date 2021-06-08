@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cctv.peoplay.main.model.service.MainService;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
-import com.cctv.peoplay.movie.model.dto.MovieDTO;
 
 @Controller
 @RequestMapping("/*")

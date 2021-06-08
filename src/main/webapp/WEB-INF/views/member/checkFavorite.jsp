@@ -29,21 +29,41 @@
                         </form>
                     </div>
                     <div class="check_body">
-                    	<%-- 
-                    	<c:forEach var="" items="">
-                    		<img src="">
-                    	</c:forEach> 
-                    	--%>
-                    	<img src="" id="action">
-                    	<img src="" id="action">
-                    	<img src="" id="fantasy">
-                    	<img src="" id="fantasy">
-                    	<img src="" id="horror">
-                    	<img src="" id="horror">
-                    	<img src="" id="romance">
-                    	<img src="" id="romance">
-                    	<img src="" id="comedy">
-                    	<img src="" id="comedy">
+                    	<c:forEach var="action" items="${ requestScope.actionList }" begin="0" end="5">
+	                    	<c:forEach var="movieImg" items="${ action.movieFile }">
+								<c:if test="${ movieImg.fileType == 'SUB' }">
+									<img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }" id="action">
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+                    	<c:forEach var="fantasy" items="${ requestScope.fantasyList }" begin="0" end="5">
+	                    	<c:forEach var="movieImg" items="${ fantasy.movieFile }">
+								<c:if test="${ movieImg.fileType == 'SUB' }">
+									<img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }" id="fantasy">
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+                    	<c:forEach var="romance" items="${ requestScope.romanceList }" begin="0" end="5">
+	                    	<c:forEach var="movieImg" items="${ romance.movieFile }">
+								<c:if test="${ movieImg.fileType == 'SUB' }">
+									<img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }" id="romance">
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+                    	<c:forEach var="comedy" items="${ requestScope.comedyList }" begin="0" end="5">
+	                    	<c:forEach var="movieImg" items="${ comedy.movieFile }">
+								<c:if test="${ movieImg.fileType == 'SUB' }">
+									<img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }" id="comedy">
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+                    	<c:forEach var="horror" items="${ requestScope.horrorList }" begin="0" end="5">
+	                    	<c:forEach var="movieImg" items="${ horror.movieFile }">
+								<c:if test="${ movieImg.fileType == 'SUB' }">
+									<img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }" id="horror">
+								</c:if>
+							</c:forEach>
+						</c:forEach>
                     </div>
                 </div>
             </div>

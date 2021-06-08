@@ -5,6 +5,7 @@ import java.util.List;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 import com.cctv.peoplay.member.model.dto.SubscribePaymentDTO;
 import com.cctv.peoplay.member.model.dto.SubscriptionDTO;
+import com.cctv.peoplay.movie.model.dto.MovieDTO;
 
 public interface MemberService {
 
@@ -37,4 +38,16 @@ public interface MemberService {
 	int modifyMovieOnOff(MemberDTO loginMember);
 
 	int modifyBoardOnOff(MemberDTO loginMember);
+
+	List<MovieDTO> selectActionMovie();
+
+	List<MovieDTO> selectFactasyMovie();
+
+	List<MovieDTO> selectRomanceMovie();
+
+	List<MovieDTO> selectComedyMovie();
+
+	List<MovieDTO> selectHorroMovie();
+
+	List<MovieDTO> selectMemberWishMovieList(int userNo);
 }

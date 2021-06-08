@@ -10,6 +10,7 @@ import com.cctv.peoplay.member.model.dao.MemberMapper;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 import com.cctv.peoplay.member.model.dto.SubscribePaymentDTO;
 import com.cctv.peoplay.member.model.dto.SubscriptionDTO;
+import com.cctv.peoplay.movie.model.dto.MovieDTO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -133,6 +134,36 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int modifyBoardOnOff(MemberDTO loginMember) {
 		return mapper.modifyBoardOnOff(loginMember);
+	}
+
+	@Override
+	public List<MovieDTO> selectActionMovie() {
+		return mapper.selectActionMovie();
+	}
+
+	@Override
+	public List<MovieDTO> selectFactasyMovie() {
+		return mapper.selectFactasyMovie();
+	}
+
+	@Override
+	public List<MovieDTO> selectRomanceMovie() {
+		return mapper.selectRomanceMovie();
+	}
+
+	@Override
+	public List<MovieDTO> selectComedyMovie() {
+		return mapper.selectComedyMovie();
+	}
+
+	@Override
+	public List<MovieDTO> selectHorroMovie() {
+		return mapper.selectHorroMovie();
+	}
+
+	@Override
+	public List<MovieDTO> selectMemberWishMovieList(int userNo) {
+		return mapper.selectMemberWishMovieList(userNo);
 	}
 	
 }

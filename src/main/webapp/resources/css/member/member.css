@@ -56,8 +56,8 @@
 .check_title_bottom{font-size: 12px; color: #A5A5A5; margin: 15px;}
 .check_body{width: 1100px; height: 1000px;}
 .check_body > img{width: 170px; height: 240px; float: left; margin: 6.6px;}
-.check_body > img:hover{background-color: rgba( 0, 0, 0, 0.5 )}
-.clickImg {background-color: rgba( 0, 0, 0, 0.5 )}
+.check_body > img:hover{opacity: 0.5;}
+.clickImg {opacity: 0.5;}
 
 /* mypage */
 .mypage_main{width: 100%; height: 1000px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
@@ -77,7 +77,9 @@
 .my_home > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
 .my_home > div > button {float: right; width: 120px; height: 25px; margin-left: 20px; border-radius: 15px; color: #fff; font-weight: 600;}
 .my_home > div > div {display: block; width: 900px; height: 280px; font-size: 20px; margin-top: 30px; font-weight: 600; color: #fff;}
-.my_home > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 10px 10px 10px;}
+.my_home > div > div > div {display: block; width: 130px; height: 180px; float: left; margin: 30px 10px 10px 10px;}
+.my_home > div > div > div > img {width: 130px;}
+.my_home > div > div > div > p {font-size: 13px; color: #fff; text-align: center;}
 .my_modify {width: 900px; height: 700;}
 .my_modify > div {display: block;}
 .my_modify > div > hr {clear: both;}
@@ -143,7 +145,9 @@
 .my_wishlist > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
 .my_wishlist > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
 .my_wishlist > div > div::-webkit-scrollbar {width: 5px;}
-.my_wishlist > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+.my_wishlist > div > div > div {display: block; width: 130px; height: 180px; float: left; margin: 30px 9px 0px 9px;}
+.my_wishlist > div > div > div > img {width: 130px;}
+.my_wishlist > div > div > div > p {font-size: 13px; color: #fff;}
 .my_watchList {width: 900px; height: 700;}
 .my_watchList > div {display: block;}
 .my_watchList > div > hr {clear: both;}

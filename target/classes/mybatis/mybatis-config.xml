@@ -7,6 +7,8 @@
  		<typeAlias alias="MemberDTO" type="com.cctv.peoplay.member.model.dto.MemberDTO"/>
  		<typeAlias alias="SubscriptionDTO" type="com.cctv.peoplay.member.model.dto.SubscriptionDTO"/>
  		<typeAlias alias="SubscribePaymentDTO" type="com.cctv.peoplay.member.model.dto.SubscribePaymentDTO"/>
+ 		<typeAlias alias="MovieDTO" type="com.cctv.peoplay.movie.model.dto.MovieDTO"/>
+ 		<typeAlias alias="MovieFileDTO" type="com.cctv.peoplay.movie.model.dto.MovieFileDTO"/>
  	</typeAliases>
  	
  </configuration>

@@ -1,7 +1,6 @@
 package com.cctv.peoplay.member.controller;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,8 +50,12 @@ public class MemberController {
 	
 	/* 선호도 조사 페이지로 포워딩 */
 	@GetMapping("checkFavorite")
-	public void checkFavorite() {
-		
+	public void checkFavorite(Model model) {
+		model.addAttribute("actionList", memberService.selectActionMovie());
+		model.addAttribute("fantasyList", memberService.selectFactasyMovie());
+		model.addAttribute("romanceList", memberService.selectRomanceMovie());
+		model.addAttribute("comedyList", memberService.selectComedyMovie());
+		model.addAttribute("horrorList", memberService.selectHorroMovie());
 	}
 	
 	/* 회원가입 페이지로 포워딩 */
@@ -232,9 +235,9 @@ public class MemberController {
 	public void mypage(HttpServletRequest request, Model model) {
 		
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
-		List<SubscribePaymentDTO> paymentList = memberService.selectPaymentList(loginMember);
 		
-		model.addAttribute("paymentList", paymentList);
+		model.addAttribute("paymentList", memberService.selectPaymentList(loginMember));
+		model.addAttribute("zzimList", memberService.selectMemberWishMovieList(loginMember.getUserNo()));
 	}
 	
 	/* 마이페이지 영화 후기 ON, OFF */

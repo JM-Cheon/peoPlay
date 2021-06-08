@@ -72,12 +72,16 @@
                                 <hr>
                                 <div>
                                     <p>내가 찜한 컨텐츠</p>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                    <c:forEach var="zzim" items="${ requestScope.zzimList }" begin="0" end="5">
+			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ zzim.no }'">
+			                                <c:forEach var="movieImg" items="${ zzim.movieFile }">
+										        <c:if test="${ movieImg.fileType == 'SUB' }">
+											        <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
+										        </c:if>
+									        </c:forEach>
+			                            	<p>${ zzim.name }</p>
+			                        	</div>
+	                                </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -292,29 +296,16 @@
                                 <p>내가 찜한 컨텐츠</p>
                                 <hr>
                                 <div>
-                                	<%-- 
-                                    <c:forEach var="wish" items="${ requestScope.paymentList }">
-	                                	<div><img src=""><p></o></div>
-                                    </c:forEach>
-                                    --%>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                	<c:forEach var="zzim" items="${ requestScope.zzimList }">
+			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ zzim.no }'">
+			                                <c:forEach var="movieImg" items="${ zzim.movieFile }">
+										        <c:if test="${ movieImg.fileType == 'SUB' }">
+											        <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
+										        </c:if>
+									        </c:forEach>
+			                            	<p>${ zzim.name }</p>
+			                        	</div>
+	                                </c:forEach>
                                 </div>
                             </div>
                         </div>
