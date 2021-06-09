@@ -44,6 +44,7 @@
                         <p class="my_nav_line">굿즈</p>
                         <ul>
                             <li>장바구니</li>
+                            <li>내가 찜한 상품</li>
                             <li>상품주문내역</li>
                         </ul>
                     </div>
@@ -51,23 +52,27 @@
                         <div class="my_home on">
                             <div>
                             	<c:set var="today" value="<%=new java.util.Date()%>" />
-                            	<c:if test="${ !empty sessionScope.loginMember.subscribeValidity && sessionScope.loginMember.subscribeValidity >= today }">
+                            	<c:if test="${ sessionScope.loginMember.subscribeValidity != null && sessionScope.loginMember.subscribeValidity >= today }">
 	                                <p>구독만료일 : ${ sessionScope.loginMember.subscribeValidity }</p>
                             	</c:if>
-                            	<c:if test="${ empty sessionScope.loginMember.subscribeValidity || sessionScope.loginMember.subscribeValidity < today } ">
-	                                <p>구독만료일 : 구독권 없음 }</p>
+                            	<c:if test="${ sessionScope.loginMember.subscribeValidity == null || sessionScope.loginMember.subscribeValidity < today }">
+	                                <p>구독만료일 : 구독권 없음 </p>
                             	</c:if>
                                 <button id="movie"></button>
                                 <button id="board"></button>
                                 <hr>
                                 <div>
                                     <p>시청 내역</p>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                	<c:forEach var="watch" items="${ requestScope.watchList }" begin="0" end="5">
+			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ watch.no }'">
+			                                <c:forEach var="movieImg" items="${ watch.movieFile }">
+										        <c:if test="${ movieImg.fileType == 'SUB' }">
+											        <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
+										        </c:if>
+									        </c:forEach>
+			                            	<p>${ watch.name }</p>
+			                        	</div>
+	                                </c:forEach>
                                 </div>
                                 <hr>
                                 <div>
@@ -314,29 +319,16 @@
                                 <p>시청내역</p>
                                 <hr>
                                 <div>
-                                	<%-- 
-                                    <c:forEach var="watch" items="${ requestScope.paymentList }">
-	                                	<div><img src=""><p></o></div>
-                                    </c:forEach>
-                                    --%>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                	<c:forEach var="watch" items="${ requestScope.watchList }">
+			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ watch.no }'">
+			                                <c:forEach var="movieImg" items="${ watch.movieFile }">
+										        <c:if test="${ movieImg.fileType == 'SUB' }">
+											        <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
+										        </c:if>
+									        </c:forEach>
+			                            	<p>${ watch.name }</p>
+			                        	</div>
+	                                </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -345,34 +337,41 @@
                                 <p>장바구니</p>
                                 <hr>
                                 <div>
+                                	<c:forEach var="basket" items="${ requestScope.basketList }">
+			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/goods/order?goodsNum=' + ${ basket.goodsNum.goodsNum } + '&memNum=' + ${ basket.userNum.userNo } + '&count=' + ${ basket.cartCount }">
+											<img src="/peoplay/resources/images/goods/goodsImageFiles/${basket.goodsNum.goodsFiles[0].fileSaveName}">
+			                            	<p>${ basket.goodsNum.goodsName }</p>
+			                        	</div>
+	                                </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my_goods">
+                            <div>
+                                <p>내가 찜한 상품</p>
+                                <hr>
+                                <div>
+                               		<c:forEach var="goods" items="${ requestScope.goodsLikeList }">
+			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/goods/' + ${ goods.goodsNum.goodsNum }">
+											<img src="/peoplay/resources/images/goods/goodsImageFiles/${goods.goodsNum.goodsFiles[0].fileSaveName}">
+			                            	<p>${ goods.goodsNum.goodsName }</p>
+			                        	</div>
+	                                </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my_productHistory">
+							<div>
+                                <p>상품 주문 내역</p>
+                                <hr>
+                                <div>
                                 	<%-- 
                                     <c:forEach var="basket" items="${ requestScope.paymentList }">
 	                                	<div><img src=""><p></o></div>
                                     </c:forEach>
                                     --%>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="my_productHistory">
-
                         </div>
                     </div>
                 </div>

@@ -37,6 +37,7 @@ public class MainController {
 			
 			model.addAttribute("zzimList", mainService.selectMemberWishMovieList(no));
 			model.addAttribute("favList", mainService.selectMemberFavoriteMovieList(no));
+			System.out.println(mainService.selectMemberFavoriteMovieList(no));
 		}
 
 		return "main/main";

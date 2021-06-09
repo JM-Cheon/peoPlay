@@ -75,7 +75,7 @@
 .my_home > div {display: block;}
 .my_home > div > hr {clear: both;}
 .my_home > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
-.my_home > div > button {float: right; width: 120px; height: 25px; margin-left: 20px; border-radius: 15px; color: #fff; font-weight: 600;}
+.my_home > div > button {float: right; width: 120px; height: 25px; margin-left: 20px; margin-bottom: 20px; border-radius: 15px; color: #fff; font-weight: 600;}
 .my_home > div > div {display: block; width: 900px; height: 280px; font-size: 20px; margin-top: 30px; font-weight: 600; color: #fff;}
 .my_home > div > div > div {display: block; width: 130px; height: 180px; float: left; margin: 30px 10px 10px 10px;}
 .my_home > div > div > div > img {width: 130px;}
@@ -147,14 +147,16 @@
 .my_wishlist > div > div::-webkit-scrollbar {width: 5px;}
 .my_wishlist > div > div > div {display: block; width: 130px; height: 180px; float: left; margin: 30px 9px 0px 9px;}
 .my_wishlist > div > div > div > img {width: 130px;}
-.my_wishlist > div > div > div > p {font-size: 13px; color: #fff;}
+.my_wishlist > div > div > div > p {font-size: 13px; color: #fff; text-align: center;}
 .my_watchList {width: 900px; height: 700;}
 .my_watchList > div {display: block;}
 .my_watchList > div > hr {clear: both;}
 .my_watchList > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
 .my_watchList > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
 .my_watchList > div > div::-webkit-scrollbar {width: 5px;}
-.my_watchList > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+.my_watchList > div > div > div {display: block; width: 130px; height: 180px; float: left; margin: 30px 9px 0px 9px;}
+.my_watchList > div > div > div > img {width: 130px;}
+.my_watchList > div > div > div > p {font-size: 13px; color: #fff; text-align: center;}
 .my_basket {width: 900px; height: 700;}
 .my_basket > div {display: block;}
 .my_basket > div > hr {clear: both;}
@@ -162,6 +164,13 @@
 .my_basket > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
 .my_basket > div > div::-webkit-scrollbar {width: 5px;}
 .my_basket > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+.my_goods {width: 900px; height: 700;}
+.my_goods > div {display: block;}
+.my_goods > div > hr {clear: both;}
+.my_goods > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_goods > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_goods > div > div::-webkit-scrollbar {width: 5px;}
+.my_goods > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
 
 /* subscribe */
 .subscribe_main{width: 100%; height: 700px; background-color: #181818; display: flex; justify-content: center; align-items: center;}

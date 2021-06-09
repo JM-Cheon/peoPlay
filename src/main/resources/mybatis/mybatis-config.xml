@@ -9,6 +9,10 @@
  		<typeAlias alias="SubscribePaymentDTO" type="com.cctv.peoplay.member.model.dto.SubscribePaymentDTO"/>
  		<typeAlias alias="MovieDTO" type="com.cctv.peoplay.movie.model.dto.MovieDTO"/>
  		<typeAlias alias="MovieFileDTO" type="com.cctv.peoplay.movie.model.dto.MovieFileDTO"/>
+ 		<typeAlias alias="GoodsDTO" type="com.cctv.peoplay.goods.model.dto.GoodsDTO"/>
+ 		<typeAlias alias="GoodsCartDTO" type="com.cctv.peoplay.goods.model.dto.GoodsCartDTO"/>
+ 		<typeAlias alias="GoodsFileDTO" type="com.cctv.peoplay.goods.model.dto.GoodsFileDTO"/>
+ 		<typeAlias alias="GoodsLikeDTO" type="com.cctv.peoplay.goods.model.dto.GoodsLikeDTO"/>
  	</typeAliases>
  	
  </configuration>

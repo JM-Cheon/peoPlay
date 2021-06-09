@@ -84,6 +84,53 @@
 		</collection>
 	</resultMap>
 	
+	<resultMap id="GoodsCartResultMap" type="GoodsCartDTO">
+		<result column="CART_COUNT" property="cartCount" />
+		<association property="userNum" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id property="goodsNum" column="GOODS_NUMBER"/>
+			<result property="goodsName" column="GOODS_NAME"/>
+			<collection property="goodsFiles" ofType="GoodsFileDTO">
+				<id property="number" column="FILE_NO"/>
+				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+			</collection>
+		</association>
+	</resultMap>
+
+	<resultMap id="GoodsLikeResultMap" type="GoodsLikeDTO">
+		<association property="userNum" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id property="goodsNum" column="GOODS_NUMBER"/>
+			<result property="goodsName" column="GOODS_NAME"/>
+			<collection property="goodsFiles" ofType="GoodsFileDTO">
+				<id property="number" column="FILE_NO"/>
+				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+			</collection>
+		</association>
+	</resultMap>
+
+<!-- 	<resultMap id="OrderResultMap" type="DeliveryDTO">
+		<id property="deliveryNum" column=""/>
+		<association property="userNum" javaType="PaymentDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="userNum" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id property="goodsNum" column="GOODS_NUMBER"/>
+			<result property="goodsName" column="GOODS_NAME"/>
+			<collection property="goodsFiles" ofType="GoodsFileDTO">
+				<id property="number" column="FILE_NO"/>
+				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+			</collection>
+		</association>
+	</resultMap> -->
+	
 	<insert id="insertMember" parameterType="MemberDTO">
         INSERT 
           INTO USER_INFO A
@@ -860,9 +907,100 @@
                   FROM MOVIE A
                   JOIN MOVIE_WISHLIST D ON(A.MOVIE_NO = D.MOVIE_NO)
                   LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
-		         WHERE D.USER_NO = #{no}
+		         WHERE D.USER_NO = #{userNo}
+               ) C
+           ORDER BY C.RANK
+	</select>
+
+	<select id="selectWatchMovieList" resultMap="movieResultMap" parameterType="_int">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY D.WATCHLIST_DATE DESC, A.MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  JOIN MOVIE_WATCHLIST D ON(A.MOVIE_NO = D.MOVIE_NO)
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+		         WHERE D.USER_NO = #{userNo}
                ) C
            ORDER BY C.RANK
 	</select>
 	
+	<select id="selectBasketList" resultMap="GoodsCartResultMap" parameterType="_int">
+		SELECT
+		       A.GOODS_NUMBER
+		     , A.GOODS_NAME
+		     , B.USER_NO
+		     , B.CART_COUNT
+		     , C.FILE_NO
+		     , C.FILE_SAVE_NAME
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_CART B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
+		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
+		 WHERE B.USER_NO = #{userNo}
+	</select>
+
+	<select id="selectGoodsLikeList" resultMap="GoodsLikeResultMap" parameterType="_int">
+		SELECT
+		       A.GOODS_NUMBER
+		     , A.GOODS_NAME
+		     , B.USER_NO
+		     , C.FILE_NO
+		     , C.FILE_SAVE_NAME
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_LIKE B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
+		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
+		 WHERE B.USER_NO = #{userNo}
+	</select>
 </mapper>

@@ -2,6 +2,8 @@ package com.cctv.peoplay.member.model.service;
 
 import java.util.List;
 
+import com.cctv.peoplay.goods.model.dto.GoodsCartDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsLikeDTO;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 import com.cctv.peoplay.member.model.dto.SubscribePaymentDTO;
 import com.cctv.peoplay.member.model.dto.SubscriptionDTO;
@@ -50,4 +52,11 @@ public interface MemberService {
 	List<MovieDTO> selectHorroMovie();
 
 	List<MovieDTO> selectMemberWishMovieList(int userNo);
+
+	List<MovieDTO> selectWatchMovieList(int userNo);
+
+	List<GoodsCartDTO> selectBasketList(int userNo);
+
+	List<GoodsLikeDTO> selectGoodsLikeList(int userNo);
+
 }
