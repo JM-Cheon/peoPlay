@@ -3,8 +3,8 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 <!DOCTYPE html>
-
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -88,7 +88,7 @@
                            
                         </tr>
                     </table>
-                    <div class="detail-content">${requestScope.detail.content}</div>
+                    <div class="detail-content" style="margin: 10px;">${requestScope.detail.content}</div>
                 </div>
                 <div>
                 <form action="${pageContext.servletContext.contextPath}/board/delete" method="get">
