@@ -89,6 +89,8 @@
 		      , A.COMMENT_COUNT
 		      , A.CATEGORY
 		      , A.POST_STATUS
+		      , A.REPORT_COUNT
+		      , A.REPORT_CUMULATIVE
            FROM (SELECT
                         ROWNUM RNUM
                       , B.POST_NO
@@ -100,6 +102,8 @@
    			          , B.COMMENT_COUNT
    			          , B.CATEGORY
    			          , B.POST_STATUS
+   			          , B.REPORT_COUNT
+   			          , C.REPORT_CUMULATIVE
 		           FROM USER_BOARD B
 		           JOIN USER_INFO C ON(B.USER_NO =C.USER_NO)
 		          WHERE POST_STATUS= 'Y'

@@ -98,10 +98,16 @@
                             <tr>
                                 <td style="width: 20px;"></td>
                                 <td><button class="btn-report"type="button"  id="report_modal"  >신고</button></td>
-                                <td style="width: 580px;"></td>
+                                <td style="width: 30px;"></td>
+                                <c:if test="${sessionScope.loginMember.userRole eq 'ADMIN' }">
+                                <td><button type="button"  class="btn-detail-modify" onclick="location.href='${ pageContext.servletContext.contextPath}/admin/adminBoard/list'">목록으로</button> </td>
+                                </c:if>
+                                <c:if test="${sessionScope.loginMember.userRole ne 'ADMIN' }">
+                                <td><button type="button"  class="btn-detail-modify" onclick="location.href='${ pageContext.servletContext.contextPath}/board/list'">목록으로</button> </td>
+                                </c:if>
+                                <td style="width: 530px"> </td>
                                 <c:if test="${sessionScope.loginMember.userNo ==  requestScope.detail.userNo || sessionScope.loginMember.userRole == 'ADMIN'}"> 
-                  
-                                <td> <button class="btn-detail-cancel" id="delete" type="submit" onclick="location.href='${ pageContext.servletContext.contextPath}/board/delete/${ requestScope.detail.no }'">삭제</button></td>
+                              <td> <button class="btn-detail-cancel" id="delete" type="submit" onclick="location.href='${ pageContext.servletContext.contextPath}/board/delete/${ requestScope.detail.no }'">삭제</button></td>
                                 <td style="width: 55px;"></td>
                                 <td><button class="btn-detail-modify" id="update" type="button" onclick="location.href='${pageContext.servletContext.contextPath}/board/modify?no=${ requestScope.detail.no }'">수정</button></td>
                                 <td style="width: 25px;"></td>
