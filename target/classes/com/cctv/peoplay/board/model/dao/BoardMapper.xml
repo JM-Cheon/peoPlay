@@ -16,7 +16,7 @@
 		<result column="REPORT_COUNT" property="reportCount" />
 		<result column="POST_STATUS" property="status" />
 		<result column="COMMENT_COUNT" property="commentCount" />
-		<result column="POST_CATEGORY" property="category"/>
+		<result column="CATEGORY" property="category"/>
 		<association property="memberDTO" resultMap="memberResultMap"></association>
 	</resultMap>
 	
@@ -39,22 +39,74 @@
 		<result column="WITHDRAW_DATE" property="withdrawDate" />
 		<result column="REPORT_CUMULATIVE" property="reportCumulative" />
  	</resultMap>
+ 	
+ 	<resultMap type="com.cctv.peoplay.board.model.dto.ReportAndReportPlaceDTO" id="ReportAndReportPlaceResultMap">
+ 	<id column="REPORT_NO" property="no"/>
+ 	<result column="USER_NO" property="userNo"/>
+ 	<result column="REPORT_REASON" property="userNo"/>
+ 	<result column="REPORT_DATE" property="userNo"/>
+ 	<result column="REPORT_STATUS" property="userNo"/>
+ 	<result column="REPORTED_PERSON" property="userNo"/>
+ 	<result column="REPORT_PLACE_NO" property="userNo"/>
+ 	<association property="placeCode" javaType="com.cctv.peoplay.board.model.dto.ReportPlaceDTO">
+ 	<id column="REPORT_PLACE_CODE" property="code"/>
+ 	<result column="REPORT_PLACE_NAME" property="name"/></association>
+ 	</resultMap>
 	
+	
+	 <resultMap type="com.cctv.peoplay.board.model.dto.BoardReplyDTO" id="replyResultMap">
+	<id column="COMMENT_NO" property="no"/>
+	<result column="POST_NO" property="postNo"/>
+	<result column="REPLY_CONTENT" property="content"/>
+	<result column="CREATION_DATE" property="date"/>
+	<result column="REPORT_COUNT" property="reportCount"/>
+	<result column="REPLY_STATUS" property="status"/>
+	<result column="USER_NO" property="userNo"/>
+    <association property="memberDTO" resultMap="memberResultMap"></association>
+	 </resultMap>
+	 
+	 
+	  <resultMap type="com.cctv.peoplay.board.model.dto.ReplyOfDTO" id="replyOfResultMap">
+	<id column="REPLYOF_NO" property="no"/>
+	<result column="REF_REPLY_NO" property="refRelyNo"/>
+	<result column="REPLYOF_CONTENT" property="content"/>
+	<result column="USER_NO" property="userNo"/>
+	<result column="REPLYOF_DATE" property="date"/>
+	<result column="REPLYOF_STATUS" property="status"/>
+	<result column="REF_BOARD_NO" property="refBoardNo"/>
+    <association property="memberDTO" resultMap="memberResultMap"></association>
+	 </resultMap>
+	 
+
 <select id="selectBoardList" resultMap="boardAndMemberResultSet" >
-	   SELECT
-		        A.POST_NO
+	    SELECT
+                A.POST_NO
 		      , A.USER_NO
-   			  , B.NICKNAME
+   			  , A.NICKNAME
   			  , A.POST_TITLE
  		      , A.VIEW_NO
 		      , A.CREATION_DATE
 		      , A.COMMENT_COUNT
-		      , A.POST_CATEGORY
+		      , A.CATEGORY
 		      , A.POST_STATUS
-		 FROM USER_BOARD A
-		 JOIN USER_INFO B ON(A.USER_NO =B.USER_NO)
-		WHERE POST_STATUS= 'Y'
-	 ORDER BY POST_NO DESC 
+           FROM (SELECT
+                        ROWNUM RNUM
+                      , B.POST_NO
+		              , B.USER_NO
+   			          , C.NICKNAME
+   			          , B.POST_TITLE
+   			          , B.VIEW_NO
+   			          , B.CREATION_DATE
+   			          , B.COMMENT_COUNT
+   			          , B.CATEGORY
+   			          , B.POST_STATUS
+		           FROM USER_BOARD B
+		           JOIN USER_INFO C ON(B.USER_NO =C.USER_NO)
+		          WHERE POST_STATUS= 'Y'
+		          )A
+        WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+        ORDER BY A.POST_NO DESC
+        
 	</select>
 
 <insert id="insertBoard" parameterType="com.cctv.peoplay.board.model.dto.BoardDTO">
@@ -65,7 +117,7 @@
           ,A.USER_NO
 		  ,A.POST_TITLE
 		  ,A.POST_CONTENT
-          ,A.POST_CATEGORY
+          ,A.CATEGORY
 	     )
 	VALUES
 	     (
@@ -77,5 +129,332 @@
 	     )
 
 </insert>
+
+<select id="selectBoradDetail" resultMap="boardAndMemberResultSet">
+	   SELECT
+		        A.USER_NO
+		      , A.POST_NO
+   			  , B.NICKNAME
+  			  , A.POST_TITLE
+ 		      , A.POST_CONTENT
+		      , A.CREATION_DATE
+		      , A.CATEGORY
+		 FROM USER_BOARD A
+ 		 JOIN USER_INFO B ON(A.USER_NO =B.USER_NO)
+		 WHERE A.POST_NO= #{no}
+</select>
+
+<update id="increaceView">
+    UPDATE
+		  USER_BOARD A
+	   SET A.VIEW_NO = A.VIEW_NO+1
+	 WHERE A.POST_NO= #{no}
+	   	
+</update>
+
+<select id="selectCount" resultType="_int">
+	  SELECT
+		     COUNT(*)
+		FROM USER_BOARD A
+	   WHERE POST_STATUS= 'Y'
+</select>
+
+
+<select id="selectSearchCount" resultType="_int" parameterType="hashMap">
+	  SELECT
+             COUNT(*)
+		FROM USER_BOARD A
+	    JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
+	   WHERE POST_STATUS= 'Y'
+          	<if test="searchCondition == 'writer'">
+				AND NICKNAME LIKE '%'|| #{searchValue} ||'%'
+		 	</if>
+		 	 <if test="searchCondition == 'title'">
+				AND POST_TITLE LIKE '%'|| #{searchValue} ||'%'
+			</if>
+			<if test="searchCondition == 'content'">
+				AND POST_CONTENT LIKE '%'|| #{searchValue} ||'%'
+			</if>  
+</select>
+
+
+<select id="selectSearchList" resultMap="boardAndMemberResultSet" parameterType="hashmap">
+	    SELECT
+                A.POST_NO
+		      , A.USER_NO
+   			  , A.NICKNAME
+  			  , A.POST_TITLE
+ 		      , A.VIEW_NO
+		      , A.CREATION_DATE
+		      , A.COMMENT_COUNT
+		      , A.CATEGORY
+		      , A.POST_STATUS
+           FROM (SELECT
+                        ROWNUM RNUM
+                      , B.POST_NO
+		              , B.USER_NO
+   			          , C.NICKNAME
+   			          , B.POST_TITLE
+   			          , B.VIEW_NO
+   			          , B.CREATION_DATE
+   			          , B.COMMENT_COUNT
+   			          , B.CATEGORY
+   			          , B.POST_STATUS
+		           FROM USER_BOARD B
+		           JOIN USER_INFO C ON(B.USER_NO =C.USER_NO)
+		          WHERE B.POST_STATUS= 'Y'
+                   <if test="searchCondition == 'writer'">
+				AND NICKNAME LIKE '%'|| #{searchValue} ||'%'
+		 	</if>
+		 	 <if test="searchCondition == 'title'">
+				AND POST_TITLE LIKE '%'|| #{searchValue} ||'%'
+			</if>
+			<if test="searchCondition == 'content'">
+				AND POST_CONTENT LIKE '%'|| #{searchValue} ||'%'</if>  )A
+        WHERE A.RNUM BETWEEN #{startRow} AND #{endRow} 
+        ORDER BY A.POST_NO DESC
+</select>
+
+<update id="deleteBoard" parameterType="_int">
+
+		UPDATE
+		       USER_BOARD A
+		   SET A.POST_STATUS='N'
+		 WHERE A.POST_NO=#{no}
+</update>
+
+
+<insert id="insertReport">
+	INSERT
+      INTO USER_REPORT A
+ 		 (
+  		   A.REPORT_NO 
+         , A.USER_NO
+ 	     , A.REPORT_REASON
+ 	     , A.OTHER_REASON
+ 	     , A.REPORTED_PERSON
+         , A.REPORT_PLACE_NO
+         , A.REPORT_PLACE_CODE
+         )VALUES
+         (
+ 	       SEQ_REPORT_NO.NEXTVAL
+	     , #{userNo}
+	     , #{reason}
+         , #{otherReason}
+         , #{reportedPerson}
+         , #{placeNo}
+         , 1
+   )
+
+</insert>
+
+<update id="increaceReportCount" parameterType="_int">
+   UPDATE
+		  USER_BOARD A
+	   SET A.REPORT_COUNT = A.REPORT_COUNT+1
+	 WHERE A.POST_NO = #{placeNo}
+
+</update>
+
+
+<insert id="insertReply" parameterType="hashmap">
+	INSERT
+      INTO BOARD_REPLY A
+ 		 (
+  		   A.COMMENT_NO 
+         , A.POST_NO
+         , A.REPLY_CONTENT
+         , A.USER_NO
+         )VALUES
+         (
+ 	       SEQ_BOARD_REPLY.NEXTVAL
+	     , #{postNo}
+	     , #{content}
+         , #{userNo}
+	     )
+</insert> 
+
+<update id="increaceReplyCount">
+   UPDATE
+		  USER_BOARD A
+	   SET A.COMMENT_COUNT = A.COMMENT_COUNT+1
+	 WHERE A.POST_NO = #{postNo}
+</update>
+
+<select id="selectReply"  resultMap="replyResultMap">
+ SELECT
+        A.REPLY_CONTENT
+      , A.CREATION_DATE
+      , B.NICKNAME
+      , A.COMMENT_NO
+      , A.USER_NO
+   FROM BOARD_REPLY A
+   JOIN USER_INFO B ON(A.USER_NO =B.USER_NO)
+  WHERE A.POST_NO= #{postNo}
+  AND A.REPLY_STATUS='Y'
+ORDER BY COMMENT_NO ASC
+
+</select>
+
+<update id="deleteReply" parameterType="_int">
+
+		UPDATE
+		       BOARD_REPLY A
+		   SET A.REPLY_STATUS='N'
+		 WHERE A.COMMENT_NO=#{replyNo}
+</update>
+
+<update id="decreaceReplyCount">
+   UPDATE
+		  USER_BOARD A
+	   SET A.COMMENT_COUNT = A.COMMENT_COUNT-1
+	 WHERE A.POST_NO = #{boardNo}
+</update>
+
+<insert id="insertReplyOf" parameterType="hashmap">
+	INSERT
+      INTO REPLYOF A
+ 		 (
+  		   A.REPLYOF_NO 
+         , A.REF_REPLY_NO
+         , A.REPLYOF_CONTENT
+         , A.USER_NO
+         , A.REF_BOARD_NO
+         )VALUES
+         (
+ 	       SEQ_REPLYOF_NO.NEXTVAL
+	     , #{refNo}
+	     , #{replyOfContent}
+         , #{userNo}
+         , #{refBoardNo}
+	     )
+</insert> 
+
+<select id="selectReplyOf" resultMap="replyOfResultMap">
+	SELECT 
+	      A.REPLYOF_CONTENT
+	    , B.NICKNAME
+	    , A.REPLYOF_DATE
+	    , A.REPLYOF_NO	
+	    , A.REF_REPLY_NO
+	    , A.USER_NO
+	FROM REPLYOF A
+	JOIN USER_INFO B ON(A.USER_NO =B.USER_NO)
+	WHERE A.REPLYOF_STATUS='Y'
+	AND A.REF_BOARD_NO= #{refBoardNo}
+	ORDER BY REPLYOF_NO ASC
+
+</select>
+
+<update id="deleteReplyOf" parameterType="_int">
+
+		UPDATE
+		       REPLYOF A
+		   SET A.REPLYOF_STATUS='N'
+		 WHERE A.REPLYOF_NO=#{replyOfNo}
+</update>
+
+<select id="modifyBoard" resultMap="boardAndMemberResultSet">
+	   SELECT
+		        A.USER_NO
+		      , A.POST_NO
+   			  , B.NICKNAME
+  			  , A.POST_TITLE
+ 		      , A.POST_CONTENT
+		      , A.CREATION_DATE
+		      , A.CATEGORY
+		 FROM USER_BOARD A
+ 		 JOIN USER_INFO B ON(A.USER_NO =B.USER_NO)
+		 WHERE A.POST_NO= #{no}
+</select>
+
+<update id="modifyUpdate" parameterType="hashmap">
+
+		UPDATE
+   		       USER_BOARD A
+           SET A.POST_TITLE = #{title}
+             , A.POST_CONTENT = #{content}
+             , A.CATEGORY = #{category}
+         WHERE A.POST_NO = #{no}
+</update>
+
+<update id="modifyReply" parameterType="hashmap">
+
+		UPDATE
+   		       BOARD_REPLY A
+           SET 
+               A.REPLY_CONTENT = #{modifyContent}
+         WHERE A.COMMENT_NO = #{replyNo}
+</update>
+
+
+<update id="modifyReplyOf" parameterType="hashmap">
+
+		UPDATE
+   		       REPLYOF A
+           SET 
+               A.REPLYOF_CONTENT = #{modifyReplyOfContent}
+         WHERE A.REPLYOF_NO = #{replyOfNo}
+</update>
+
+<insert id="insertReplyRepot" parameterType="hashmap">
+	INSERT
+      INTO USER_REPORT A
+ 		 (
+  		   A.REPORT_NO 
+         , A.USER_NO
+ 	     , A.REPORT_REASON
+ 	     , A.REPORTED_PERSON
+         , A.REPORT_PLACE_NO
+         , A.REPORT_PLACE_CODE
+         )VALUES
+         (
+ 	       SEQ_REPORT_NO.NEXTVAL
+	     , #{userNo}
+	     , #{reportReason}
+         , #{reportedPerson}
+         , #{replyNo}
+         , 3
+   )
+
+</insert>
+
+<update id="increaceReplyReportCount" parameterType="_int">
+   UPDATE
+		  BOARD_REPLY A
+	   SET A.REPORT_COUNT = A.REPORT_COUNT+1
+	 WHERE A.COMMENT_NO = #{replyNo}
+
+</update>
+
+<insert id="insertReplyOfReport" parameterType="hashmap">
+	INSERT
+      INTO USER_REPORT A
+ 		 (
+  		   A.REPORT_NO 
+         , A.USER_NO
+ 	     , A.REPORT_REASON
+ 	     , A.REPORTED_PERSON
+         , A.REPORT_PLACE_NO
+         , A.REPORT_PLACE_CODE
+         )VALUES
+         (
+ 	       SEQ_REPORT_NO.NEXTVAL
+	     , #{userNo}
+	     , #{reportReason}
+         , #{reportedPerson}
+         , #{replyOfNo}
+         , 4
+   )
+
+</insert>
+
+<update id="increaceReplyOfReportCount" parameterType="_int">
+   UPDATE
+		  REPLYOF A
+	   SET A.REPORT_COUNT = A.REPORT_COUNT+1
+	 WHERE A.REPLYOF_NO = #{replyOfNo}
+
+</update>
 
 </mapper>
