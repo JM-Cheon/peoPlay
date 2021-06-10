@@ -2,6 +2,8 @@ package com.cctv.peoplay.goods.model.dto;
 
 import java.util.Date;
 
+import com.cctv.peoplay.member.model.dto.MemberDTO;
+
 public class UserReportDTO {
 
 	private int reportNo;

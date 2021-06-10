@@ -312,7 +312,7 @@
                                 <hr>
                                 <div>
                                 	<c:forEach var="zzim" items="${ requestScope.zzimList }">
-			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ zzim.no }'">
+			                            <div onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ zzim.no }'">
 			                                <c:forEach var="movieImg" items="${ zzim.movieFile }">
 										        <c:if test="${ movieImg.fileType == 'SUB' }">
 											        <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
@@ -330,7 +330,7 @@
                                 <hr>
                                 <div>
                                 	<c:forEach var="watch" items="${ requestScope.watchList }">
-			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ watch.no }'">
+			                            <div onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ watch.no }'">
 			                                <c:forEach var="movieImg" items="${ watch.movieFile }">
 										        <c:if test="${ movieImg.fileType == 'SUB' }">
 											        <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
@@ -348,8 +348,12 @@
                                 <hr>
                                 <div>
                                 	<c:forEach var="basket" items="${ requestScope.basketList }">
-			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/goods/order?goodsNum=' + ${ basket.goodsNum.goodsNum } + '&memNum=' + ${ basket.userNum.userNo } + '&count=' + ${ basket.cartCount }">
-											<img src="/peoplay/resources/images/goods/goodsImageFiles/${basket.goodsNum.goodsFiles[0].fileSaveName}">
+			                            <div onClick="location.href='${pageContext.servletContext.contextPath}/goods/order?goodsNum=' + ${ basket.goodsNum.goodsNum } + '&memNum=' + ${ basket.userNum.userNo } + '&count=' + ${ basket.cartCount }">
+											<c:forEach var="productImg" items="${ basket.goodsNum.goodsFiles }">
+										        <c:if test="${ productImg.fileType == 'head' }">
+											        <img src="${ pageContext.servletContext.contextPath }/resources/images/goods/goodsImageFiles/${ productImg.fileSaveName }">
+										        </c:if>
+									        </c:forEach>
 			                            	<p>${ basket.goodsNum.goodsName }</p>
 			                        	</div>
 	                                </c:forEach>
@@ -363,7 +367,11 @@
                                 <div>
                                		<c:forEach var="goods" items="${ requestScope.goodsLikeList }">
 			                            <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/goods/' + ${ goods.goodsNum.goodsNum }">
-											<img src="/peoplay/resources/images/goods/goodsImageFiles/${goods.goodsNum.goodsFiles[0].fileSaveName}">
+			                            	<c:forEach var="productImg" items="${ goods.goodsNum.goodsFiles }">
+										        <c:if test="${ productImg.fileType == 'head' }">
+													<img src="${ pageContext.servletContext.contextPath }/resources/images/goods/goodsImageFiles/${ productImg.fileSaveName }">
+										        </c:if>
+									        </c:forEach>
 			                            	<p>${ goods.goodsNum.goodsName }</p>
 			                        	</div>
 	                                </c:forEach>
@@ -389,12 +397,12 @@
                                         <tbody>
                                             <c:forEach var="order" items="${ requestScope.orderList }">
                                             <tr>
-                                                <td class="my_productHistory_body">${ order.paymentNumber.orderNo.orderNo }</td>
+                                                <td class="my_productHistory_body">${ order.paymentNum.orderNo.orderNo }</td>
                                                 <td class="my_productHistory_body">${ order.goodsNum.goodsName }</td>
-                                                <td class="my_productHistory_body">${ order.paymentNumber.orderNo.orderCount }</td>
-                                                <td class="my_productHistory_body">${ order.paymentNumber.paymentPrice }</td>
-                                                <td class="my_productHistory_body">${ order.paymentNumber.orderNo.orderDate }</td>
-                                                <td class="my_productHistory_body">${ order.shipmentCode.shipmentStatus }</td>
+                                                <td class="my_productHistory_body">${ order.paymentNum.orderNo.orderCount }</td>
+                                                <td class="my_productHistory_body">${ order.paymentNum.paymentPrice }</td>
+                                                <td class="my_productHistory_body">${ order.paymentNum.orderNo.orderDate }</td>
+                                                <td class="my_productHistory_body">${ order.shipmentMemoCode.shipmentStatus }</td>
                                             </tr>
                                             </c:forEach>
                                         </tbody>

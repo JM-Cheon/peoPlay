@@ -115,7 +115,7 @@
 	
 	<resultMap id="orderResultMap" type="DeliveryDTO">
 		<id column="DELIVERY_NUMBER" property="deliveryNumber"/>
-		<association property="paymentNumber" javaType="PaymentDTO">
+		<association property="paymentNum" javaType="PaymentDTO">
 			<id column="PAYMENT_NUM" property="paymentNo"/>
 			<result column="PAYMENT_PRICE" property="paymentPrice"/>
 			<association property="orderNo" javaType="OrderDTO">
@@ -123,7 +123,7 @@
 				<result column="ORDER_DATE" property="orderDate"/>
 				<result column="ORDER_COUNT" property="orderCount"/>
 			</association>
-		</association> 
+      	</association>
 		<association property="goodsNum" javaType="GoodsDTO">
 			<id column="GOODS_NUMBER" property="goodsNum"/>
 			<result column="GOODS_NAME" property="goodsName"/>
@@ -131,10 +131,10 @@
 		<association property="userNo" javaType="MemberDTO">
 			<id column="USER_NO" property="userNo"/>
 		</association>
-		<association property="shipmentCode" javaType="DeliveryStatusDTO">
+		<association property="shipmentMemoCode" javaType="DeliveryStatusDTO">
 			<id column="SHIPMENT_CODE" property="shipmentCode"/>
 			<result column="SHIPMENT_STATUS" property="shipmentStatus"/>
-		</association>   
+		</association>
 	</resultMap>
 	
 	<resultMap id="boardResultMap" type="BoardDTO">
