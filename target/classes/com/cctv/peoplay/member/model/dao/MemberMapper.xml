@@ -1017,15 +1017,21 @@
 
 	<select id="selectGoodsLikeList" resultMap="GoodsLikeResultMap" parameterType="_int">
 		SELECT
-		       A.GOODS_NUMBER
-		     , A.GOODS_NAME
-		     , B.USER_NO
-		     , C.FILE_NO
-		     , C.FILE_SAVE_NAME
-		  FROM TBL_GOODS A
-		  JOIN TBL_GOODS_LIKE B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
-		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
-		 WHERE B.USER_NO = #{userNo}
+               A.GOODS_NUMBER
+             , A.GOODS_NAME
+             , B.USER_NO
+             , C.FILE_NO
+             , C.FILE_SAVE_NAME
+          FROM TBL_GOODS A
+          JOIN TBL_GOODS_LIKE B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
+          LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
+         WHERE B.USER_NO = #{userNo}
+           AND C.FILE_NO = (SELECT MIN(F.FILE_NO)
+                              FROM TBL_GOODS D
+                              JOIN TBL_GOODS_LIKE E ON(D.GOODS_NUMBER = E.GOODS_NUMBER)
+                              LEFT JOIN TBL_GOODS_FILE F ON(D.GOODS_NUMBER = F.GOODS_NUMBER)
+                             WHERE E.USER_NO = #{userNo}
+                           )
 	</select>
 	
 	<select id="selectMemberBoard" resultMap="boardResultMap" parameterType="_int">
