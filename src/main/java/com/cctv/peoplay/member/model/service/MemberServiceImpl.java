@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cctv.peoplay.board.model.dto.BoardDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsCartDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsLikeDTO;
 import com.cctv.peoplay.member.model.dao.MemberMapper;
@@ -181,6 +182,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<GoodsLikeDTO> selectGoodsLikeList(int userNo) {
 		return mapper.selectGoodsLikeList(userNo);
+	}
+
+	@Override
+	public List<BoardDTO> selectMemberBoard(int userNo) {
+		return mapper.selectMemberBoard(userNo);
 	}
 	
 }

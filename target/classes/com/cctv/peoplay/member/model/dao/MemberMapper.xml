@@ -131,6 +131,19 @@
 		</association>
 	</resultMap> -->
 	
+	<resultMap id="boardResultMap" type="BoardDTO">
+		<id property="no" column="POST_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="title" column="POST_TITLE"/>
+		<result property="content" column="POST_CONTENT"/>
+		<result property="view" column="VIEW_NO"/>
+		<result property="creationDate" column="CREATION_DATE"/>
+		<result property="reportCount" column="REPORT_COUNT"/>
+		<result property="status" column="POST_STATUS"/>
+		<result property="commentCount" column="COMMENT_COUNT"/>
+		<result property="category" column="CATEGORY"/>
+	</resultMap>
+	
 	<insert id="insertMember" parameterType="MemberDTO">
         INSERT 
           INTO USER_INFO A
@@ -1002,5 +1015,19 @@
 		  JOIN TBL_GOODS_LIKE B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
 		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
 		 WHERE B.USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectMemberBoard" resultMap="boardResultMap" parameterType="_int">
+		SELECT
+		       A.POST_NO
+		     , A.USER_NO
+		     , A.POST_TITLE
+		     , A.VIEW_NO
+		     , A.CREATION_DATE
+		     , A.COMMENT_COUNT
+		     , A.CATEGORY
+		  FROM USER_BOARD A
+		 WHERE A.USER_NO = #{userNo}
+		   AND A.POST_STATUS = 'Y'
 	</select>
 </mapper>

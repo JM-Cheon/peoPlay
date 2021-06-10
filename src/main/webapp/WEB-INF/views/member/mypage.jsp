@@ -230,19 +230,19 @@
                                                 <th class="my_board_titleoftitle">제목</th>
                                                 <th class="my_board_title">조회수</th>
                                                 <th class="my_board_title">작성일자</th>
+                                                <th class="my_board_title">댓글수</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <%-- 
-                                            <c:forEach var="board" items="${ requestScope.paymentList }">
-                                            <tr>
-                                                <td class="my_subscribeHistory_body">${ payment.subscription.name }</td>
-                                                <td class="my_subscribeHistory_body">${ payment.paymentDate }</td>
-                                                <td class="my_subscribeHistory_body">${ payment.paymentValidity }</td>
-                                                <td class="my_subscribeHistory_body">${ payment.paymentPrice }</td>
+                                            <c:forEach var="board" items="${ requestScope.memberBoardList }">
+                                            <tr onClick="location.href='${ pageContext.servletContext.contextPath }/board/detail?no=' + ${ board.no }">
+                                                <td class="my_subscribeHistory_body">${ board.no }</td>
+                                                <td class="my_subscribeHistory_body">${ board.title }</td>
+                                                <td class="my_subscribeHistory_body">${ board.view }</td>
+                                                <td class="my_subscribeHistory_body">${ board.creationDate }</td>
+                                                <td class="my_subscribeHistory_body">${ board.commentCount }</td>
                                             </tr>
                                             </c:forEach>
-                                             --%>
                                         </tbody>
                                     </table>
                                 </div>
