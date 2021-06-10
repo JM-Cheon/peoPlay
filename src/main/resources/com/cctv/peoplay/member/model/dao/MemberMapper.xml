@@ -100,7 +100,7 @@
 	</resultMap>
 
 	<resultMap id="GoodsLikeResultMap" type="GoodsLikeDTO">
-		<association property="userNum" javaType="MemberDTO">
+		<association property="userNo" javaType="MemberDTO">
 			<result property="userNo" column="USER_NO"/>
 		</association>
 		<association property="goodsNum" javaType="GoodsDTO">

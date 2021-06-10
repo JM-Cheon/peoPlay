@@ -68,7 +68,7 @@ public class AdminGoodsController {
 		
 		int totalCount = admingoodsService.goodsCount();
 		
-		int limit = 14;
+		int limit = 15;
 
 		int buttonAmount = 5;
 		

@@ -73,7 +73,7 @@ public class GoodsController {
 		int totalCountpixar = goodsService.countTotalGoods(4);
 		int totalCountwb = goodsService.countTotalGoods(5);
 		
-		int limit = 10;
+		int limit = 11;
 
 		int buttonAmount = 5;
 		
