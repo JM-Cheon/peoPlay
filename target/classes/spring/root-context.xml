@@ -41,7 +41,7 @@
 			<tx:method name="update" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE"/>
 			<tx:method name="remove*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE" />
 		</tx:attributes>
-	</tx:advice> 
+	</tx:advice>  
 	
 	<aop:config proxy-target-class="true">
 		<aop:pointcut id="serviceMethod"
@@ -54,5 +54,6 @@
 		base-package="com.cctv.peoplay.main.model.dao, 
 					  com.cctv.peoplay.member.model.dao, 
 					  com.cctv.peoplay.board.model.dao,
-					  com.cctv.peoplay.admin.member.model.dao"/>
+					  com.cctv.peoplay.admin.member.model.dao,
+					  com.cctv.peoplay.Community.model.dao"/>
 </beans>
