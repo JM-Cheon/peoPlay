@@ -175,6 +175,16 @@
 .my_goods > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
 .my_goods > div > div > div > img {width: 130px;}
 .my_goods > div > div > div > p {font-size: 13px; color: #fff; text-align: center;}
+.my_productHistory {width: 900px; height: 700;}
+.my_productHistory > div {display: block;}
+.my_productHistory > div > hr {clear: both;}
+.my_productHistory > div > p {font-size: 20px; color: #fff; font-weight: 600; margin-bottom: 20px; width: 500px; float: left;}
+.my_productHistory > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
+.my_productHistory > div > div::-webkit-scrollbar {width: 5px;}
+.my_productHistory > div > div > table {margin: 10px auto;}
+.my_productHistory_title {width: 150px; height: 40px; background-color: #008916; color: white; font-size: 16px; font-weight: 600;}
+.my_productHistory_titleoftitle {width: 400px; height: 40px; background-color: #008916; color: white; font-size: 16px; font-weight: 600;}
+.my_productHistory_body {font-size: 15px;  height: 25px; border-bottom: 1px solid #ccc; text-align: center;  color: white;}
 
 /* subscribe */
 .subscribe_main{width: 100%; height: 700px; background-color: #181818; display: flex; justify-content: center; align-items: center;}

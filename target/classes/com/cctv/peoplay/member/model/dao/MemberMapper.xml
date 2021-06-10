@@ -112,24 +112,30 @@
 			</collection>
 		</association>
 	</resultMap>
-
-<!-- 	<resultMap id="OrderResultMap" type="DeliveryDTO">
-		<id property="deliveryNum" column=""/>
-		<association property="userNum" javaType="PaymentDTO">
-			<result property="userNo" column="USER_NO"/>
-		</association>
-		<association property="userNum" javaType="MemberDTO">
-			<result property="userNo" column="USER_NO"/>
-		</association>
+	
+	<resultMap id="orderResultMap" type="DeliveryDTO">
+		<id column="DELIVERY_NUMBER" property="deliveryNumber"/>
+		<association property="paymentNumber" javaType="PaymentDTO">
+			<id column="PAYMENT_NUM" property="paymentNo"/>
+			<result column="PAYMENT_PRICE" property="paymentPrice"/>
+			<association property="orderNo" javaType="OrderDTO">
+				<id column="ORDER_NUM" property="orderNo"/>
+				<result column="ORDER_DATE" property="orderDate"/>
+				<result column="ORDER_COUNT" property="orderCount"/>
+			</association>
+		</association> 
 		<association property="goodsNum" javaType="GoodsDTO">
-			<id property="goodsNum" column="GOODS_NUMBER"/>
-			<result property="goodsName" column="GOODS_NAME"/>
-			<collection property="goodsFiles" ofType="GoodsFileDTO">
-				<id property="number" column="FILE_NO"/>
-				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
-			</collection>
+			<id column="GOODS_NUMBER" property="goodsNum"/>
+			<result column="GOODS_NAME" property="goodsName"/>
 		</association>
-	</resultMap> -->
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo"/>
+		</association>
+		<association property="shipmentCode" javaType="DeliveryStatusDTO">
+			<id column="SHIPMENT_CODE" property="shipmentCode"/>
+			<result column="SHIPMENT_STATUS" property="shipmentStatus"/>
+		</association>   
+	</resultMap>
 	
 	<resultMap id="boardResultMap" type="BoardDTO">
 		<id property="no" column="POST_NO"/>
@@ -1061,4 +1067,19 @@
 		   AND A.INQUIRY_STATUS = 'Y'
 	</select>
 	
+	<select id="selectOrderList" resultMap="orderResultMap" parameterType="_int">
+		SELECT
+		       A.DELIVERY_NUMBER
+		     , B.PAYMENT_PRICE
+		     , C.ORDER_DATE
+		     , C.ORDER_COUNT
+		     , D.GOODS_NAME
+		     , E.SHIPMENT_STATUS
+		  FROM TBL_DELIVERY A
+		  JOIN TBL_PAYMENT B ON (A.PAYMENT_NUM = B.PAYMENT_NUM)
+		  JOIN TBL_GOODS_ORDER C ON (B.ORDER_NUM = C.ORDER_NUM)
+		  JOIN TBL_GOODS D ON(A.GOODS_NUMBER = D.GOODS_NUMBER)
+		  JOIN TBL_DELIVERY_STATUS E ON (A.SHIPMENT_CODE = E.SHIPMENT_CODE)
+		 WHERE A.USER_NO = #{userNo}
+	</select>
 </mapper>

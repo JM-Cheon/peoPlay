@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cctv.peoplay.Community.model.dto.QnaDTO;
 import com.cctv.peoplay.board.model.dto.BoardDTO;
+import com.cctv.peoplay.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsCartDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsLikeDTO;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
@@ -74,5 +75,7 @@ public interface MemberMapper {
 	List<BoardDTO> selectMemberBoard(int userNo);
 
 	List<QnaDTO> selectAsk(int userNo);
+
+	List<DeliveryDTO> selectOrderList(int userNo);
 
 }

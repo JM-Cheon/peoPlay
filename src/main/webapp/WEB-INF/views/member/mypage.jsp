@@ -206,20 +206,20 @@
                                         <tbody>
                                             <c:forEach var="ask" items="${ requestScope.askList }">
                                             <tr onClick="location.href='${ pageContext.servletContext.contextPath }/QNA/qnaDetail/' + ${ ask.inquiryNo }">
-                                                <td class="my_subscribeHistory_body">${ ask.inquiryNo }</td>
-                                                <td class="my_subscribeHistory_body">${ ask.inquiryTitles }</td>
-                                                <td class="my_subscribeHistory_body">${ ask.creationDate }</td>
+                                                <td class="my_askHistory_body">${ ask.inquiryNo }</td>
+                                                <td class="my_askHistory_body">${ ask.inquiryTitles }</td>
+                                                <td class="my_askHistory_body">${ ask.creationDate }</td>
                                                 <c:if test="${ ask.disclosureStatus == 'Y' }">
-                                                	<td class="my_subscribeHistory_body">공개</td>
+                                                	<td class="my_askHistory_body">공개</td>
                                                 </c:if>
                                                 <c:if test="${ ask.disclosureStatus == 'N' }">
-                                                	<td class="my_subscribeHistory_body">비공개</td>
+                                                	<td class="my_askHistory_body">비공개</td>
                                                 </c:if>
                                                 <c:if test="${ ask.inquiryYn == 'Y' }">
-                                                	<td class="my_subscribeHistory_body">답변완료</td>
+                                                	<td class="my_askHistory_body">답변완료</td>
                                                 </c:if>
                                                 <c:if test="${ ask.inquiryYn == 'N' }">
-                                                	<td class="my_subscribeHistory_body">미답변</td>
+                                                	<td class="my_askHistory_body">미답변</td>
                                                 </c:if>
                                             </tr>
                                             </c:forEach>
@@ -246,11 +246,11 @@
                                         <tbody>
                                             <c:forEach var="board" items="${ requestScope.memberBoardList }">
                                             <tr onClick="location.href='${ pageContext.servletContext.contextPath }/board/detail?no=' + ${ board.no }">
-                                                <td class="my_subscribeHistory_body">${ board.no }</td>
-                                                <td class="my_subscribeHistory_body">${ board.title }</td>
-                                                <td class="my_subscribeHistory_body">${ board.view }</td>
-                                                <td class="my_subscribeHistory_body">${ board.creationDate }</td>
-                                                <td class="my_subscribeHistory_body">${ board.commentCount }</td>
+                                                <td class="my_board_body">${ board.no }</td>
+                                                <td class="my_board_body">${ board.title }</td>
+                                                <td class="my_board_body">${ board.view }</td>
+                                                <td class="my_board_body">${ board.creationDate }</td>
+                                                <td class="my_board_body">${ board.commentCount }</td>
                                             </tr>
                                             </c:forEach>
                                         </tbody>
@@ -372,14 +372,33 @@
                         </div>
                         <div class="my_productHistory">
 							<div>
-                                <p>상품 주문 내역</p>
+                                <p>상품주문내역</p>
                                 <hr>
                                 <div>
-                                	<%-- 
-                                    <c:forEach var="basket" items="${ requestScope.paymentList }">
-	                                	<div><img src=""><p></o></div>
-                                    </c:forEach>
-                                    --%>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="my_productHistory_title">번호</th>
+                                                <th class="my_productHistory_titleoftitle">상품명</th>
+                                                <th class="my_productHistory_title">갯수</th>
+                                                <th class="my_productHistory_title">총 금액</th>
+                                                <th class="my_productHistory_title">결제일</th>
+                                                <th class="my_productHistory_title">배송상태</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="order" items="${ requestScope.orderList }">
+                                            <tr>
+                                                <td class="my_productHistory_body">${ order.paymentNumber.orderNo.orderNo }</td>
+                                                <td class="my_productHistory_body">${ order.goodsNum.goodsName }</td>
+                                                <td class="my_productHistory_body">${ order.paymentNumber.orderNo.orderCount }</td>
+                                                <td class="my_productHistory_body">${ order.paymentNumber.paymentPrice }</td>
+                                                <td class="my_productHistory_body">${ order.paymentNumber.orderNo.orderDate }</td>
+                                                <td class="my_productHistory_body">${ order.shipmentCode.shipmentStatus }</td>
+                                            </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

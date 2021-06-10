@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cctv.peoplay.Community.model.dto.QnaDTO;
 import com.cctv.peoplay.board.model.dto.BoardDTO;
+import com.cctv.peoplay.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsCartDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsLikeDTO;
 import com.cctv.peoplay.member.model.dao.MemberMapper;
@@ -193,6 +194,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<QnaDTO> selectAsk(int userNo) {
 		return mapper.selectAsk(userNo);
+	}
+
+	@Override
+	public List<DeliveryDTO> selectOrderList(int userNo) {
+		return mapper.selectOrderList(userNo);
 	}
 	
 }

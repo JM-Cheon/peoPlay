@@ -243,6 +243,7 @@ public class MemberController {
 		model.addAttribute("watchList", memberService.selectWatchMovieList(loginMember.getUserNo()));
 		model.addAttribute("basketList", memberService.selectBasketList(loginMember.getUserNo()));
 		model.addAttribute("goodsLikeList", memberService.selectGoodsLikeList(loginMember.getUserNo()));
+		model.addAttribute("orderList", memberService.selectOrderList(loginMember.getUserNo()));
 	}
 	
 	/* 마이페이지 영화 후기 ON, OFF */
