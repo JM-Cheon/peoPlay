@@ -2,6 +2,7 @@ package com.cctv.peoplay.member.model.dao;
 
 import java.util.List;
 
+import com.cctv.peoplay.Community.model.dto.QnaDTO;
 import com.cctv.peoplay.board.model.dto.BoardDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsCartDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsLikeDTO;
@@ -71,5 +72,7 @@ public interface MemberMapper {
 	List<GoodsLikeDTO> selectGoodsLikeList(int userNo);
 
 	List<BoardDTO> selectMemberBoard(int userNo);
+
+	List<QnaDTO> selectAsk(int userNo);
 
 }

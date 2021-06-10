@@ -199,20 +199,30 @@
                                                 <th class="my_askHistory_title">번호</th>
                                                 <th class="my_askHistory_titleoftitle">제목</th>
                                                 <th class="my_askHistory_title">작성일자</th>
+                                                <th class="my_askHistory_title">공개여부</th>
                                                 <th class="my_askHistory_title">답변여부</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        	<%-- 
-                                            <c:forEach var="ask" items="${ requestScope.paymentList }">
-                                            <tr>
-                                                <td class="my_subscribeHistory_body">${ payment.subscription.name }</td>
-                                                <td class="my_subscribeHistory_body">${ payment.paymentDate }</td>
-                                                <td class="my_subscribeHistory_body">${ payment.paymentValidity }</td>
-                                                <td class="my_subscribeHistory_body">${ payment.paymentPrice }</td>
+                                            <c:forEach var="ask" items="${ requestScope.askList }">
+                                            <tr onClick="location.href='${ pageContext.servletContext.contextPath }/QNA/qnaDetail/' + ${ ask.inquiryNo }">
+                                                <td class="my_subscribeHistory_body">${ ask.inquiryNo }</td>
+                                                <td class="my_subscribeHistory_body">${ ask.inquiryTitles }</td>
+                                                <td class="my_subscribeHistory_body">${ ask.creationDate }</td>
+                                                <c:if test="${ ask.disclosureStatus == 'Y' }">
+                                                	<td class="my_subscribeHistory_body">공개</td>
+                                                </c:if>
+                                                <c:if test="${ ask.disclosureStatus == 'N' }">
+                                                	<td class="my_subscribeHistory_body">비공개</td>
+                                                </c:if>
+                                                <c:if test="${ ask.inquiryYn == 'Y' }">
+                                                	<td class="my_subscribeHistory_body">답변완료</td>
+                                                </c:if>
+                                                <c:if test="${ ask.inquiryYn == 'N' }">
+                                                	<td class="my_subscribeHistory_body">미답변</td>
+                                                </c:if>
                                             </tr>
                                             </c:forEach>
-                                             --%>
                                         </tbody>
                                     </table>
                                 </div>

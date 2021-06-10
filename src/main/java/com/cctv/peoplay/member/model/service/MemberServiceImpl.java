@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cctv.peoplay.Community.model.dto.QnaDTO;
 import com.cctv.peoplay.board.model.dto.BoardDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsCartDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsLikeDTO;
@@ -187,6 +188,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<BoardDTO> selectMemberBoard(int userNo) {
 		return mapper.selectMemberBoard(userNo);
+	}
+
+	@Override
+	public List<QnaDTO> selectAsk(int userNo) {
+		return mapper.selectAsk(userNo);
 	}
 	
 }

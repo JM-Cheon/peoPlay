@@ -143,6 +143,17 @@
 		<result property="commentCount" column="COMMENT_COUNT"/>
 		<result property="category" column="CATEGORY"/>
 	</resultMap>
+
+	<resultMap id="qnaResultMap" type="QnaDTO">
+		<id property="inquiryNo" column="INQUIRY_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="inquiryTitles" column="INQUIRY_TITLES"/>
+		<result property="inquiryContent" column="INQUIRY_CONTENT"/>
+		<result property="creationDate" column="CREATION_DATE"/>
+		<result property="inquiryYn" column="INQUIRY_YN"/>
+		<result property="inquiryStatus" column="INQUIRY_STATUS"/>
+		<result property="disclosureStatus" column="DISCLOSURE_STATUS"/>
+	</resultMap>
 	
 	<insert id="insertMember" parameterType="MemberDTO">
         INSERT 
@@ -1030,4 +1041,18 @@
 		 WHERE A.USER_NO = #{userNo}
 		   AND A.POST_STATUS = 'Y'
 	</select>
+	
+	<select id="selectAsk" resultMap="qnaResultMap" parameterType="_int">
+		SELECT
+		       A.INQUIRY_NO
+		     , A.USER_NO
+		     , A.INQUIRY_TITLES
+		     , A.CREATION_DATE
+		     , A.INQUIRY_YN
+		     , A.DISCLOSURE_STATUS
+		  FROM INQUIRY A
+		 WHERE A.USER_NO = #{userNo}
+		   AND A.INQUIRY_STATUS = 'Y'
+	</select>
+	
 </mapper>

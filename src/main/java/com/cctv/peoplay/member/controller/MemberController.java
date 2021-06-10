@@ -237,6 +237,7 @@ public class MemberController {
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 		
 		model.addAttribute("paymentList", memberService.selectPaymentList(loginMember));
+		model.addAttribute("askList", memberService.selectAsk(loginMember.getUserNo()));
 		model.addAttribute("memberBoardList", memberService.selectMemberBoard(loginMember.getUserNo()));
 		model.addAttribute("zzimList", memberService.selectMemberWishMovieList(loginMember.getUserNo()));
 		model.addAttribute("watchList", memberService.selectWatchMovieList(loginMember.getUserNo()));
