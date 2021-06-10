@@ -164,6 +164,8 @@
 .my_basket > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
 .my_basket > div > div::-webkit-scrollbar {width: 5px;}
 .my_basket > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+.my_basket > div > div > div > img {width: 130px;}
+.my_basket > div > div > div > p {font-size: 13px; color: #fff; text-align: center;}
 .my_goods {width: 900px; height: 700;}
 .my_goods > div {display: block;}
 .my_goods > div > hr {clear: both;}
@@ -171,6 +173,8 @@
 .my_goods > div > div {display: block; width: 900px; height: 560px; overflow: auto;}
 .my_goods > div > div::-webkit-scrollbar {width: 5px;}
 .my_goods > div > div > div {display: block; width: 130px; height: 180px; background-color: #fff; float: left; margin: 30px 9px 0px 9px;}
+.my_goods > div > div > div > img {width: 130px;}
+.my_goods > div > div > div > p {font-size: 13px; color: #fff; text-align: center;}
 
 /* subscribe */
 .subscribe_main{width: 100%; height: 700px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
