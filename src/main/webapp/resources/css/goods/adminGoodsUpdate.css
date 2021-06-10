@@ -1,0 +1,196 @@
+@charset "UTF-8";
+body {
+	margin: 0 auto;
+	width: 1100px;
+	font-family: '맑은 고딕';
+	background-color: black;
+	color: white;
+}
+
+#sec1 {
+	width: 1100px;
+	height: 120px;
+}
+
+#sec2 {
+	width: 1100px;
+	height: 70px;
+}
+
+#sec3 {
+	width: 1100px;
+	height: 600px;
+}
+
+.goods_update_delet_div {
+	width: 1100px;
+	height: 100px;
+	font-weight: 700;
+	font-size: 25pt;
+	text-align: center;
+	position: relative;
+	top: 10px;
+}
+
+.goods_div_space {
+	width: 100px;
+	float: left;
+}
+
+.goods_name {
+	width: 1100px;
+	height: 70px;
+	font-weight: 600;
+	font-size: 20pt;
+	text-align: center;
+	position: relative;
+	top: 10px;
+}
+
+.all_info_div {
+	width: 1100px;
+}
+
+.img_div {
+	width: 650px;
+	float: left;
+}
+
+.info_div {
+	width: 450px;
+	float: right;
+	position: relative;
+    left: 70px;
+}
+
+.info_tab {
+	position: relative;
+	top: 20px;
+}
+
+.info_tab_td {
+	width: 200px;
+	text-align: right;
+	line-height: 45px;
+	font-size: 20pt;
+	font-weight: 700;
+}
+
+.info_tab_sub {
+	position: relative;
+	left: 5px;
+	line-height: 40px;
+	font-size: 17pt;
+	font-weight: 500;
+}
+
+.main_img_div {
+	width: 500px;
+	height: 500px;
+	position: relative;
+	top: 20px;
+	left: 30px;
+}
+
+.manage_img {
+	height: 100%;
+	width: 100%;
+}
+
+.sub_img_div {
+	width: 500px;
+	position: relative;
+	top: 30px;
+	left: 40px;
+}
+
+.manage_small_td {
+	width: 110px;
+	height: 90px;
+}
+
+.manage_small_img {
+	width: 100%;
+	height: 100%;
+}
+
+#sec4 {
+	width: 1100px;
+	height: 150px;
+	text-align: center;
+}
+
+.btn_update_delete {
+	width: 150px;
+	height: 60px;
+	color: white;
+	background-color: #008916;
+	font-size: 15pt;
+	font-weight: 600;
+	border-color: #008916;
+	border-radius: 10px;
+}
+.img {
+	width: 400px;
+	height: 400px;
+	float: left;
+}
+
+.img_div {
+	float: left;
+	width: 500px;
+	float: left;
+	height: 400px;
+}
+
+.thumbnail_div {
+	width: 500px;
+	height: 200px;
+	float: left;
+	position: relative;
+	top: 20px;
+}
+
+.img {
+	width: 500px;
+	height: 400px;
+	border-radius: 10px;
+}
+
+.thumbnail-img {
+	width: 100px;
+	height: 100px;
+	border-radius: 10px;
+}
+
+.info_div {
+	width: 580px;
+	float: right;
+	height: 400px;
+}
+
+.btn_div {
+	height: 200px;
+	float: right;
+	width: 580px;
+}
+
+.sec1_1 {
+	width: 500px;
+	float: left;
+}
+.detailImg {
+	width: 800px;
+	height: 600px;
+	text-align: center;
+	position: relative;
+    left: 120px;
+}
+.info_tab_sub1 input[type=file] {
+	position: relative;
+	left: 5px;
+	line-height: 40px;
+	font-size: 17pt;
+	font-weight: 500;
+	display:none;
+}

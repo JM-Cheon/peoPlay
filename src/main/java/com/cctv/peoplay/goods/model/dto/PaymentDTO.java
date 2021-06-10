@@ -2,27 +2,36 @@ package com.cctv.peoplay.goods.model.dto;
 
 import java.util.Date;
 
+import com.cctv.peoplay.admin.goods.model.dto.MemberDTO;
+
 public class PaymentDTO {
 	
 	private int paymentNo;
 	private OrderDTO orderNo;
-	private java.util.Date paymentDate;
-	private int paymentPrice;
-	private String paymentType;
-	public PaymentDTO(int paymentNo, OrderDTO orderNo, Date paymentDate, int paymentPrice, String paymentType) {
+	public PaymentDTO(int paymentNo, OrderDTO orderNo, MemberDTO memNo, Date paymentDate, int paymentPrice,
+			String paymentType) {
 		this.paymentNo = paymentNo;
 		this.orderNo = orderNo;
 		this.paymentDate = paymentDate;
 		this.paymentPrice = paymentPrice;
 		this.paymentType = paymentType;
 	}
+	private java.util.Date paymentDate;
+	private int paymentPrice;
+	private String paymentType;
+
 	public PaymentDTO() {
 	}
+	
+	
 	@Override
 	public String toString() {
-		return "PaymentDTO [paymentNo=" + paymentNo + ", orderNo=" + orderNo + ", paymentDate=" + paymentDate
-				+ ", paymentPrice=" + paymentPrice + ", paymentType=" + paymentType + "]";
+		return "PaymentDTO [paymentNo=" + paymentNo + ", orderNo=" + orderNo + ", paymentDate="
+				+ paymentDate + ", paymentPrice=" + paymentPrice + ", paymentType=" + paymentType + "]";
 	}
+
+
+
 	public int getPaymentNo() {
 		return paymentNo;
 	}

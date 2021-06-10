@@ -21,7 +21,7 @@
                     <li><a href="${ pageContext.servletContext.contextPath }">홈</a></li>
                     <li><a href="#">영화</a></li>
                     <li><a href="${ pageContext.servletContext.contextPath }/notice/ntclist">문의</a></li>
-                    <li><a href="#">굿즈</a></li>
+                    <li><a href="${ pageContext.servletContext.contextPath }/goods/goodslist">굿즈</a></li>
                     <li><a href="${pageContext.servletContext.contextPath}/board/list">커뮤니티</a></li>
                     <li><a href="${ pageContext.servletContext.contextPath }/member/subscribe">구독권 결제</a></li>
                 </ul>

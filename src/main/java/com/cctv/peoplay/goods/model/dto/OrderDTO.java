@@ -1,12 +1,10 @@
 package com.cctv.peoplay.goods.model.dto;
 
 import java.util.Date;
-import java.util.HashMap;
-
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 
 public class OrderDTO {
-
+	
 	private int orderNo;
 	private GoodsDTO goodsNo;
 	private MemberDTO userNo;

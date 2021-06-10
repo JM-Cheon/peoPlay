@@ -1,0 +1,225 @@
+@charset "UTF-8";
+
+/* 래퍼 */
+#wrapper {
+	width: 1100px;
+	margin: 0 auto;
+}
+/* 섹션 마진 값 초기화 */
+section {
+	margin: 0 auto;
+}
+/* 필드셋 사이즈 */
+fieldset.fd_All {
+	width: 780px;
+    border-radius: 10px;
+    line-height: 23pt;
+    position: relative;
+    top: 56px;
+}
+/* 제목 크기 */
+div.mainText {
+	font-size: 30px;
+	color: #008916;
+}
+.orderfd{
+	height: 160px;
+}
+.order{
+	position: relative;
+	top : 50px;
+}
+#article1{
+	height: 185px;
+}
+#article2{
+	height: 200px;
+}
+.spaceInfo{
+	height: 60px;
+	position: relative;
+	top: 15px;
+}
+.fdInfo{
+	position: relative;
+	top : -40px;
+}
+.orderInfo{
+	width: 300px;
+	float: left;
+	height: 300px;
+	font-size: 12pt;
+}
+.orderTotalPrice{
+	width : 150px;
+	height: 140px;
+	float: right;
+}
+.contentsInfo{
+	font-family: '맑은 고딕';
+	font-size : 12pt;
+	line-height: 40pt;
+	font-weight: 600;
+}
+.payment{
+	position: relative;
+	top : 50px;
+}
+.priceTag{
+	font-family: '맑은 고딕';
+    font-size: 16pt;
+    position: relative;
+    top: 56px;
+    left: -50px;
+    color: black;
+    width: 180px;
+}
+.won{
+	font-family: '맑은 고딕';
+    font-size: 16pt;
+    position: relative;
+    top: 100px;
+    left: -50px;
+    color: #ED1C24;
+}
+/* 주문상품 비용 위치 */
+fieldset.fd_All>div>div {
+	text-align: left;
+	margin-right: 20px;
+	font-size: 15px;
+}
+/* 주문상품 이미지 */
+img.prd1 {
+	height: 100px;
+	width: 100px;
+	border-radius: 10px;
+	margin-left: 20px;
+}
+/* 주문상품 텍스트 */
+.order_product {
+	margin-top: 20px;
+	font-size: 15px;
+	width: 180px;
+	height : 140px;
+	float:left;
+}
+
+/* 결재수단 추가 */
+.paymentway {
+	height: 250px;
+	background-color: #f1f1f5;
+}
+/* 결재수단 추가 이미지 */
+img.prd2 {
+	height: 30px;
+	width: 30px;
+}
+/* 결재수단 버튼 */
+button.payKakao {
+	height: 150px;
+	width: 140px;
+	margin-top: 50px;
+	background-color: white;
+	border: thin;
+	font-size: 15px;
+}
+
+/* 결제 예정금액 파트  */
+aside {
+	float: right;
+	width: 290px;
+}
+
+/* aside 레이아웃 */
+#div {
+	width: 800px;
+	float: left;
+}
+/* 주문결재 정보 */
+.order_info>div {
+	font-size: 13pt;
+	font-weight: 800;
+	margin-left: 20px;
+}
+.agreement{
+	text-align: left;
+    position: relative;
+    left: 38px;
+    font-size: 13pt;
+    font-weight: bolder;
+    color: black;
+}
+.agreementCheck{
+	position: relative;
+    left: 42px;
+}
+.delivery{
+	font-size: 12pt;
+    font-weight: 600;
+    text-align: left;
+    width: 200px;
+    position: relative;
+    left: -9px;
+}
+/* 결재예정금액 필드 */
+.orderfied {
+    position: relative;
+    border-radius: 10px;
+    width: 300px;
+    background-color: #f1f1f5;
+    height: 400px;
+    top: 15px;
+}
+/* 결재예정 금액 정보 제목 */
+.payment_title {
+	width: 150px;
+	text-align: right;
+	line-height: 25px;
+	height: 50px;
+	font-size: 15pt;
+}
+/* 결재예정 금액 가격정보 */
+.payment_sub_title {
+	width: 200px;
+    text-align: right;
+    line-height: 25px;
+    font-size: 15px;
+    position: relative;
+    left: -38px;
+}
+.div_kakao{
+	position:relative;
+	left : 189px;
+	top : 20px;
+	width: 400px;
+	height: 200px;
+}
+.img_kakako{
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+}
+/* 주문하기 버튼*/
+button.payKakao {
+	height: 40px;
+	width: 220px;
+	background-color: #008916;
+	border: thin;
+	border-radius: 5px;
+	color: white;
+	font-size: 14pt;
+}
+
+button.cancel {
+	height: 40px;
+	width: 220px;
+	background-color: #2828CD;
+	border: thin;
+	border-radius: 5px;
+	color: white;
+	font-size: 14pt;
+}
+/* 결재예정금액 공백 */
+.payment_space {
+	height: 30px;
+}

@@ -34,6 +34,12 @@
 		<beans:property name="maxUploadSize" value="10000000" />
 	</beans:bean>
 	
+	<beans:bean id="jsonview" class="net.sf.json.spring.web.servlet.view.JsonView"/>
+		
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="1"/>
+	</beans:bean>
+	
 	<!-- 
 	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<beans:property name="exceptionMappings">

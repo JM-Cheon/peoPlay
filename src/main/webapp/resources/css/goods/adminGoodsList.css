@@ -1,0 +1,118 @@
+@charset "UTF-8";
+.sec1{
+width: 1100px; height: 180px; background-color: black; margin: 0px auto;
+}
+.head{
+color:white; text-align:center; font-size: 50px;
+}
+.select{
+height: 40px; width: 200px; border-radius: 15px; margin-right: 10px; float: right;
+}
+#sec2{
+width: 1100px; height: 900px; background-color:white; margin: auto; border-radius: 10px;
+}
+.addNewGoods{
+text-align: center; background-color: white; float: left;
+border-radius: 15px;
+width: 200px; height:168px; margin:15px 10px 15px 10px; 
+border-radius: 15px; font-size: 120px;
+}
+.div_pic {
+	width: 200px;
+	height: 250px;
+	float: left;
+	margin:15px 10px 15px 10px; 
+}
+
+.div_pic > button > img{
+width: 200px; height: 200px; border-radius: 10px;
+}
+.div_pic > button > p{
+color: #000; font-weight: 600; font-size: 20px; text-align: left; line-height: 40px;
+}
+.div_enroll{
+	float: left;
+    width: 220px;
+    position: relative;
+    top: 15px;
+    border : 1px solid black;
+    border-radius: 15px;
+}
+.searchingForm{
+	position: relative;
+    top: 25px;
+}
+.searhchingBtn{
+	position: relative;
+    left: 5px;
+    top: 2px;
+    color: black;
+    background-color: white;
+    width: 70px;
+    height: 21px;
+    border-radius: 5px;
+}
+.pagingArea{
+	position: relative;
+    text-align: center;
+}
+.adminBtn{
+	text-align: right;
+	height: 50px;
+	width: 1045px;
+}
+.adminPayment{
+	background-color: #008916;
+	width: 80px;
+	height: 30px;
+	color: white;
+	border-radius: 10px;
+	position: relative;
+	top: 30px;
+}
+.adminDelivery{
+	background-color: #008916;
+	width: 80px;
+	height: 30px;
+	color: white;
+	border-radius: 10px;
+	position: relative;
+	top: 30px;
+}
+.adminStock{
+	background-color: #008916;
+	width: 80px;
+	height: 30px;
+	color: white;
+	border-radius: 10px;
+	position: relative;
+	top: 30px;
+}
+.p-board-paging ul {
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+}
+.p-board-paging ul::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.p-board-paging ul li {
+	float: left;
+}
+.p-board-paging ul li+li {
+	margin-left: -2px;
+}
+.p-board-paging ul li button {
+	width: 36px;
+	height: 36px;
+	color: #fff;
+	border: 1px solid #008916;
+	background-color: #008916;
+}
+.p-board-paging ul li button:hover {
+	color: #181818;
+	background-color: #fff;
+}

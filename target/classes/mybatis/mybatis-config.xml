@@ -11,10 +11,47 @@
  		<typeAlias alias="QnaDTO" type="com.cctv.peoplay.Community.model.dto.QnaDTO"/>
  		<typeAlias alias="MovieDTO" type="com.cctv.peoplay.movie.model.dto.MovieDTO"/>
  		<typeAlias alias="MovieFileDTO" type="com.cctv.peoplay.movie.model.dto.MovieFileDTO"/>
+ 		
+ 		<!-- 굿즈 관련 -->
  		<typeAlias alias="GoodsDTO" type="com.cctv.peoplay.goods.model.dto.GoodsDTO"/>
+ 		<typeAlias alias="GoodsAndFileDTO" type="com.cctv.peoplay.goods.model.dto.GoodsAndFileDTO"/>
  		<typeAlias alias="GoodsCartDTO" type="com.cctv.peoplay.goods.model.dto.GoodsCartDTO"/>
  		<typeAlias alias="GoodsFileDTO" type="com.cctv.peoplay.goods.model.dto.GoodsFileDTO"/>
+ 		<typeAlias alias="OrderDTO" type="com.cctv.peoplay.goods.model.dto.OrderDTO"/>
+ 		<typeAlias alias="PaymentDTO" type="com.cctv.peoplay.goods.model.dto.PaymentDTO"/>
+ 		<typeAlias alias="GoodsReviewDTO" type="com.cctv.peoplay.goods.model.dto.GoodsReviewDTO"/>
+ 		<typeAlias alias="GoodsShipmentClassifyDTO" type="com.cctv.peoplay.goods.model.dto.GoodsShipmentClassifyDTO"/>
+ 		<typeAlias alias="GoodsCategoryDTO" type="com.cctv.peoplay.goods.model.dto.GoodsCategoryDTO"/>
+ 		<typeAlias alias="GoodsDetailFileDTO" type="com.cctv.peoplay.goods.model.dto.GoodsDetailFileDTO"/>
+ 		<typeAlias alias="GoodsAndDetailFileDTO" type="com.cctv.peoplay.goods.model.dto.GoodsAndDetailFileDTO"/>
  		<typeAlias alias="GoodsLikeDTO" type="com.cctv.peoplay.goods.model.dto.GoodsLikeDTO"/>
+ 		<typeAlias alias="GoodsInquiryDTO" type="com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO"/>
+ 		<typeAlias alias="DeliveryDTO" type="com.cctv.peoplay.goods.model.dto.DeliveryDTO"/>
+ 		<typeAlias alias="ReportPlaceDTO" type="com.cctv.peoplay.goods.model.dto.ReportPlaceDTO"/>
+ 		<typeAlias alias="UserReportDTO" type="com.cctv.peoplay.goods.model.dto.UserReportDTO"/>
+ 		<typeAlias alias="GoodsInquiryReplyDTO" type="com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO"/>
+ 		<typeAlias alias="DeliveryStatusDTO" type="com.cctv.peoplay.goods.model.dto.DeliveryStatusDTO"/>
+ 		<typeAlias alias="DeliveryMemoDTO" type="com.cctv.peoplay.goods.model.dto.DeliveryMemoDTO"/>
+ 		
+ 		<!-- 관리자_굿즈 -->
+ 		<typeAlias alias="AdminGoodsDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsDTO"/>
+ 		<typeAlias alias="AdminGoodsShipmentClassifyDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsShipmentClassifyDTO"/>
+ 		<typeAlias alias="AdminGoodsCategoryDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsCategoryDTO"/>
+ 		<typeAlias alias="AdminGoodsAndDetailFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO"/>
+ 		<typeAlias alias="AdminGoodsAndFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO"/>
+ 		<typeAlias alias="AdminGoodsDetailFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsDetailFileDTO"/>
+ 		<typeAlias alias="MemberDTO3" type="com.cctv.peoplay.admin.goods.model.dto.MemberDTO"/>
+ 		<typeAlias alias="AdminGoodsLikeDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsLikeDTO"/>
+ 		<typeAlias alias="AdminGoodsFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsFileDTO"/>
+ 		<typeAlias alias="AdminPaymentDTO" type="com.cctv.peoplay.admin.goods.model.dto.PaymentDTO"/>
+ 		<typeAlias alias="AdminOrderDTO" type="com.cctv.peoplay.admin.goods.model.dto.OrderDTO"/>
+ 		<typeAlias alias="AdminDeliveryDTO" type="com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO"/>
+ 		<typeAlias alias="AdminDeliveryMemoDTO" type="com.cctv.peoplay.admin.goods.model.dto.DeliveryMemoDTO"/>
+ 		<typeAlias alias="AdminDeliveryStatusDTO" type="com.cctv.peoplay.admin.goods.model.dto.DeliveryStatusDTO"/>
+ 		<typeAlias alias="AdminGoodsInAndOutDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsInAndOutDTO"/>
+ 		
+ 		
+ 		
  	</typeAliases>
  	
  </configuration>
