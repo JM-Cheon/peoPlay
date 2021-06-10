@@ -65,8 +65,8 @@
 	<jsp:include page="../common/header.jsp" />
 
     <section>
-        <div class="detail-wrap" style="height: 2000px;">
-            <div style="height: 390px;"></div>
+        <div class="detail-wrap">
+            <div style="height: 100px;"></div>
             <div class="detail-title" >자유게시판 </div>
             <div style="height: 110px;"></div>
             <div class="article">

@@ -16,10 +16,8 @@
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<section>
-
 		<div class="wrap-back">
 			<div class="center">
-				<div style="height: 400px;"></div>
 				<div class="title">자유게시판</div>
 				<div class="board">
 					<table id="listArea">
