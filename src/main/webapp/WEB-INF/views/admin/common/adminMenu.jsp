@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <link rel="stylesheet" href="/peoplay/resources/css/admin/admin.css">
-</head>
+</head> 
 <body>
 	<div class="admin_nav">
 		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/#';">영화 관리</div>
