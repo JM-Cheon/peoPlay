@@ -95,6 +95,7 @@
 			<collection property="goodsFiles" ofType="GoodsFileDTO">
 				<id property="number" column="FILE_NO"/>
 				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+				<result property="fileType" column="FILE_FILE"/>
 			</collection>
 		</association>
 	</resultMap>
@@ -109,6 +110,7 @@
 			<collection property="goodsFiles" ofType="GoodsFileDTO">
 				<id property="number" column="FILE_NO"/>
 				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+				<result property="fileType" column="FILE_FILE"/>
 			</collection>
 		</association>
 	</resultMap>
@@ -1015,6 +1017,7 @@
 		     , B.CART_COUNT
 		     , C.FILE_NO
 		     , C.FILE_SAVE_NAME
+		     , C.FILE_TYPE
 		  FROM TBL_GOODS A
 		  JOIN TBL_GOODS_CART B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
 		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
@@ -1028,6 +1031,7 @@
              , B.USER_NO
              , C.FILE_NO
              , C.FILE_SAVE_NAME
+             , C.FILE_TYPE
           FROM TBL_GOODS A
           JOIN TBL_GOODS_LIKE B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
           LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
