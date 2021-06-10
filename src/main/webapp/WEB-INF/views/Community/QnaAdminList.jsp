@@ -10,7 +10,6 @@
 <title>Q&A 관리자 목록</title>
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/Community/board.css">
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/reset.css">
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/admin/admin.css">
 </head>
 <body>
 <!-- 헤더-->
@@ -258,7 +257,7 @@
 									</div>		
 										<div class="p-board-keyword">
 											<input type="search" id="searchValue" name="searchValue" value="${requestScope.searchValue}">
-											<button type="submit"><i class="fas fa-search"><!--검색--></i></button>
+											<button type="submit"><i class="fas fa-search"><!--검색--></i>검색</button>
 										 </div>	
 								</c:when>
 									<c:otherwise>
@@ -271,7 +270,7 @@
 										</div>		
 									<div class="p-board-keyword">
 										<input type="search" id="searchValue" name="searchValue" placeholder="검색어를 입력해주세요.">
-											<button type="submit"><i class="fas fa-search"><!--검색--></i></button>
+											<button type="submit"><i class="fas fa-search"><!--검색--></i>검색</button>
 									</div>	
 								</c:otherwise>
 							 </c:choose>

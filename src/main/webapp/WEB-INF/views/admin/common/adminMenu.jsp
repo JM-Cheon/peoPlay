@@ -14,9 +14,9 @@
 		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/member';">회원 관리</div>
 		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/#';">굿즈 관리</div>
 		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/#';">신고 관리</div>
-		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/#';">공지사항 관리</div>
-		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/#';">FAQ 관리</div>
-		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/#';">문의 관리</div>
+		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/noticeAdmin/ntclist';">공지사항 관리</div>
+		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/FaqAdmin/faqAdminList';">FAQ 관리</div>
+		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/QNAadmin/qnaList';">문의 관리</div>
 		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminBoard/list'">자유게시판 관리</div>
 	</div>
 </body>

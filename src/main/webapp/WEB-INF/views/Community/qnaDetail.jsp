@@ -298,13 +298,9 @@
         		  
         		const $inquiryNo = this.parentNode.parentNode.parentNode.parentNode.parentNode.children[1].children[0];
         		const $commentNo = this.parentNode.parentNode.children[0];
-         		
-              	  console.log($commentNo);
+
               	  
               	if(confirm("삭제 하시겠습니까?") == true){
-              		
-              		console.log('comment' + $commentNo.value);
-              		console.log('inquiry' + $inquiryNo.value);
               		
               		$.ajax({
               			url : "${pageContext.servletContext.contextPath}/QNAadmin/qnaDetail/reply/delete",

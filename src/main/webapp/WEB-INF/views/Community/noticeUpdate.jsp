@@ -9,7 +9,6 @@
 <title>공지사항 글 수정</title>
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/Community/board.css">
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/reset.css">
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/member.css">
 <!-- include libraries(jQuery, bootstrap) -->
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"

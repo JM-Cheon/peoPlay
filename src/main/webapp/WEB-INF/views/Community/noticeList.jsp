@@ -207,7 +207,7 @@
 									</div>		
 										<div class="p-board-keyword">
 											<input type="search" id="searchValue" name="searchValue" value="${requestScope.searchValue}">
-											<button type="submit"><i class="fas fa-search"><!--검색--></i></button>
+											<button type="submit"><i class="fas fa-search"><!--검색--></i>검색</button>
 										 </div>	
 								</c:when>
 									<c:otherwise>
@@ -220,7 +220,7 @@
 										</div>		
 									<div class="p-board-keyword">
 										<input type="search" id="searchValue" name="searchValue" placeholder="검색어를 입력해주세요.">
-											<button type="submit"><i class="fas fa-search"><!--검색--></i></button>
+											<button type="submit"><i class="fas fa-search"><!--검색--></i>검색</button>
 									</div>	
 								</c:otherwise>
 							 </c:choose>

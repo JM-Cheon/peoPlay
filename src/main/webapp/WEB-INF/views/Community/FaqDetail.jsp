@@ -9,7 +9,6 @@
 <title>FAQ 상세페이지</title>
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/Community/board.css">
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/common/reset.css">
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/member.css">
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
