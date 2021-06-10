@@ -43,14 +43,22 @@
  	<resultMap type="com.cctv.peoplay.board.model.dto.ReportAndReportPlaceDTO" id="ReportAndReportPlaceResultMap">
  	<id column="REPORT_NO" property="no"/>
  	<result column="USER_NO" property="userNo"/>
- 	<result column="REPORT_REASON" property="userNo"/>
- 	<result column="REPORT_DATE" property="userNo"/>
- 	<result column="REPORT_STATUS" property="userNo"/>
- 	<result column="REPORTED_PERSON" property="userNo"/>
- 	<result column="REPORT_PLACE_NO" property="userNo"/>
- 	<association property="placeCode" javaType="com.cctv.peoplay.board.model.dto.ReportPlaceDTO">
+ 	<result column="REPORT_REASON" property="reason"/>
+ 	<result column="OTHER_REASON" property="otherReason"/>
+ 	<result column="REPORT_DATE" property="reportDate"/>
+ 	<result column="REPORT_STATUS" property="reportStatus"/>
+ 	<result column="REPORTED_PERSON" property="reportedPerson"/>
+ 	<result column="REPORT_PLACE_NO" property="placeNo"/>
+ 	<result column="REPORT_PLACE_CODE" property="placeCode"/> 
+ 	<result column="REF_BOARD_NO" property="refBoardNo"/>
+ 	 <result column="REF_GOODS_NO" property="refGoodsNo"/>
+ 	 <result column="REF_MOVIE_NO" property="refMovieNo"/>
+ 	<association property="reportPlaceDTO" javaType="com.cctv.peoplay.board.model.dto.ReportPlaceDTO">
  	<id column="REPORT_PLACE_CODE" property="code"/>
  	<result column="REPORT_PLACE_NAME" property="name"/></association>
+ 	<association property="reporter" resultMap="memberResultMap"></association>
+ 	<association property="reported" resultMap="memberResultMap"></association>
+ 	
  	</resultMap>
 	
 	
@@ -239,6 +247,7 @@
  	     , A.REPORTED_PERSON
          , A.REPORT_PLACE_NO
          , A.REPORT_PLACE_CODE
+         , A.REF_BOARD_NO
          )VALUES
          (
  	       SEQ_REPORT_NO.NEXTVAL
@@ -248,6 +257,7 @@
          , #{reportedPerson}
          , #{placeNo}
          , 1
+         , #{placeNo}
    )
 
 </insert>
@@ -411,6 +421,7 @@ ORDER BY COMMENT_NO ASC
  	     , A.REPORTED_PERSON
          , A.REPORT_PLACE_NO
          , A.REPORT_PLACE_CODE
+         , A.REF_BOARD_NO
          )VALUES
          (
  	       SEQ_REPORT_NO.NEXTVAL
@@ -419,6 +430,7 @@ ORDER BY COMMENT_NO ASC
          , #{reportedPerson}
          , #{replyNo}
          , 3
+         , #{boardNo}
    )
 
 </insert>
@@ -441,6 +453,7 @@ ORDER BY COMMENT_NO ASC
  	     , A.REPORTED_PERSON
          , A.REPORT_PLACE_NO
          , A.REPORT_PLACE_CODE
+         , A.REF_BOARD_NO
          )VALUES
          (
  	       SEQ_REPORT_NO.NEXTVAL
@@ -449,6 +462,7 @@ ORDER BY COMMENT_NO ASC
          , #{reportedPerson}
          , #{replyOfNo}
          , 4
+         , #{boardNo}
    )
 
 </insert>
@@ -459,6 +473,129 @@ ORDER BY COMMENT_NO ASC
 	   SET A.REPORT_COUNT = A.REPORT_COUNT+1
 	 WHERE A.REPLYOF_NO = #{replyOfNo}
 
+</update>
+
+<select id="selectReportList" resultMap="ReportAndReportPlaceResultMap">
+SELECT
+      B.NICKNAME
+    , C.NICKNAME REPORTED
+    , A.REPORT_REASON
+    , A.REPORT_DATE
+    , A.REPORT_NO
+    , D.REPORT_PLACE_NAME
+    , A.REPORT_PLACE_NO
+    , A.REPORT_PLACE_CODE
+    , A.REPORTED_PERSON
+    , A.REF_BOARD_NO
+      FROM USER_REPORT A
+      JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
+      JOIN USER_INFO C ON (A.REPORTED_PERSON = C.USER_NO)
+      JOIN REPORT_PLACE D ON (A.REPORT_PLACE_CODE = D.REPORT_PLACE_CODE)
+      WHERE A.REPORT_PLACE_CODE =#{no}
+        AND A.REPORT_STATUS ='대기중'
+
+</select>
+
+<update id="updateUserReportCount" parameterType="_int">
+	UPDATE
+		  USER_INFO A
+	   SET A.REPORT_CUMULATIVE = A.REPORT_CUMULATIVE+1
+	 WHERE A.USER_NO = #{reportedPersonNo}
+
+</update>
+
+<update id="updateBoardReportStatus" parameterType="_int">
+UPDATE
+		  USER_REPORT A
+	   SET A.REPORT_STATUS = '신고완료'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 1
+
+</update>
+
+<select id="selectReportCount" resultType="_int">
+SELECT
+        A.REPORT_CUMULATIVE
+    FROM USER_INFO A
+    WHERE USER_NO =#{reportedPersonNo}
+</select>
+
+
+<update id="userBlack" parameterType="_int">
+UPDATE
+		  USER_INFO A
+	   SET A.USER_ROLE = 'BLACK'
+	 WHERE A.USER_NO = #{reportedPersonNo}
+
+</update>
+
+
+<update id="updateReplyReportStatus" parameterType="_int">
+UPDATE
+		  USER_REPORT A
+	   SET A.REPORT_STATUS = '신고완료'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 3
+
+</update>
+
+<update id="updateReplyOfReportStatus" parameterType="_int">
+UPDATE
+		  USER_REPORT A
+	   SET A.REPORT_STATUS = '신고완료'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 4
+
+</update>
+
+
+<update id="cancleBoardReportStatus" parameterType="_int">
+UPDATE
+		  USER_REPORT A
+	   SET A.REPORT_STATUS = '신고취소'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 1
+
+</update>
+
+<update id="resetReportCount" parameterType="_int">
+UPDATE
+		  REPLYOF A
+	   SET A.REPORT_COUNT = 0
+	 WHERE A.REPLYOF_NO = #{placeNo}
+</update>
+
+
+<update id="cancleReplyReportStatus" parameterType="_int">
+UPDATE
+		  USER_REPORT A
+	   SET A.REPORT_STATUS = '신고취소'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 3
+
+</update>
+
+<update id="cancleReplyOfReportStatus" parameterType="_int">
+UPDATE
+		  USER_REPORT A
+	   SET A.REPORT_STATUS = '신고취소'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 4
+
+</update>
+
+<update id="resetReplyReportCount" parameterType="_int">
+UPDATE
+		   A.BOARD_REPLY
+	   SET A.REPORT_COUNT = 0
+	 WHERE A.COMMENT_NO = #{placeNo}
+</update>
+
+<update id="resetReplyOfReportCount" parameterType="_int">
+UPDATE
+		  USER_BOARD A
+	   SET A.REPORT_COUNT = 0
+	 WHERE A.POST_NO = #{placeNo}
 </update>
 
 </mapper>

@@ -31,13 +31,14 @@
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp" />
 
 
 	<section>
 		<div id="wrap">
+			<div style="height: 270px;"></div>
 
 			<div class="title" id="board-name">자유게시판</div>
+			<div style="height: 120px;"></div>
 			<form action="${ pageContext.servletContext.contextPath}/board/modifyUpdate" method="post">
 				
 				

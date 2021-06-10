@@ -59,7 +59,7 @@
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp" />
+	<jsp:include page="../../common/header.jsp"/>
 
     <section>
         <div class="detail-wrap" style="height: auto;">
@@ -104,7 +104,7 @@
                                 <td style="width: 20px;"></td>
                                 <td><button class="btn-report"type="button"  id="report_modal"  >신고</button></td>
                                 <td style="width: 30px;"></td>
-                                <td><button type="button"  class="btn-detail-modify" onclick="location.href='${ pageContext.servletContext.contextPath}/board/list'">목록으로</button> </td>
+                                <td><button type="button"  class="btn-detail-modify" onclick="location.href='${ pageContext.servletContext.contextPath}/admin/adminBoard/list'">목록으로</button> </td>
                                 <td style="width: 530px"> </td>
                                 <c:if test="${sessionScope.loginMember.userNo ==  requestScope.detail.userNo || sessionScope.loginMember.userRole == 'ADMIN'}"> 
                               <td> <button class="btn-detail-cancel" id="delete" type="submit" onclick="location.href='${ pageContext.servletContext.contextPath}/board/delete/${ requestScope.detail.no }'">삭제</button></td>
@@ -402,7 +402,7 @@
 
 
 
-    	<jsp:include page="../common/footer.jsp" />
+	<jsp:include page="../../common/footer.jsp"/>
     	
 
   

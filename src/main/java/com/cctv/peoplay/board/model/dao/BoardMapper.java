@@ -93,6 +93,45 @@ public interface BoardMapper {
 //	대댓글 신고 카운트 증가
 	int increaceReplyOfReportCount(int replyOfNo);
 
+//	신고 관리 조회
+	List<ReportAndReportPlaceDTO> selectReportList(int no);
+
+//	유저 신고 누적
+	int updateUserReportCount(int reportedPersonNo);
+
+//	게시판 신고 상태 변경
+	int updateBoardReportStatus(int placeNo);
+
+//	신고 누적 수 조회
+	int selectReportCount(int reportedPersonNo);
+
+//	블랙 유저
+	int userBlack(int reportedPersonNo);
+
+//  댓글 신고 상태 변경
+	int updateReplyReportStatus(int placeNo);
+	
+//	대댓글 신고 상태 변경
+	int updateReplyOfReportStatus(int placeNo);
+
+// 게시판 신고 상태 변경
+	int cancleBoardReportStatus(int placeNo);
+
+//	게시판 신고 카운트 초기화
+	int resetReportCount(int placeNo);
+
+//	대댓글 신고 상태 변경
+	int cancleReplyOfReportStatus(int placeNo);
+
+//	댓글 신고 카운트 초기화
+	int resetReplyReportCount(int placeNo);
+ 
+//	 댓글 신고 상태 변경
+	int cancleReplyReportStatus(int placeNo);
+	
+//	대댓글 신고 카운트 초기화
+	int resetReplyOfReportCount(int placeNo);
+
 
 
 	

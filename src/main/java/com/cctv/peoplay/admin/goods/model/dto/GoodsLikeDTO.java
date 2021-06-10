@@ -1,5 +1,7 @@
 package com.cctv.peoplay.admin.goods.model.dto;
 
+import com.cctv.peoplay.member.model.dto.MemberDTO;
+
 public class GoodsLikeDTO {
 	
 	private GoodsDTO goodsNum;

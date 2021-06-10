@@ -16,10 +16,12 @@
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<section>
+
 		<div class="wrap-back">
 			<div class="center">
+				<div style="height: 400px;"></div>
 				<div class="title">자유게시판</div>
-				<div class="board">
+				<div class="board" style="height: auto;">
 					<table id="listArea">
 						<thead class="board-head">
 							<tr style="height: 70px; font-size: 25px; text-align: center;">
@@ -127,7 +129,7 @@
 									<button style="width: 40px; height:40px; border-style: solid; border-color: #585858; border-width: 1px; color: white;" id="searchMaxPage">>></button>
 
 								</div>
-						<div style="height: 45px;"></div>
+						<div style="height: 40px;"></div>
 						<div style="height: 40px;">
 						<form action="${ pageContext.servletContext.contextPath }/board/search" method="get">
 							<table style="margin: auto;">

@@ -11,24 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cctv.peoplay.board.model.dto.BoardAndMemberDTO;
 import com.cctv.peoplay.board.model.dto.BoardDTO;
 import com.cctv.peoplay.board.model.dto.BoardReplyDTO;
 import com.cctv.peoplay.board.model.dto.ReplyOfDTO;
 import com.cctv.peoplay.board.model.dto.ReportAndReportPlaceDTO;
-import com.cctv.peoplay.board.model.dto.ReportDTO;
 import com.cctv.peoplay.board.model.service.BoardService;
 import com.cctv.peoplay.board.page.PageDTO;
 import com.cctv.peoplay.board.page.Pagenation;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/board/*")
@@ -374,12 +367,13 @@ public class BoardController {
 	 int userNo = Integer.valueOf(request.getParameter("userNo"));
 	 int reportedPerson= Integer.valueOf(request.getParameter("reportedPerson"));
 	 
+	 
 	 HashMap<String, Object> replyReportMap = new HashMap<>();
 	 replyReportMap.put("replyNo", replyNo);
 	 replyReportMap.put("reportReason", reportReason);
 	 replyReportMap.put("userNo", userNo);
 	 replyReportMap.put("reportedPerson", reportedPerson);
-
+	 replyReportMap.put("boardNo",boardNo);
 	 
 	 service.insertReplyRepot(replyReportMap);
 	 
@@ -402,6 +396,7 @@ public class BoardController {
 	 replyOfReportMap.put("reportReason", reportReason);
 	 replyOfReportMap.put("userNo", userNo);
 	 replyOfReportMap.put("reportedPerson", reportedPerson);
+	 replyOfReportMap.put("boardNo", boardNo);
 	 
 	 service.insertReplyOfReport(replyOfReportMap);
 	

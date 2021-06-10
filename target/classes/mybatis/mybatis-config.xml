@@ -40,7 +40,6 @@
  		<typeAlias alias="AdminGoodsAndDetailFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO"/>
  		<typeAlias alias="AdminGoodsAndFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO"/>
  		<typeAlias alias="AdminGoodsDetailFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsDetailFileDTO"/>
- 		<typeAlias alias="MemberDTO3" type="com.cctv.peoplay.admin.goods.model.dto.MemberDTO"/>
  		<typeAlias alias="AdminGoodsLikeDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsLikeDTO"/>
  		<typeAlias alias="AdminGoodsFileDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsFileDTO"/>
  		<typeAlias alias="AdminPaymentDTO" type="com.cctv.peoplay.admin.goods.model.dto.PaymentDTO"/>

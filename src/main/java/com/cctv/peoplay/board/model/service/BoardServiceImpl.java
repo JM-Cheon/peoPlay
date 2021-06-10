@@ -192,6 +192,93 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+	@Override
+	public List<ReportAndReportPlaceDTO> selectReportList(int no) {
+		return mapper.selectReportList(no);
+	}
+
+
+	@Override
+	public int updateUserReportCount(int reportedPersonNo) {
+		return mapper.updateUserReportCount(reportedPersonNo);
+	}
+
+
+	@Override
+	public int updateBoardReportStatus(int placeNo) {
+		return mapper.updateBoardReportStatus(placeNo);
+	}
+
+
+	@Override
+	public int selectReportCount(int reportedPersonNo) {
+		return mapper.selectReportCount(reportedPersonNo);
+	}
+
+
+	@Override
+	public int userBlack(int reportedPersonNo) {
+		return mapper.userBlack(reportedPersonNo);
+	}
+
+
+	@Override
+	public int updateReplyReportStatus(int placeNo) {
+		return mapper.updateReplyReportStatus(placeNo);
+	}
+
+
+	@Override
+	public int updateReplyOfReportStatus(int placeNo) {
+		return mapper.updateReplyOfReportStatus(placeNo);
+	}
+
+
+	@Override
+	public int cancleBoardReportStatus(int placeNo) {
+		return mapper.cancleBoardReportStatus(placeNo);
+	}
+
+
+	@Override
+	public int resetReportCount(int placeNo) {
+		return mapper.resetReportCount(placeNo);
+	}
+
+
+	@Override
+	public int cancleReplyOfReportStatus(int placeNo) {
+		return mapper.cancleReplyOfReportStatus(placeNo);
+	}
+
+
+	@Override
+	public int resetReplyReportCount(int placeNo) {
+		return mapper.resetReplyReportCount(placeNo);
+
+	}
+
+
+	@Override
+	public int cancleReplyReportStatus(int placeNo) {
+		return mapper.cancleReplyReportStatus(placeNo);
+
+	}
+
+
+	@Override
+	public int resetReplyOfReportCount(int placeNo) {
+		return mapper.resetReplyOfReportCount(placeNo);
+
+	}
+
+
+
+
+
+
+
+
 	
 
 	

@@ -3,8 +3,6 @@ package com.cctv.peoplay.board.model.service;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.cctv.peoplay.board.model.dto.BoardAndMemberDTO;
 import com.cctv.peoplay.board.model.dto.BoardDTO;
 import com.cctv.peoplay.board.model.dto.BoardReplyDTO;
@@ -67,6 +65,34 @@ public interface BoardService {
 	int insertReplyOfReport(HashMap<String, Object> replyOfReportMap);
 
 	int increaceReplyOfReportCount(int replyOfNo);
+
+	List<ReportAndReportPlaceDTO> selectReportList(int no);
+
+	int updateUserReportCount(int reportedPersonNo);
+
+	int updateBoardReportStatus(int placeNo);
+
+	int selectReportCount(int reportedPersonNo);
+
+	int userBlack(int reportedPersonNo);
+
+	int updateReplyReportStatus(int placeNo);
+
+	int updateReplyOfReportStatus(int placeNo);
+
+	int cancleBoardReportStatus(int placeNo);
+
+	int resetReportCount(int placeNo);
+
+	int cancleReplyOfReportStatus(int placeNo);
+
+	int resetReplyReportCount(int placeNo);
+
+	int cancleReplyReportStatus(int placeNo);
+
+	int resetReplyOfReportCount(int placeNo);
+
+
 
 
 	
