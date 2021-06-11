@@ -488,6 +488,7 @@ SELECT
     , A.REPORT_PLACE_CODE
     , A.REPORTED_PERSON
     , A.REF_BOARD_NO
+    , A.REF_GOODS_NO
       FROM USER_REPORT A
       JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
       JOIN USER_INFO C ON (A.REPORTED_PERSON = C.USER_NO)
@@ -599,4 +600,26 @@ UPDATE
 	 WHERE A.POST_NO = #{placeNo}
 </update>
 
+<update id="cancleGoodsReportStatus" parameterType="_int">
+UPDATE
+		  USER_REPORT A
+	   SET A.REPORT_STATUS = '신고취소'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 2
+</update>
+
+	<delete id="deleteGoods" parameterType="_int">
+	    DELETE 
+          FROM TBL_GOODS_REVIEW
+         WHERE GOODS_REVIEW_NUM = #{placeNo}
+	</delete>
+
+<update id="updateGoodsReportStatus" parameterType="_int">
+	UPDATE
+		   USER_REPORT A
+	   SET A.REPORT_STATUS = '신고완료'
+	 WHERE A.REPORT_PLACE_NO = #{placeNo}
+	 AND A.REPORT_PLACE_CODE= 2
+
+</update>
 </mapper>

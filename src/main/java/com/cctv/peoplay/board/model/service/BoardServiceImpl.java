@@ -273,6 +273,26 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+	@Override
+	public int cancleGoodsReportStatus(int placeNo) {
+		return mapper.cancleGoodsReportStatus(placeNo);
+	}
+
+
+	@Override
+	public int deleteGoods(int placeNo) {
+		// TODO Auto-generated method stub
+		return mapper.deleteGoods(placeNo);
+	}
+
+
+	@Override
+	public int updateGoodsReportStatus(int placeNo) {
+		// TODO Auto-generated method stub
+		return mapper.updateGoodsReportStatus(placeNo);
+	}
+
+
 
 
 

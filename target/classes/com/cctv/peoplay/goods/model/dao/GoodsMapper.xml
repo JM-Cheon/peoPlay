@@ -40,6 +40,11 @@
 		</association>
 	</resultMap>
 	
+	
+	
+	
+	
+	
 	<select id="selectAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
 		SELECT
 	       C.GOODS_NUMBER
@@ -937,17 +942,28 @@
 	</update>
 	
 	<insert id="reportReply" parameterType="hashmap">
-		INSERT INTO USER_REPORT
-			(
-			  REPORT_NO, USER_NO, REPORT_REASON
-			, OTHER_REASON, REPORT_DATE, REPORT_STATUS
-			, REPORTED_PERSON, REPORT_PLACE_NO, REPORT_PLACE_CODE
-			)
-			VALUES
-			(
-			  SEQ_REPORT_NO.NEXTVAL, #{userNo}, #{reportReason}, '', SYSDATE, DEFAULT, #{reportedPerson}, #{reportReplyNo}, 1
-			)
-	</insert>
+      INSERT INTO USER_REPORT
+         (
+           REPORT_NO
+         , USER_NO
+         , REPORT_REASON
+         , REPORTED_PERSON
+         , REPORT_PLACE_NO
+         , REPORT_PLACE_CODE
+         , REF_GOODS_NO
+         )
+         VALUES
+         (
+           SEQ_REPORT_NO.NEXTVAL
+            , #{userNo}
+            , #{reportReason}
+            , #{reportedPerson}
+            , #{reportReplyNo}
+            , 2
+            , #{placeNo}
+         )
+   </insert>
+
 	
 	<resultMap id="selectInquiryReplyResultMap"  type="GoodsInquiryReplyDTO" >
 		<id property="goodsreplyNo" column="GOODS_REPLY_NO"/>

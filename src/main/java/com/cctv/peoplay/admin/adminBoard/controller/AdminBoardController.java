@@ -134,9 +134,9 @@ public class AdminBoardController {
 			}
 		}
 		if (no ==2) {
-			service.updateUserReportCount(reportedPersonNo);
-			service.deleteBoard(placeNo);
-			service.updateBoardReportStatus(placeNo);
+			
+			service.deleteGoods(placeNo);
+			service.updateGoodsReportStatus(placeNo);
 			int userReportCount = service.selectReportCount(reportedPersonNo);
 				if(userReportCount >4) {
 				service.userBlack(reportedPersonNo);
@@ -165,7 +165,7 @@ public class AdminBoardController {
 		}
 		
 	 
-		return "redirect:/admin/adminBoard/reportList";
+		return "redirect:/admin/adminBoard/selectReportList?no="+no;
  }
  
  
@@ -180,8 +180,7 @@ public class AdminBoardController {
 			service.resetReportCount(placeNo);
 			}
 		if (no ==2) {
-			service.cancleBoardReportStatus(placeNo);
-			service.resetReportCount(placeNo);
+			service.cancleGoodsReportStatus(placeNo);
 			}
 		
 		if (no ==3) {

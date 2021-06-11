@@ -132,6 +132,15 @@ public interface BoardMapper {
 //	대댓글 신고 카운트 초기화
 	int resetReplyOfReportCount(int placeNo);
 
+//	굳즈 댓글 상태 변경
+	int cancleGoodsReportStatus(int placeNo);
+
+//	굳즈 삭제
+	int deleteGoods(int placeNo);
+
+//	신고 상태 변경 (굳즈)
+	int updateGoodsReportStatus(int placeNo);
+
 
 
 	

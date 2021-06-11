@@ -102,7 +102,7 @@
                     
                     <c:when test="${requestScope.no eq 2}">
                        <tr class="reportContent" id="listArea">
-                        	<td style="display: none;" ><c:out value="${list.placeNo }"/> </td>
+                        	<td style="display: none;" ><c:out value="${list.refGoodsNo }"/> </td>
                         	<td style="width: 220px; height: 30px; "><c:out value="${list.no }"/></td>
                             <td style="width: 220px; height: 30px;" ><c:out value="${list.reason }"/></td>
                             <td style="width: 220px; height: 30px;" ><c:out value="${list.reportPlaceDTO.name }"/>-<c:out value="${list.placeNo }"/>  </td>
@@ -219,7 +219,7 @@
     			$(this).parent().css("background", "#2C2C2C");
     		}).click(function(){
     			const no = $(this).parent().children(":eq(0)").text();
-    			location.href = "${ pageContext.servletContext.contextPath }/board/detail?no=" + no;
+    			location.href = "${ pageContext.servletContext.contextPath }/goods/"+no;
     		})
     	});
     	

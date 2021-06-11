@@ -640,7 +640,8 @@ public class GoodsController {
 		 		reportReply.put("placeNo", placeNo);
 		 		reportReply.put("reportReplyNo", reportReplyNo);
 		 		reportReply.put("userNo", userNo);
-		 
+		 		
+		 		
 		 int replyReport = goodsService.reportReply(reportReply);
 		
 		 return "redirect:/goods/" + placeNo;

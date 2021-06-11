@@ -92,6 +92,12 @@ public interface BoardService {
 
 	int resetReplyOfReportCount(int placeNo);
 
+	int cancleGoodsReportStatus(int placeNo);
+
+	int deleteGoods(int placeNo);
+
+	int updateGoodsReportStatus(int placeNo);
+
 
 
 
