@@ -133,6 +133,15 @@ public class AdminBoardController {
 				service.userBlack(reportedPersonNo);
 			}
 		}
+		if (no ==2) {
+			service.updateUserReportCount(reportedPersonNo);
+			service.deleteBoard(placeNo);
+			service.updateBoardReportStatus(placeNo);
+			int userReportCount = service.selectReportCount(reportedPersonNo);
+				if(userReportCount >4) {
+				service.userBlack(reportedPersonNo);
+			}
+		}
 		if(no==3) {
 			service.updateUserReportCount(reportedPersonNo);
 			service.deleteReply(placeNo);
@@ -170,6 +179,11 @@ public class AdminBoardController {
 			service.cancleBoardReportStatus(placeNo);
 			service.resetReportCount(placeNo);
 			}
+		if (no ==2) {
+			service.cancleBoardReportStatus(placeNo);
+			service.resetReportCount(placeNo);
+			}
+		
 		if (no ==3) {
 			service.cancleReplyOfReportStatus(placeNo);
 			service.resetReplyReportCount(placeNo);
