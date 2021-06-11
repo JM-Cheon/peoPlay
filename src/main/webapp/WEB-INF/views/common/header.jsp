@@ -32,7 +32,7 @@
 	        </div>
     	</c:if>
     	<c:if test="${ !empty sessionScope.loginMember }">
-	    	<c:if test="${ sessionScope.loginMember.userRole eq 'MEMBER' }">
+	    	<c:if test="${ sessionScope.loginMember.userRole eq 'MEMBER' || sessionScope.loginMember.userRole eq 'BLACK' }">
 		        <div class="afterLogin">
 		        	<ul>
 		        		<li><a href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
