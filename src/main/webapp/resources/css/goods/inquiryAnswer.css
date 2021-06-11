@@ -1,0 +1,100 @@
+@charset "UTF-8";
+#wrapper{
+    margin: 0px auto;
+    text-align: center;
+    width: 1100px;
+}
+.headerPayment{
+    height: 50px;
+    font-weight: 600;
+    font-size: 16pt;
+    color : green;
+}
+.searchingDiv{
+    height: 50px;
+}
+.searhchingBtn {
+    color: white;
+    background-color: #008916;
+    height: 30px;
+    width: 70px;
+    border-radius: 10px;
+}
+.listDiv{
+    height: auto;
+    margin: auto 0px;
+}
+.tab_list{
+    width: 1100px;
+}
+.goodsNo{
+    width: 60px;
+    height: 40px;
+}
+.goodsName{
+    width: 150px;
+}
+.goodsPrice{
+    width: 450px;
+}
+.orderQuantities{
+    width: 150px;
+}
+.totalPrice{
+    width: 150px;
+}
+.p-board-paging ul {
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+}
+.p-board-paging ul::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.p-board-paging ul li {
+	float: left;
+}
+.p-board-paging ul li+li {
+	margin-left: -2px;
+}
+.p-board-paging ul li button {
+	width: 36px;
+	height: 36px;
+	color: #fff;
+	border: 1px solid #008916;
+	background-color: #008916;
+}
+.p-board-paging ul li button:hover {
+	color: #181818;
+	background-color: #fff;
+}
+.thead{
+	background-color: #008916;
+	color: white;
+}
+.textareareply{
+	    height: 225px;
+    width: 520px;
+    resize: none;
+    position: relative;
+    left: 179px;
+}
+.replyHeader{
+    height: 100px;
+    width: auto;
+    text-align: center;
+    position: relative;
+    top: 28px;
+    font-size: 25pt;
+    font-weight: 800
+}
+.btninquiry{
+	width: 200px;
+    border-radius: 15px;
+    position: relative;
+    left: 337px;
+	
+}

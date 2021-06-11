@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,8 +45,7 @@
                         </tr>
                         <tr >
                             <td class="order_table_title" >배송지 정보 : </td>
-                            <td class="order_table_sub_title">${requestScope.selectDeliveryInfo.userNo.userAddress }</td>
-                        </tr>
+                            <td class="order_table_sub_title">${ fn:split(requestScope.selectDeliveryInfo.userNo.userAddress, '$')[1] }</td>
                         <tr>
 							<td></td>
                             <td class="order_table_sub_title">${requestScope.selectDeliveryInfo.userNo.userName } </td>
@@ -65,7 +65,7 @@
                 <div class="order_list2">
                     <table class="order_table">
                         <tr>
-                            <td rowspan="3" class="order_tab_img_td"><img src="../front/imgsample/재활용.PNG" alt="" class="order_tab_img"></td>
+                            <td rowspan="3" class="order_tab_img_td"><img src="/peoplay/resources/images/goods/goodsImageFiles/${requestScope.goodsAndFile.goodsFile[0].fileSaveName}" alt="" class="order_tab_img"></td>
                             <td class="order_product" style="font-family: '맑은 고딕'">${requestScope.selectDeliveryInfo.goodsNum.goodsName }</td>
                         </tr>
                         <tr> 

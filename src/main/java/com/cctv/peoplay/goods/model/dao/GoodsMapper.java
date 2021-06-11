@@ -25,7 +25,7 @@ public interface GoodsMapper {
 
 	GoodsDTO selectOneGoodsInfo(int goodsNo);
 
-	List<GoodsAndFileDTO> goodsAndFile(int goodsNo);
+	GoodsAndFileDTO goodsAndFile(int goodsNo);
 
 	int insertcart(HashMap<String, Integer> cart);
 
@@ -39,7 +39,7 @@ public interface GoodsMapper {
 
 	int deleteReply(int goodsReviewNum);
 
-	List<GoodsAndDetailFileDTO> selectGoodsDetailFiles(int goodsNo);
+	GoodsAndDetailFileDTO selectGoodsDetailFiles(int goodsNo);
 
 	int insertOrder(HashMap<String, Integer> order);
 
@@ -116,6 +116,8 @@ public interface GoodsMapper {
 	List<PaymentDTO> paymentList(int orderNo);
 
 	int updateGoodsLikeCount(int goodsNo);
+
+	List<GoodsAndFileDTO> selectPopular(int goodsNum);
 
 	int updateGoodsdisLikeCount(int goodsNum);
 

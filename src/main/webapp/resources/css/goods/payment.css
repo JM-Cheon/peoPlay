@@ -72,3 +72,12 @@
 	background-color: #008916;
 	color: white;
 }
+.back{
+	    position: relative;
+    left: 465px;
+    top: 48px;
+}
+.move{
+	position: relative;
+    right: 19px;
+}

@@ -64,14 +64,6 @@
 							<td class="info_tab_sub"><fmt:formatDate var="resultDate" value="${requestScope.selectGoodsInfoByGoodsNo.goodsRegistrationDate}" pattern="yyyy-MM-dd" /> ${resultDate}</td>
 						</tr>
 						<tr>
-							<td class="info_tab_td">관련 영화 :</td>
-							<td class="info_tab_sub">${requestScope.selectGoodsInfoByGoodsNo.movieNum }</td>
-						</tr>
-						<tr>
-							<td class="info_tab_td">배송 구분 :</td>
-							<td class="info_tab_sub">${requestScope.selectGoodsInfoByGoodsNo.goodsShipmentClassifyCode.goodsShipmentClassifyName }</td>
-						</tr>
-						<tr>
 							<td class="info_tab_td">남은 재고 수량 :</td>
 							<td class="info_tab_sub">${requestScope.selectGoodsInfoByGoodsNo.goodsStock }</td>
 						</tr>

@@ -73,7 +73,7 @@ public class GoodsController {
 		int totalCountpixar = goodsService.countTotalGoods(4);
 		int totalCountwb = goodsService.countTotalGoods(5);
 		
-		int limit = 11;
+		int limit = 10;
 
 		int buttonAmount = 5;
 		
@@ -88,6 +88,9 @@ public class GoodsController {
 		List<GoodsDTO> selectghibriGoods = goodsService.selectghibriAllGoods(pageInfoGhibri);
 		List<GoodsDTO> selectpixarGoods = goodsService.selectPixarAllGoods(pageInfopixar);
 		List<GoodsDTO> selectwbGoods = goodsService.selectWbAllGoods(pageInfowb);
+		
+		
+		List<GoodsAndFileDTO> goodsAndFile = goodsService.selectPopular(1);
 		
 		List<GoodsDTO> marvelpopularList = goodsService.selectPopularGoods(1);
 		List<GoodsDTO> dcpopularList = goodsService.selectPopularGoods(2);
@@ -124,7 +127,7 @@ public class GoodsController {
 		
 		GoodsDTO selectOneGoodsInfo = goodsService.selectOneGoodsInfo(goodsNo);
 		
-		List<GoodsAndFileDTO> goodsAndFile = goodsService.goodsAndFile(goodsNo);
+		GoodsAndFileDTO goodsAndFile = goodsService.goodsAndFile(goodsNo);
 		
 		List<GoodsReviewDTO> seletReivewByGoodsNo = goodsService.seletReivewByGoodsNo(goodsNo);
 		
@@ -132,7 +135,8 @@ public class GoodsController {
 		
 		List<GoodsInqueryDTO> selectInquiryByGoodsNo = goodsService.selectInquiryByGoodsNo(goodsNo);
 		List<GoodsInquiryReplyDTO> selectInquiryReply = goodsService.selectInquiryReply(goodsNo);
-		List<GoodsAndDetailFileDTO> selectGoodsDetailFiles = goodsService.selectGoodsDetailFiles(goodsNo);
+		
+		GoodsAndDetailFileDTO selectGoodsDetailFiles = goodsService.selectGoodsDetailFiles(goodsNo);
 		
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 		
@@ -199,9 +203,9 @@ public class GoodsController {
 		model.addAttribute("selectInquiryByGoodsNo", selectInquiryByGoodsNo);
 		
 		/* 선택한 굿즈 이미지 파일을 가져오기 */
-		model.addAttribute("goodsAndFile", goodsAndFile.get(0));
+		model.addAttribute("goodsAndFile", goodsAndFile);
 		
-		model.addAttribute("selectGoodsDetailFiles", selectGoodsDetailFiles.get(0));
+		model.addAttribute("selectGoodsDetailFiles", selectGoodsDetailFiles);
 		
 		/* 선택한 굿즈에 대한 정보 조회 */
 		model.addAttribute("selectOneGoodsInfo", selectOneGoodsInfo);
@@ -323,7 +327,7 @@ public class GoodsController {
 			order.put("count", count);
 			
 			OrderDTO doubleCheckOrder = goodsService.doubleCheckOrder(order);
-			List<GoodsAndFileDTO> goodsAndFile = goodsService.goodsAndFile(goodsNum);
+			GoodsAndFileDTO goodsAndFile = goodsService.goodsAndFile(goodsNum);
 			
 			if(doubleCheckOrder == null) {
 				
@@ -347,7 +351,7 @@ public class GoodsController {
 			int totalPrice = amount * price;
 			
 			/* 선택한 굿즈 이미지 파일을 가져오기 */
-			model.addAttribute("goodsAndFile", goodsAndFile.get(0));
+			model.addAttribute("goodsAndFile", goodsAndFile);
 			model.addAttribute("totalPrice", totalPrice);
 			model.addAttribute("vat", vat);
 
@@ -366,8 +370,7 @@ public class GoodsController {
 			order.put("count", count);
 			
 			OrderDTO doubleCheckOrder = goodsService.doubleCheckOrder(order);
-			List<GoodsAndFileDTO> goodsAndFile = goodsService.goodsAndFile(goodsNum);
-
+			GoodsAndFileDTO goodsAndFile = goodsService.goodsAndFile(goodsNum);
 			if(doubleCheckOrder == null) {
 				
 				int insertOrder = goodsService.insertOrder(order);
@@ -387,7 +390,7 @@ public class GoodsController {
 			int totalPrice = amount * price;
 			
 			/* 선택한 굿즈 이미지 파일을 가져오기 */
-			model.addAttribute("goodsAndFile", goodsAndFile.get(0));
+			model.addAttribute("goodsAndFile", goodsAndFile);
 			model.addAttribute("totalPrice", totalPrice);
 			
 			return "goods/goodsorder";
@@ -533,6 +536,8 @@ public class GoodsController {
 //			delivery.setUserNo(mem);
 			MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 
+			GoodsAndFileDTO goodsAndFile = goodsService.goodsAndFile(goodsNum);
+			model.addAttribute("goodsAndFile", goodsAndFile);
 			
 			HashMap<String, Object> delivery2 = new HashMap<>();
 			delivery2.put("orderNo", orderNo);
@@ -637,7 +642,7 @@ public class GoodsController {
 	 		 HashMap<String, Object> reportReply = new HashMap<>();
 		 		reportReply.put("reportReason", reportReason);
 		 		reportReply.put("reportedPerson", reportedPerson);
-		 		reportReply.put("placeNo", placeNo);
+		 		reportReply.put("goodsNo", placeNo);
 		 		reportReply.put("reportReplyNo", reportReplyNo);
 		 		reportReply.put("userNo", userNo);
 		 
@@ -650,29 +655,26 @@ public class GoodsController {
 		public String cancelOrder(Model model, HttpServletRequest request, ModelAndView mv,
 				@RequestParam("orderNum") int orderNum, @RequestParam("goodsNo") int goodsNo) {
 	 		
-	 		/* sessionScope에서 가져오기 */
-	 		int num = 4;
-	 		
 	 		/* 주문 취소 */
 	 		int cancelOrder = goodsService.cancelOrder(orderNum);
-	 		
+	 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 	 		/* 장바구니에서 삭제 */
 	 		HashMap<String, Integer> deletewish = new HashMap<String, Integer>();
 	 		deletewish.put("orderNum", orderNum);
 	 		deletewish.put("goodsNo", goodsNo);
-	 		deletewish.put("userNo", num);
+	 		deletewish.put("userNo", loginMember.getUserNo());
 	 		
 	 		int deleteWishlist = goodsService.deleteWishlist(deletewish);
 	 		
 	 		HashMap<String, Integer> order = new HashMap<>();
-			order.put("userNo", num);
+			order.put("userNo", loginMember.getUserNo());
 			order.put("goodsNo", goodsNo);
 			
 //			OrderDTO OrderList = goodsService.selectOrderList(order);
 			
 			HashMap<String, Integer> cartListMap = new HashMap<>();
 			cartListMap.put("goodsNum", goodsNo);
-			cartListMap.put("userNum", num);
+			cartListMap.put("userNum", loginMember.getUserNo());
 
 			List<GoodsCartDTO> cartList = goodsService.cartList(cartListMap);
 			mv.addObject("cartList", cartList);

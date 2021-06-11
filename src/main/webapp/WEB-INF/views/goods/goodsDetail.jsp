@@ -22,7 +22,7 @@
 	<br>
 	<br>
 	<br>
-		<div id="wrapper" style="height: 5500px;">
+		<div id="wrapper" style="height: 3800px;">
 		<section id="sec1">
 			<div class="sec1_1">
 				<div class="img_div">
@@ -111,7 +111,7 @@
 		<section id="sec3">
 			<div>
 				<c:forEach var="goodsDetailFile"
-					items="${ selectGoodsDetailFiles.detailFiles}">
+					items="${ requestScope.selectGoodsDetailFiles.detailFiles}">
 					<img class="detailImg" alt=""
 						src="/peoplay/resources/images/goods/goodsDetailFiles2/${goodsDetailFile.detailFileSaveName}">
 				</c:forEach>
@@ -156,6 +156,7 @@
 				        <input type="hidden" id="reportedPerson" name="reportedPerson">
 				        <input type="hidden" id="placeNo" name="placeNo" value="${requestScope.selectOneGoodsInfo.goodsNum }">
 				        <input type="hidden" id="reportReplyNo" name="reportReplyNo" >
+				        <input type="hidden" name="goodsNoReport" value="" >
 				        </form> 
 				      </div>
 				    </div>
@@ -1000,7 +1001,7 @@ $(document).on('click', '#btnDeleteReply', function() {
 		  
 		  $("#count").text(inputLength);
 		  
-		  var replyRemain = 100 - inputLength;
+		  var replyRemain = 50 - inputLength;
 		  
 		  if(replyRemain >= 0) {
 			  
@@ -1034,12 +1035,12 @@ $(document).on('click', '#btnDeleteReply', function() {
 			  
                $("#count2").parent().css("color","black");
                
-               const target = document.getElementById('repliedbtn');
+               const target = document.getElementById('inquirybtn');
                target.disabled = false;
            }else{
                $("#count2").parent().css("color","red");
                
-               const target = document.getElementById('repliedbtn');
+               const target = document.getElementById('inquirybtn');
                target.disabled = true;
                
             }

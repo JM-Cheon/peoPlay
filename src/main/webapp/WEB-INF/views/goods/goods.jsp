@@ -51,8 +51,7 @@
 			<div class="space"></div>
 			<div class="everyday_contents">
 				<div class="marvel on">
-					<c:forEach var="marvelpopularList"
-						items="${ requestScope.marvelpopularList }">
+					<c:forEach var="marvelpopularList"	items="${ requestScope.marvelpopularList }">
 						<div class="div_pic">
 							<button type="button"
 								onclick="buyGoods(${ marvelpopularList.goodsNum },'${marvelpopularList.goodsStatus }')">
@@ -148,7 +147,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="newgoods_contents">
+			 <div class="newgoods_contents">
 				<div class="marvel2 on">
 					<c:forEach var="selectAllGoods"
 						items="${ requestScope.selectAllGoods }">
@@ -166,7 +165,7 @@
 							</div>
 						</c:if>
 					</c:forEach>
-					<div class="marvel2 on p-board-paging" align="center" style="width: 350px; position: relative; bottom: 38px;left: 410px;">
+					<article class="marvel2 on p-board-paging" align="center" style="width: 350px; position: relative; bottom: -14px;left: 394px;">
 					<ul>
 					<c:choose>
 						<c:when test="${ !empty requestScope.searchValue }">
@@ -269,7 +268,7 @@
 						</c:otherwise>
 					</c:choose>
 					</ul>
-				</div>
+				</article>
 				</div>
 				
 				
@@ -346,7 +345,7 @@
 				</div>
 			</div>
 		</section>
-	</div>
+	</div> 
 
 	<script>
 		/* 상품을 눌렀을 때 */
@@ -364,7 +363,6 @@
 			} else if (goodsStatus == 'N') {
 				alert("해당 상품은 현재 준비 중에 있습니다.");
 
-				location.href = "${ pageContext.servletContext.contextPath }/main";
 			}
 
 		}

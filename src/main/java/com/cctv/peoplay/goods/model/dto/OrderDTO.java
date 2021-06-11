@@ -1,6 +1,6 @@
 package com.cctv.peoplay.goods.model.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 
 public class OrderDTO {
@@ -8,7 +8,7 @@ public class OrderDTO {
 	private int orderNo;
 	private GoodsDTO goodsNo;
 	private MemberDTO userNo;
-	private java.sql.Date orderDate;
+	private java.util.Date orderDate;
 	private int orderCount;
 	private String orderCancelOrNot;
 	private String paidOrNot;
@@ -62,7 +62,7 @@ public class OrderDTO {
 		return orderDate;
 	}
 
-	public void setOrderDate(java.sql.Date orderDate) {
+	public void setOrderDate(java.util.Date orderDate) {
 		this.orderDate = orderDate;
 	}
 

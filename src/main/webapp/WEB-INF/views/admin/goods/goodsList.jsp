@@ -18,7 +18,7 @@
        
 <h2 class="head">굿즈 관리</h2>
 	<div class="adminBtn"> 
-		  <!-- <button id="adminStock" class="adminStock">재고관리</button>  -->
+		  <button id="adminStock" class="adminStock">상품 문의 답변</button>  
 		  <button id="adminPayment" class="adminPayment">결제관리</button> 
 		  <button id="adminDelivery" class="adminDelivery">배송관리</button>
 	 </div>
@@ -184,10 +184,10 @@ $('#adminDelivery').on("click",function() {
 	 
  });
  
- /* 재고관리 */
+ /* 상품 문의 답글 */
 $('#adminStock').on("click",function() {
 	 
-	 location.href = "${ pageContext.servletContext.contextPath }/admin/goods/Stock";
+	 location.href = "${ pageContext.servletContext.contextPath }/admin/goods/InquiryAnswer";
 	 
  });
  

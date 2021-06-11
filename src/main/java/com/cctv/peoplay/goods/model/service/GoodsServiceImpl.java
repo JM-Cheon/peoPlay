@@ -54,7 +54,7 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	/* 선택한 굿즈(일반 굿즈) 사진 첨부파일 불러오기 */
 	@Override
-	public List<GoodsAndFileDTO> goodsAndFile(int goodsNo) {
+	public GoodsAndFileDTO goodsAndFile(int goodsNo) {
 		
 		return goodsMapper.goodsAndFile(goodsNo);
 	}
@@ -90,7 +90,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<GoodsAndDetailFileDTO> selectGoodsDetailFiles(int goodsNo) {
+	public GoodsAndDetailFileDTO selectGoodsDetailFiles(int goodsNo) {
 		return goodsMapper.selectGoodsDetailFiles(goodsNo);
 	}
 
@@ -280,6 +280,12 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public int updateGoodsdisLikeCount(int goodsNum) {
 		return goodsMapper.updateGoodsdisLikeCount(goodsNum);
+	}
+
+	@Override
+	public List<GoodsAndFileDTO> selectPopular(int i) {
+		return goodsMapper.selectPopular(i);
+
 	}
 
 

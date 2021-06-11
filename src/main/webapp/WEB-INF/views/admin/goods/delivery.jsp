@@ -21,10 +21,10 @@
     <br><br><br><br><br><br>
     <div id="wrapper">
         <div class="headerPayment">
-                 배송 관리
+                 배송 관리 <button  type="button" class="searhchingBtn back" id="gobackAdmin">뒤로가기</button>
         </div>
         <div class="searchingDiv">
-            <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/DeliverySearch" method="post" class="searchingForm">
+            <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/DeliverySearch" method="post" class="searchingForm move">
                 <div class="search-area" align="center" style="position: relative; left: 300px;">
                     <select id="searchCondition" name="searchCondition">
                         <option value="deliveryStatus">배송상태</option>

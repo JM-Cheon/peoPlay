@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <script
@@ -11,6 +12,7 @@
 	<link rel="stylesheet" href="/peoplay/resources/css/goods/goodsOrder.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
+	
     <style>
     </style>
 </head>
@@ -34,8 +36,7 @@
                             </div>
                             <div class="spaceInfo">전화번호 : ${ orderInfo.userNo.phone}
                             </div>
-                            <div class="spaceInfo"> 배송지 : ${ orderInfo.userNo.userAddress}
-                            
+                            <div class="spaceInfo"> 배송지 : ${ fn:split(orderInfo.userNo.userAddress, '$')[1]}
                             </div>
                         </div>
                 </fieldset>
@@ -54,7 +55,6 @@
                         </div>
                         <div class="orderTotalPrice"> <p class="priceTag" id="subReTotalPrice">가격 : ${totalPrice }원 </p>
                         </div>
-                            <!-- <div>배송비 : 2천5백만원</div> -->
                     </fieldset>
             </article>
             <br>
@@ -65,7 +65,7 @@
                 <div class="mainText payment">결제수단</div>
                 <fieldset class="fd_All paymentway">
                     <div align="center" class="div_kakao">
-                    <img alt="" src="/peoplay/resources/images/카카오사진.PNG" class="img_kakako">
+                    <img alt="" src="/peoplay/resources/images/goods/카카오사진.PNG" class="img_kakako">
                     </div>
                 </fieldset>
             </article>
