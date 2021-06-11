@@ -110,7 +110,9 @@ height: 180px;
 	font-size: 15pt;
 	position: relative;
 	left: 10px;
-	line-height: 13px;
+	font-family: '맑은 고딕';
+    height: 100px;
+    line-height: 40px
 }
 
 .order_product_price {

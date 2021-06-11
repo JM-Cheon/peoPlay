@@ -100,6 +100,7 @@
 					  FROM TBL_GOODS A
 					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 					 WHERE A.GOODS_CATEGORY_NUMBER = 1
+					   AND D.FILE_TYPE = 'head'
 				     ORDER BY A.GOODS_NUMBER ASC
 				) B
 		)C
@@ -160,6 +161,7 @@
 					  FROM TBL_GOODS A
 					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 					 WHERE A.GOODS_CATEGORY_NUMBER = 2
+					   AND D.FILE_TYPE = 'head'
 				     ORDER BY A.GOODS_NUMBER ASC
 				) B
 		)C
@@ -220,6 +222,7 @@
 					  FROM TBL_GOODS A
 					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 					 WHERE A.GOODS_CATEGORY_NUMBER = 3
+					   AND D.FILE_TYPE = 'head'
 				     ORDER BY A.GOODS_NUMBER ASC
 				) B
 		)C
@@ -280,6 +283,7 @@
 					  FROM TBL_GOODS A
 					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 					 WHERE A.GOODS_CATEGORY_NUMBER = 4
+					   AND D.FILE_TYPE = 'head'
 				     ORDER BY A.GOODS_NUMBER ASC
 				) B
 		)C
@@ -340,6 +344,7 @@
 					  FROM TBL_GOODS A
 					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 					 WHERE A.GOODS_CATEGORY_NUMBER = 5
+					   AND D.FILE_TYPE = 'head'
 				     ORDER BY A.GOODS_NUMBER ASC
 				) B
 		)C
@@ -384,7 +389,7 @@
 				   JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 				  WHERE A.GOODS_PRICE > 0
 				    AND A.GOODS_CATEGORY_NUMBER = #{num}
-
+                    AND D.FILE_TYPE = 'head'
 				  ORDER BY A.GOODS_LIKE_COUNT DESC
 		       ) B
 		 WHERE B.RNUM  BETWEEN 1 AND 4
@@ -413,16 +418,7 @@
          WHERE A.GOODS_NUMBER = #{goodsNo}
 	</select>
 	
-	<resultMap id="goodsAndFileResultMap"  type="GoodsAndFileDTO" >
-		<id property="goodsNum" column="GOODS_NUMBER"/>
-		<collection property="goodsFile" ofType="AdminGoodsFileDTO">
-			<id property="number" column="FILE_NO"/>
-			<result property="savePath" column="SAVE_PATH"/>
-			<result property="thumbnailPath" column="THUMNAIL_PATH"/>
-			<result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
-			<result property="fileSaveName" column="FILE_SAVE_NAME"/>
-		</collection>
-	</resultMap>
+
 	
 	<select id="goodsAndFile" resultMap="goodsAndFileResultMap">
 		SELECT
@@ -509,12 +505,23 @@
          WHERE GOODS_REVIEW_NUM = #{goodsReviewNum}
 	</delete>
 	
+	<resultMap id="goodsAndFileResultMap"  type="GoodsAndFileDTO" >
+		<id property="goodsNum" column="GOODS_NUMBER"/>
+		<collection property="goodsFile" ofType="GoodsFileDTO">
+			<id property="number" column="FILE_NO"/>
+			<result property="savePath" column="SAVE_PATH"/>
+			<result property="thumbnailPath" column="THUMNAIL_PATH"/>
+			<result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+			<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+		</collection>
+	</resultMap>
+	
 	<resultMap id="goodsDetailFileResultMap"  type="GoodsAndDetailFileDTO" >
 		<id property="goodsNum" column="GOODS_NUMBER"/>
-		<collection property="detailFiles" ofType="AdminGoodsDetailFileDTO">
+		<collection property="detailFiles" ofType="GoodsDetailFileDTO">
 			<id property="detailFileNo" column="DETAIL_FILE_NO"/>
 			<result property="detailSavePath" column="DETAIL_SAVE_PATH"/>
-			<result property="detailThumbnailPath" column="DETAIL_THUMNAIL_PATH"/>
+			<result property="detailThumbnailPath" column="DETAIL_THUMBNAIL_PATH"/>
 			<result property="detailFileOriginName" column="DETAIL_FILE_ORGIN_NAME"/>
 			<result property="detailFileSaveName" column="DETAIL_FILE_SAVE_NAME"/>
 		</collection>
@@ -531,6 +538,7 @@
 		  FROM TBL_GOODS A
 		  JOIN TBL_GOODS_DETAIL_FILE B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
 		 WHERE A.GOODS_NUMBER = #{goodsNo}
+		   AND B.DETAIL_FILE_TYPE = 'body'
 	</select>
 	<insert id="insertOrder" parameterType="hashmap">
 		INSERT 
@@ -794,7 +802,6 @@
 	      JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
           JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
 	     WHERE C.GOODS_NUMBER = #{goodsNo}
-	       AND GOODS_INQUIRY_YN = 'N'
 	     ORDER BY A.GOODS_INQUIRY_NO DESC
 	</select>
 	
@@ -1034,6 +1041,33 @@
 		   SET A.GOODS_LIKE_COUNT = A.GOODS_LIKE_COUNT - 1
 	     WHERE A.GOODS_NUMBER = #{goodsNum}
 	</update>
+	
+	
+	<resultMap id="goodsAndFileResultMap2"  type="GoodsAndFileDTO" >
+		<id property="goodsNum" column="GOODS_NUMBER"/>
+		<collection property="goodsFile" ofType="AdminGoodsFileDTO">
+			<id property="number" column="FILE_NO"/>
+			<result property="savePath" column="SAVE_PATH"/>
+			<result property="thumbnailPath" column="THUMNAIL_PATH"/>
+			<result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+			<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectPopular" resultMap="goodsAndFileResultMap2">
+		SELECT
+		       A.GOODS_NUMBER
+		     , B.FILE_NO
+		     , B.SAVE_PATH
+		     , B.THUMNAIL_PATH
+		     , B.FILE_ORIGIN_NAME
+		     , B.FILE_SAVE_NAME
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_FILE B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+        WHERE A.GOODS_CATEGORY_NUMBER = #{goodsNum}
+	</select>
+	
+	
 </mapper>
 
 

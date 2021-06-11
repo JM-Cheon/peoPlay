@@ -185,6 +185,7 @@
 	                SEQ_TBL_GOODS.CURRVAL
 	           FROM DUAL
 	     </selectKey>
+	     <if test="distinguish == 'head'">
 		INSERT INTO TBL_GOODS_FILE
 			(
 			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
@@ -192,11 +193,28 @@
 			, FILE_TYPE, FILE_STATUS
 			)
 			VALUES
+			
+			(
+			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNum}, 
+			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
+			, 'head', 'Y'
+			)
+			</if>
+			<if test="distinguish == 'body'">
+		INSERT INTO TBL_GOODS_FILE
+			(
+			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
+			, FILE_SAVE_NAME, SAVE_PATH, THUMNAIL_PATH
+			, FILE_TYPE, FILE_STATUS
+			)
+			VALUES
+			
 			(
 			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNum}, 
 			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
 			, 'body', 'Y'
 			)
+			</if>
 	</insert>
 	<insert id="goodsDetailFiles">
 		INSERT INTO TBL_GOODS_DETAIL_FILE
@@ -277,6 +295,7 @@
 							 , D.FILE_SAVE_NAME
 						  FROM TBL_GOODS A
 						  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE D.FILE_TYPE = 'head'
 					     ORDER BY A.GOODS_NUMBER ASC
 					) B
 			)C
@@ -702,6 +721,101 @@
 		       COUNT(*)
 		  FROM TBL_GOODS_IN_AND_OUT
 	</select>
+	
+	<select id="inquiryList" resultType="int">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_GOODS_INQUIRY
+	</select>
+	
+	<resultMap id="inquiryListResultMap" type="GoodsInquiryDTO">
+		<id column="GOODS_INQUIRY_NO" property="goodsInquiryNo" />
+		<result column="GOODS_INQUIRY_CONTENT" property="goodsInquiryContent" />
+		<result column="GOODS_CREATION_DATE" property="writtenDate" />
+		<result column="GOODS_INQUIRY_YN" property="goodsInquiryYn" />
+		<association property="goodsNumber" javaType="GoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum" />
+			<result column="GOODS_NAME" property="goodsName" />
+		</association> 
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo" />
+			<result column="USER_NAME" property="userName" />
+		</association>
+		<collection property="goodsReply" ofType="GoodsInquiryReplyDTO">
+			<id column="GOODS_REPLY_NO" property="goodsreplyNo" />
+			<result column="GOODS_REPLY_CONTENT" property="goodsReplyContent"/>
+			<result column="GOODS_REPLY_CREATION_DATE" property="goodsReplyCreationDate"/>
+		</collection> 
+	</resultMap>
+	<select id="inquiryListPaging" resultMap="inquiryListResultMap" parameterType="hashmap">
+		SELECT
+               Y.GOODS_INQUIRY_NO
+             , Y.GOODS_INQUIRY_CONTENT
+             , Y.GOODS_CREATION_DATE
+             , Y.GOODS_INQUIRY_YN
+             , Y.GOODS_NAME
+             , Y.GOODS_NUMBER
+             , Y.USER_NAME
+             , Y.USER_NO
+             , Y.GOODS_REPLY_CONTENT
+		     , Y.GOODS_REPLY_CREATION_DATE
+		  FROM (
+		        SELECT
+		               ROWNUM RNUM    
+		             , X.GOODS_INQUIRY_NO
+                     , X.GOODS_INQUIRY_CONTENT
+                     , X.GOODS_CREATION_DATE
+                     , X.GOODS_INQUIRY_YN
+                     , X.GOODS_NAME
+                     , X.GOODS_NUMBER
+                     , X.USER_NAME
+                     , X.USER_NO
+                     , X.GOODS_REPLY_CONTENT
+		             , X.GOODS_REPLY_CREATION_DATE
+		          FROM (          
+		                SELECT
+		                       A.GOODS_INQUIRY_NO
+		                     , A.GOODS_INQUIRY_CONTENT
+		                     , A.GOODS_CREATION_DATE
+		                     , A.GOODS_INQUIRY_YN
+		                     , B.GOODS_NAME
+                             , B.GOODS_NUMBER
+		                     , C.USER_NAME
+		                     , C.USER_NO
+		                     , D.GOODS_REPLY_NO
+		                     , D.GOODS_REPLY_CONTENT
+		                     , D.GOODS_REPLY_CREATION_DATE
+		                  FROM TBL_GOODS_INQUIRY A
+		                  LEFT JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		                  LEFT JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+		                  LEFT JOIN TBL_GOODS_INQUIRY_REPLY D ON (A.GOODS_INQUIRY_NO = D.GOODS_INQUIRY_NO)
+		                 ORDER BY A.GOODS_INQUIRY_NO DESC
+		                ) X
+		          ) Y
+    WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	
+	</select>
+	
+	<insert id="updateInquiryAnswer" parameterType="hashmap">
+		INSERT 
+		  INTO TBL_GOODS_INQUIRY_REPLY
+        (
+          GOODS_REPLY_NO, USER_NO, GOODS_INQUIRY_NO
+        , GOODS_REPLY_CONTENT, GOODS_REPLY_CREATION_DATE
+        )
+        VALUES
+        (
+          SEQ_TBL_GOODS_INQUIRY_REPLY.NEXTVAL, #{userNo}, #{inquiryReplyNum}
+        , #{inquiryAnswer}, SYSDATE
+        )
+	</insert>
+	
+	<update id="updateYN" parameterType="_int">
+		UPDATE TBL_GOODS_INQUIRY
+		   SET GOODS_INQUIRY_YN = 'Y'
+	     WHERE GOODS_INQUIRY_NO = #{inquiryReplyNum}
+	</update>
+	
+
 </mapper>
 
 

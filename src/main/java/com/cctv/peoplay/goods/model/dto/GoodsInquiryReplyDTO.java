@@ -1,13 +1,13 @@
 package com.cctv.peoplay.goods.model.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class GoodsInquiryReplyDTO {
 
 	private int goodsreplyNo;
 	private GoodsInqueryDTO goodsinquiryNo;
 	private String goodsReplyContent;
-	private java.util.Date goodsReplyCreationDate;
+	private java.sql.Date goodsReplyCreationDate;
 	public int getGoodsreplyNo() {
 		return goodsreplyNo;
 	}
@@ -29,7 +29,7 @@ public class GoodsInquiryReplyDTO {
 	public java.util.Date getGoodsReplyCreationDate() {
 		return goodsReplyCreationDate;
 	}
-	public void setGoodsReplyCreationDate(java.util.Date goodsReplyCreationDate) {
+	public void setGoodsReplyCreationDate(java.sql.Date goodsReplyCreationDate) {
 		this.goodsReplyCreationDate = goodsReplyCreationDate;
 	}
 	@Override

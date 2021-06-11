@@ -7,8 +7,7 @@ public class PaymentDTO {
 	
 	private int paymentNo;
 	private OrderDTO orderNo;
-	
-	public PaymentDTO(int paymentNo, OrderDTO orderNo, Date paymentDate, int paymentPrice,
+	public PaymentDTO(int paymentNo, OrderDTO orderNo, MemberDTO memNo, Date paymentDate, int paymentPrice,
 			String paymentType) {
 		this.paymentNo = paymentNo;
 		this.orderNo = orderNo;

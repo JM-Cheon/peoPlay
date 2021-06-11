@@ -22,10 +22,10 @@
     <br><br><br><br><br><br>
     <div id="wrapper">
         <div class="headerPayment">
-            결제 관리
+            결제 관리  <button class="searhchingBtn back" id="gobackAdmin" onclick="location.href ='${ pageContext.servletContext.contextPath }/admin/goods';">뒤로가기</button>
         </div>
         <div class="searchingDiv">
-            <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/paymentSearch" method="post" class="searchingForm">
+            <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/paymentSearch" method="post" class="searchingForm move">
                 <div class="search-area" align="center" style="position: relative; left: 300px;">
                     <select id="searchCondition" name="searchCondition">
                         <option value="totalPrice">총 결제 금액순 검색</option>
@@ -35,6 +35,7 @@
                     <button  type="submit" class="searhchingBtn">검색하기</button>
                 </div>
             </form>
+                    
         </div>
         <div class="ListDiv">
             <table class="tab_list" >
@@ -192,6 +193,12 @@
         <jsp:include page="../../common/footer.jsp"/>
 </body>
 <script type="text/javascript">
+
+$("#gobackAdmin").click(function(){
+	console.log('dd');
+	location.href = "${ pageContext.servletContext.contextPath }/admin/goods";
+});
+
 const link = "${ pageContext.servletContext.contextPath }/admin/goods/Payment";
 const searchlink = "${ pageContext.servletContext.contextPath }/admin/goods/paymentSearch";
 		

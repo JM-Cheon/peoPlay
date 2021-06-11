@@ -30,7 +30,7 @@ public interface GoodsService {
 	GoodsDTO selectOneGoodsInfo(int goodsNo);
 
 	/* 선택한 굿즈의 파일 정보 불러오기 */
-	List<GoodsAndFileDTO> goodsAndFile(int goodsNo);
+	GoodsAndFileDTO goodsAndFile(int goodsNo);
 
 	/* 장바구니에 담기 */
 	int insertcart(HashMap<String, Integer> cart);
@@ -48,7 +48,7 @@ public interface GoodsService {
 	int deleteReply(int goodsReviewNum);
 
 	/* 굿즈 상세페이지 파일 조회 */
-	List<GoodsAndDetailFileDTO> selectGoodsDetailFiles(int goodsNo);
+	GoodsAndDetailFileDTO selectGoodsDetailFiles(int goodsNo);
 
 	/* 주문페이지 insert */
 	int insertOrder(HashMap<String, Integer> order);
@@ -157,6 +157,8 @@ public interface GoodsService {
 
 	/* 상품 좋아요 수 감소 */
 	int updateGoodsdisLikeCount(int goodsNum);
+
+	List<GoodsAndFileDTO> selectPopular(int i);
 
 
 }
