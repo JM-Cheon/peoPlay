@@ -451,6 +451,7 @@
 		                  JOIN TBL_GOODS_ORDER B ON (A.ORDER_NUM = B.ORDER_NUM)
 		                  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
 		                  JOIN TBL_GOODS D ON (B.GOODS_NUMBER = D.GOODS_NUMBER)
+		                 WHERE B.PAID_OR_NOT = 'Y'
 		                ) X
 		          ) Y
 		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow}
@@ -538,7 +539,7 @@
 		                  JOIN TBL_GOODS_ORDER B ON (A.ORDER_NUM = B.ORDER_NUM)
 		                  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
 		                  JOIN TBL_GOODS D ON (B.GOODS_NUMBER = D.GOODS_NUMBER)
-		                 WHERE A.PAYMENT_PRICE > 0
+		                 WHERE B.PAID_OR_NOT = 'Y'
 	<include refid="searchPayment"/>
 					) X
 			)Y
