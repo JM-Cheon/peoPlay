@@ -53,7 +53,6 @@ public class BoardController {
 		}
 		int totalCount= service.selectCount();
 		
-		System.out.println(totalCount);
 		
 		int limit =15;
 		
@@ -61,12 +60,10 @@ public class BoardController {
 	
 		PageDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		System.out.println(pageInfo);
 //		리스트 조회	
 		model.addAttribute("list", service.selectBoardList(pageInfo));
 		
 		model.addAttribute("pageInfo",pageInfo);
-		System.out.println(model);
 		return "board/list";
 	}
 
@@ -81,7 +78,6 @@ public class BoardController {
 	@PostMapping("insert")
 	public String boardInsert(@ModelAttribute("board") BoardDTO board) {
 
-		System.out.println(board);
 
 		if (service.insertBoard(board) > 0) {
 			return "redirect:/board/list";
@@ -121,8 +117,6 @@ public class BoardController {
 		String condition = request.getParameter("searchCondition");
 		String value = request.getParameter("searchValue");
 
-		System.out.println("condition: " + condition);
-		System.out.println("value: " + value);
 
 		HashMap<String, String> searchMap = new HashMap<>();
 		searchMap.put("searchCondition", condition);
@@ -140,7 +134,7 @@ public class BoardController {
 			}
 		}
 		int totalCount = service.selectSearchCount(searchMap);
-		System.out.println("검색 게시 가능한 게시물의 총 갯수 : " + totalCount);
+
 		int limit = 15;
 
 		int buttonAmount = 5;
@@ -153,11 +147,9 @@ public class BoardController {
 		searchListMap.put("startRow", pageInfo.getStartRow());
 		searchListMap.put("endRow", pageInfo.getEndRow());
 
-		System.out.println("컨트롤러 : " + searchListMap);
 
 		List<BoardAndMemberDTO> searchList = service.selectSearchList(searchListMap);
 
-		System.out.println("컨트롤러 : " + searchList);
 
 	
 			model.addAttribute("list", searchList);
@@ -173,7 +165,6 @@ public class BoardController {
 //	게시글 삭제
 	@GetMapping("delete")
 	public String deleteBoard (Model model, int no) {
-		System.out.println(no);
 		service.deleteBoard(no);
 		
 	return "redirect:/board/list";
@@ -183,9 +174,7 @@ public class BoardController {
 	
 	@GetMapping("report")
 	public String reportBoard(@ModelAttribute("report") ReportAndReportPlaceDTO report, int reportedPerson) {
-		System.out.println(report);
-		System.out.println(reportedPerson);
-	
+
 	service.insertReport(report) ;
 	service.increaceReportCount(report);
 	
@@ -214,7 +203,6 @@ public class BoardController {
 		service.increaceReplyCount(postNo);
 	    List<BoardReplyDTO> replylist =service.selectReply(postNo);
 	 	
-		System.out.println(replylist);
 
 		
 		model.addAttribute("reply", replylist);
@@ -257,7 +245,6 @@ public class BoardController {
 		
 		List<ReplyOfDTO> replyOfList= service.selectReplyOf(refBoardNo);
 		
-		System.out.println(replyOfList);
 		model.addAttribute("replyOf", replyOfList);
 		
 		
@@ -273,7 +260,6 @@ public class BoardController {
 		int refBoardNo = Integer.valueOf(request.getParameter("refBoardNo"));
 		
 		
-		System.out.println(refBoardNo);
 		
 		service.deleteReplyOf(replyOfNo);
 		
@@ -288,10 +274,7 @@ public class BoardController {
 		int no = Integer.valueOf(request.getParameter("no"));
 		
 		BoardAndMemberDTO board = service.modifyBoard(no);
-		
-		
-		System.out.println(board);
-		
+				
 		
 		model.addAttribute("modify",board);
 		
@@ -330,7 +313,6 @@ public class BoardController {
 		replyModifyMap.put("replyNo", replyNo);
 		replyModifyMap.put("modifyContent", modifyContent);
 		
-		System.out.println(replyModifyMap);
 		
 		service.modifyReply(replyModifyMap);
 		

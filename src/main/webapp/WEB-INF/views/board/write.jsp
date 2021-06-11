@@ -37,7 +37,7 @@
 		<div id="wrap">
 
 			<div class="title" id="board-name">자유게시판</div>
-			<form action="${ pageContext.servletContext.contextPath}/board/insert" method="post">
+			<form action="${ pageContext.servletContext.contextPath}/board/insert" method="post" id="form" name="form">
 				
 				
 				<div class="page">
@@ -45,8 +45,8 @@
 					<table>
 						<tr>
 							<td class="title-td">제목 :</td>
-							<td class="title-td-input" colspan="4">
-							<input name="title" class="title-input" type="text" placeholder="제목을 입력해주세요"
+							<td class="title-td-input" colspan="4" >
+							<input name="title" class="title-input" type="text" placeholder="제목을 입력해주세요" id="title"
 							 style="width: 600px;"></td>
 								<td class="title-category">카테고리</td>
 							<td class="select-td" style="color: black"><select
@@ -70,9 +70,9 @@
 						<table>
 							<tr>
 								<td style="width: 740px;"></td>
-								<td><button type="button" onclick="" class="cancel-button">취소</button></td>
+								<td><button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/board/list'" class="cancel-button">취소</button></td>
 								<td style="width: 60px;"></td>
-								<td><button type="submit" class="submit-button">등록</button></td>
+								<td><button type="submit" id="btnInsert" class="submit-button">등록</button></td>
 								<td></td>
 							</tr>
 						</table>
@@ -133,6 +133,33 @@
 		
 	</script>
 
+ <!-- 입력값이 없을 때   -->
+<script type="text/javascript">
+$(document).on('click', '#btnInsert', function (e) {
+	
+	if(document.getElementById("title").value == ""){
+		
+		alert("제목을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	} else if(document.getElementById("summernote").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+	}
+	else{
+		
+	$("#form").submit();
+
+	}
+	
+	  });
+
+</script>
 
 
 

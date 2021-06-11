@@ -50,7 +50,6 @@ public class AdminBoardController {
 		}
 		int totalCount= service.selectCount();
 		
-		System.out.println(totalCount);
 		
 		int limit =15;
 		
@@ -58,12 +57,10 @@ public class AdminBoardController {
 	
 		PageDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		System.out.println(pageInfo);
 //		리스트 조회	
 		model.addAttribute("list", service.selectBoardList(pageInfo));
 		
 		model.addAttribute("pageInfo",pageInfo);
-		System.out.println(model);
 		return "admin/adminBoard/list";
 	}
 	

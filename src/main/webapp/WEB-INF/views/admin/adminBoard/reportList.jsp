@@ -82,7 +82,14 @@
                         <tr class="reportContent" id="listArea">
                         	<td style="display: none;"><c:out value="${list.refBoardNo }"></c:out> </td>
                         	<td style="width: 220px; height: 30px; "><c:out value="${list.no }"/></td>
-                            <td style="width: 220px; height: 30px;" ><c:out value="${list.reason }"/></td>
+                            <td style="width: 220px; height: 30px;" >
+                             <c:if test="${list.reason eq '기타'}">
+                             	<c:out value="${list.otherReason }"/>
+                             </c:if>
+                             <c:if test="${list.reason ne '기타'}">
+                             	<c:out value="${list.reason }"/>
+                             </c:if>	
+                               </td>
                             <td style="width: 220px; height: 30px;" ><c:out value="${list.reportPlaceDTO.name }"/>-<c:out value="${list.placeNo }"/>  </td>
                             <td style="width: 220px; height: 30px;"><c:out value="${list.reportDate }"/></td>
                             <td style="width: 220px; height: 30px;"><c:out value="${list.reported.nickname }"/></td>

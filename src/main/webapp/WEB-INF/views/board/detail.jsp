@@ -130,14 +130,14 @@
                 <div style="height: 100px; background-color: #181818;"> </div>
                 
               
-               	<form action="${pageContext.servletContext.contextPath}/board/insertReply" method="get">
+               	<form action="${pageContext.servletContext.contextPath}/board/insertReply" method="get" id="insertReplyForm">
                  <input type="hidden" name="postNo" value="${requestScope.detail.no }">
       			 <input type="hidden" name="userNo" value="${sessionScope.loginMember.userNo }"/> 
       	           
                 <table id="comentList">
                     <tr>
                         <td class="comment-td">댓글</td>
-                        <td><input type="text" class="comment-input" name="content" placeholder="댓글을 입력하세요"></td>
+                        <td><input type="text" class="comment-input" name="content" id="replyInput" placeholder="댓글을 입력하세요"></td>
                         <td><button type="submit" class="btn-comment" id="comment_submit">작성</button></td>
 
                     </tr>
@@ -193,7 +193,7 @@
            	</form>
            	
            	 <!--대댓글 작성 창 -->
-           	 	<form action="${pageContext.servletContext.contextPath}/board/insertReplyOf" method="get">
+           	 	<form action="${pageContext.servletContext.contextPath}/board/insertReplyOf" method="get" id="insertReplyOfForm">
            	 	<input type="hidden" name="refNo" value="${reply.no }">
       			 <input type="hidden" name="userNo" value="${sessionScope.loginMember.userNo }"/> 
            	 	<input type="hidden" name="refBoardNo" value="${detail.no}">
@@ -202,9 +202,9 @@
            	 	
             <tr class=replyOfInput id="replyOfInput_${status.index}" style=" margin-right: 30px; height: 30px; font-size: 16px; margin-left: 30px; background-color: #2C2C2C;">
            	<td style="color: white" width="200px">댓글 작성: </td>
-           	<td><input type="text" name="replyOfContent" style="width: 700px;height: 30px;text-align: center;" placeholder="댓글을 입력해주세요"></td>
+           	<td><input type="text" name="replyOfContent" style="width: 700px;height: 30px;text-align: center;" placeholder="댓글을 입력해주세요" id="replyOfContent"></td>
            	<td width="100px"></td>
-           	<td><button style="color: white; width: 100px" type="submit" >작성</button> </td>
+           	<td><button style="color: white; width: 100px" type="submit" id="replyOfInsert" >작성</button> </td>
            	<td width="30px;"> </td>
            	<td><button style="color: white; width: 100px" id="cancleReplyOf_${status.index}" type="button" >취소</button> </td>
            	
@@ -247,7 +247,7 @@
 
 
             <!-- 댓글 수정 창 -->
-          	<form action="${pageContext.servletContext.contextPath}/board/modifyReply" method="get">
+          	<form action="${pageContext.servletContext.contextPath}/board/modifyReply" method="get" id="modifyReplyForm">
           	
           	<div style="display: none;" id="modifyArea_${status.index }">
           	
@@ -257,9 +257,9 @@
            	<table style="margin-left: 200px; font-size: 16px;">
            	<tr style="height: 30px; background-color: #2C2C2C;">
            	<td style="color: white;" width="130px"> 내용 : </td>
-           	<td  width="600px"><input type="text" name="modifyContent" value="${reply.content }" style="width: 600px;    height: 30px;"></td>
+           	<td  width="600px"><input type="text" name="modifyContent" value="${reply.content }" style="width: 600px; height: 30px; " id="modiftReplyInput"></td>
            	<td width="200px"> </td>
-           	<td><button type="submit" style="color: white; width: 100px">수정</button> </td>
+           	<td><button type="submit" style="color: white; width: 100px" id="modifyReplyBtn">수정</button> </td>
            	<td><button type="button" id="cancleModifyReplyBtn_${status.index }" style=" color: white; width: 100px" >취소</button> </td>
            	
            	</tr>
@@ -269,6 +269,8 @@
            	
            	
            	<div style="background-color: #181818;">
+           	
+           	
            	<!--대댓글 출력  -->
         	<c:forEach items="${requestScope.replyOf }" var="replyOf"> 
         	<form action="${pageContext.servletContext.contextPath}/board/deleteReplyOf" method="get">
@@ -337,7 +339,7 @@
  </form>	
           	 
           	 <!--대댓글 수정 -->
-          	 <form action="${pageContext.servletContext.contextPath}/board/modifyReplyOf" method="get">
+          	 <form action="${pageContext.servletContext.contextPath}/board/modifyReplyOf" method="get" id="modifyReplyOfForm">
           	           	          	 <c:if test="${replyOf.refRelyNo eq reply.no}">
           	 
           	<div style="display: none; " id="modifyReplyOfArea_${status.index }">
@@ -349,9 +351,9 @@
            	
            	<tr style="height: 30px; background-color: #2C2C2C;">
            	<td style="color: white;" width="130px"> 내용 : </td>
-           	<td  width="600px"><input type="text" name="modifyReplyOfContent" value="${replyOf.content }" style="width: 600px;height: 30px;"></td>
+           	<td  width="600px"><input type="text" name="modifyReplyOfContent" value="${replyOf.content }" style="width: 600px;height: 30px;" id="modifyReplyOfInput"></td>
            	<td width="200px"> </td>
-           	<td><button type="submit" style="color: white; width: 100px">수정</button> </td>
+           	<td><button type="submit" style="color: white; width: 100px" id="modifyReplyOfBtn">수정</button> </td>
            	<td><button type="button" id="cancleModifyReplyOfBtn_${status.index }" style=" color: white; width: 100px">취소</button> </td>
            	
            	</tr>
@@ -371,7 +373,7 @@
     
     
     <!--신고창 html -->
-    <form action="${pageContext.servletContext.contextPath}/board/report" method="get">
+    <form action="${pageContext.servletContext.contextPath}/board/report" method="get" id="reportForm">
     <div class="black_bg"></div>
 <div class="modal_wrap">
     <div class="modal_close"><a href="#">close</a></div>
@@ -394,7 +396,7 @@
        
         <textarea id="reportContent" name="otherReason" style="width:40% ; height: 50px; display: none; " placeholder="기타사유를 입력해주세요"></textarea>
         <div style="height: 30px;"></div>
-        <button type="submit" style="height: 40px; width: 60px; background-color: red;" >제출</button> 
+        <button type="submit" style="height: 40px; width: 60px; background-color: red;" id="boardReportBtn">제출</button> 
         <button type="button" style="height: 40px; width: 60px; background-color: green;" onclick="location.href='${pageContext.servletContext.contextPath}/board/list'">취소</button>
     </div>
  </div>
@@ -542,6 +544,111 @@
 	 });
         
 	 </script>
+
+<script type="text/javascript">
+
+/*  댓글 널 값 처리 */
+$(document).on('click', '#comment_submit', function (e) {
+	
+	if(document.getElementById("replyInput").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#insertReplyForm").submit();
+
+	}
+	
+	  });
+
+/* 대댓글 널 값 처리 */
+$(document).on('click', '#replyOfInsert', function (e) {
+	
+	if(document.getElementById("replyOfContent").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#insertReplyOfForm").submit();
+
+	}
+	
+	  });
+	  
+/* 댓글 수정 */
+$(document).on('click', '#modifyReplyBtn', function (e) {
+	
+	if(document.getElementById("modiftReplyInput").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#modifyReplyForm").submit();
+
+	}
+	
+	  });
+
+
+
+/* 대댓글 수정 */ 
+$(document).on('click', '#modifyReplyOfBtn', function (e) {
+	
+	if(document.getElementById("modifyReplyOfInput").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#modifyReplyOfForm").submit();
+
+	}
+	
+	  }); 
+ 
+ 
+ 
+ 
+ /* 게시판 신고 기타 사유 */
+$(document).on('click', '#boardReportBtn', function (e) {
+	
+	if(document.getElementById("reportContent").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#reportForm").submit();
+
+	}
+	
+	  }); 
+ 
+</script>
+
 
 </body>
 </html>
