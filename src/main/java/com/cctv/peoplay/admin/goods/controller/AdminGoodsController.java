@@ -33,6 +33,8 @@ import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
 import com.cctv.peoplay.admin.goods.model.service.AdminGoodsService;
 import com.cctv.peoplay.admin.goods.paging.Pagenation;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO;
 import com.cctv.peoplay.goods.model.dto.PaymentDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,7 +70,7 @@ public class AdminGoodsController {
 		
 		int totalCount = admingoodsService.goodsCount();
 		
-		int limit = 15;
+		int limit = 14;
 
 		int buttonAmount = 5;
 		
@@ -272,6 +274,14 @@ public class AdminGoodsController {
 				file.put("saveName", saveName1);
 				file.put("filePath", filePath1);
 				file.put("thumbnailPath", filePath1);
+				
+				
+				if(i == 0) {
+					file.put("distinguish","head" );
+					
+				}else {
+					file.put("distinguish","body" );
+				}
 
 				goodsImageFiles.add(file);
 				
@@ -709,7 +719,35 @@ public class AdminGoodsController {
 		return gson.toJson(updateStatus);
 	}
 	
-	@GetMapping("/goods/Stock")
+	@PostMapping(value="/goods/inquiryAnswerAdmin", produces = "application/json; charset=UTF-8")
+	public String nquiryAnswerAdmin(HttpServletResponse response,
+			@RequestParam("inquiryReplyNum") int inquiryReplyNum, @RequestParam("inquiryAnswer") String inquiryAnswer,
+			@RequestParam("goodsNum") int goodsNum, @RequestParam("userNo") int userNo) {
+		
+		System.out.println("왓어?");
+		System.out.println("inquiryAnswer" + inquiryAnswer);
+		System.out.println("inquiryReplyNum" + inquiryReplyNum);
+		System.out.println("goodsNum" + goodsNum);
+		System.out.println("userNo" + userNo);
+		
+		HashMap<String, Object> answerInquiry = new HashMap<>();
+		answerInquiry.put("inquiryReplyNum", inquiryReplyNum);
+		answerInquiry.put("inquiryAnswer", inquiryAnswer);
+		answerInquiry.put("goodsNum", goodsNum);
+		answerInquiry.put("userNo", userNo);
+		
+		int updateInquiryAnswer = admingoodsService.updateInquiryAnswer(answerInquiry);
+		System.out.println("ddd");
+		
+		if(updateInquiryAnswer > 0) {
+			
+			int updateYN = admingoodsService.updateYN(inquiryReplyNum);
+		}
+		
+		return "redirect:/admin/goods/InquiryAnswer";
+	}
+	
+	@GetMapping("/goods/InquiryAnswer")
 	public String GoodsStock(HttpServletRequest request, Model model) {
 		
 		String currentPage = request.getParameter("currentPage");
@@ -724,7 +762,7 @@ public class AdminGoodsController {
 			}
 		}
 		
-		int totalCount = admingoodsService.stockgoodsCount();
+		int totalCount = admingoodsService.inquiryList();
 		
 		int limit = 14;
 
@@ -732,12 +770,13 @@ public class AdminGoodsController {
 		
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		List<DeliveryDTO> deliveryList = admingoodsService.deliveryList(pageInfo);
+		List<GoodsInqueryDTO> inquiryListPaging = admingoodsService.inquiryListPaging(pageInfo);
 		
-		model.addAttribute("deliveryList",deliveryList);
+		
+		model.addAttribute("inquiryListPaging", inquiryListPaging);
 		model.addAttribute("pageInfo", pageInfo);
 		
-		return "admin/goods/delivery";
+		return "admin/goods/inquiryAnswer";
 		
 	}	
 	

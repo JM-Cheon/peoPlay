@@ -967,7 +967,7 @@
             , #{reportedPerson}
             , #{reportReplyNo}
             , 2
-            , #{placeNo}
+            , #{goodsNo}
          )
    </insert>
 

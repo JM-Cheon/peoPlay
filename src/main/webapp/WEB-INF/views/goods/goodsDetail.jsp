@@ -260,8 +260,7 @@
 
 												<button id="btnDeleteReply" type="button"
 													class="delete_btn w3-button w3-black">삭제하기</button>
-											<td class="report"><button id="reportReply"
-													class="w3-button w3-black" onclick="reportReply(this);">신고하기</button></td>
+											<td class="report"></td>
 										</tr>
 									</table>
 								</c:if>

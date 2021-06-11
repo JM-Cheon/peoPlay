@@ -13,6 +13,8 @@ import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO;
 import com.cctv.peoplay.goods.model.dto.PaymentDTO;
 
 @Service("adminGoodsService")
@@ -159,6 +161,29 @@ private AdminGoodsMapper adminGoodsMapper;
 	public List<GoodsAndFileDTO> mainGoodsAndFile() {
 		return adminGoodsMapper.mainGoodsAndFile();
 	}
+
+	@Override
+	public int inquiryList() {
+		return adminGoodsMapper.inquiryList();
+
+	}
+
+	@Override
+	public List<GoodsInqueryDTO> inquiryListPaging(PagenationDTO pageInfo) {
+		return adminGoodsMapper.inquiryListPaging(pageInfo);
+
+	}
+
+	@Override
+	public int updateInquiryAnswer(HashMap<String, Object> answerInquiry) {
+		return adminGoodsMapper.updateInquiryAnswer(answerInquiry);
+	}
+
+	@Override
+	public int updateYN(int inquiryReplyNum) {
+		return adminGoodsMapper.updateYN(inquiryReplyNum);
+	}
+
 
 
 

@@ -9,6 +9,8 @@ import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO;
 import com.cctv.peoplay.goods.model.dto.PaymentDTO;
 
 
@@ -94,6 +96,19 @@ public interface AdminGoodsService {
 
 	/* 관리자 메인페이지에서 사진 가져오기 */
 	List<GoodsAndFileDTO> mainGoodsAndFile();
+
+	/* 문의 내역 count  */
+	int inquiryList();
+ 
+	/* 문의 내역 조회 */
+	List<GoodsInqueryDTO> inquiryListPaging(PagenationDTO pageInfo);
+
+	/* 문의 답변 중 문의 조회 */
+	int updateInquiryAnswer(HashMap<String, Object> answerInquiry);
+
+	/* 문의 답변후 업데이트 */
+	int updateYN(int inquiryReplyNum);
+
 
 
 

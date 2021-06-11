@@ -9,6 +9,8 @@ import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
+import com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO;
 import com.cctv.peoplay.goods.model.dto.PaymentDTO;
 
 public interface AdminGoodsMapper {
@@ -68,5 +70,14 @@ public interface AdminGoodsMapper {
 	public int stockgoodsCount();
 
 	public List<GoodsAndFileDTO> mainGoodsAndFile();
+
+	public int inquiryList();
+
+	public List<GoodsInqueryDTO> inquiryListPaging(PagenationDTO pageInfo);
+
+	public int updateInquiryAnswer(HashMap<String, Object> answerInquiry);
+
+	public int updateYN(int inquiryReplyNum);
+
 
 }
