@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Peoplay : 자유게시판 -수정</title>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/common/reset.css">

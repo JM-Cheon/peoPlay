@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Peoplay : 자유게시판</title>
 
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <link rel="stylesheet" href="/peoplay/resources/css/board/board.css">
