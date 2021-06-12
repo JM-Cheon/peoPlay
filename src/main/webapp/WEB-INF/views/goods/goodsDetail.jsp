@@ -868,7 +868,6 @@ $(document).on('click', '#btnDeleteReply', function() {
 		 	   	    				"<button id='btnUpdateReply' onclick='updateReply(this);' name='btnUpdateReply' class='btnUpdateReply w3-button w3-black'>" +
 		 	   						"수정하기" + "</button>" + "  " + "<button type='button' id='btnDeleteReply' class='delete_btn w3-button w3-black'>" +
 		 	   						"삭제하기" + "</button>" +	"<td class=report>" + 
-		 	   						"<button id='reportReply' onclick='reportReply(this);' class='w3-button w3-black'>" + "신고하기" + "</button>" +
 		 	   						"</td>" + "</tr>" + "</table>" )
 		 	   						
 		 	   						postList.append(moreList); 

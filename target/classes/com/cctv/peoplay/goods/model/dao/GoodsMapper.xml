@@ -807,6 +807,7 @@
 	      JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
           JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
 	     WHERE C.GOODS_NUMBER = #{goodsNo}
+	       AND A.GOODS_INQUIRY_STATUS_YN = 'Y'
 	     ORDER BY A.GOODS_INQUIRY_NO DESC
 	</select>
 	
@@ -947,11 +948,11 @@
         )
 	</insert>
 
-	<delete id="deleteInquiry" parameterType="_int">
-		DELETE
-		  FROM TBL_GOODS_INQUIRY
-         WHERE GOODS_INQUIRY_NO = #{goodsInquiryNum}
-	</delete>
+	<update id="deleteInquiry" parameterType="_int">
+		UPDATE TBL_GOODS_INQUIRY A
+		   SET A.GOODS_INQUIRY_STATUS_YN = 'N'
+	     WHERE A.GOODS_INQUIRY_NO = #{goodsInquiryNum}
+	</update>
 	
 	<insert id="reportReply" parameterType="hashmap">
       INSERT INTO USER_REPORT

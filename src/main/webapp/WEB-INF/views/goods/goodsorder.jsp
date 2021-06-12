@@ -194,10 +194,6 @@ $(document).on('click', '.cancel', function() {
 	});
 
 	$(document).on('click', '.payKakao', function() {
-		/* var a = 0;
-		if (a == 0){
-			a = 1;
-		} */
 		
 		var $checkbox = $('#agreement'); 
 
