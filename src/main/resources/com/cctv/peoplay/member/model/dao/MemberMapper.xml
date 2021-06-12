@@ -51,7 +51,7 @@
 		<result column="SUBSCRIPTION_PRICE" property="price" />
 	</resultMap>
 	
-	<resultMap id="movieResultMap" type="MovieDTO">
+	<resultMap id="movieResultMap" type="MovieAllImgDTO">
 		<id column="MOVIE_NO" property="no" />
 		<result column="MOVIE_NAME" property="name" />
 		<result column="MOVIE_INFO" property="info" />

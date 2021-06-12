@@ -10,7 +10,7 @@ import com.cctv.peoplay.goods.model.dto.GoodsLikeDTO;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 import com.cctv.peoplay.member.model.dto.SubscribePaymentDTO;
 import com.cctv.peoplay.member.model.dto.SubscriptionDTO;
-import com.cctv.peoplay.movie.model.dto.MovieDTO;
+import com.cctv.peoplay.movie.model.dto.MovieAllImgDTO;
 
 public interface MemberMapper {
 
@@ -54,19 +54,19 @@ public interface MemberMapper {
 
 	int modifyBoardOnOff(MemberDTO loginMember);
 
-	List<MovieDTO> selectActionMovie();
+	List<MovieAllImgDTO> selectActionMovie();
 
-	List<MovieDTO> selectFactasyMovie();
+	List<MovieAllImgDTO> selectFactasyMovie();
 
-	List<MovieDTO> selectRomanceMovie();
+	List<MovieAllImgDTO> selectRomanceMovie();
 
-	List<MovieDTO> selectComedyMovie();
+	List<MovieAllImgDTO> selectComedyMovie();
 
-	List<MovieDTO> selectHorroMovie();
+	List<MovieAllImgDTO> selectHorroMovie();
 
-	List<MovieDTO> selectMemberWishMovieList(int userNo);
+	List<MovieAllImgDTO> selectMemberWishMovieList(int userNo);
 
-	List<MovieDTO> selectWatchMovieList(int userNo);
+	List<MovieAllImgDTO> selectWatchMovieList(int userNo);
 
 	List<GoodsCartDTO> selectBasketList(int userNo);
 

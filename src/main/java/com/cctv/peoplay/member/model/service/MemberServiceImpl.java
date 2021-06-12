@@ -15,7 +15,7 @@ import com.cctv.peoplay.member.model.dao.MemberMapper;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 import com.cctv.peoplay.member.model.dto.SubscribePaymentDTO;
 import com.cctv.peoplay.member.model.dto.SubscriptionDTO;
-import com.cctv.peoplay.movie.model.dto.MovieDTO;
+import com.cctv.peoplay.movie.model.dto.MovieAllImgDTO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -142,37 +142,37 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MovieDTO> selectActionMovie() {
+	public List<MovieAllImgDTO> selectActionMovie() {
 		return mapper.selectActionMovie();
 	}
 
 	@Override
-	public List<MovieDTO> selectFactasyMovie() {
+	public List<MovieAllImgDTO> selectFactasyMovie() {
 		return mapper.selectFactasyMovie();
 	}
 
 	@Override
-	public List<MovieDTO> selectRomanceMovie() {
+	public List<MovieAllImgDTO> selectRomanceMovie() {
 		return mapper.selectRomanceMovie();
 	}
 
 	@Override
-	public List<MovieDTO> selectComedyMovie() {
+	public List<MovieAllImgDTO> selectComedyMovie() {
 		return mapper.selectComedyMovie();
 	}
 
 	@Override
-	public List<MovieDTO> selectHorroMovie() {
+	public List<MovieAllImgDTO> selectHorroMovie() {
 		return mapper.selectHorroMovie();
 	}
 
 	@Override
-	public List<MovieDTO> selectMemberWishMovieList(int userNo) {
+	public List<MovieAllImgDTO> selectMemberWishMovieList(int userNo) {
 		return mapper.selectMemberWishMovieList(userNo);
 	}
 
 	@Override
-	public List<MovieDTO> selectWatchMovieList(int userNo) {
+	public List<MovieAllImgDTO> selectWatchMovieList(int userNo) {
 		return mapper.selectWatchMovieList(userNo);
 	}
 

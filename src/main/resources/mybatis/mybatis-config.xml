@@ -9,7 +9,7 @@
  		<typeAlias alias="SubscribePaymentDTO" type="com.cctv.peoplay.member.model.dto.SubscribePaymentDTO"/>
  		<typeAlias alias="BoardDTO" type="com.cctv.peoplay.board.model.dto.BoardDTO"/>
  		<typeAlias alias="QnaDTO" type="com.cctv.peoplay.Community.model.dto.QnaDTO"/>
- 		<typeAlias alias="MovieDTO" type="com.cctv.peoplay.movie.model.dto.MovieDTO"/>
+ 		<typeAlias alias="MovieAllImgDTO" type="com.cctv.peoplay.movie.model.dto.MovieAllImgDTO"/>
  		<typeAlias alias="MovieFileDTO" type="com.cctv.peoplay.movie.model.dto.MovieFileDTO"/>
  		
  		<!-- 굿즈 관련 -->

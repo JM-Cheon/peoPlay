@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cctv.peoplay.main.model.dao.MainMapper;
-import com.cctv.peoplay.member.model.dto.MemberDTO;
-import com.cctv.peoplay.member.model.dto.SubscribePaymentDTO;
-import com.cctv.peoplay.member.model.dto.SubscriptionDTO;
-import com.cctv.peoplay.movie.model.dto.MovieDTO;
+import com.cctv.peoplay.movie.model.dto.MovieAllImgDTO;
 
 @Service("mainService")
 public class MainServiceImpl implements MainService{
@@ -22,27 +19,27 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public MovieDTO selectBannerMovie() {
+	public MovieAllImgDTO selectBannerMovie() {
 		return mapper.selectBannerMovie();
 	}
 
 	@Override
-	public List<MovieDTO> selectBestMovieList() {
+	public List<MovieAllImgDTO> selectBestMovieList() {
 		return mapper.selectBestMovieList();
 	}
 
 	@Override
-	public List<MovieDTO> selectNewMovieList() {
+	public List<MovieAllImgDTO> selectNewMovieList() {
 		return mapper.selectNewMovieList();
 	}
 
 	@Override
-	public List<MovieDTO> selectMemberWishMovieList(int no) {
+	public List<MovieAllImgDTO> selectMemberWishMovieList(int no) {
 		return mapper.selectMemberWishMovieList(no);
 	}
 
 	@Override
-	public List<MovieDTO> selectMemberFavoriteMovieList(int no) {
+	public List<MovieAllImgDTO> selectMemberFavoriteMovieList(int no) {
 		return mapper.selectMemberFavoriteMovieList(no);
 	}
 

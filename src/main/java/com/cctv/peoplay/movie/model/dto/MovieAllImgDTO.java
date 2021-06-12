@@ -3,7 +3,7 @@ package com.cctv.peoplay.movie.model.dto;
 import java.util.Date;
 import java.util.List;
 
-public class MovieDTO {
+public class MovieAllImgDTO {
 	
 	private int no;
 	private String name;
@@ -12,7 +12,7 @@ public class MovieDTO {
 	private int productionYear;
 	private String movieTime;
 	private int like;
-	private String dislike;
+	private int dislike;
 	private String watchFear;
 	private String watchModification;
 	private String watchDrug;
@@ -26,17 +26,18 @@ public class MovieDTO {
 	private java.util.Date movieEndDate;
 	private String genreName;
 	private String movieVideoRink;
-	
+
 	private List<MovieFileDTO> movieFile;
-	
-	public MovieDTO() {
+
+	public MovieAllImgDTO() {
 	}
 
-	public MovieDTO(int no, String name, String info, String director, int productionYear, String movieTime, int like,
-			String dislike, String watchFear, String watchModification, String watchDrug, String watchSensationality,
-			String watchScript, String watchTitle, String watchViolence, String ratingName, String movieStatus,
-			Date registrationDate, Date movieEndDate, String genreName, String movieVideoRink,
+	public MovieAllImgDTO(int no, String name, String info, String director, int productionYear, String movieTime,
+			int like, int dislike, String watchFear, String watchModification, String watchDrug,
+			String watchSensationality, String watchScript, String watchTitle, String watchViolence, String ratingName,
+			String movieStatus, Date registrationDate, Date movieEndDate, String genreName, String movieVideoRink,
 			List<MovieFileDTO> movieFile) {
+		super();
 		this.no = no;
 		this.name = name;
 		this.info = info;
@@ -117,11 +118,11 @@ public class MovieDTO {
 		this.like = like;
 	}
 
-	public String getDislike() {
+	public int getDislike() {
 		return dislike;
 	}
 
-	public void setDislike(String dislike) {
+	public void setDislike(int dislike) {
 		this.dislike = dislike;
 	}
 
@@ -239,7 +240,7 @@ public class MovieDTO {
 
 	@Override
 	public String toString() {
-		return "MovieDTO [no=" + no + ", name=" + name + ", info=" + info + ", director=" + director
+		return "MovieAllImgDTO [no=" + no + ", name=" + name + ", info=" + info + ", director=" + director
 				+ ", productionYear=" + productionYear + ", movieTime=" + movieTime + ", like=" + like + ", dislike="
 				+ dislike + ", watchFear=" + watchFear + ", watchModification=" + watchModification + ", watchDrug="
 				+ watchDrug + ", watchSensationality=" + watchSensationality + ", watchScript=" + watchScript
@@ -248,5 +249,5 @@ public class MovieDTO {
 				+ movieEndDate + ", genreName=" + genreName + ", movieVideoRink=" + movieVideoRink + ", movieFile="
 				+ movieFile + "]";
 	}
-
+	
 }

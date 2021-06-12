@@ -2,18 +2,18 @@ package com.cctv.peoplay.main.model.service;
 
 import java.util.List;
 
-import com.cctv.peoplay.movie.model.dto.MovieDTO;
+import com.cctv.peoplay.movie.model.dto.MovieAllImgDTO;
 
 public interface MainService {
 
-	MovieDTO selectBannerMovie();
+	MovieAllImgDTO selectBannerMovie();
 
-	List<MovieDTO> selectBestMovieList();
+	List<MovieAllImgDTO> selectBestMovieList();
 
-	List<MovieDTO> selectNewMovieList();
+	List<MovieAllImgDTO> selectNewMovieList();
 
-	List<MovieDTO> selectMemberWishMovieList(int no);
+	List<MovieAllImgDTO> selectMemberWishMovieList(int no);
 
-	List<MovieDTO> selectMemberFavoriteMovieList(int no);
+	List<MovieAllImgDTO> selectMemberFavoriteMovieList(int no);
 	
 }
