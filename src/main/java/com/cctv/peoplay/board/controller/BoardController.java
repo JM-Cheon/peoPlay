@@ -54,7 +54,7 @@ public class BoardController {
 		int totalCount= service.selectCount();
 		
 		
-		int limit =15;
+		int limit =10;
 		
 		int buttonAmount = 5;
 	
