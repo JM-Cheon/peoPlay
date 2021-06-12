@@ -325,7 +325,7 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<div class="wb2">
+				<section class="wb2">
 					<c:forEach var="selectwbGoods"
 						items="${ requestScope.selectwbGoods }">
 						<c:if
@@ -342,7 +342,7 @@
 							</div>
 						</c:if>
 					</c:forEach>
-				</div>
+				</section>
 			</div>
 		</section>
 	</div> 

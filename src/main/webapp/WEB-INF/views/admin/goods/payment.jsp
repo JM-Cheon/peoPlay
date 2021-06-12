@@ -28,7 +28,7 @@
             <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/paymentSearch" method="post" class="searchingForm move">
                 <div class="search-area" align="center" style="position: relative; left: 300px;">
                     <select id="searchCondition" name="searchCondition">
-                        <option value="totalPrice">총 결제 금액순 검색</option>
+                        <option value="totalPrice">높은 가격순 검색</option>
                         <option value="date">날짜 순 검색</option>
                         <option value="goodsName">상품명 검색</option>
                     </select> <input style="border: 1px solid" type="search" id="searchValue" name="searchValue" style="position: relative;">
@@ -63,22 +63,22 @@
           <c:forEach var="payment" items="${requestScope.paymentList }">
                 <tr>
                     <td class="goodsNo">
-                    <c:out value=" ${payment.paymentNo}"></c:out>   
+                    <c:out value=" ${payment.orderNo}"></c:out>   
                     </td>
                     <td class="goodsName">
-                       <c:out value=" ${payment.orderNo.goodsNo.goodsName}"></c:out>  
+                       <c:out value=" ${payment.goodsNo.goodsName}"></c:out>  
                     </td>
                     <td class="goodsPrice">
-                       <c:out value=" ${payment.orderNo.goodsNo.goodsPrice}"></c:out>   
+                       <c:out value=" ${payment.goodsNo.goodsPrice}"></c:out>   
                     </td>
                     <td class="orderQuantities">
-                       <c:out value=" ${payment.orderNo.orderCount}"></c:out>   
+                       <c:out value=" ${payment.orderCount}"></c:out>   
                     </td>
                     <td class="totalPrice">
-						<c:out value=" ${payment.paymentPrice}"></c:out>   
+						  <c:out value=" ${payment.orderCount * payment.goodsNo.goodsPrice}"></c:out>   
                     </td>
                     <td class="paymentDate">
-                       <fmt:formatDate var="resultDate" value="${ payment.paymentDate}" pattern="yyyy-MM-dd" />  
+                       <fmt:formatDate var="resultDate" value="${ payment.orderDate}" pattern="yyyy-MM-dd" />  
                        ${ resultDate}
                     </td>
                 </tr>

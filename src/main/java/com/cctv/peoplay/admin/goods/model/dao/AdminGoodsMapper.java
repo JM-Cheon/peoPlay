@@ -8,10 +8,10 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO;
-import com.cctv.peoplay.goods.model.dto.PaymentDTO;
 
 public interface AdminGoodsMapper {
 
@@ -19,9 +19,9 @@ public interface AdminGoodsMapper {
 
 	public GoodsDTO selectGoodsInfoByGoodsNo(int goodsNo);
 
-	public List<GoodsAndFileDTO> goodsAndFile(int goodsNo);
+	public GoodsAndFileDTO goodsAndFile(int goodsNo);
 
-	public List<GoodsAndDetailFileDTO> goodsAndDetailFile(int goodsNo);
+	public GoodsAndDetailFileDTO goodsAndDetailFile(int goodsNo);
 
 	public int deleteGoods(int goodsNum);
 
@@ -39,7 +39,7 @@ public interface AdminGoodsMapper {
 
 	public List<GoodsDTO> searchlist(HashMap<String, Object> searchListMap);
 
-	public List<PaymentDTO> paymentList(PagenationDTO pageInfo);
+	public List<OrderDTO> paymentList(PagenationDTO pageInfo);
 
 	public int searchPaymentCount(HashMap<String, String> searchMap);
 
@@ -78,6 +78,10 @@ public interface AdminGoodsMapper {
 	public int updateInquiryAnswer(HashMap<String, Object> answerInquiry);
 
 	public int updateYN(int inquiryReplyNum);
+
+	public List<GoodsInquiryReplyDTO> selectInquiryReply();
+
+	public int resaleGoods(int goodsNum);
 
 
 }

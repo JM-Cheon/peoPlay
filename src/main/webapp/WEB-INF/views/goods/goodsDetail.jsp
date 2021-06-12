@@ -211,8 +211,6 @@
 					<p class="everyday_text">배송/환불 관련</p>
 				</button>
 			</div>
-			
-
 
 			<div class="everyday_contents">
 				<div class="reply on" id="test">
@@ -656,7 +654,6 @@
 	    				"<button id='btnUpdateReply' onclick='updateReply(this);' name='btnUpdateReply' class='btnUpdateReply w3-button w3-black'>" +
 						"수정하기" + "</button>" + "  " + "<button type='button' id='btnDeleteReply' class='delete_btn w3-button w3-black' onclick='deleteReply(${ review.goodsReviewNum}, ${ review.goodsNum.goodsNum})'>" +
 						"삭제하기" + "</button>" +	"<td class=report>" + 
-						"<button id='reportReply' onclick='reportReply(this);' class='w3-button w3-black'>" + "신고하기" + "</button>" +
 						"</td>" + "</tr>" + "</table>" )
 						
 						$("#btnDeleteReply").on('click');
@@ -746,7 +743,7 @@
 		            	var moreListefault =   
 	               $("<table	style='width: 1000px; height: 100px; text-align: center;'>" +
 	               "<tr>" + "<td class='no' style='background-color: #faae5a; font-size: 14pt; font-weight: 600;'>" +	"번호</td>" +
-	               "<td class='evaluate' style='background-color: #faae5a; font-size: 14pt; font-weight: 600;'>" +	"상품평</td>" +
+	               "<td class='evaluate' style='background-color: #faae5a; font-size: 14pt; font-weight: 600;'>" +	"문의내용</td>" +
 	               "<td class='author' style='background-color: #faae5a; font-size: 14pt; font-weight: 600;'>" +	"작성자</td>" +
 	               "<td class='date' style='background-color: #faae5a; font-size: 14pt; font-weight: 600;'>" +	"작성일</td>" +
 	               "<td class='updatedelete' style='background-color: #faae5a; font-size: 14pt; font-weight: 600;'>" +	"수정 / 삭제</td>" +
@@ -759,7 +756,6 @@
 	                 
 	                   /* 나중에 SESSION으로 바꾸기  */
 		             	if(data[i].userNo.userNo == userNum){
-
 		            		var postList =  $("<table>");
 		 	            	var moreList = 
 		            		$("<table style='width: 1000px; height: 100px; text-align: center;'>" +
@@ -771,7 +767,7 @@
 		    				"<input type='hidden' id='inquiryNo' value='" + data[i].goodsInquiryNo + "'/>" +
 		    				"<input type='hidden' id='reviewGoodsNo' value='" + data[i].goodsNumber.goodsNum + "'/>" +
 		    				"<button id='btnUpdateInquiry' onclick='updateInquiry(this);' name='btnUpdateInquiry' class='btnUpdateInquiry w3-button w3-black'>" +
-							"수정하기" + "</button>" + "  " + "<button type='button' id='btnDeleteInquiry' class='delete_btn w3-button w3-black' onclick='deleteReply(${ review.goodsReviewNum}, ${ review.goodsNum.goodsNum})'>" +
+							"수정하기" + "</button>" + "  " + "<button type='button' id='btnDeleteInquiry' class='delete_btn w3-button w3-black' onclick='deleteInquiry(this);'>" +
 							"삭제하기" + "</button>" +	"<td class=report>" + 
 							"<button id='viewInquiryReply' onclick='viewInquiryReply(this);' class='w3-button w3-black'>" + "답변보기" + "</button>" +
 							"</td>" + "</tr>" + "</table>" )

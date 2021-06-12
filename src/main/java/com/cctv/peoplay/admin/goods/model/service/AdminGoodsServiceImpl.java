@@ -12,10 +12,10 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO;
-import com.cctv.peoplay.goods.model.dto.PaymentDTO;
 
 @Service("adminGoodsService")
 public class AdminGoodsServiceImpl implements AdminGoodsService {
@@ -38,12 +38,12 @@ private AdminGoodsMapper adminGoodsMapper;
 	}
 
 	@Override
-	public List<GoodsAndFileDTO> goodsAndFile(int goodsNo) {
+	public GoodsAndFileDTO goodsAndFile(int goodsNo) {
 		return adminGoodsMapper.goodsAndFile(goodsNo);
 	}
 
 	@Override
-	public List<GoodsAndDetailFileDTO> goodsAndDetailFile(int goodsNo) {
+	public GoodsAndDetailFileDTO goodsAndDetailFile(int goodsNo) {
 		return adminGoodsMapper.goodsAndDetailFile(goodsNo);
 	}
 
@@ -88,7 +88,7 @@ private AdminGoodsMapper adminGoodsMapper;
 	}
 
 	@Override
-	public List<PaymentDTO> paymentList(PagenationDTO pageInfo) {
+	public List<OrderDTO> paymentList(PagenationDTO pageInfo) {
 		return adminGoodsMapper.paymentList(pageInfo);
 	}
 
@@ -182,6 +182,16 @@ private AdminGoodsMapper adminGoodsMapper;
 	@Override
 	public int updateYN(int inquiryReplyNum) {
 		return adminGoodsMapper.updateYN(inquiryReplyNum);
+	}
+
+	@Override
+	public List<GoodsInquiryReplyDTO> selectInquiryReply() {
+		return adminGoodsMapper.selectInquiryReply();
+	}
+
+	@Override
+	public int resaleGoods(int goodsNum) {
+		return adminGoodsMapper.resaleGoods(goodsNum);
 	}
 
 

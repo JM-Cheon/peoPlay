@@ -85,7 +85,7 @@
 		</section>
 		<section id="sec4">
 			<div class="btn_update_delete_div">
-				<button type="button" class="btn_update_delete" onclick="deleteGoods(${requestScope.selectGoodsInfoByGoodsNo.goodsNum})">삭제하기</button>
+				<button type="button" id="YNBtn" class="btn_update_delete" onclick="deleteGoods(${requestScope.selectGoodsInfoByGoodsNo.goodsNum})">삭제하기</button>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn_update_delete" onclick="updateGoods(${requestScope.selectGoodsInfoByGoodsNo.goodsNum})">수정하기</button>
 			</div>
@@ -101,6 +101,8 @@
 			</div>
 		</section>
 	</div>
+	<br><br>
+	<input type="hidden" value="${requestScope.goodsStatus }" id="goodsStatusYN">
  <jsp:include page="../../common/footer.jsp"/>
 </body>
 <script type="text/javascript">
@@ -132,34 +134,69 @@ function Img${requestScope.goodsAndFile.goodsFile[4].number}() {
 	function deleteGoods(val1) {
 		
 		const goodsNum = val1;
+		var goodsStatusYN = document.getElementById("goodsStatusYN").value;
 		
- 		if(confirm("해당 굿즈를 삭제하시겠습니까?") == true){  
 			
-			$.ajax({
-				
-				url : "adminDeleteGoods",
-				method : "POST",
-				data : 
-					{
-					goodsNum : goodsNum
-					},
-				success : function(data){
-					
-					 $(".status").text(JSON.parse(data).goodsStatus);
-				},
-				
-				error : function(error){
-					
-				}
-				
-			});
-			
- 		}else{
-			
-			return;
-		} 
+ 			if(goodsStatusYN == "판매가능"){
+ 				
+ 				$.ajax({
+ 					
+ 					url : "adminDeleteGoods",
+ 					method : "POST",
+ 					data : 
+ 						{
+ 						goodsNum : goodsNum
+ 						},
+ 					success : function(data){
+ 						
+ 						 $(".status").text(JSON.parse(data).goodsStatus);
+ 						document.getElementById("goodsStatusYN").value = "판매불가능";
+ 						$("#YNBtn").text('판매하기');
+ 					},
+ 					
+ 					error : function(error){
+ 						
+ 					}
+ 					
+ 				});
+ 				
+ 			}else if(goodsStatusYN == "판매불가능"){
+ 				
+				$.ajax({
+ 					
+ 					url : "adminliveGoods",
+ 					method : "POST",
+ 					data : 
+ 						{
+ 						goodsNum : goodsNum
+ 						},
+ 					success : function(data){
+ 						
+ 						 $(".status").text(JSON.parse(data).goodsStatus);
+ 						document.getElementById("goodsStatusYN").value = "판매가능";
+ 						$("#YNBtn").text('삭제하기');
+ 						
+ 						
+ 					},
+ 					
+ 					error : function(error){
+ 						
+ 					}
+ 					
+ 				});
+ 				
+ 				
+ 			} 
 	}
-	
+	$(function(){
+		if(document.getElementById("goodsStatusYN").value == '판매가능'){
+			
+			$("#YNBtn").text('삭제하기');
+		}else{
+			
+			$("#YNBtn").text('판매하기');
+		}
+	});
 	
 
 	</script>

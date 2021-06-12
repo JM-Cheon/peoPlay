@@ -117,7 +117,7 @@
 						</tr>
 						<tr>
 							<td class="info_tab_td">상세페이지 : </td>
-							<td class="info_tab_sub"><input type="file" name="goodsDetailFiles" multiple="multiple"></td>
+							<td class="info_tab_sub"><input type="file" id="multiFilesImg" name="goodsDetailFiles" multiple="multiple"></td>
 						</tr>
 					</table> 
 					<button class="enrollBtn" type="button" id="enrollBtn">상품 등록하기</button>
@@ -192,8 +192,8 @@ $("#enrollBtn").click(function(){
 				|| document.getElementById("goodsStock").value == ""
 				|| document.getElementById("goodsNationality").value == ""
 				|| document.getElementById("goodsShortInfo").value == ""
-/* 				|| document.getElementById("goodsFiles").value == ""
-				|| document.getElementById("goodsDetailFiles").value == "" */
+				|| document.getElementById("thumbnailImg1").value == ""
+				|| document.getElementById("multiFilesImg").value == "" 
 				){
 			alert("빈칸으로 제출 할 수 없습니다");
 		}else{

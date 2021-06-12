@@ -57,6 +57,10 @@
                     <td class="paymentDate thead">
                                                   문의 답변 유무
                     </td>
+                    <td class="paymentDate thead">
+                                                  답변 내용 확인하기
+                    </td>
+                    
                 </tr>
                
           <c:forEach var="inquiryAnswer" items="${requestScope.inquiryListPaging }">
@@ -81,6 +85,9 @@
                     </td>
                     <td class="paymentDate">
 						<c:out value=" ${inquiryAnswer.goodsInquiryYn}"></c:out>   
+                    </td>
+                    <td class="paymentDate">
+						 <button id="checkAnswer" onclick="checkAnswer(this);" name="checkAnswer" class="checkAnswer w3-button w3-black">답변확인</button>
                     </td>
                 </tr>
                <%--  <tr>
@@ -215,10 +222,10 @@
     
     <!-- 문의 사항 답변-->
 				<div class="w3-container">
-				  <div id="id04" class="w3-modal">
+				  <div id="id01" class="w3-modal">
 				    <div class="w3-modal-content">
 				      <div class="w3-container">
-				        <span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+				        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 				         <form action="${ pageContext.servletContext.contextPath }/admin/goods/inquiryAnswerAdmin" method="post">
 						<div class="replyHeader">
 							문의 답변
@@ -235,12 +242,30 @@
 				    </div>
 				  </div>
 				</div>
+				
+				<!-- 문의 사항 답변한 내용-->
+				<div class="w3-container">
+				  <div id="id02" class="w3-modal">
+				    <div class="w3-modal-content">
+				      <div class="w3-container">
+				        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+						<div class="replyHeader">
+							문의 답변
+						</div>
+						<div id="answerDiv" class="answerDiv">
+						
+						</div>
+				        <input type="hidden" id="questionNum" name="questionNum">
+				      </div>
+				    </div>
+				  </div>
+				</div>
         <jsp:include page="../../common/footer.jsp"/>
 
 <script>
 function viewInquiryReply(Obj){
 	
-	document.getElementById('id04').style.display='block';
+	document.getElementById('id01').style.display='block';
 	
 	console.log($(Obj).parents("tr").find('td').eq(1).find('input').val());
 	console.log($(Obj).parents("tr").find('td').eq(2).find('input').val());
@@ -251,8 +276,28 @@ function viewInquiryReply(Obj){
 	 
 } 
 
+function checkAnswer(Obj){
+	
+	
+	console.log($(Obj).parents("tr").find('td').eq(0).find('input').val())
+		
+	document.getElementById("questionNum").value = $(Obj).parents("tr").find('td').eq(0).find('input').val();
+	
+	var $inquiryReplyList = ${requestScope.selectInquiryReply};
+	for(var i = 0; i < $inquiryReplyList.length; i++ ){
+		
+		if($inquiryReplyList[i].goodsinquiryNo.goodsInquiryNo == document.getElementById("questionNum").value){
+			
+			document.getElementById("answerDiv").innerHTML = $inquiryReplyList[i].goodsReplyContent;
+			document.getElementById('id02').style.display='block';		
+		} 
+	
 
 
+	}
+
+
+}
 const link = "${ pageContext.servletContext.contextPath }/admin/goods/InquiryAnswer";
 const searchlink = "${ pageContext.servletContext.contextPath }/admin/goods/DeliverySearch";
 		

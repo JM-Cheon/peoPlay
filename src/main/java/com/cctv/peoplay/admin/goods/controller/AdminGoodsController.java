@@ -30,6 +30,7 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.model.service.AdminGoodsService;
 import com.cctv.peoplay.admin.goods.paging.Pagenation;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
@@ -130,6 +131,10 @@ public class AdminGoodsController {
 
 		List<GoodsDTO> searchList = admingoodsService.searchlist(searchListMap);
 		
+		List<GoodsAndFileDTO> goodsAndFile = admingoodsService.mainGoodsAndFile();
+		
+		model.addAttribute("goodsAndFile", goodsAndFile);
+		
 		model.addAttribute("selectAllGoodslist", searchList);
 
 		model.addAttribute("pageInfo", pageInfo);
@@ -139,28 +144,54 @@ public class AdminGoodsController {
  	}
 	
 	@GetMapping("/goods/{goodsNo}")
-	public String selectOrderDelete(Model model, @PathVariable("goodsNo") int goodsNo, ModelAndView mv) {
+	public String AdminGoodsDetail(Model model, @PathVariable("goodsNo") int goodsNo, ModelAndView mv) {
 		
 		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNo);
 		
-		List<GoodsAndFileDTO> goodsAndFile = admingoodsService.goodsAndFile(goodsNo);
+		GoodsAndFileDTO goodsAndFile = admingoodsService.goodsAndFile(goodsNo);
 		
-		List<GoodsAndDetailFileDTO> goodsAndDetailFile = admingoodsService.goodsAndDetailFile(goodsNo);
+		GoodsAndDetailFileDTO goodsAndDetailFile = admingoodsService.goodsAndDetailFile(goodsNo);
 		
-		
+		if(!(selectGoodsInfoByGoodsNo == null)) {
+			
+			if(selectGoodsInfoByGoodsNo.getGoodsStatus().equals("Y")){
+				model.addAttribute("goodsStatus", "판매가능");
+			}else {
+				model.addAttribute("goodsStatus", "판매불가능");
+			}
+			
+		}else {
+			model.addAttribute("goodsStatus", "판매가능");
+			
+		}
 		model.addAttribute("selectGoodsInfoByGoodsNo", selectGoodsInfoByGoodsNo);
 
-		model.addAttribute("goodsAndFile", goodsAndFile.get(0));
+		model.addAttribute("goodsAndFile", goodsAndFile);
 		
-		model.addAttribute("goodsAndDetailFile", goodsAndDetailFile.get(0));
+		model.addAttribute("goodsAndDetailFile", goodsAndDetailFile);
 		
 		return "admin/goods/goodsDetail";
 	}
+	
 	@PostMapping("/goods/adminDeleteGoods")
 	@ResponseBody
 	public String deleteGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
 		
 		int deleteGoods = admingoodsService.deleteGoods(goodsNum);
+		
+		
+		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNum);
+		
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(selectGoodsInfoByGoodsNo);
+		
+	}
+	@PostMapping("/goods/adminliveGoods")
+	@ResponseBody
+	public String ResaleGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
+		
+		int resale = admingoodsService.resaleGoods(goodsNum);
 		
 		
 		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNum);
@@ -176,15 +207,15 @@ public class AdminGoodsController {
 		
 		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNum);
 		
-		List<GoodsAndFileDTO> goodsAndFile = admingoodsService.goodsAndFile(goodsNum);
+		GoodsAndFileDTO goodsAndFile = admingoodsService.goodsAndFile(goodsNum);
 		
-		List<GoodsAndDetailFileDTO> goodsAndDetailFile = admingoodsService.goodsAndDetailFile(goodsNum);
+		GoodsAndDetailFileDTO goodsAndDetailFile = admingoodsService.goodsAndDetailFile(goodsNum);
 		
 		model.addAttribute("selectGoodsInfoByGoodsNo", selectGoodsInfoByGoodsNo);
 
-		model.addAttribute("goodsAndFile", goodsAndFile.get(0));
+		model.addAttribute("goodsAndFile", goodsAndFile);
 		
-		model.addAttribute("goodsAndDetailFile", goodsAndDetailFile.get(0));
+		model.addAttribute("goodsAndDetailFile", goodsAndDetailFile);
 		
 		return "admin/goods/goodsUpdate";
 		
@@ -250,11 +281,18 @@ public class AdminGoodsController {
 			mkdir1.mkdirs();
 		}
 		List<MultipartFile> goodsFiles = new ArrayList<>();
-		goodsFiles.add(goodsFiles1);
-		goodsFiles.add(goodsFiles2);
-		goodsFiles.add(goodsFiles3);
-		goodsFiles.add(goodsFiles4);
-		goodsFiles.add(goodsFiles5);
+		if(!goodsFiles1.isEmpty()) {
+			goodsFiles.add(goodsFiles1);
+		}else if(!goodsFiles2.isEmpty()) {
+			goodsFiles.add(goodsFiles2);
+		}else if(!goodsFiles3.isEmpty()) {
+			goodsFiles.add(goodsFiles3);
+		}else if(!goodsFiles4.isEmpty()) {
+			goodsFiles.add(goodsFiles4);
+		}else if(!goodsFiles5.isEmpty()) {
+			goodsFiles.add(goodsFiles5);
+		}
+		
 		
 		List<Map<String, String>> goodsImageFiles = new ArrayList<>();
 		
@@ -329,20 +367,23 @@ public class AdminGoodsController {
 	
 		
 		List<Map<String, String>> goodsDetailFilessave = new ArrayList<>();
-		for(int i = 0; i < goodsDetailFiles.size(); i ++) {
-			/* 파일명 변경 처리 */
-			String originFileName2 = goodsDetailFiles.get(i).getOriginalFilename();
-			String ext2 = originFileName2.substring(originFileName2.lastIndexOf("."));
-			String saveName2 = UUID.randomUUID().toString().replace("-", "") + ext2;
-
-			/* 파일에 관한 정보 추출 후 보관 */
-			Map<String, String> detailFile = new HashMap<>();
-			detailFile.put("originFileName", originFileName2);
-			detailFile.put("saveName", saveName2);
-			detailFile.put("filePath", filePath2);
-			detailFile.put("thumbnailPath", filePath2);
-
-			goodsDetailFilessave.add(detailFile);
+		if(!goodsDetailFiles.isEmpty()) {
+			
+			for(int i = 0; i < goodsDetailFiles.size(); i ++) {
+				/* 파일명 변경 처리 */
+				String originFileName2 = goodsDetailFiles.get(i).getOriginalFilename();
+				String ext2 = originFileName2.substring(originFileName2.lastIndexOf("."));
+				String saveName2 = UUID.randomUUID().toString().replace("-", "") + ext2;
+				
+				/* 파일에 관한 정보 추출 후 보관 */
+				Map<String, String> detailFile = new HashMap<>();
+				detailFile.put("originFileName", originFileName2);
+				detailFile.put("saveName", saveName2);
+				detailFile.put("filePath", filePath2);
+				detailFile.put("thumbnailPath", filePath2);
+				
+				goodsDetailFilessave.add(detailFile);
+			}
 		}
 
 		/* 파일을 저장한다. */
@@ -421,11 +462,19 @@ public class AdminGoodsController {
 			mkdir1.mkdirs();
 		}
 		List<MultipartFile> goodsFiles = new ArrayList<>();
-		goodsFiles.add(goodsFiles1);
-		goodsFiles.add(goodsFiles2);
-		goodsFiles.add(goodsFiles3);
-		goodsFiles.add(goodsFiles4);
-		goodsFiles.add(goodsFiles5);
+		
+		if(!goodsFiles1.isEmpty()) {
+			goodsFiles.add(goodsFiles1);
+		}else if(!goodsFiles2.isEmpty()) {
+			goodsFiles.add(goodsFiles2);
+		}else if(!goodsFiles3.isEmpty()) {
+			goodsFiles.add(goodsFiles3);
+		}else if(!goodsFiles4.isEmpty()) {
+			goodsFiles.add(goodsFiles4);
+		}else if(!goodsFiles5.isEmpty()) {
+			goodsFiles.add(goodsFiles5);
+		}
+		
 		
 		List<Map<String, String>> goodsImageFiles = new ArrayList<>();
 		
@@ -495,6 +544,8 @@ public class AdminGoodsController {
 	
 		
 		List<Map<String, String>> goodsDetailFilessave = new ArrayList<>();
+		if((goodsDetailFiles.isEmpty())) {
+			System.out.println("dd");
 		for(int i = 0; i < goodsDetailFiles.size(); i ++) {
 			/* 파일명 변경 처리 */
 			String originFileName2 = goodsDetailFiles.get(i).getOriginalFilename();
@@ -510,15 +561,14 @@ public class AdminGoodsController {
 			detailFile.put("goodsNumber", goodsNumber);
 
 			goodsDetailFilessave.add(detailFile);
-		}
-
+			}
 		/* 파일을 저장한다. */
 		try {
 			
 			for(int i = 0; i < goodsDetailFiles.size(); i++) {
-
+				
 				Map<String, String> detailFile = goodsDetailFilessave.get(i);
-
+				
 				goodsDetailFiles.get(i).transferTo(new File(filePath2 + "\\" + detailFile.get("saveName")));
 				
 				int savedetailfiles = admingoodsService.updategoodsDetailFiles(detailFile);
@@ -538,6 +588,8 @@ public class AdminGoodsController {
 			model.addAttribute("message", "파일 업로드 실패!");
 		}
 		
+		}
+
 		
 		
 		return "redirect:/admin/goods";
@@ -566,7 +618,7 @@ public class AdminGoodsController {
 		
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		List<PaymentDTO> paymentList = admingoodsService.paymentList(pageInfo);
+		List<OrderDTO> paymentList = admingoodsService.paymentList(pageInfo);
 		
 		model.addAttribute("paymentList",paymentList);
 		model.addAttribute("pageInfo", pageInfo);
@@ -771,8 +823,11 @@ public class AdminGoodsController {
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
 		List<GoodsInqueryDTO> inquiryListPaging = admingoodsService.inquiryListPaging(pageInfo);
+		List<GoodsInquiryReplyDTO> selectInquiryReply = admingoodsService.selectInquiryReply();
+
+		Gson gson = new GsonBuilder().create();
 		
-		
+		model.addAttribute("selectInquiryReply", gson.toJson(selectInquiryReply));
 		model.addAttribute("inquiryListPaging", inquiryListPaging);
 		model.addAttribute("pageInfo", pageInfo);
 		

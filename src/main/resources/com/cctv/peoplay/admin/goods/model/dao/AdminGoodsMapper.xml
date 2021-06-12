@@ -49,6 +49,7 @@
 			 , B.FILE_SAVE_NAME
 		  FROM TBL_GOODS A
 		  JOIN TBL_GOODS_FILE B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		 ORDER BY A.GOODS_NUMBER DESC
 	</select>
 	
 	<select id="selectGoodsInfoByGoodsNo" resultMap="selectGoodsInfoByGoodsNoResult" parameterType="AdminGoodsDTO">
@@ -341,6 +342,7 @@
 	     , C.GOODS_COMPANY
 	     , C.GOODS_LIKE_COUNT
 		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
 	  FROM (	
 			SELECT
 			       ROWNUM RNUM
@@ -358,6 +360,7 @@
 			     , B.GOODS_COMPANY
 			     , B.GOODS_LIKE_COUNT
 				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
 			  FROM (	
 					SELECT
 					       A.GOODS_NUMBER
@@ -374,84 +377,74 @@
 					     , A.GOODS_COMPANY
 					     , A.GOODS_LIKE_COUNT
 						 , A.GOODS_SHORT_INFO
+						 , D.FILE_SAVE_NAME
 					  FROM TBL_GOODS A
+				      JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+					 WHERE D.FILE_TYPE = 'head'
 	<include refid="search"/>
 					) B
 			)C
 		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
-	<resultMap id="selectAllPaymentResult" type="AdminPaymentDTO">
-		<id column="PAYMENT_NUM" property="paymentNo" />
-		<result column="PAYMENY_DATE" property="paymentDate" />
-		<result column="PAYMENT_PRICE" property="paymentPrice" />
-		<result column="PAYMENT_TYPE" property="paymentType" />
-		<association property="orderNo" javaType="AdminOrderDTO">
-			<id column="ORDER_NUM" property="orderNo" />
-			<result column="ORDER_DATE" property="orderDate" />
-			<result column="ORDER_COUNT" property="orderCount" />
-			<result column="ORDER_CANCEL_OR_NOT" property="orderCancelOrNot" />
-			<association property="userNo" javaType="MemberDTO">
-				<id column="USER_NO" property="userNo" />
-				<result column="USER_NAME" property="userName" />
-			</association>
-			<association property="goodsNo" javaType="AdminGoodsDTO">
-				<result column="GOODS_NAME" property="goodsName" />
-				<result column="GOODS_PRICE" property="goodsPrice" />
-			</association> 
-		</association> 
+	<resultMap id="selectAllPaymentResult" type="AdminOrderDTO">
+		<id column="ORDER_NUM" property="orderNo" />
+		<result column="ORDER_DATE" property="orderDate" />
+		<result column="ORDER_COUNT" property="orderCount" />
+		<result column="ORDER_CANCEL_OR_NOT" property="orderCancelOrNot" />
+		<result column="PAID_OR_NOT" property="paidOrNot" />
+		<association property="goodsNo" javaType="AdminGoodsDTO">
+			<result column="GOODS_NAME" property="goodsName" />
+			<result column="GOODS_PRICE" property="goodsPrice" />
+		</association>
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo" />
+			<result column="USER_NAME" property="userName" />
+		</association>  
 	</resultMap>
 	<select id="paymentList" resultMap="selectAllPaymentResult" parameterType="hashmap">
 		SELECT
-		       Y.PAYMENT_NUM
-		     , Y.PAYMENY_DATE
-		     , Y.PAYMENT_PRICE
-		     , Y.PAYMENT_TYPE
-		     , Y.ORDER_NUM
-		     , Y.ORDER_DATE
-		     , Y.ORDER_COUNT
-		     , Y.ORDER_CANCEL_OR_NOT
-		     , Y.PAID_OR_NOT
-		     , Y.USER_NO
-		     , Y.USER_NAME
-		     , Y.GOODS_NAME
-		     , Y.GOODS_PRICE
+		       Y.ORDER_NUM
+             , Y.ORDER_DATE
+             , Y.ORDER_COUNT
+             , Y.ORDER_CANCEL_OR_NOT
+             , Y.PAID_OR_NOT
+             , Y.PAYMENT_PRICE
+             , Y.USER_NO
+             , Y.USER_NAME
+             , Y.GOODS_NAME
+             , Y.GOODS_PRICE
 		  FROM (
 		        SELECT
 		               ROWNUM RNUM    
-		             , X.PAYMENT_NUM
-		             , X.PAYMENY_DATE
-		             , X.PAYMENT_PRICE
-		             , X.PAYMENT_TYPE
 		             , X.ORDER_NUM
-		             , X.ORDER_DATE
-		             , X.ORDER_COUNT
-		             , X.ORDER_CANCEL_OR_NOT
-		             , X.PAID_OR_NOT
-		             , X.USER_NO
-		             , X.USER_NAME
-		             , X.GOODS_NAME
-		             , X.GOODS_PRICE
+                     , X.ORDER_DATE
+                     , X.ORDER_COUNT
+                     , X.ORDER_CANCEL_OR_NOT
+                     , X.PAID_OR_NOT
+                     , X.PAYMENT_PRICE
+                     , X.USER_NO
+                     , X.USER_NAME
+                     , X.GOODS_NAME
+                     , X.GOODS_PRICE
 		          FROM (          
 		                SELECT
-		                       A.PAYMENT_NUM
-		                     , A.PAYMENY_DATE
-		                     , A.PAYMENT_PRICE
-		                     , A.PAYMENT_TYPE
-		                     , B.ORDER_NUM
-		                     , B.ORDER_DATE
-		                     , B.ORDER_COUNT
-		                     , B.ORDER_CANCEL_OR_NOT
-		                     , B.PAID_OR_NOT
+                     DISTINCT  A.ORDER_NUM
+		                     , A.ORDER_DATE
+		                     , A.ORDER_COUNT
+		                     , A.ORDER_CANCEL_OR_NOT
+		                     , A.PAID_OR_NOT
+                             , B.PAYMENT_PRICE
 		                     , C.USER_NO
 		                     , C.USER_NAME
 		                     , D.GOODS_NAME
 		                     , D.GOODS_PRICE
-		                  FROM TBL_PAYMENT A
-		                  JOIN TBL_GOODS_ORDER B ON (A.ORDER_NUM = B.ORDER_NUM)
-		                  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
-		                  JOIN TBL_GOODS D ON (B.GOODS_NUMBER = D.GOODS_NUMBER)
-		                 WHERE B.PAID_OR_NOT = 'Y'
+		                  FROM TBL_GOODS_ORDER A
+                          LEFT JOIN TBL_PAYMENT B ON (A.ORDER_NUM = B.ORDER_NUM)
+		                  JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+		                  JOIN TBL_GOODS D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+		                 WHERE A.PAID_OR_NOT = 'Y'
+		                 ORDER BY A.ORDER_NUM DESC
 		                ) X
 		          ) Y
 		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow}
@@ -460,28 +453,28 @@
 	<select id="paymentgoodsCount" resultType="int">
 		SELECT
 		       COUNT(*)
-		  FROM TBL_PAYMENT
+		  FROM TBL_GOODS_ORDER
 	</select>
 	
 	<select id="searchPaymentCount" resultType="int" parameterType="hashmap">
         SELECT
                COUNT(*)
-          FROM TBL_PAYMENT A
-          LEFT JOIN TBL_GOODS_ORDER B ON (A.ORDER_NUM = B.ORDER_NUM)
-		  LEFT JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
-		  LEFT JOIN TBL_GOODS D ON (B.GOODS_NUMBER = D.GOODS_NUMBER)
-		 WHERE A.PAYMENT_PRICE > 0
+          FROM TBL_GOODS_ORDER A
+		  LEFT JOIN TBL_PAYMENT B ON (A.ORDER_NUM = B.ORDER_NUM)
+          JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+          JOIN TBL_GOODS D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+		 WHERE A.PAID_OR_NOT = 'Y'
 		<include refid="searchPayment"/>
 	</select>
 	
 	<sql id="searchPayment">
 		<if test="searchCondition == 'totalPrice'">
 		AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY A.PAYMENT_PRICE DESC
+	  ORDER BY D.GOODS_PRICE DESC
 		</if>
 		<if test="searchCondition == 'date'">
 		AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY A.PAYMENY_DATE DESC
+	  ORDER BY A.ORDER_DATE DESC
 		 </if>
 		<if test="searchCondition == 'goodsName'">
 		AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
@@ -491,58 +484,49 @@
 	
 	<select id="searchPaymentlist" resultMap="selectAllPaymentResult" parameterType="hashmap">
 		SELECT
-		       Y.PAYMENT_NUM
-		     , Y.PAYMENY_DATE
-		     , Y.PAYMENT_PRICE
-		     , Y.PAYMENT_TYPE
-		     , Y.ORDER_NUM
-		     , Y.ORDER_DATE
-		     , Y.ORDER_COUNT
-		     , Y.ORDER_CANCEL_OR_NOT
-		     , Y.PAID_OR_NOT
-		     , Y.USER_NO
-		     , Y.USER_NAME
-		     , Y.GOODS_NAME
-		     , Y.GOODS_PRICE
+		       Y.ORDER_NUM
+             , Y.ORDER_DATE
+             , Y.ORDER_COUNT
+             , Y.ORDER_CANCEL_OR_NOT
+             , Y.PAID_OR_NOT
+             , Y.PAYMENT_PRICE
+             , Y.USER_NO
+             , Y.USER_NAME
+             , Y.GOODS_NAME
+             , Y.GOODS_PRICE
 		  FROM (
 		        SELECT
 		               ROWNUM RNUM    
-		             , X.PAYMENT_NUM
-		             , X.PAYMENY_DATE
-		             , X.PAYMENT_PRICE
-		             , X.PAYMENT_TYPE
 		             , X.ORDER_NUM
-		             , X.ORDER_DATE
-		             , X.ORDER_COUNT
-		             , X.ORDER_CANCEL_OR_NOT
-		             , X.PAID_OR_NOT
-		             , X.USER_NO
-		             , X.USER_NAME
-		             , X.GOODS_NAME
-		             , X.GOODS_PRICE
+                     , X.ORDER_DATE
+                     , X.ORDER_COUNT
+                     , X.ORDER_CANCEL_OR_NOT
+                     , X.PAID_OR_NOT
+                     , X.PAYMENT_PRICE
+                     , X.USER_NO
+                     , X.USER_NAME
+                     , X.GOODS_NAME
+                     , X.GOODS_PRICE
 		          FROM (          
 		                SELECT
-		                       A.PAYMENT_NUM
-		                     , A.PAYMENY_DATE
-		                     , A.PAYMENT_PRICE
-		                     , A.PAYMENT_TYPE
-		                     , B.ORDER_NUM
-		                     , B.ORDER_DATE
-		                     , B.ORDER_COUNT
-		                     , B.ORDER_CANCEL_OR_NOT
-		                     , B.PAID_OR_NOT
+                     DISTINCT  A.ORDER_NUM
+		                     , A.ORDER_DATE
+		                     , A.ORDER_COUNT
+		                     , A.ORDER_CANCEL_OR_NOT
+		                     , A.PAID_OR_NOT
+                             , B.PAYMENT_PRICE
 		                     , C.USER_NO
 		                     , C.USER_NAME
 		                     , D.GOODS_NAME
 		                     , D.GOODS_PRICE
-		                  FROM TBL_PAYMENT A
-		                  JOIN TBL_GOODS_ORDER B ON (A.ORDER_NUM = B.ORDER_NUM)
-		                  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
-		                  JOIN TBL_GOODS D ON (B.GOODS_NUMBER = D.GOODS_NUMBER)
-		                 WHERE B.PAID_OR_NOT = 'Y'
+		                  FROM TBL_GOODS_ORDER A
+                          LEFT JOIN TBL_PAYMENT B ON (A.ORDER_NUM = B.ORDER_NUM)
+		                  JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+		                  JOIN TBL_GOODS D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+		                 WHERE A.PAID_OR_NOT = 'Y'
 	<include refid="searchPayment"/>
-					) X
-			)Y
+		                ) X
+		          ) Y
 		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<update id="updateGoodsinfo" parameterType="hashmap">
@@ -630,6 +614,7 @@
                       LEFT JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
                       LEFT JOIN TBL_DELIVERY_STATUS E ON (A.SHIPMENT_CODE = E.SHIPMENT_CODE)
                       LEFT JOIN TBL_DELIVERY_MEMO F ON (A.SHIPMENT_MEMO_CODE = F.SHIPMENT_MEMO_CODE)
+                     ORDER BY A.DELIVERY_NUMBER DESC
                   )X
            )Y       
  		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 
@@ -816,7 +801,31 @@
 	     WHERE GOODS_INQUIRY_NO = #{inquiryReplyNum}
 	</update>
 	
-
+	<resultMap id="selectInquiryReplyResultMap"  type="GoodsInquiryReplyDTO" >
+		<id property="goodsreplyNo" column="GOODS_REPLY_NO"/>
+		<result property="goodsReplyContent" column="GOODS_REPLY_CONTENT"/>
+		<result property="goodsReplyCreationDate" column="GOODS_REPLY_CREATION_DATE"/>
+		<association property="goodsinquiryNo" javaType="GoodsInquiryDTO">
+			<id column="GOODS_INQUIRY_NO" property="goodsInquiryNo" />
+		</association> 
+	</resultMap>
+	
+	<select id="selectInquiryReply" resultMap="selectInquiryReplyResultMap" >
+		SELECT
+		       A.GOODS_REPLY_NO
+		     , A.GOODS_INQUIRY_NO
+		     , A.GOODS_REPLY_CONTENT
+		     , A.GOODS_REPLY_CREATION_DATE
+		  FROM TBL_GOODS_INQUIRY_REPLY A
+		  JOIN TBL_GOODS_INQUIRY B ON(A.GOODS_INQUIRY_NO = B.GOODS_INQUIRY_NO) 
+		  JOIN TBL_GOODS C ON (B.GOODS_NUMBER = C.GOODS_NUMBER)
+	</select>
+	
+	<update id="resaleGoods" parameterType="_int">
+		UPDATE TBL_GOODS
+		   SET GOODS_STATUS = 'Y'
+	     WHERE GOODS_NUMBER = #{goodsNum}
+	</update>	
 </mapper>
 
 

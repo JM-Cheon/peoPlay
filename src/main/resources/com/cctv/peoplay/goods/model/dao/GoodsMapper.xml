@@ -732,6 +732,7 @@
 	     , C.GOODS_COMPANY
 	     , C.GOODS_LIKE_COUNT
 		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
 	  FROM (	
 			SELECT
 			       ROWNUM RNUM
@@ -749,6 +750,7 @@
 			     , B.GOODS_COMPANY
 			     , B.GOODS_LIKE_COUNT
 				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
 			  FROM (	
 					SELECT
 					       A.GOODS_NUMBER
@@ -765,8 +767,11 @@
 					     , A.GOODS_COMPANY
 					     , A.GOODS_LIKE_COUNT
 						 , A.GOODS_SHORT_INFO
-					  FROM TBL_GOODS A
+					     , D.FILE_SAVE_NAME
+				      FROM TBL_GOODS A
+				      JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 					 WHERE A.GOODS_CATEGORY_NUMBER = 1
+					   AND D.FILE_TYPE = 'head'
 	<include refid="search"/>
 					) B
 			)C
@@ -942,11 +947,11 @@
         )
 	</insert>
 
-	<update id="deleteInquiry" parameterType="_int">
-		    UPDATE TBL_GOODS_INQUIRY
-           SET GOODS_INQUIRY_YN = 'Y'
+	<delete id="deleteInquiry" parameterType="_int">
+		DELETE
+		  FROM TBL_GOODS_INQUIRY
          WHERE GOODS_INQUIRY_NO = #{goodsInquiryNum}
-	</update>
+	</delete>
 	
 	<insert id="reportReply" parameterType="hashmap">
       INSERT INTO USER_REPORT

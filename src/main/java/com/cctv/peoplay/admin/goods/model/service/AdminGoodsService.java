@@ -8,6 +8,7 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO;
@@ -23,10 +24,10 @@ public interface AdminGoodsService {
 	GoodsDTO selectGoodsInfoByGoodsNo(int goodsNo);
 
 	/* 굿즈 관리 선택한 정보 파일(썸네일 사진) 메소드 */
-	List<GoodsAndFileDTO> goodsAndFile(int goodsNo);
+	GoodsAndFileDTO goodsAndFile(int goodsNo);
 
 	/* 굿즈 관리 선택한 정보 파일(상세페이지 사진 ) 메소드 */
-	List<GoodsAndDetailFileDTO> goodsAndDetailFile(int goodsNo);
+	GoodsAndDetailFileDTO goodsAndDetailFile(int goodsNo);
 
 	/* 굿즈 삭제문(status를 N으로) */
 	int deleteGoods(int goodsNum);
@@ -53,7 +54,7 @@ public interface AdminGoodsService {
 	List<GoodsDTO> searchlist(HashMap<String, Object> searchListMap);
 
 	/* 결제 내역 조회 (페이징 처리 */
-	List<PaymentDTO> paymentList(PagenationDTO pageInfo);
+	List<OrderDTO> paymentList(PagenationDTO pageInfo);
 
 	/* 페이징 처리 (결제 count) */
 	int searchPaymentCount(HashMap<String, String> searchMap);
@@ -108,6 +109,12 @@ public interface AdminGoodsService {
 
 	/* 문의 답변후 업데이트 */
 	int updateYN(int inquiryReplyNum);
+
+	/* 문의 답변 대답 조회 */
+	List<GoodsInquiryReplyDTO> selectInquiryReply();
+
+	/* 삭제한 상품 재 판매 */
+	int resaleGoods(int goodsNum);
 
 
 
