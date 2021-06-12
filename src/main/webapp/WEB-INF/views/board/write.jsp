@@ -150,14 +150,21 @@ $(document).on('click', '#btnInsert', function (e) {
 		e.preventDefault();
 
 		return;
-	}
-	else{
+	} else if(document.getElementById("summernote").length >2048 ){
+	alert("최대 작성 크기를 초과했습니다.");
+	e.preventDefault();
+
+	return;
+	
+	
+ 	}else{
 		
 	$("#form").submit();
 
 	}
 	
 	  });
+	  
 
 </script>
 

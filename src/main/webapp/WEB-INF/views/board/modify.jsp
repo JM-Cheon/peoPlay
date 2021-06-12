@@ -124,7 +124,40 @@
 		
 	</script>
 
+ <!-- 입력값이 없을 때   -->
+<script type="text/javascript">
+$(document).on('click', '#btnInsert', function (e) {
+	
+	if(document.getElementById("title").value == ""){
+		
+		alert("제목을 입력해주세요");
+		e.preventDefault();
 
+		return;
+		
+	} else if(document.getElementById("summernote").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+	} else if(document.getElementById("summernote").length >2048 ){
+	alert("최대 작성 크기를 초과했습니다.");
+	e.preventDefault();
+
+	return;
+	
+	
+ 	}else{
+		
+	$("#form").submit();
+
+	}
+	
+	  });
+	  
+
+</script>
 
 
 </body>
