@@ -34,8 +34,14 @@
                     <p class="banner_intro">
 						${ requestScope.banner.info }
                     </p>
-                    <button class="banner_play" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ requestScope.banner.no }/play'">▶ 재생</button>
-                    <button class="banner_detail" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ requestScope.banner.no }'">상세 정보</button>
+                    <c:if test="${ empty sessionScope.loginMember }">
+	                    <button class="banner_play" onClick="pleaseLogin()">▶ 재생</button>
+	                    <button class="banner_detail" onClick="pleaseLogin()">상세 정보</button>
+                    </c:if>
+                    <c:if test="${ !empty sessionScope.loginMember }">
+	                    <button class="banner_play" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ requestScope.banner.no }/play'">▶ 재생</button>
+	                    <button class="banner_detail" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ requestScope.banner.no }'">상세 정보</button>
+                    </c:if>
                 </div>
             </div>
             <div class="main_contents">
@@ -129,6 +135,17 @@
                             <div class="movieList">
                                 <div id="best" class="slide">
                                 	<c:forEach var="best" items="${ requestScope.bestList }" begin="0" end="15">
+                                	<c:if test="${ empty sessionScope.loginMember }">
+	                                    <div class="movie" onClick="pleaseLogin()">
+	                                    	<c:forEach var="movieImg" items="${ best.movieFile }">
+								            	<c:if test="${ movieImg.fileType == 'SUB' }">
+									                <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
+								            	</c:if>
+							            	</c:forEach>
+	                                        <p>${ best.name }</p>
+	                                    </div>
+                    				</c:if>
+                                	<c:if test="${ !empty sessionScope.loginMember }">
 	                                    <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ best.no }'">
 	                                    	<c:forEach var="movieImg" items="${ best.movieFile }">
 								            	<c:if test="${ movieImg.fileType == 'SUB' }">
@@ -137,6 +154,7 @@
 							            	</c:forEach>
 	                                        <p>${ best.name }</p>
 	                                    </div>
+                    				</c:if>
                                 	</c:forEach>
                                 </div>
                             </div>
@@ -164,6 +182,17 @@
                             <div class="movieList">
                                 <div id="new" class="slide">
                                     <c:forEach var="newMovie" items="${ requestScope.newList }" begin="0" end="15">
+                                    <c:if test="${ empty sessionScope.loginMember }">
+	                                    <div class="movie" onClick="pleaseLogin()">
+	                                    	<c:forEach var="movieImg" items="${ newMovie.movieFile }">
+								            	<c:if test="${ movieImg.fileType == 'SUB' }">
+									                <img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movieImg.saveName }">
+								            	</c:if>
+							            	</c:forEach>
+	                                        <p>${ newMovie.name }</p>
+	                                    </div>
+                    				</c:if>
+                                    <c:if test="${ !empty sessionScope.loginMember }">
 	                                    <div class="movie" onClick="location.href='${pageContext.servletContext.contextPath}/movie/${ newMovie.no }'">
 	                                    	<c:forEach var="movieImg" items="${ newMovie.movieFile }">
 								            	<c:if test="${ movieImg.fileType == 'SUB' }">
@@ -172,6 +201,7 @@
 							            	</c:forEach>
 	                                        <p>${ newMovie.name }</p>
 	                                    </div>
+                    				</c:if>
                                 	</c:forEach>
                                 </div>
                             </div>
@@ -190,6 +220,10 @@
 	<jsp:include page="../common/footer.jsp"/>
     </div>
     <script>
+    	function pleaseLogin(){
+    		alert("로그인 후 이용 가능합니다.");
+    	}
+    	
         ;(function($){
             var zzimSlide = {
                 init: function(){
