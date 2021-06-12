@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+#section_search_ajax{ width:1300px; height:600px; margin-left:270px; overflow: auto; }
+
+button.mvimg{ height: 30px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
+
+article#movieList{ width: 200px; height: 300px; margin: 0px 10px 10px 0px; float:left; }

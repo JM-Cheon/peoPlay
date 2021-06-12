@@ -57,5 +57,6 @@
 					  com.cctv.peoplay.admin.member.model.dao,
 					  com.cctv.peoplay.Community.model.dao,
 					  com.cctv.peoplay.admin.goods.model.dao,
-					  com.cctv.peoplay.goods.model.dao"/>
+					  com.cctv.peoplay.goods.model.dao,
+					  com.cctv.peoplay.movie.model.dao"/>
 </beans>

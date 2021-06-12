@@ -9,12 +9,14 @@ public class MovieFileDTO {
 	private String savePath;
 	private String fileType;
 	private String fileStatus;
+	
+	private MovieDTO movie;
 
 	public MovieFileDTO() {
 	}
 
 	public MovieFileDTO(int mvFileNo, int no, String originName, String saveName, String savePath, String fileType,
-			String fileStatus) {
+			String fileStatus, MovieDTO movie) {
 		this.mvFileNo = mvFileNo;
 		this.no = no;
 		this.originName = originName;
@@ -22,6 +24,7 @@ public class MovieFileDTO {
 		this.savePath = savePath;
 		this.fileType = fileType;
 		this.fileStatus = fileStatus;
+		this.movie = movie;
 	}
 
 	public int getMvFileNo() {
@@ -80,9 +83,20 @@ public class MovieFileDTO {
 		this.fileStatus = fileStatus;
 	}
 
+	public MovieDTO getMovie() {
+		return movie;
+	}
+
+	public void setMovie(MovieDTO movie) {
+		this.movie = movie;
+	}
+
 	@Override
 	public String toString() {
 		return "MovieFileDTO [mvFileNo=" + mvFileNo + ", no=" + no + ", originName=" + originName + ", saveName="
-				+ saveName + ", savePath=" + savePath + ", fileType=" + fileType + ", fileStatus=" + fileStatus + "]";
+				+ saveName + ", savePath=" + savePath + ", fileType=" + fileType + ", fileStatus=" + fileStatus
+				+ ", movie=" + movie + "]";
 	}
+	
+	
 }

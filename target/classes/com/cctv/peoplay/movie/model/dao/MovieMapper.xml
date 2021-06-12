@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cctv.peoplay.movie.model.dao.MovieMapper">
+
+	<!-- 영화 맵 -->
+ 	<resultMap id="movieResultSet" type="com.cctv.peoplay.movie.model.dto.MovieDTO">
+		<id column="MOVIE_NO" property="no"/>
+		<result column="MOVIE_NAME" property="name"/>
+		<result column="MOVIE_INFO" property="info"/>
+		<result column="MOVIE_DIRECTOR" property="director"/>
+		<result column="PRODUCTION_YEAR" property="productionYear"/>
+		<result column="MOVIE_TIME" property="movieTime"/>
+		<result column="MOVIE_LIKE" property="like"/>
+		<result column="MOVIE_DISLIKE" property="dislike"/>
+		<result column="WATCH_FEAR" property="watchFear"/>
+		<result column="WATCH_MODIFICATION" property="watchModification"/>
+		<result column="WATCH_DRUG" property="watchDrug"/>
+		<result column="WATCH_SENSATIONALITY" property="watchSensationality"/>
+		<result column="WATCH_SCRIPT" property="watchScript"/>
+		<result column="WATCH_TITLE" property="watchTitle"/>
+		<result column="WATCH_VIOLENCE" property="watchViolence"/>
+		<result column="RATING_NAME" property="ratingName"/>
+		<result column="MOVIE_STATUS" property="movieStatus"/>
+		<result column="REGISTRATION_DATE" property="registrationDate"/>
+		<result column="MOVIE_END_DATE" property="movieEndDate"/>
+		<result column="GENRE_NAME" property="genreName"/>
+		<result column="MOVIE_VIDEO_RINK" property="movieVideoRink"/>
+		<collection property="movieFile" javaType="com.cctv.peoplay.movie.model.dto.MovieFileDTO">
+			<id property="mvFileNo" column="MV_FILE_NO"/>
+			<result property="no" column="MOVIE_NO"/>
+			<result property="originName" column="ORIGIN_NAME"/>
+			<result property="saveName" column="SAVE_NAME"/>
+			<result property="savePath" column="SAVE_PATH"/>
+			<result property="fileType" column="FILE_TYPE"/>
+			<result property="fileStatus" column="FILE_STATUS"/>
+		</collection>
+	</resultMap>
+
+	<!-- 배우 정보맵 -->
+    <resultMap id="ActorResultSet" type="com.cctv.peoplay.movie.model.dto.ActorDTO">
+			<id property="actorNo" column="ACTOR_NO"/>
+			<result property="no" column="MOVIE_NO"/>
+			<result property="actorName1" column="ACTOR_NAME1"/>
+			<result property="actorName2" column="ACTOR_NAME2"/>
+			<result property="actorName3" column="ACTOR_NAME3"/>
+			<result property="actorName4" column="ACTOR_NAME4"/>
+			<result property="actorName5" column="ACTOR_NAME5"/>
+	</resultMap>
+	
+	<!-- 댓글 -->	
+ 	<resultMap id="movieReviewResultSet" type="com.cctv.peoplay.movie.model.dto.MovieReviewDTO">
+		<id column="REVIEW_NO" property="reviewNo"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="MOVIE_NO" property="no"/>
+		<result column="REVIEW" property="review"/>
+		<result column="REGISTRATION_DATE" property="registrationDate"/>
+		<result column="REVIEW_STATUS" property="reviewStatus"/>
+		<association property="memberInfo" javaType="com.cctv.peoplay.member.model.dto.MemberDTO">
+			<id property="userNo" column="USER_NO"/>
+			<result property="userId" column="USER_ID"/>
+			<result property="userName" column="USER_NAME"/>
+			<result property="nickname" column="NICKNAME"/>
+			<result property="userRole" column="USER_ROLE"/>
+			<result property="userStatus" column="USER_STATUS"/>
+			<result property="movieReviewYN" column="MOVIE_REVIEW_YN"/>
+		</association>
+	</resultMap>	
+
+	<!-- 영화 사진 파일 -->
+	<resultMap id="movieFileResultSet" type="com.cctv.peoplay.movie.model.dto.MovieFileDTO">
+		<id column="MV_FILE_NO" property="mvFileNo"/>
+		<result column="MOVIE_NO" property="no"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="SAVE_NAME" property="saveName"/>
+		<result column="SAVE_PATH" property="savePath"/>
+		<result column="FILE_TYPE" property="fileType"/>
+		<result column="FILE_STATUS" property="fileStatus"/>
+	</resultMap>
+
+	<!-- 찜하기 -->
+	<resultMap id="movieWishListResultSet" type="com.cctv.peoplay.movie.model.dto.MovieWishListDTO">
+		<association property="userNo" javaType="com.cctv.peoplay.member.model.dto.MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+			<result property="userName" column="USER_NAME"/>
+		</association>
+		<association property="no" javaType="com.cctv.peoplay.movie.model.dto.MovieDTO">
+			<result column="MOVIE_NO" property="no"/>
+		</association>
+	</resultMap>
+
+	<resultMap id="movieWishResultSet" type="com.cctv.peoplay.movie.model.dto.MovieWishListDTO">
+			<id property="userNo2" column="USER_NO"/>
+			<result column="MOVIE_NO" property="no2"/>
+			<result column="WISHLIST_DATE" property="wishlistDate"/>
+	</resultMap>
+	
+	<!-- 찜하기 -->
+
+ 	<select id="selectWish" resultMap="movieWishResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+	    FROM MOVIE_WISHLIST A
+	</select>
+
+ 	<select id="selectMovieWishList" resultMap="movieWishListResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+	    FROM MOVIE_WISHLIST A
+	    LEFT JOIN USER_INFO B ON (A.USER_NO = B.USER_NO) 
+	   WHERE A.USER_NO = #{ userNo }
+		 AND A.MOVIE_NO = #{ no }
+	</select>
+
+ 	<insert id="insertMovieWishList" parameterType="hashmap">
+		INSERT INTO 
+		  MOVIE_WISHLIST A
+		 (
+		   A.USER_NO
+		 , A.MOVIE_NO
+		 )
+		 VALUES
+		 (
+		    #{ userNo }
+		  , #{ no }
+		 )
+	</insert>	
+	
+	<delete id="deleteMovieWishList" parameterType="hashmap" >
+       DELETE 
+         FROM MOVIE_WISHLIST A
+	   WHERE A.USER_NO = #{ userNo }
+	     AND A.MOVIE_NO = #{ no }
+	</delete> 
+	
+	<!-- 영화 sql  -->
+	<sql id="movies">
+       A.MOVIE_NO
+     , A.MOVIE_NAME
+     , A.MOVIE_INFO
+     , A.MOVIE_DIRECTOR
+     , A.PRODUCTION_YEAR
+     , A.MOVIE_TIME
+     , A.WATCH_FEAR
+     , A.WATCH_MODIFICATION
+     , A.WATCH_DRUG
+     , A.WATCH_SENSATIONALITY
+     , A.WATCH_SCRIPT
+     , A.WATCH_TITLE
+     , A.WATCH_VIOLENCE
+     , A.RATING_NAME
+     , A.REGISTRATION_DATE
+     , A.GENRE_NAME
+     , A.MOVIE_VIDEO_RINK
+	</sql>
+
+	<!-- 영화 전체 정보 리스트 -->
+    <select id="selectMovieList" resultMap="movieResultSet">
+       SELECT
+       <include refid="movies"/>
+              , A.MOVIE_TIME 
+              , A.MOVIE_LIKE
+              , B.ORIGIN_NAME
+              , B.SAVE_NAME
+              , B.FILE_TYPE  
+	 	      , B.MV_FILE_NO  
+           FROM MOVIE A
+	 	   LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+          WHERE A.MOVIE_STATUS = 'Y'
+          ORDER BY A.REGISTRATION_DATE DESC
+       <if test="condition == 'likes'">    
+          ORDER BY A.MOVIE_LIKE DESC
+       </if>
+    </select>   
+
+	<!-- 영화 정보(하나 선택) -->
+	<select id="selectmovie" resultType="java.lang.String" resultMap="movieResultSet">
+       SELECT 
+	   <include refid="movies"/>
+	        , B.ORIGIN_NAME
+            , B.SAVE_NAME
+            , B.FILE_TYPE  
+	 	    , B.MV_FILE_NO  
+         FROM MOVIE A
+	 	 LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+        WHERE A.MOVIE_NO = #{ no }
+          AND A.MOVIE_STATUS = 'Y'
+    </select>
+    
+	<!-- 영화 파일 선택 -->
+	<select id="selectMovieMainFile" resultMap="movieFileResultSet">
+       SELECT
+              A.MV_FILE_NO
+	 	    , A.MOVIE_NO
+		    , A.ORIGIN_NAME
+		    , A.SAVE_NAME
+		    , A.SAVE_PATH
+		    , A.FILE_TYPE
+	 	 FROM MOVIE_FILE A
+	    WHERE A.MOVIE_NO = #{ no }
+	      AND A.FILE_TYPE = 'MAIN'
+	      AND A.FILE_STATUS = 'Y'
+	</select>
+	<select id="selectMovieSubFile" resultMap="movieFileResultSet">
+       SELECT
+              A.MV_FILE_NO
+	 	    , A.MOVIE_NO
+		    , A.ORIGIN_NAME
+		    , A.SAVE_NAME
+		    , A.SAVE_PATH
+		    , A.FILE_TYPE
+	 	 FROM MOVIE_FILE A
+	    WHERE A.MOVIE_NO = #{ no }
+	      AND A.FILE_TYPE = 'SUB'
+	      AND A.FILE_STATUS = 'Y'
+	</select>
+
+	<!-- 배우 리스트(영화기준 선택) -->
+	<select id="actorList" resultType="java.lang.String" resultMap="ActorResultSet">
+       SELECT
+              A.ACTOR_NO
+        	, A.MOVIE_NO
+            , A.ACTOR_NAME1
+            , A.ACTOR_NAME2
+            , A.ACTOR_NAME3
+            , A.ACTOR_NAME4
+            , A.ACTOR_NAME5
+         FROM ACTOR A
+        WHERE A.MOVIE_NO = #{ no }
+	      AND A.ACTOR_STATUS = 'Y'
+	</select>
+	
+	<!-- 영화 검색 및 카테고리 조회 -->
+	<select id="movieNameSearch" resultMap="movieResultSet" parameterType="hashmap">
+       SELECT
+              A.MOVIE_NO
+		    , A.MOVIE_NAME
+		    , A.GENRE_NAME
+		    , B.SAVE_NAME
+		 FROM MOVIE A
+		 LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+	    WHERE A.MOVIE_NAME LIKE '%' || #{searchText} || '%'
+		  AND B.FILE_TYPE LIKE 'SUB'
+	      AND A.MOVIE_STATUS = 'Y'
+	      AND B.FILE_STATUS = 'Y'
+		ORDER BY A.REGISTRATION_DATE DESC
+	</select>
+	<!-- 영화 장르 검색1 -->
+	<select id="movieGenreSearch1" resultMap="movieResultSet" parameterType="hashmap">
+       SELECT
+              A.MOVIE_NO
+		    , A.MOVIE_NAME
+		    , A.GENRE_NAME
+		    , B.SAVE_NAME
+		 FROM MOVIE A
+		 LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+		WHERE A.GENRE_NAME = #{genreAction}
+	      AND A.MOVIE_STATUS = 'Y'
+	      AND B.FILE_STATUS = 'Y'
+		  AND B.FILE_TYPE LIKE 'SUB'
+		ORDER BY A.REGISTRATION_DATE DESC
+	</select>
+	<!-- 영화 장르 검색2 -->
+	<select id="movieGenreSearch2" resultMap="movieResultSet" parameterType="hashmap">
+       SELECT
+              A.MOVIE_NO
+		    , A.MOVIE_NAME
+		    , A.GENRE_NAME
+		    , B.SAVE_NAME
+		 FROM MOVIE A
+		 LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+		WHERE A.GENRE_NAME = #{genreFantasy}
+	      AND A.MOVIE_STATUS = 'Y'
+	      AND B.FILE_STATUS = 'Y'
+		  AND B.FILE_TYPE LIKE 'SUB'
+		ORDER BY A.REGISTRATION_DATE DESC
+	</select>
+	<!-- 영화 장르 검색3 -->
+	<select id="movieGenreSearch3" resultMap="movieResultSet" parameterType="hashmap">
+       SELECT
+		      A.MOVIE_NO
+		    , A.MOVIE_NAME
+	        , A.GENRE_NAME
+		    , B.SAVE_NAME
+		 FROM MOVIE A
+		 LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+	    WHERE A.GENRE_NAME = #{genreRomance}
+	      AND A.MOVIE_STATUS = 'Y'
+	      AND B.FILE_STATUS = 'Y'
+		  AND B.FILE_TYPE LIKE 'SUB'
+		ORDER BY A.REGISTRATION_DATE DESC
+	</select>
+	<!-- 영화 장르 검색4 -->
+	<select id="movieGenreSearch4" resultMap="movieResultSet" parameterType="hashmap">
+       SELECT
+              A.MOVIE_NO
+		    , A.MOVIE_NAME
+		    , A.GENRE_NAME
+		    , B.SAVE_NAME
+		 FROM MOVIE A
+		 LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+		WHERE A.GENRE_NAME = #{genreComedy}
+	      AND A.MOVIE_STATUS = 'Y'
+	      AND B.FILE_STATUS = 'Y'
+		  AND B.FILE_TYPE LIKE 'SUB'
+		ORDER BY A.REGISTRATION_DATE DESC
+	</select>
+	<!-- 영화 장르 검색5 -->
+	<select id="movieGenreSearch5" resultMap="movieResultSet" parameterType="hashmap">
+       SELECT
+              A.MOVIE_NO
+		    , A.MOVIE_NAME
+		    , A.GENRE_NAME
+		    , B.SAVE_NAME
+		 FROM MOVIE A
+		 LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
+	    WHERE A.GENRE_NAME = #{genreHorror}
+	      AND A.MOVIE_STATUS = 'Y'
+	      AND B.FILE_STATUS = 'Y'
+		  AND B.FILE_TYPE LIKE 'SUB'
+		ORDER BY A.REGISTRATION_DATE DESC
+	</select>    	
+
+	<!-- 리뷰 리스트 -->	
+	<select id="movieReviewList" resultMap="movieReviewResultSet" >
+       SELECT 
+              A.REVIEW_NO
+			, A.USER_NO
+	        , A.MOVIE_NO
+			, A.REVIEW
+            , A.REGISTRATION_DATE
+			, A.REVIEW_STATUS
+			, B.NICKNAME
+         FROM MOVIE_REVIEW A 
+	     LEFT JOIN USER_INFO B ON (A.USER_NO = B.USER_NO) 
+		WHERE A.MOVIE_NO = #{ movieNo }
+		  AND A.REVIEW_STATUS = 'Y'
+		ORDER BY A.REVIEW_NO DESC
+	</select>
+	<!-- 리뷰 인서트 -->
+	<insert id="reviewInsert" parameterType="hashmap">
+       INSERT 
+         INTO MOVIE_REVIEW A
+         (
+           A.REVIEW_NO
+         , A.USER_NO
+         , A.MOVIE_NO
+         , A.REVIEW
+         ) 
+		 VALUES
+		 (
+           SEQ_REVIEW_NO.NEXTVAL
+         , ${ userNo }
+         , #{ movieNo } 
+         , #{ replyText }
+	 	 )
+	</insert>
+	<!-- 리뷰 딜리트 -->
+	<update id="reviewDelete" parameterType="hashmap" >
+       UPDATE 
+              MOVIE_REVIEW A
+		  SET A.REVIEW_STATUS = 'N'
+		WHERE A.REVIEW_NO = #{ replyNum }
+	</update>
+
+
+	<!-- 좋아요 업데이트 -->	
+	<update id="likeUpdate" parameterType="hashmap">
+       UPDATE 
+              MOVIE A
+          SET A.MOVIE_LIKE = (SELECT B.MOVIE_LIKE
+                                FROM MOVIE B
+                               WHERE B.MOVIE_NO = #{ likeUpdate }
+                             ) + 1
+        WHERE A.MOVIE_NO = #{ likeUpdate }
+	</update>
+	<!-- 싫어요 업데이트 -->		
+	<update id="disLikeUpdate" parameterType="hashmap">
+		 UPDATE 
+            MOVIE A
+         SET A.MOVIE_DISLIKE = (SELECT B.MOVIE_DISLIKE
+                                  FROM MOVIE B
+                                 WHERE B.MOVIE_NO = #{ disLikeUpdate }
+                                ) + 1
+         WHERE A.MOVIE_NO = #{ disLikeUpdate }
+	</update>
+
+	<!-- 좋아요 싫어요 리스트 -->	
+	<select id="likeAmount" resultMap="movieResultSet" >
+       SELECT 
+				A.MOVIE_NAME
+		      , A.MOVIE_NO
+              , A.MOVIE_LIKE
+              , A.MOVIE_DISLIKE
+           FROM MOVIE A
+          WHERE A.MOVIE_STATUS = 'Y'
+            AND A.MOVIE_NO = #{no}
+	</select>
+	<select id="dislikeAmount" resultMap="movieResultSet" >
+       SELECT 
+				A.MOVIE_NAME
+		      , A.MOVIE_NO
+              , A.MOVIE_LIKE
+              , A.MOVIE_DISLIKE
+           FROM MOVIE A
+          WHERE A.MOVIE_STATUS = 'Y'
+            AND A.MOVIE_NO = #{no}
+	</select>
+
+
+	<!-- 영화 insert -->
+	<insert id="insertMovie" parameterType="com.cctv.peoplay.movie.model.dto.MovieDTO">
+		INSERT 
+		  INTO MOVIE A
+		(
+		   A.MOVIE_NO
+		 , A.MOVIE_NAME
+		 , A.MOVIE_INFO
+		 , A.MOVIE_DIRECTOR
+		 , A.PRODUCTION_YEAR
+		 , A.MOVIE_TIME
+		 , A.WATCH_FEAR
+		 , A.WATCH_MODIFICATION
+		 , A.WATCH_DRUG
+		 , A.WATCH_SENSATIONALITY
+		 , A.WATCH_SCRIPT
+		 , A.WATCH_TITLE
+		 , A.WATCH_VIOLENCE
+		 , A.RATING_NAME
+		 , A.GENRE_NAME
+		 , A.MOVIE_VIDEO_RINK
+		)
+		VALUES
+		(
+		   SEQ_MOVIE_NO.NEXTVAL
+		 , #{ name }
+		 , #{ info }
+		 , #{ director }
+		 , #{ productionYear }
+		 , #{ movieTime }
+		 , #{ watchFear }
+		 , #{ watchModification }
+		 , #{ watchDrug }
+		 , #{ watchSensationality }
+		 , #{ watchScript }
+		 , #{ watchTitle }
+		 , #{ watchViolence }
+		 , #{ ratingName }
+		 , #{ genreName }
+		 , #{ movieVideoRink }
+		 )
+	</insert>
+
+	<!-- 배우 insert -->
+	<insert id="insertActors" parameterType="com.cctv.peoplay.movie.model.dto.ActorDTO">
+	 <selectKey keyProperty="movie.no" order="BEFORE" resultType="_int">
+	 	SELECT
+	 		   SEQ_MOVIE_NO.CURRVAL
+	      FROM DUAL
+	 </selectKey>  
+        INSERT
+          INTO ACTOR A
+        (
+          A.ACTOR_NO
+        , A.MOVIE_NO
+        , A.ACTOR_NAME1
+        , A.ACTOR_NAME2
+        , A.ACTOR_NAME3
+        , A.ACTOR_NAME4
+        , A.ACTOR_NAME5
+        ) 
+		VALUES
+		(
+          SEQ_ACTOR_NO.NEXTVAL
+        , #{ movie.no }
+        , #{ actorName1 }
+        , #{ actorName2 }
+        , #{ actorName3 }
+        , #{ actorName4 }
+        , #{ actorName5 }
+		)
+	</insert>
+		
+	<!-- 영화 메인파일 insert  -->
+	<insert id="insertMovieFileMain" parameterType="com.cctv.peoplay.movie.model.dto.MovieFileDTO">
+ 	 <selectKey keyProperty="movie.no" order="BEFORE" resultType="_int">
+	 		SELECT
+	 		       SEQ_MOVIE_NO.CURRVAL
+	 		  FROM DUAL
+	 </selectKey>
+        INSERT 
+          INTO MOVIE_FILE A
+        (
+          A.MV_FILE_NO
+        , A.MOVIE_NO
+        , A.ORIGIN_NAME
+        , A.SAVE_NAME
+        , A.SAVE_PATH
+        ) 
+		VALUES
+		(
+          SEQ_MV_FILE_NO.NEXTVAL
+        , #{ movie.no }
+        , #{ originName }
+        , #{ saveName } 
+        , #{ savePath }
+		)	
+	</insert>
+	
+	<!-- 영화 서브파일 insert  -->
+	<insert id="insertMovieFileSub" parameterType="com.cctv.peoplay.movie.model.dto.MovieFileDTO">
+	 <selectKey keyProperty="movie.no" order="BEFORE" resultType="_int">
+	    SELECT
+	 		   SEQ_MOVIE_NO.CURRVAL
+	 	  FROM DUAL
+	 </selectKey>
+        INSERT 
+          INTO MOVIE_FILE A
+        (
+          A.MV_FILE_NO
+        , A.MOVIE_NO
+        , A.ORIGIN_NAME
+        , A.SAVE_NAME
+        , A.SAVE_PATH
+        , A.FILE_TYPE
+        ) 
+		VALUES
+		(
+          SEQ_MV_FILE_NO.NEXTVAL
+        , #{ movie.no }
+        , #{ originName }
+        , #{ saveName } 
+        , #{ savePath }
+        , 'SUB'
+		)	
+	</insert>
+	
+	<!-- 영화 삭제 -->
+	<update id="movieDelete" parameterType="int">
+		UPDATE 
+		       MOVIE A
+		   SET
+		       A.MOVIE_STATUS = 'N'
+		WHERE A.MOVIE_NO = #{ no }
+	</update>
+	<update id="actorDelete" parameterType="int">
+       UPDATE 
+		      ACTOR A
+		  SET
+		      A.ACTOR_STATUS = 'N'
+	    WHERE A.MOVIE_NO = #{ no }
+	</update>
+	<update id="movieFileDelete" parameterType="int">
+		UPDATE
+		       MOVIE_FILE A
+		   SET 
+		       A.FILE_STATUS = 'N'
+		 WHERE A.MOVIE_NO = #{no}
+	</update>
+	
+
+	<!-- 기존파일 update로 N 해주고 다른걸로 인서트 -->
+	<!-- 영화 update -->
+	<update id="updateMovie" parameterType="hashmap">
+		UPDATE
+		       MOVIE A
+		   SET A.MOVIE_NAME = #{name}
+		     , A.MOVIE_INFO = #{info}
+		     , A.MOVIE_DIRECTOR = #{director}
+		     , A.PRODUCTION_YEAR = #{productionYear}
+		     , A.MOVIE_TIME = #{movieTime}
+		     , A.WATCH_FEAR = #{watchFear}
+		     , A.WATCH_MODIFICATION = #{watchModification}
+		     , A.WATCH_DRUG = #{watchDrug}
+		     , A.WATCH_SENSATIONALITY = #{watchSensationality}
+		     , A.WATCH_SCRIPT = #{watchScript}
+		     , A.WATCH_TITLE = #{watchTitle}
+		     , A.WATCH_VIOLENCE = #{watchViolence}
+		     , A.RATING_NAME = #{ratingName}
+		     , A.GENRE_NAME = #{genreName}
+		     , A.MOVIE_VIDEO_RINK = #{movieVideoRink}
+		  WHERE A.MOVIE_NO = #{no}	
+	</update>
+	<!-- 배우 update -->
+	<update id="updateActors" parameterType="hashmap">
+		UPDATE
+		       ACTOR A
+		   SET 
+		       A.ACTOR_NAME1 = #{actorName1}
+		     , A.ACTOR_NAME2 = #{actorName2}
+		     , A.ACTOR_NAME3 = #{actorName3}
+		     , A.ACTOR_NAME4 = #{actorName4}
+		     , A.ACTOR_NAME5 = #{actorName5}
+		 WHERE A.MOVIE_NO = #{no}
+	</update>
+	<!-- 영화 메인파일 update  -->
+	<insert id="updateMovieFileMain" parameterType="com.cctv.peoplay.movie.model.dto.MovieFileDTO">
+        INSERT 
+          INTO MOVIE_FILE A
+        (
+          A.MV_FILE_NO
+        , A.MOVIE_NO
+        , A.ORIGIN_NAME
+        , A.SAVE_NAME
+        , A.SAVE_PATH
+        ) 
+		VALUES
+		(
+          SEQ_MV_FILE_NO.NEXTVAL
+        , #{ no }
+        , #{ originName }
+        , #{ saveName } 
+        , #{ savePath }
+		)	
+	</insert>
+	
+	<!-- 영화 서브파일 update  -->
+	<insert id="updateMovieFileSub" parameterType="com.cctv.peoplay.movie.model.dto.MovieFileDTO">
+        INSERT 
+          INTO MOVIE_FILE A
+        (
+          A.MV_FILE_NO
+        , A.MOVIE_NO
+        , A.ORIGIN_NAME
+        , A.SAVE_NAME
+        , A.SAVE_PATH
+        , A.FILE_TYPE
+        ) 
+		VALUES
+		(
+          SEQ_MV_FILE_NO.NEXTVAL
+        , #{ no }
+        , #{ originName }
+        , #{ saveName } 
+        , #{ savePath }
+        , 'SUB'
+		)	
+	</insert>
+	<!-- 영화 수정 전(새로등록) 파일 삭제(업데이트) => movieFileDelete -->
+	<!-- 영화파일 하나 처리 -->	
+	<update id="movieSubFileOnePickDelete" parameterType="int">
+		UPDATE
+		       MOVIE_FILE A
+		   SET 
+		       A.FILE_STATUS = 'N'
+		 WHERE A.MOVIE_NO = #{ no }
+		   AND A.FILE_TYPE LIKE 'SUB'
+	</update>
+	<update id="movieMainFileOnePickDelete" parameterType="int">
+		UPDATE
+		       MOVIE_FILE A
+		   SET 
+		       A.FILE_STATUS = 'N'
+		 WHERE A.MOVIE_NO = #{ no }
+		   AND A.FILE_TYPE LIKE 'MAIN'
+	</update>
+
+	
+	
+	<!-- 베스트 영화 -->
+	<select id="mainBastMovie" resultMap="movieResultSet" >
+	    SELECT RNUM
+		     , A.MOVIE_NAME
+		     , A.MOVIE_LIKE
+		     , A.MOVIE_VIDEO_RINK
+		  FROM (SELECT ROWNUM RNUM
+		             , B.MOVIE_NAME
+		             , B.MOVIE_LIKE
+		             , B.MOVIE_VIDEO_RINK
+		          FROM (SELECT C.MOVIE_NO 
+		                     , C.MOVIE_NAME
+		                     , C.MOVIE_INFO
+		                     , C.MOVIE_DIRECTOR
+		                     , C.PRODUCTION_YEAR
+		                     , C.MOVIE_TIME
+		                     , C.MOVIE_LIKE
+		                     , C.MOVIE_DISLIKE
+		                     , C.MOVIE_STATUS
+		                     , C.REGISTRATION_DATE
+		                     , C.MOVIE_END_DATE
+		                     , C.GENRE_NAME
+		                     , C.MOVIE_VIDEO_RINK
+		                  FROM MOVIE C
+		                 WHERE C.MOVIE_STATUS = 'Y'
+		                 ORDER BY C.MOVIE_LIKE DESC
+		                ) B
+		        ) A
+		 WHERE A.RNUM = 1
+	</select>
+	
+	
+	<!-- 메인 영화 인기 순위 -->
+	<select id="mainTopFavoriteMovie" resultMap="movieResultSet" >
+			SELECT RNUM
+		     , A.MOVIE_NAME
+		     , A.MOVIE_LIKE
+		     , A.MOVIE_VIDEO_RINK
+		  FROM (SELECT ROWNUM RNUM
+		             , B.MOVIE_NAME
+		             , B.MOVIE_LIKE
+		             , B.MOVIE_VIDEO_RINK
+		          FROM (SELECT C.MOVIE_NO 
+		                     , C.MOVIE_NAME
+		                     , C.MOVIE_INFO
+		                     , C.MOVIE_DIRECTOR
+		                     , C.PRODUCTION_YEAR
+		                     , C.MOVIE_TIME
+		                     , C.MOVIE_LIKE
+		                     , C.MOVIE_DISLIKE
+		                     , C.MOVIE_STATUS
+		                     , C.REGISTRATION_DATE
+		                     , C.MOVIE_END_DATE
+		                     , C.GENRE_NAME
+		                     , C.MOVIE_VIDEO_RINK
+		                  FROM MOVIE C
+		                 WHERE C.MOVIE_STATUS = 'Y'
+		                 ORDER BY C.MOVIE_LIKE DESC
+		                ) B
+		        ) A
+		 WHERE A.RNUM BETWEEN 1 AND 5
+	</select>
+	
+	<!-- 메인 영화 최신 순 -->
+	<select id="mainNewTopMovie" resultMap="movieResultSet">
+			SELECT RNUM
+		     , A.MOVIE_NAME
+		     , A.MOVIE_LIKE
+		     , A.MOVIE_VIDEO_RINK
+		  FROM (SELECT ROWNUM RNUM
+		             , B.MOVIE_NAME
+		             , B.MOVIE_LIKE
+		             , B.MOVIE_VIDEO_RINK
+		          FROM (SELECT C.MOVIE_NO 
+		                     , C.MOVIE_NAME
+		                     , C.MOVIE_INFO
+		                     , C.MOVIE_DIRECTOR
+		                     , C.PRODUCTION_YEAR
+		                     , C.MOVIE_TIME
+		                     , C.MOVIE_LIKE
+		                     , C.MOVIE_DISLIKE
+		                     , C.MOVIE_STATUS
+		                     , C.REGISTRATION_DATE
+		                     , C.MOVIE_END_DATE
+		                     , C.GENRE_NAME
+		                     , C.MOVIE_VIDEO_RINK
+		                  FROM MOVIE C
+		                 WHERE C.MOVIE_STATUS = 'Y'
+		                 ORDER BY C.REGISTRATION_DATE DESC
+		                ) B
+		         ) A
+	 	 WHERE A.RNUM BETWEEN 1 AND 5
+	</select>
+	
+	
+	
+</mapper>
+
+    
+    

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.sec3 .tab_reply{
+   width : 800px;
+}
+/* 댓글이라는 것 */
+.sec3 .reply {font-size: 20pt;font-family: "맑은 고딕";}
+
+/* 등록버튼 */
+.sec3 .repliedbtn {   height: 90px;background-color: #faae5a;width: 90px;float: right;color: white;
+               border-radius: 8px;}
+
+/* 달려진 댓글 아이디  테이블*/
+.sec3 .tab_reply .repliedId {width: 100px;}
+/* 댓글 다는 div */
+.sec3 .replydiv {width: 700px;float: left;}
+
+/* 댓글 수정 파트 */
+.sec3 .tab_reply .repliedUpdate {width: 60px;}
+
+/* 댓글 삭제파트 */
+.sec3 .tab_reply .repliedDelete {width: 620px;}
+
+/* 달려진 댓글 아이디 내용 */
+.sec3 .tab_reply .repliedId_real {font-family: "맑은 고딕";height: 20px;padding-left: 10px;padding-top: 2px;font-weight: 600;
+}
+/* 달려진 댓글 아이디 내용 */
+.repliedUpdate_real { width: 60px; color: #89b5d0; font-family: "맑은 고딕";height: 20px;padding-left: 10px;padding-top: 2px;font-weight: 600;
+}
+/* 달려진 댓글 아이디 내용 */
+.replyDelete{ color: #89b5d0; font-family: "맑은 고딕"; height: 20px; padding-left: 10px; padding-top: 2px; font-weight: 600;}
+
+/* 댓글 달린 시간 테이블 */
+.repliedtime { float: right; margin-right: 50px;  margin-top: 10px;  margin-bottom: 10px; }
+.replied{ float: left; margin-left: 50px; margin-top: 10px;  margin-bottom: 10px; }
+
+.sec3 .replytext {resize: none;   width: 100%;}
+
+/* 댓글 달린 시간 내용 */
+.sec3 .tab_reply .repliedtime_real {color: #89b5d0;font-weight: 500;}
+
+.sec3 .tab_reply .replied {   height: 70px;}
+
+.sec3 .tab_reply .replied_real {font-family: "맑은 고딕";height: 20px;   padding-left: 10px;   position: relative;   top: -12px;}
+
+/* 댓글다는 부분 크기 지정 */
+.sec3 {   width: 800px;height: 300px;margin: 0px auto;}
