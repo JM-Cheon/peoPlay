@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <meta charset="UTF-8">
-<title>Peoplay : 신고 관리</title>
+<title>Insert title here</title>
 
 
 
