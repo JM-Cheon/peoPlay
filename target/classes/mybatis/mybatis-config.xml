@@ -32,6 +32,7 @@
  		<typeAlias alias="GoodsInquiryReplyDTO" type="com.cctv.peoplay.goods.model.dto.GoodsInquiryReplyDTO"/>
  		<typeAlias alias="DeliveryStatusDTO" type="com.cctv.peoplay.goods.model.dto.DeliveryStatusDTO"/>
  		<typeAlias alias="DeliveryMemoDTO" type="com.cctv.peoplay.goods.model.dto.DeliveryMemoDTO"/>
+ 		<typeAlias alias="GoodsInAndOutDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsInAndOutDTO"/>
  		
  		<!-- 관리자_굿즈 -->
  		<typeAlias alias="AdminGoodsDTO" type="com.cctv.peoplay.admin.goods.model.dto.GoodsDTO"/>
