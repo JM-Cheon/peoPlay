@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cctv.peoplay.member.model.dao.MemberMapper">
+
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NAME" property="userName" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="USER_ADDRESS" property="userAddress" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="BIRTHDAY" property="birthday" />
+		<result column="USER_ROLE" property="userRole" />
+		<result column="USER_REGISTER" property="userRegister" />
+		<result column="USER_STATUS" property="userStatus" />
+		<result column="SPOILER_YN" property="spoilerYN" />
+		<result column="MOVIE_REVIEW_YN" property="movieReviewYN" />
+		<result column="BLACKLIST_DATE" property="blacklistDate" />
+		<result column="WITHDRAW_DATE" property="withdrawDate" />
+		<result column="REPORT_CUMULATIVE" property="reportCumulative" />
+		<result column="SUBSCRIBE_VALIDITY" property="subscribeValidity" />
+		<result column="ACTION" property="action" />
+		<result column="FANTASY" property="fantasy" />
+		<result column="ROMANCE" property="romance" />
+		<result column="COMEDY" property="comedy" />
+		<result column="HORROR" property="horror" />
+	</resultMap>
+	
+	<resultMap id="subscribePaymentResultMap" type="SubscribePaymentDTO">
+		<id column="PAYMENT_NO" property="paymentNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="PAYMENT_DATE" property="paymentDate" />
+		<result column="PAYMENT_VALIDITY" property="paymentValidity" />
+		<result column="PAYMENT_PRICE" property="paymentPrice" />
+		<association property="subscription" javaType="SubscriptionDTO">
+			<id column="SUBSCRIPTION_NUMBER" property="number"/>
+			<result column="SUBSCRIPTION_NAME" property="name"/>
+			<result column="SUBSCRIPTION_PERIOD" property="period" />
+			<result column="SUBSCRIPTION_PRICE" property="price" />
+		</association>
+	</resultMap>
+	
+	<resultMap id="subscriptionResultSet" type="SubscriptionDTO">
+		<id column="SUBSCRIPTION_NUMBER" property="number" />
+		<result column="SUBSCRIPTION_NAME" property="name"/>
+		<result column="SUBSCRIPTION_PERIOD" property="period" />
+		<result column="SUBSCRIPTION_PRICE" property="price" />
+	</resultMap>
+	
+	<resultMap id="movieResultMap" type="MovieAllImgDTO">
+		<id column="MOVIE_NO" property="no" />
+		<result column="MOVIE_NAME" property="name" />
+		<result column="MOVIE_INFO" property="info" />
+		<result column="MOVIE_DIRECTOR" property="director" />
+		<result column="PRODUCTION_YEAR" property="productionYear" />
+		<result column="MOVIE_TIME" property="movieTime" />
+		<result column="MOVIE_LIKE" property="like" />
+		<result column="MOVIE_DISLIKE" property="dislike" />
+		<result column="WATCH_FEAR" property="watchFear" />
+		<result column="WATCH_MODIFICATION" property="watchModification" />
+		<result column="WATCH_DRUG" property="watchDrug" />
+		<result column="WATCH_SENSATIONALITY" property="watchSensationality" />
+		<result column="WATCH_SCRIPT" property="watchScript" />
+		<result column="WATCH_TITLE" property="watchTitle" />
+		<result column="WATCH_VIOLENCE" property="watchViolence" />
+		<result column="RATING_NAME" property="ratingName" />
+		<result column="MOVIE_STATUS" property="movieStatus" />
+		<result column="REGISTRATION_DATE" property="registrationDate" />
+		<result column="MOVIE_END_DATE" property="movieEndDate" />
+		<result column="GENRE_NAME" property="genreName" />
+		<result column="MOVIE_VIDEO_RINK" property="movieVideoRink" />
+		<collection property="movieFile" ofType="MovieFileDTO">
+			<id property="mvFileNo" column="MV_FILE_NO"/>
+			<result property="no" column="MOVIE_NO"/>
+			<result property="originName" column="ORIGIN_NAME"/>
+			<result property="saveName" column="SAVE_NAME"/>
+			<result property="savePath" column="SAVE_PATH"/>
+			<result property="fileType" column="FILE_TYPE"/>
+			<result property="fileStatus" column="FILE_STATUS"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="GoodsCartResultMap" type="GoodsCartDTO">
+		<result column="CART_COUNT" property="cartCount" />
+		<association property="userNum" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id property="goodsNum" column="GOODS_NUMBER"/>
+			<result property="goodsName" column="GOODS_NAME"/>
+			<collection property="goodsFiles" ofType="GoodsFileDTO">
+				<id property="number" column="FILE_NO"/>
+				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+				<result property="fileType" column="FILE_FILE"/>
+			</collection>
+		</association>
+	</resultMap>
+
+	<resultMap id="GoodsLikeResultMap" type="GoodsLikeDTO">
+		<association property="userNo" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id property="goodsNum" column="GOODS_NUMBER"/>
+			<result property="goodsName" column="GOODS_NAME"/>
+			<collection property="goodsFiles" ofType="GoodsFileDTO">
+				<id property="number" column="FILE_NO"/>
+				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+				<result property="fileType" column="FILE_FILE"/>
+			</collection>
+		</association>
+	</resultMap>
+	
+	<resultMap id="orderResultMap" type="DeliveryDTO">
+		<id column="DELIVERY_NUMBER" property="deliveryNumber"/>
+		<association property="paymentNum" javaType="PaymentDTO">
+			<id column="PAYMENT_NUM" property="paymentNo"/>
+			<result column="PAYMENT_PRICE" property="paymentPrice"/>
+			<association property="orderNo" javaType="OrderDTO">
+				<id column="ORDER_NUM" property="orderNo"/>
+				<result column="ORDER_DATE" property="orderDate"/>
+				<result column="ORDER_COUNT" property="orderCount"/>
+			</association>
+      	</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum"/>
+			<result column="GOODS_NAME" property="goodsName"/>
+		</association>
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo"/>
+		</association>
+		<association property="shipmentMemoCode" javaType="DeliveryStatusDTO">
+			<id column="SHIPMENT_CODE" property="shipmentCode"/>
+			<result column="SHIPMENT_STATUS" property="shipmentStatus"/>
+		</association>
+	</resultMap>
+	
+	<resultMap id="boardResultMap" type="BoardDTO">
+		<id property="no" column="POST_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="title" column="POST_TITLE"/>
+		<result property="content" column="POST_CONTENT"/>
+		<result property="view" column="VIEW_NO"/>
+		<result property="creationDate" column="CREATION_DATE"/>
+		<result property="reportCount" column="REPORT_COUNT"/>
+		<result property="status" column="POST_STATUS"/>
+		<result property="commentCount" column="COMMENT_COUNT"/>
+		<result property="category" column="CATEGORY"/>
+	</resultMap>
+
+	<resultMap id="qnaResultMap" type="QnaDTO">
+		<id property="inquiryNo" column="INQUIRY_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="inquiryTitles" column="INQUIRY_TITLES"/>
+		<result property="inquiryContent" column="INQUIRY_CONTENT"/>
+		<result property="creationDate" column="CREATION_DATE"/>
+		<result property="inquiryYn" column="INQUIRY_YN"/>
+		<result property="inquiryStatus" column="INQUIRY_STATUS"/>
+		<result property="disclosureStatus" column="DISCLOSURE_STATUS"/>
+	</resultMap>
+	
+	<insert id="insertMember" parameterType="MemberDTO">
+        INSERT 
+          INTO USER_INFO A
+        (
+          A.USER_NO
+        , A.USER_ID
+        , A.USER_PWD
+        , A.USER_NAME
+        , A.NICKNAME
+        , A.USER_ADDRESS
+        , A.EMAIL
+        , A.PHONE
+        , A.BIRTHDAY
+        ) 
+		VALUES
+		(
+		  SEQ_USER_NO.NEXTVAL
+		, #{ userId }
+		, #{ userPwd }
+		, #{ userName }
+		, #{ nickname }
+		, #{ userAddress }
+		, #{ email }
+		, #{ phone }
+		, #{ birthday }
+		)
+	</insert>
+	
+	<insert id="insertAction" parameterType="_int">
+		INSERT
+		  INTO USER_FAVORITE_GENRE A
+		(
+		  A.USER_NO
+		, A.FAVORITE_GENRE_NO
+		, A.GENRE_SHAME
+		)
+		VALUES
+		(
+		  SEQ_USER_NO.CURRVAL
+		, 1
+		, #{action}
+		)
+	</insert>
+	
+	<insert id="insertFantasy" parameterType="_int">
+		INSERT
+		  INTO USER_FAVORITE_GENRE A
+		(
+		  A.USER_NO
+		, A.FAVORITE_GENRE_NO
+		, A.GENRE_SHAME
+		)
+		VALUES
+		(
+		  SEQ_USER_NO.CURRVAL
+		, 2
+		, #{fantasy}
+		)
+	</insert>
+	
+	<insert id="insertRomance" parameterType="_int">
+		INSERT
+		  INTO USER_FAVORITE_GENRE A
+		(
+		  A.USER_NO
+		, A.FAVORITE_GENRE_NO
+		, A.GENRE_SHAME
+		)
+		VALUES
+		(
+		  SEQ_USER_NO.CURRVAL
+		, 3
+		, #{romance}
+		)
+	</insert>
+
+	<insert id="insertComedy" parameterType="_int">
+		INSERT
+		  INTO USER_FAVORITE_GENRE A
+		(
+		  A.USER_NO
+		, A.FAVORITE_GENRE_NO
+		, A.GENRE_SHAME
+		)
+		VALUES
+		(
+		  SEQ_USER_NO.CURRVAL
+		, 4
+		, #{comedy}
+		)
+	</insert>
+
+	<insert id="insertHorror" parameterType="_int">
+		INSERT
+		  INTO USER_FAVORITE_GENRE A
+		(
+		  A.USER_NO
+		, A.FAVORITE_GENRE_NO
+		, A.GENRE_SHAME
+		)
+		VALUES
+		(
+		  SEQ_USER_NO.CURRVAL
+		, 5
+		, #{horror}
+		)
+	</insert>
+	
+	<select id="selectIdCheck" resultType="java.lang.String" parameterType="string">
+		SELECT
+		       A.USER_ID
+		  FROM USER_INFO A
+		 WHERE A.USER_ID = #{requestId}
+	</select>
+
+	<select id="selectNicknameCheck" resultType="java.lang.String" parameterType="string">
+		SELECT
+		       A.NICKNAME
+		  FROM USER_INFO A
+		 WHERE A.NICKNAME = #{requestNickname}
+	</select>
+
+	<select id="selectEncPassword" resultType="java.lang.String" parameterType="MemberDTO">
+        SELECT 
+               A.USER_PWD 
+          FROM USER_INFO A 
+         WHERE A.USER_ID = #{userId} 
+           AND A.USER_STATUS='Y'
+	</select>
+	
+	<select id="selectMember" resultMap="memberResultSet" parameterType="MemberDTO">
+        SELECT 
+               A.USER_NO
+             , A.USER_ID
+             , A.USER_PWD
+             , A.USER_NAME
+             , A.NICKNAME
+             , A.USER_ADDRESS
+             , A.EMAIL
+             , A.PHONE
+             , A.BIRTHDAY
+             , A.USER_ROLE
+             , A.USER_REGISTER
+             , A.USER_STATUS
+             , A.SPOILER_YN
+             , A.MOVIE_REVIEW_YN
+             , A.BLACKLIST_DATE
+             , A.WITHDRAW_DATE
+             , A.REPORT_CUMULATIVE
+             , A.SUBSCRIBE_VALIDITY
+             , (SELECT
+                       C.GENRE_SHAME
+                  FROM USER_FAVORITE_GENRE C
+                 WHERE C.USER_NO = (SELECT
+                                           D.USER_NO
+                                      FROM USER_INFO D
+                                     <where>
+                                     <if test="userNo gt 0">
+							           D.USER_NO = #{userNo}
+									 </if>
+							         <if test="userId != null">
+							           AND D.USER_ID = #{userId}
+									 </if>
+									 <if test="userName != null">
+							           AND D.USER_NAME = #{userName}
+									 </if>
+                                     </where>
+                                    )
+                   AND C.FAVORITE_GENRE_NO = 1
+               ) ACTION
+             , (SELECT
+                       C.GENRE_SHAME
+                  FROM USER_FAVORITE_GENRE C
+                 WHERE C.USER_NO = (SELECT
+                                           D.USER_NO
+                                      FROM USER_INFO D
+                                     <where>
+                                     <if test="userNo gt 0">
+							           D.USER_NO = #{userNo}
+									 </if>
+							         <if test="userId != null">
+							           AND D.USER_ID = #{userId}
+									 </if>
+									 <if test="userName != null">
+							           AND D.USER_NAME = #{userName}
+									 </if>
+							         <if test="email != null">
+							           AND D.EMAIL = #{email}
+									 </if>
+                                     </where>
+                                    )
+                   AND C.FAVORITE_GENRE_NO = 2
+               ) FANTASY
+             , (SELECT
+                       C.GENRE_SHAME
+                  FROM USER_FAVORITE_GENRE C
+                 WHERE C.USER_NO = (SELECT
+                                           D.USER_NO
+                                      FROM USER_INFO D
+                                     <where>
+                                     <if test="userNo gt 0">
+							           D.USER_NO = #{userNo}
+									 </if>
+							         <if test="userId != null">
+							           AND D.USER_ID = #{userId}
+									 </if>
+									 <if test="userName != null">
+							           AND D.USER_NAME = #{userName}
+									 </if>
+							         <if test="email != null">
+							           AND D.EMAIL = #{email}
+									 </if>
+                                     </where>
+                                    )
+                   AND C.FAVORITE_GENRE_NO = 3
+               ) ROMANCE
+             , (SELECT
+                       C.GENRE_SHAME
+                  FROM USER_FAVORITE_GENRE C
+                 WHERE C.USER_NO = (SELECT
+                                           D.USER_NO
+                                      FROM USER_INFO D
+                                     <where>
+                                     <if test="userNo gt 0">
+							           D.USER_NO = #{userNo}
+									 </if>
+							         <if test="userId != null">
+							           AND D.USER_ID = #{userId}
+									 </if>
+									 <if test="userName != null">
+							           AND D.USER_NAME = #{userName}
+									 </if>
+							         <if test="email != null">
+							           AND D.EMAIL = #{email}
+									 </if>
+                                     </where>
+                                    )
+                   AND C.FAVORITE_GENRE_NO = 4
+               ) COMEDY
+             , (SELECT
+                       C.GENRE_SHAME
+                  FROM USER_FAVORITE_GENRE C
+                 WHERE C.USER_NO = (SELECT
+                                           D.USER_NO
+                                      FROM USER_INFO D
+                                     <where>
+                                     <if test="userNo gt 0">
+							           D.USER_NO = #{userNo}
+									 </if>
+							         <if test="userId != null">
+							           AND D.USER_ID = #{userId}
+									 </if>
+									 <if test="userName != null">
+							           AND D.USER_NAME = #{userName}
+									 </if>
+							         <if test="email != null">
+							           AND D.EMAIL = #{email}
+									 </if>
+                                     </where>
+                                    )
+                   AND C.FAVORITE_GENRE_NO = 5
+               ) HORROR
+          FROM USER_INFO A
+          <where> 
+          <if test="userNo gt 0">
+          	A.USER_NO = #{userNo}
+		  </if>
+          <if test="userId != null">
+          	AND A.USER_ID = #{userId}
+		  </if>
+          <if test="userName != null">
+          	AND A.USER_NAME = #{userName}
+		  </if>
+          <if test="email != null">
+          	AND A.EMAIL = #{email}
+		  </if>
+            AND A.USER_STATUS='Y'
+          </where>
+	</select>
+	
+	<update id="modifySearchPwd" parameterType="MemberDTO">
+		UPDATE
+		       USER_INFO A
+		   SET A.USER_PWD = #{userPwd}
+		 WHERE A.USER_ID = #{userId}
+	</update>
+	
+	<update id="modifyMember" parameterType="MemberDTO">
+		UPDATE
+		       USER_INFO A
+		   SET A.USER_NAME = #{userName}
+		     , A.USER_ADDRESS = #{userAddress}
+		     , A.EMAIL = #{email}
+		     , A.PHONE = #{phone}
+		     , A.BIRTHDAY = #{birthday}
+		 WHERE A.USER_ID = #{userId}
+	</update>
+	
+	<update id="modifyPwd" parameterType="MemberDTO">
+		UPDATE
+		       USER_INFO A
+		   SET A.USER_PWD = #{userPwd}
+		 WHERE A.USER_ID = #{userId}
+	</update>
+	
+	<update id="removeMember" parameterType="MemberDTO">
+		UPDATE
+		       USER_INFO A
+		   SET A.USER_STATUS = 'N'
+		     , A.WITHDRAW_DATE = SYSDATE
+		 WHERE A.USER_ID = #{userId}
+	</update>
+	
+	<select id="selectSubscription" resultMap="subscriptionResultSet" parameterType="SubscribePaymentDTO">
+		SELECT
+		       A.SUBSCRIPTION_NUMBER
+		     , A.SUBSCRIPTION_NAME
+		     , A.SUBSCRIPTION_PERIOD
+		     , A.SUBSCRIPTION_PRICE
+		  FROM SUBSCRIPTION A
+		 WHERE A.SUBSCRIPTION_NUMBER = #{subscription.number}
+	</select>
+	
+	<insert id="insertSubscribePayment" parameterType="SubscribePaymentDTO">
+		INSERT
+		  INTO PAYMENT A
+		(
+		  A.PAYMENT_NO
+		, A.SUBSCRIPTION_NUMBER
+		, A.USER_NO
+		, A.PAYMENT_DATE
+		, A.PAYMENT_VALIDITY
+		, A.PAYMENT_PRICE
+		)
+		VALUES
+		(
+		  SEQ_PAYMENT_NO.NEXTVAL
+		, #{subscription.number}
+		, #{userNo}
+		, SYSDATE
+		, #{paymentValidity}
+		, #{paymentPrice}
+		)
+	</insert>
+	
+	<update id="modifySubscribeValidity" parameterType="SubscribePaymentDTO">
+		UPDATE
+			   USER_INFO A
+		   SET A.SUBSCRIBE_VALIDITY = #{paymentValidity}
+		 WHERE A.USER_NO = #{userNo}
+	</update>
+	
+	<select id="selectPaymentList" resultMap="subscribePaymentResultMap" parameterType="MemberDTO">
+		SELECT
+			   A.PAYMENT_NO
+			 , A.USER_NO
+			 , A.PAYMENT_DATE
+			 , A.PAYMENT_VALIDITY
+			 , A.PAYMENT_PRICE
+			 , B.SUBSCRIPTION_NUMBER
+			 , B.SUBSCRIPTION_NAME
+			 , B.SUBSCRIPTION_PERIOD
+			 , B.SUBSCRIPTION_PRICE
+		  FROM PAYMENT A
+		  JOIN SUBSCRIPTION B ON (A.SUBSCRIPTION_NUMBER = B.SUBSCRIPTION_NUMBER)
+		 WHERE A.USER_NO = #{userNo}
+	</select>
+	
+	<update id="modifyMovieOnOff" parameterType="MemberDTO">
+		UPDATE
+		       USER_INFO A
+		<set>
+		   <if test='movieReviewYN.equals("Y")'>
+		      A.MOVIE_REVIEW_YN = 'N'
+		   </if>
+		   <if test='movieReviewYN.equals("N")'>
+		      A.MOVIE_REVIEW_YN = 'Y'
+		   </if>
+		</set>
+		 WHERE A.USER_NO = #{userNo}
+	</update>
+
+	<update id="modifyBoardOnOff" parameterType="MemberDTO">
+		UPDATE
+		       USER_INFO A
+		<set>
+		   <if test='spoilerYN.equals("Y")'>
+		      A.SPOILER_YN = 'N'
+		   </if>
+		   <if test='spoilerYN.equals("N")'>
+		      A.SPOILER_YN = 'Y'
+		   </if>
+		</set>
+		 WHERE A.USER_NO = #{userNo}
+	</update>
+	
+	<select id="selectActionMovie" resultMap="movieResultMap">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY A.MOVIE_LIKE DESC, A.MOVIE_DISLIKE ASC, MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+                 WHERE A.GENRE_NAME = '액션'
+               ) C
+           ORDER BY C.RANK
+	</select>
+	
+	<select id="selectFactasyMovie" resultMap="movieResultMap">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY A.MOVIE_LIKE DESC, A.MOVIE_DISLIKE ASC, MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+                 WHERE A.GENRE_NAME = '판타지'
+               ) C
+           ORDER BY C.RANK
+	</select>
+	
+	<select id="selectRomanceMovie" resultMap="movieResultMap">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY A.MOVIE_LIKE DESC, A.MOVIE_DISLIKE ASC, MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+                 WHERE A.GENRE_NAME = '로맨스'
+               ) C
+           ORDER BY C.RANK
+	</select>
+	
+	<select id="selectComedyMovie" resultMap="movieResultMap">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY A.MOVIE_LIKE DESC, A.MOVIE_DISLIKE ASC, MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+                 WHERE A.GENRE_NAME = '코미디'
+               ) C
+           ORDER BY C.RANK
+	</select>
+	
+	<select id="selectHorroMovie" resultMap="movieResultMap">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY A.MOVIE_LIKE DESC, A.MOVIE_DISLIKE ASC, MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+                 WHERE A.GENRE_NAME = '공포'
+               ) C
+           ORDER BY C.RANK
+	</select>
+	
+	<select id="selectMemberWishMovieList" resultMap="movieResultMap" parameterType="_int">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY D.WISHLIST_DATE DESC, A.MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  JOIN MOVIE_WISHLIST D ON(A.MOVIE_NO = D.MOVIE_NO)
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+		         WHERE D.USER_NO = #{userNo}
+               ) C
+           ORDER BY C.RANK
+	</select>
+
+	<select id="selectWatchMovieList" resultMap="movieResultMap" parameterType="_int">
+		SELECT
+               C.MOVIE_NO
+             , C.MOVIE_NAME
+             , C.MOVIE_INFO
+             , C.MOVIE_DIRECTOR
+             , C.PRODUCTION_YEAR
+             , C.MOVIE_TIME
+             , C.MOVIE_LIKE
+             , C.MOVIE_DISLIKE
+             , C.WATCH_FEAR
+             , C.WATCH_MODIFICATION
+             , C.WATCH_DRUG
+             , C.WATCH_SENSATIONALITY
+             , C.WATCH_SCRIPT
+             , C.WATCH_TITLE
+             , C.WATCH_VIOLENCE
+             , C.RATING_NAME
+             , C.MOVIE_STATUS
+             , C.REGISTRATION_DATE
+             , C.MOVIE_END_DATE
+             , C.GENRE_NAME 
+             , C.MOVIE_VIDEO_RINK 
+             , C.MV_FILE_NO
+             , C.ORIGIN_NAME
+             , C.SAVE_NAME
+             , C.SAVE_PATH
+             , C.FILE_TYPE
+             , C.FILE_STATUS
+          FROM (SELECT A.MOVIE_NO
+                     , A.MOVIE_NAME
+                     , A.MOVIE_INFO
+                     , A.MOVIE_DIRECTOR
+                     , A.PRODUCTION_YEAR
+                     , A.MOVIE_TIME
+                     , A.MOVIE_LIKE
+                     , A.MOVIE_DISLIKE
+                     , A.WATCH_FEAR
+                     , A.WATCH_MODIFICATION
+                     , A.WATCH_DRUG
+                     , A.WATCH_SENSATIONALITY
+                     , A.WATCH_SCRIPT
+                     , A.WATCH_TITLE
+                     , A.WATCH_VIOLENCE
+                     , A.RATING_NAME
+                     , A.MOVIE_STATUS
+                     , A.REGISTRATION_DATE
+                     , A.MOVIE_END_DATE
+                     , A.GENRE_NAME 
+                     , A.MOVIE_VIDEO_RINK 
+                     , B.MV_FILE_NO
+                     , B.ORIGIN_NAME
+                     , B.SAVE_NAME
+                     , B.SAVE_PATH
+                     , B.FILE_TYPE
+                     , B.FILE_STATUS
+                     , RANK() OVER(ORDER BY D.WATCHLIST_DATE DESC, A.MOVIE_NAME ASC) RANK
+                  FROM MOVIE A
+                  JOIN MOVIE_WATCHLIST D ON(A.MOVIE_NO = D.MOVIE_NO)
+                  LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
+		         WHERE D.USER_NO = #{userNo}
+               ) C
+           ORDER BY C.RANK
+	</select>
+	
+	<select id="selectBasketList" resultMap="GoodsCartResultMap" parameterType="_int">
+		SELECT
+		       A.GOODS_NUMBER
+		     , A.GOODS_NAME
+		     , B.USER_NO
+		     , B.CART_COUNT
+		     , C.FILE_NO
+		     , C.FILE_SAVE_NAME
+		     , C.FILE_TYPE
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_CART B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
+		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
+		 WHERE B.USER_NO = #{userNo}
+	</select>
+
+	<select id="selectGoodsLikeList" resultMap="GoodsLikeResultMap" parameterType="_int">
+		SELECT
+               A.GOODS_NUMBER
+             , A.GOODS_NAME
+             , B.USER_NO
+             , C.FILE_NO
+             , C.FILE_SAVE_NAME
+             , C.FILE_TYPE
+          FROM TBL_GOODS A
+          JOIN TBL_GOODS_LIKE B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
+          LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
+         WHERE B.USER_NO = #{userNo}
+           AND C.FILE_NO = (SELECT MIN(F.FILE_NO)
+                              FROM TBL_GOODS D
+                              JOIN TBL_GOODS_LIKE E ON(D.GOODS_NUMBER = E.GOODS_NUMBER)
+                              LEFT JOIN TBL_GOODS_FILE F ON(D.GOODS_NUMBER = F.GOODS_NUMBER)
+                             WHERE E.USER_NO = #{userNo}
+                           )
+	</select>
+	
+	<select id="selectMemberBoard" resultMap="boardResultMap" parameterType="_int">
+		SELECT
+		       A.POST_NO
+		     , A.USER_NO
+		     , A.POST_TITLE
+		     , A.VIEW_NO
+		     , A.CREATION_DATE
+		     , A.COMMENT_COUNT
+		     , A.CATEGORY
+		  FROM USER_BOARD A
+		 WHERE A.USER_NO = #{userNo}
+		   AND A.POST_STATUS = 'Y'
+	</select>
+	
+	<select id="selectAsk" resultMap="qnaResultMap" parameterType="_int">
+		SELECT
+		       A.INQUIRY_NO
+		     , A.USER_NO
+		     , A.INQUIRY_TITLES
+		     , A.CREATION_DATE
+		     , A.INQUIRY_YN
+		     , A.DISCLOSURE_STATUS
+		  FROM INQUIRY A
+		 WHERE A.USER_NO = #{userNo}
+		   AND A.INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<select id="selectOrderList" resultMap="orderResultMap" parameterType="_int">
+		SELECT
+		       A.DELIVERY_NUMBER
+		     , B.PAYMENT_PRICE
+		     , C.ORDER_DATE
+		     , C.ORDER_COUNT
+		     , D.GOODS_NAME
+		     , E.SHIPMENT_STATUS
+		  FROM TBL_DELIVERY A
+		  JOIN TBL_PAYMENT B ON (A.PAYMENT_NUM = B.PAYMENT_NUM)
+		  JOIN TBL_GOODS_ORDER C ON (B.ORDER_NUM = C.ORDER_NUM)
+		  JOIN TBL_GOODS D ON(A.GOODS_NUMBER = D.GOODS_NUMBER)
+		  JOIN TBL_DELIVERY_STATUS E ON (A.SHIPMENT_CODE = E.SHIPMENT_CODE)
+		 WHERE A.USER_NO = #{userNo}
+	</select>
+</mapper>

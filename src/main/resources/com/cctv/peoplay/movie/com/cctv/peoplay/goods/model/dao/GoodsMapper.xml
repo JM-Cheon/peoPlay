@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cctv.peoplay.goods.model.dao.GoodsMapper">
+
+	<resultMap id="selectAllGoodsResult" type="GoodsDTO">
+		<id column="GOODS_NUMBER" property="goodsNum" />
+		<result column="MOVIE_NO2" property="movieNum" />
+		<result column="GOODS_NAME" property="goodsName" />
+		<result column="GOODS_PRICE" property="goodsPrice" />
+		<result column="GOODS_REGISTRATION_DATE" property="goodsRegistrationDate" />
+		<result column="GOODS_STOCK" property="goodsStock" />
+		<result column="GOODS_STATUS" property="goodsStatus" />
+		<result column="GOODS_DETAIL" property="goodsDetail" />
+		<result column="GOODS_ORIGIN" property="goodsOrigin" />
+		<result column="GOODS_COMPANY" property="goodsCompany" />
+		<result column="GOODS_LIKE_COUNT" property="goodsLikeCount" />
+		<result column="GOODS_SHORT_INFO" property="goodsShortInfo" />
+		<association property="goodsCategoryNum" javaType="GoodsCategoryDTO">
+			<id column="GOODS_CATEGORY_NUMBER" property="goodsCategoryNum" />
+			<result column="GOODS_CATEGORY_NAME" property="goodsCategoryName" />
+		</association> 
+		<association property="goodsShipmentClassifyCode" javaType="GoodsShipmentClassifyDTO">
+			<id column="GOODS_SHIPMENT_CLAFFIFY_CODE" property="goodsShipmentClassifyCode" />
+			<result column="GOODS_SHIPMENT_CLAFFIFY_NAME" property="goodsShipmentClassifyName" />
+		</association>
+		<collection property="goodsFiles" ofType="GoodsFileDTO">
+			<result column="FILE_SAVE_NAME" property="fileSaveName" />
+		</collection> 
+	</resultMap>
+	
+	<resultMap id="selectGoodscartByGoodsNo" type="GoodsCartDTO">
+		<result column="CART_COUNT" property="cartCount" />
+		<association property="userNum" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<result property="goodsNum" column="GOODS_NUMBER"/>
+		</association>
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	<select id="selectAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+		SELECT
+	       C.GOODS_NUMBER
+	     , C.GOODS_CATEGORY_NUMBER
+	     , C.MOVIE_NO2
+	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+	     , C.GOODS_NAME
+	     , C.GOODS_PRICE
+	     , C.GOODS_REGISTRATION_DATE
+	     , C.GOODS_STOCK
+	     , C.GOODS_STATUS
+	     , C.GOODS_DETAIL
+	     , C.GOODS_ORIGIN
+	     , C.GOODS_COMPANY
+	     , C.GOODS_LIKE_COUNT
+		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
+	  FROM (	
+			SELECT
+			       ROWNUM RNUM
+			     , B.GOODS_NUMBER
+			     , B.GOODS_CATEGORY_NUMBER
+			     , B.MOVIE_NO2
+			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+			     , B.GOODS_NAME
+			     , B.GOODS_PRICE
+			     , B.GOODS_REGISTRATION_DATE
+			     , B.GOODS_STOCK
+			     , B.GOODS_STATUS
+			     , B.GOODS_DETAIL
+			     , B.GOODS_ORIGIN
+			     , B.GOODS_COMPANY
+			     , B.GOODS_LIKE_COUNT
+				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
+			  FROM (	
+					SELECT
+					       A.GOODS_NUMBER
+					     , A.GOODS_CATEGORY_NUMBER
+					     , A.MOVIE_NO2
+					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+					     , A.GOODS_NAME
+					     , A.GOODS_PRICE
+					     , A.GOODS_REGISTRATION_DATE
+					     , A.GOODS_STOCK
+					     , A.GOODS_STATUS
+					     , A.GOODS_DETAIL
+					     , A.GOODS_ORIGIN
+					     , A.GOODS_COMPANY
+					     , A.GOODS_LIKE_COUNT
+						 , A.GOODS_SHORT_INFO
+						 , D.FILE_SAVE_NAME
+					  FROM TBL_GOODS A
+					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+					 WHERE A.GOODS_CATEGORY_NUMBER = 1
+					   AND D.FILE_TYPE = 'head'
+				     ORDER BY A.GOODS_NUMBER ASC
+				) B
+		)C
+	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="selectdcAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+		SELECT
+	       C.GOODS_NUMBER
+	     , C.GOODS_CATEGORY_NUMBER
+	     , C.MOVIE_NO2
+	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+	     , C.GOODS_NAME
+	     , C.GOODS_PRICE
+	     , C.GOODS_REGISTRATION_DATE
+	     , C.GOODS_STOCK
+	     , C.GOODS_STATUS
+	     , C.GOODS_DETAIL
+	     , C.GOODS_ORIGIN
+	     , C.GOODS_COMPANY
+	     , C.GOODS_LIKE_COUNT
+		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
+	  FROM (	
+			SELECT
+			       ROWNUM RNUM
+			     , B.GOODS_NUMBER
+			     , B.GOODS_CATEGORY_NUMBER
+			     , B.MOVIE_NO2
+			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+			     , B.GOODS_NAME
+			     , B.GOODS_PRICE
+			     , B.GOODS_REGISTRATION_DATE
+			     , B.GOODS_STOCK
+			     , B.GOODS_STATUS
+			     , B.GOODS_DETAIL
+			     , B.GOODS_ORIGIN
+			     , B.GOODS_COMPANY
+			     , B.GOODS_LIKE_COUNT
+				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
+			  FROM (	
+					SELECT
+					       A.GOODS_NUMBER
+					     , A.GOODS_CATEGORY_NUMBER
+					     , A.MOVIE_NO2
+					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+					     , A.GOODS_NAME
+					     , A.GOODS_PRICE
+					     , A.GOODS_REGISTRATION_DATE
+					     , A.GOODS_STOCK
+					     , A.GOODS_STATUS
+					     , A.GOODS_DETAIL
+					     , A.GOODS_ORIGIN
+					     , A.GOODS_COMPANY
+					     , A.GOODS_LIKE_COUNT
+						 , A.GOODS_SHORT_INFO
+						 , D.FILE_SAVE_NAME
+					  FROM TBL_GOODS A
+					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+					 WHERE A.GOODS_CATEGORY_NUMBER = 2
+					   AND D.FILE_TYPE = 'head'
+				     ORDER BY A.GOODS_NUMBER ASC
+				) B
+		)C
+	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="selectghibriAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+		SELECT
+	       C.GOODS_NUMBER
+	     , C.GOODS_CATEGORY_NUMBER
+	     , C.MOVIE_NO2
+	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+	     , C.GOODS_NAME
+	     , C.GOODS_PRICE
+	     , C.GOODS_REGISTRATION_DATE
+	     , C.GOODS_STOCK
+	     , C.GOODS_STATUS
+	     , C.GOODS_DETAIL
+	     , C.GOODS_ORIGIN
+	     , C.GOODS_COMPANY
+	     , C.GOODS_LIKE_COUNT
+		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
+	  FROM (	
+			SELECT
+			       ROWNUM RNUM
+			     , B.GOODS_NUMBER
+			     , B.GOODS_CATEGORY_NUMBER
+			     , B.MOVIE_NO2
+			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+			     , B.GOODS_NAME
+			     , B.GOODS_PRICE
+			     , B.GOODS_REGISTRATION_DATE
+			     , B.GOODS_STOCK
+			     , B.GOODS_STATUS
+			     , B.GOODS_DETAIL
+			     , B.GOODS_ORIGIN
+			     , B.GOODS_COMPANY
+			     , B.GOODS_LIKE_COUNT
+				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
+			  FROM (	
+					SELECT
+					       A.GOODS_NUMBER
+					     , A.GOODS_CATEGORY_NUMBER
+					     , A.MOVIE_NO2
+					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+					     , A.GOODS_NAME
+					     , A.GOODS_PRICE
+					     , A.GOODS_REGISTRATION_DATE
+					     , A.GOODS_STOCK
+					     , A.GOODS_STATUS
+					     , A.GOODS_DETAIL
+					     , A.GOODS_ORIGIN
+					     , A.GOODS_COMPANY
+					     , A.GOODS_LIKE_COUNT
+						 , A.GOODS_SHORT_INFO
+						 , D.FILE_SAVE_NAME
+					  FROM TBL_GOODS A
+					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+					 WHERE A.GOODS_CATEGORY_NUMBER = 3
+					   AND D.FILE_TYPE = 'head'
+				     ORDER BY A.GOODS_NUMBER ASC
+				) B
+		)C
+	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="selectPixarAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+		SELECT
+	       C.GOODS_NUMBER
+	     , C.GOODS_CATEGORY_NUMBER
+	     , C.MOVIE_NO2
+	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+	     , C.GOODS_NAME
+	     , C.GOODS_PRICE
+	     , C.GOODS_REGISTRATION_DATE
+	     , C.GOODS_STOCK
+	     , C.GOODS_STATUS
+	     , C.GOODS_DETAIL
+	     , C.GOODS_ORIGIN
+	     , C.GOODS_COMPANY
+	     , C.GOODS_LIKE_COUNT
+		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
+	  FROM (	
+			SELECT
+			       ROWNUM RNUM
+			     , B.GOODS_NUMBER
+			     , B.GOODS_CATEGORY_NUMBER
+			     , B.MOVIE_NO2
+			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+			     , B.GOODS_NAME
+			     , B.GOODS_PRICE
+			     , B.GOODS_REGISTRATION_DATE
+			     , B.GOODS_STOCK
+			     , B.GOODS_STATUS
+			     , B.GOODS_DETAIL
+			     , B.GOODS_ORIGIN
+			     , B.GOODS_COMPANY
+			     , B.GOODS_LIKE_COUNT
+				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
+			  FROM (	
+					SELECT
+					       A.GOODS_NUMBER
+					     , A.GOODS_CATEGORY_NUMBER
+					     , A.MOVIE_NO2
+					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+					     , A.GOODS_NAME
+					     , A.GOODS_PRICE
+					     , A.GOODS_REGISTRATION_DATE
+					     , A.GOODS_STOCK
+					     , A.GOODS_STATUS
+					     , A.GOODS_DETAIL
+					     , A.GOODS_ORIGIN
+					     , A.GOODS_COMPANY
+					     , A.GOODS_LIKE_COUNT
+						 , A.GOODS_SHORT_INFO
+						 , D.FILE_SAVE_NAME
+					  FROM TBL_GOODS A
+					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+					 WHERE A.GOODS_CATEGORY_NUMBER = 4
+					   AND D.FILE_TYPE = 'head'
+				     ORDER BY A.GOODS_NUMBER ASC
+				) B
+		)C
+	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="selectWbAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+		SELECT
+	       C.GOODS_NUMBER
+	     , C.GOODS_CATEGORY_NUMBER
+	     , C.MOVIE_NO2
+	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+	     , C.GOODS_NAME
+	     , C.GOODS_PRICE
+	     , C.GOODS_REGISTRATION_DATE
+	     , C.GOODS_STOCK
+	     , C.GOODS_STATUS
+	     , C.GOODS_DETAIL
+	     , C.GOODS_ORIGIN
+	     , C.GOODS_COMPANY
+	     , C.GOODS_LIKE_COUNT
+		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
+	  FROM (	
+			SELECT
+			       ROWNUM RNUM
+			     , B.GOODS_NUMBER
+			     , B.GOODS_CATEGORY_NUMBER
+			     , B.MOVIE_NO2
+			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+			     , B.GOODS_NAME
+			     , B.GOODS_PRICE
+			     , B.GOODS_REGISTRATION_DATE
+			     , B.GOODS_STOCK
+			     , B.GOODS_STATUS
+			     , B.GOODS_DETAIL
+			     , B.GOODS_ORIGIN
+			     , B.GOODS_COMPANY
+			     , B.GOODS_LIKE_COUNT
+				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
+			  FROM (	
+					SELECT
+					       A.GOODS_NUMBER
+					     , A.GOODS_CATEGORY_NUMBER
+					     , A.MOVIE_NO2
+					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+					     , A.GOODS_NAME
+					     , A.GOODS_PRICE
+					     , A.GOODS_REGISTRATION_DATE
+					     , A.GOODS_STOCK
+					     , A.GOODS_STATUS
+					     , A.GOODS_DETAIL
+					     , A.GOODS_ORIGIN
+					     , A.GOODS_COMPANY
+					     , A.GOODS_LIKE_COUNT
+						 , A.GOODS_SHORT_INFO
+						 , D.FILE_SAVE_NAME
+					  FROM TBL_GOODS A
+					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+					 WHERE A.GOODS_CATEGORY_NUMBER = 5
+					   AND D.FILE_TYPE = 'head'
+				     ORDER BY A.GOODS_NUMBER ASC
+				) B
+		)C
+	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="selectPopularGoods" resultMap="selectAllGoodsResult" parameterType="_int">
+		SELECT
+		       B.GOODS_NUMBER
+		     , B.GOODS_CATEGORY_NUMBER
+	  		 , B.MOVIE_NO2
+  			 , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , B.GOODS_NAME
+		     , B.GOODS_PRICE
+		     , B.GOODS_REGISTRATION_DATE
+			 , B.GOODS_STOCK
+		     , B.GOODS_STATUS
+			 , B.GOODS_DETAIL
+			 , B.GOODS_ORIGIN
+			 , B.GOODS_COMPANY
+			 , B.GOODS_LIKE_COUNT
+			 , B.GOODS_SHORT_INFO
+			 , B.FILE_SAVE_NAME
+		  FROM ( SELECT
+		                ROWNUM RNUM
+				      , A.GOODS_NUMBER
+				      , A.GOODS_CATEGORY_NUMBER
+				      , A.MOVIE_NO2
+			  	      , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+			    	  , A.GOODS_NAME
+				      , A.GOODS_PRICE
+				      , A.GOODS_REGISTRATION_DATE
+				      , A.GOODS_STOCK
+				      , A.GOODS_STATUS
+				      , A.GOODS_DETAIL
+				      , A.GOODS_ORIGIN
+				      , A.GOODS_COMPANY
+				      , A.GOODS_LIKE_COUNT
+					  , A.GOODS_SHORT_INFO
+					  , D.FILE_SAVE_NAME
+				   FROM TBL_GOODS A
+				   JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+				  WHERE A.GOODS_PRICE > 0
+				    AND A.GOODS_CATEGORY_NUMBER = #{num}
+                    AND D.FILE_TYPE = 'head'
+				  ORDER BY A.GOODS_LIKE_COUNT DESC
+		       ) B
+		 WHERE B.RNUM  BETWEEN 1 AND 4
+	</select>
+	<select id="selectOneGoodsInfo" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+		SELECT
+		       A.GOODS_NUMBER
+		     , A.GOODS_CATEGORY_NUMBER
+		     , A.MOVIE_NO2
+		     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , A.GOODS_NAME
+		     , A.GOODS_PRICE
+		     , A.GOODS_REGISTRATION_DATE
+		     , A.GOODS_STOCK
+		     , A.GOODS_STATUS
+		     , A.GOODS_DETAIL
+		     , A.GOODS_ORIGIN
+		     , A.GOODS_COMPANY
+		     , A.GOODS_LIKE_COUNT
+			 , A.GOODS_SHORT_INFO
+			 , B.GOODS_CATEGORY_NAME
+			 , C.GOODS_SHIPMENT_CLAFFIFY_NAME
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_CATEGORY B ON (A.GOODS_CATEGORY_NUMBER = B.GOODS_CATEGORY_NUMBER)
+		  JOIN TBL_GOODS_SHIPMENT_CLASSIFY C ON (A.GOODS_SHIPMENT_CLAFFIFY_CODE = C.GOODS_SHIPMENT_CLAFFIFY_CODE)
+         WHERE A.GOODS_NUMBER = #{goodsNo}
+	</select>
+	
+
+	
+	<select id="goodsAndFile" resultMap="goodsAndFileResultMap">
+		SELECT
+		       A.GOODS_NUMBER
+		     , B.FILE_NO
+		     , B.SAVE_PATH
+		     , B.THUMNAIL_PATH
+		     , B.FILE_ORIGIN_NAME
+		     , B.FILE_SAVE_NAME
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_FILE B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		 WHERE A.GOODS_NUMBER = #{goodsNum}
+	</select>
+	
+	<insert id="insertcart" parameterType="hashmap">
+		INSERT 
+		  INTO TBL_GOODS_CART
+        (
+          GOODS_NUMBER, USER_NO, CART_COUNT
+        )
+        VALUES
+        (
+          #{goodsNum}, #{userNum}, #{count}
+        )
+	</insert>
+	
+	<select id="cartList" resultMap="selectGoodscartByGoodsNo" parameterType="hashmap">
+		SELECT
+		       A.GOODS_NUMBER
+		     , A.USER_NO
+		     , A.CART_COUNT
+		  FROM TBL_GOODS_CART A
+		 WHERE A.GOODS_NUMBER = #{goodsNum}
+		   AND A.USER_NO = #{userNum}
+	</select>
+	
+ 	<resultMap id="selectAllGoodsReview" type="GoodsReviewDTO">
+		<id column="GOODS_REVIEW_NUM" property="goodsReviewNum" />
+		<result column="REVIEW_DATE" property="reviewDate" />
+		<result column="GOODS_REVIEW_CONTENT" property="goodsReviewContent" />
+		<association property="paymentNum" javaType="PaymentDTO">
+			<id column="PAYMENT_NUM" property="paymentNo" />
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum" />
+		</association>
+		<association property="memNum" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo" />
+			<result column="USER_NAME" property="userName" />
+		</association> 
+	</resultMap>
+	
+	<select id="seletReivewByGoodsNo" resultMap="selectAllGoodsReview" >
+		SELECT
+     	       A.GOODS_REVIEW_NUM
+	         , A.REVIEW_DATE
+	         , B.PAYMENT_NUM
+	         , A.GOODS_REVIEW_CONTENT
+	         , C.GOODS_NUMBER
+ 	         , D.USER_NO
+	         , D.USER_NAME 
+	      FROM TBL_GOODS_REVIEW A
+	      JOIN TBL_PAYMENT B ON (A.PAYMENT_NUM = B.PAYMENT_NUM)
+	      JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
+          JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
+	     WHERE C.GOODS_NUMBER = #{goodsNo}
+	     ORDER BY A.GOODS_REVIEW_NUM DESC
+	</select>
+	<insert id="insertReply" parameterType="hashmap">
+		INSERT 
+		  INTO TBL_GOODS_REVIEW
+        (
+          GOODS_REVIEW_NUM, PAYMENT_NUM, USER_NO, GOODS_NUMBER, REVIEW_DATE, GOODS_REVIEW_CONTENT
+        )
+        VALUES
+        (
+          SEQ_TBL_GOODS_REVIEW.NEXTVAL, #{payNum}, #{userNum}, #{goodsNum}, SYSDATE, #{replytext}
+        )
+	</insert>
+	
+	<delete id="deleteReply" parameterType="_int">
+	    DELETE 
+          FROM TBL_GOODS_REVIEW
+         WHERE GOODS_REVIEW_NUM = #{goodsReviewNum}
+	</delete>
+	
+	<resultMap id="goodsAndFileResultMap"  type="GoodsAndFileDTO" >
+		<id property="goodsNum" column="GOODS_NUMBER"/>
+		<collection property="goodsFile" ofType="GoodsFileDTO">
+			<id property="number" column="FILE_NO"/>
+			<result property="savePath" column="SAVE_PATH"/>
+			<result property="thumbnailPath" column="THUMNAIL_PATH"/>
+			<result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+			<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="goodsDetailFileResultMap"  type="GoodsAndDetailFileDTO" >
+		<id property="goodsNum" column="GOODS_NUMBER"/>
+		<collection property="detailFiles" ofType="GoodsDetailFileDTO">
+			<id property="detailFileNo" column="DETAIL_FILE_NO"/>
+			<result property="detailSavePath" column="DETAIL_SAVE_PATH"/>
+			<result property="detailThumbnailPath" column="DETAIL_THUMBNAIL_PATH"/>
+			<result property="detailFileOriginName" column="DETAIL_FILE_ORGIN_NAME"/>
+			<result property="detailFileSaveName" column="DETAIL_FILE_SAVE_NAME"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectGoodsDetailFiles" resultMap="goodsDetailFileResultMap">
+		SELECT
+		       A.GOODS_NUMBER
+		     , B.DETAIL_FILE_NO
+		     , B.DETAIL_SAVE_PATH
+		     , B.DETAIL_THUMBNAIL_PATH
+		     , B.DETAIL_FILE_ORGIN_NAME
+     	     , B.DETAIL_FILE_SAVE_NAME
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_DETAIL_FILE B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		 WHERE A.GOODS_NUMBER = #{goodsNo}
+		   AND B.DETAIL_FILE_TYPE = 'body'
+	</select>
+	<insert id="insertOrder" parameterType="hashmap">
+		INSERT 
+		  INTO TBL_GOODS_ORDER
+        (
+          ORDER_NUM, GOODS_NUMBER, USER_NO, ORDER_DATE, ORDER_COUNT, ORDER_CANCEL_OR_NOT
+        )
+        VALUES
+        (
+         SEQ_TBL_GOODS_ORDER.NEXTVAL, #{goodsNum}, #{memNum}, SYSDATE, #{count}, 'N'
+        )
+	</insert>
+	
+	<select id="selectOrderList" resultMap="GetcartResultMap">
+		SELECT
+	           A.GOODS_NUMBER
+	         , A.USER_NO
+    	  FROM TBL_GOODS_CART A
+	     WHERE A.GOODS_NUMBER = #{goodsNo}
+	       AND A.USER_NO = #{userNo}
+	</select>
+	 <resultMap type="GoodsCartDTO" id="GetcartResultMap">
+		<association property="userNum" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<result property="goodsNum" column="GOODS_NUMBER"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="OrderDTO" id="GetOrderNumResultMap">
+		<id property="orderNo" column="ORDER_NUM"/>
+		<result column="PAID_OR_NOT" property="paidOrNot" />
+		<association property="userNo" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNo" javaType="GoodsDTO">
+			<result property="goodsNum" column="GOODS_NUMBER"/>
+		</association>
+	</resultMap>
+	
+	<select id="doubleCheckOrder" resultMap="GetOrderNumResultMap">
+		SELECT
+	           A.ORDER_NUM
+    	  FROM TBL_GOODS_ORDER A
+	     WHERE A.GOODS_NUMBER = #{goodsNum}
+	       AND A.USER_NO = #{memNum}
+	       AND A.PAID_OR_NOT = 'N'
+	</select>
+	
+	<select id="selectOrderNum" resultMap="GetOrderNumResultMap">
+		SELECT
+	           A.ORDER_NUM
+    	  FROM TBL_GOODS_ORDER A
+	     WHERE A.GOODS_NUMBER = #{goodsNum}
+	       AND A.USER_NO = #{memNum}
+	       AND A.PAID_OR_NOT = 'N'
+	</select>  	
+ 	<resultMap id="OrderListResultMap"  type="OrderDTO" >
+		<id property="orderNo" column="ORDER_NUM"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+		<result property="orderCount" column="ORDER_COUNT"/>
+		<result property="orderCancelOrNot" column="ORDER_CANCEL_OR_NOT"/>
+		<association property="goodsNo" javaType="GoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum" />
+			<result column="GOODS_NAME" property="goodsName" />
+			<result column="GOODS_PRICE" property="goodsPrice" />
+			<result column="GOODS_SHORT_INFO" property="goodsShortInfo" />
+			<result column="GOODS_COMPANY" property="goodsCompany" />
+		</association> 
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo" />
+			<result column="USER_NAME" property="userName" />
+			<result column="USER_ADDRESS" property="userAddress" />
+			<result column="PHONE" property="phone" />
+			<result column="EMAIL" property="email" />
+		</association> 
+	</resultMap>
+
+	<select id="orderInfo" resultMap="OrderListResultMap">
+		SELECT
+    	       A.ORDER_NUM
+    	     , A.GOODS_NUMBER
+    	     , A.ORDER_DATE
+	         , A.ORDER_COUNT
+	         , B.GOODS_NAME
+	         , B.GOODS_PRICE
+	         , B.GOODS_COMPANY
+	         , B.GOODS_SHORT_INFO
+	         , C.USER_ADDRESS
+	         , C.PHONE
+	         , C.USER_NAME
+	         , C.USER_NO
+	         , C.EMAIL
+	      FROM TBL_GOODS_ORDER A
+	      JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+	      LEFT JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+	     WHERE A.ORDER_NUM = #{orderNo}
+	</select>
+	
+	<select id="selectGoodsLikeList" resultMap="GetGoodsLikeResultMap">
+		SELECT
+	           *
+    	  FROM TBL_GOODS_LIKE A
+	     WHERE A.GOODS_NUMBER = #{goodsNo}
+	       AND A.USER_NO = #{userNo}
+	</select>
+	
+	 <resultMap type="GoodsLikeDTO" id="GetGoodsLikeResultMap">
+		<association property="userNo" javaType="MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+		</association>
+		<association property="goodsNum" javaType="GoodsDTO">
+			<result property="goodsNum" column="GOODS_NUMBER"/>
+		</association>
+	</resultMap>
+	
+	
+	
+	<insert id="insertLike" parameterType="hashmap">
+	INSERT INTO TBL_GOODS_LIKE A
+	(GOODS_NUMBER, USER_NO)
+	VALUES
+	(#{goodsNum}, #{memNum})
+	</insert>
+	
+	<delete id="dislikeList" parameterType="hashmap">
+	DELETE 
+	  FROM TBL_GOODS_LIKE
+	 WHERE GOODS_NUMBER = #{goodsNum}
+	</delete>
+	
+	<update id="replyUpdate" parameterType="hashmap">
+	UPDATE TBL_GOODS_REVIEW
+	   SET GOODS_REVIEW_CONTENT = #{updateContent}
+     WHERE GOODS_REVIEW_NUM = #{reviewNum}
+	</update>
+	
+	<update id="inquiryUpdate" parameterType="hashmap">
+	UPDATE TBL_GOODS_INQUIRY
+	   SET GOODS_INQUIRY_CONTENT = #{inquiryUpdateContent}
+     WHERE GOODS_INQUIRY_NO = #{inquiryNum}
+	</update>
+	
+	<select id="countTotalGoods" resultType="int">
+	    SELECT 	
+	           COUNT(*)
+	      FROM TBL_GOODS A
+	     WHERE A.GOODS_CATEGORY_NUMBER = #{num}
+	</select>
+	
+
+	
+	<select id="searchCount" resultType="int" parameterType="hashmap">
+        SELECT
+               COUNT(*)
+          FROM TBL_GOODS A
+         WHERE A.GOODS_PRICE > 0
+		<include refid="search"/>
+	</select>
+	<sql id="search">
+		<if test="searchCondition == 'searchAll'">
+		AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%' </if>
+		<if test="searchCondition == 'latest'">
+		AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY GOODS_REGISTRATION_DATE DESC
+		</if>
+		<if test="searchCondition == 'famous'">
+		AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY GOODS_LIKE_COUNT DESC
+		 </if>
+		<if test="searchCondition == 'price'">
+		AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY GOODS_PRICE DESC
+		</if>
+	</sql>
+	
+	<select id="searchlist" resultMap="selectAllGoodsResult" parameterType="hashmap">
+			SELECT
+	       C.GOODS_NUMBER
+	     , C.GOODS_CATEGORY_NUMBER
+	     , C.MOVIE_NO2
+	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+	     , C.GOODS_NAME
+	     , C.GOODS_PRICE
+	     , C.GOODS_REGISTRATION_DATE
+	     , C.GOODS_STOCK
+	     , C.GOODS_STATUS
+	     , C.GOODS_DETAIL
+	     , C.GOODS_ORIGIN
+	     , C.GOODS_COMPANY
+	     , C.GOODS_LIKE_COUNT
+		 , C.GOODS_SHORT_INFO
+		 , C.FILE_SAVE_NAME
+	  FROM (	
+			SELECT
+			       ROWNUM RNUM
+			     , B.GOODS_NUMBER
+			     , B.GOODS_CATEGORY_NUMBER
+			     , B.MOVIE_NO2
+			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+			     , B.GOODS_NAME
+			     , B.GOODS_PRICE
+			     , B.GOODS_REGISTRATION_DATE
+			     , B.GOODS_STOCK
+			     , B.GOODS_STATUS
+			     , B.GOODS_DETAIL
+			     , B.GOODS_ORIGIN
+			     , B.GOODS_COMPANY
+			     , B.GOODS_LIKE_COUNT
+				 , B.GOODS_SHORT_INFO
+				 , B.FILE_SAVE_NAME
+			  FROM (	
+					SELECT
+					       A.GOODS_NUMBER
+					     , A.GOODS_CATEGORY_NUMBER
+					     , A.MOVIE_NO2
+					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+					     , A.GOODS_NAME
+					     , A.GOODS_PRICE
+					     , A.GOODS_REGISTRATION_DATE
+					     , A.GOODS_STOCK
+					     , A.GOODS_STATUS
+					     , A.GOODS_DETAIL
+					     , A.GOODS_ORIGIN
+					     , A.GOODS_COMPANY
+					     , A.GOODS_LIKE_COUNT
+						 , A.GOODS_SHORT_INFO
+					     , D.FILE_SAVE_NAME
+				      FROM TBL_GOODS A
+				      JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+					 WHERE A.GOODS_CATEGORY_NUMBER = 1
+					   AND D.FILE_TYPE = 'head'
+	<include refid="search"/>
+					) B
+			)C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<resultMap id="selectAllGoodsInquiry" type="GoodsInquiryDTO">
+		<id column="GOODS_INQUIRY_NO" property="goodsInquiryNo" />
+		<result column="GOODS_CREATION_DATE" property="writtenDate" />
+		<result column="GOODS_INQUIRY_TITLE" property="goodsInquiryTitle" />
+		<result column="GOODS_INQUIRY_CONTENT" property="goodsInquiryContent" />
+		<result column="GOODS_INQUIRY_YN" property="goodsInquiryYn" />
+		<association property="goodsNumber" javaType="GoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum" />
+		</association>
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo" />
+			<result column="USER_NAME" property="userName" />
+		</association> 
+	</resultMap>
+	
+	<select id="selectInquiryByGoodsNo" resultMap="selectAllGoodsInquiry" >
+		SELECT
+     	       A.GOODS_INQUIRY_NO
+	         , A.GOODS_CREATION_DATE
+	         , A.GOODS_INQUIRY_TITLE
+	         , A.GOODS_INQUIRY_CONTENT
+	         , A.GOODS_INQUIRY_YN
+	         , C.GOODS_NUMBER
+ 	         , D.USER_NO
+	         , D.USER_NAME 
+	      FROM TBL_GOODS_INQUIRY A
+	      JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
+          JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
+	     WHERE C.GOODS_NUMBER = #{goodsNo}
+	       AND A.GOODS_INQUIRY_STATUS_YN = 'Y'
+	     ORDER BY A.GOODS_INQUIRY_NO DESC
+	</select>
+	
+	<insert id="updatePayment" parameterType="hashmap">
+		INSERT INTO TBL_PAYMENT
+		     ( 
+		       PAYMENT_NUM, ORDER_NUM, PAYMENY_DATE
+		     , PAYMENT_PRICE, PAYMENT_TYPE
+	      	 )
+		 VALUES
+		     (
+		     SEQ_TBL_PAYMENT.NEXTVAL, #{orderNo}, SYSDATE, #{totalPrice}, '카카오'
+		      )
+	</insert>
+	
+	<update id="updatePaidGoods" parameterType="_int">
+		UPDATE TBL_GOODS_ORDER A
+		   SET A.PAID_OR_NOT = 'Y'
+	     WHERE A.ORDER_NUM = #{orderNo}
+	</update>
+	
+	<resultMap id="selectPaymentNoResult" type="PaymentDTO">
+		<id column="PAYMENT_NUM" property="paymentNo" />
+		<association property="orderNo" javaType="OrderDTO">
+			<id column="ORDER_NUM" property="orderNo" />
+		</association> 
+	</resultMap>
+	
+<!-- 	<select id="paymentNo" resultMap="selectPaymentNoResult" >
+		SELECT
+     	       A.PAYMENT_NUM
+	      FROM TBL_PAYMENT A
+	     WHERE A.ORDER_NUM = #{orderNo}
+	</select> -->
+
+	<insert id="updatedelivery" parameterType="hashmap">
+		<selectKey keyProperty="paymentNo" order="BEFORE" resultType="_int">
+	         SELECT
+	                SEQ_TBL_PAYMENT.CURRVAL
+	           FROM DUAL
+	     </selectKey>
+		INSERT INTO TBL_DELIVERY
+		     ( 
+		       DELIVERY_NUMBER, PAYMENT_NUM, GOODS_NUMBER
+             , USER_NO, SHIPMENT_CODE, SHIPMENT_MEMO_CODE
+	      	 )
+		 VALUES
+		     (
+		     SEQ_TBL_DELIVERY.NEXTVAL, #{paymentNo},  #{goodsNum}, #{memNum}, 1, #{deliveryCode}
+		      )
+	</insert>
+		
+	<resultMap id="selectDeliveryResultMap" type="DeliveryDTO">
+		<id column="DELIVERY_NUMBER" property="deliveryNumber" />
+		<association property="shipmentMemoCode" javaType="DeliveryStatusDTO">
+			<id column="SHIPMENT_CODE" property="shipmentCode" />
+		</association>   
+		<association property="shipmentCode" javaType="DeliveryMemoDTO">
+			<id column="SHIPMENT_MEMO_CODE" property="shipmentMemoCode" />
+		</association> 
+		<association property="goodsNum" javaType="GoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum" />
+			<id column="GOODS_NAME" property="goodsName" />
+		</association>
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo" />
+			<result column="USER_NAME" property="userName" />
+			<result column="USER_ADDRESS" property="userAddress" />
+			<result column="EMAIL" property="email" />
+			<result column="PHONE" property="phone" />
+		</association> 
+		<association property="paymentNum" javaType="PaymentDTO">
+			<id column="PAYMENT_NUM" property="paymentNo" />
+			<result column="PAYMENT_PRICE" property="paymentPrice" />
+			<result column="PAYMENY_DATE" property="paymentDate" />
+		</association> 
+	</resultMap>
+		
+ 	<select id="deliveryInfo" resultMap="selectDeliveryResultMap" >
+		SELECT
+     	       A.DELIVERY_NUMBER
+	      FROM TBL_DELIVERY A
+	     WHERE A.PAYMENT_NUM = #{paymentNo}
+	       AND A.GOODS_NUMBER = #{goodsNum}
+	       AND A.USER_NO = #{memNum}
+	</select>
+	
+	<select id="selectDeliveryInfo" resultMap="selectDeliveryResultMap" >
+		SELECT
+     	       D.PAYMENT_NUM
+             , B.GOODS_NUMBER
+             , F.SHIPMENT_CODE
+             , E.SHIPMENT_MEMO_CODE
+             , B.GOODS_NAME
+             , C.USER_NAME
+             , C.USER_ADDRESS
+             , C.PHONE
+             , C.EMAIL
+             , D.PAYMENT_PRICE
+             , D.PAYMENY_DATE
+	      FROM TBL_DELIVERY A
+          JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+          JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+          JOIN TBL_PAYMENT D ON (A.PAYMENT_NUM = D.PAYMENT_NUM)
+          JOIN TBL_DELIVERY_MEMO E ON (A.SHIPMENT_MEMO_CODE = E.SHIPMENT_MEMO_CODE)
+          JOIN TBL_DELIVERY_STATUS F ON (A.SHIPMENT_CODE = F.SHIPMENT_CODE)
+	     WHERE A.DELIVERY_NUMBER = #{deliveryNum}
+	</select> 
+	
+	<update id="cancelOrder" parameterType="_int">
+		UPDATE TBL_GOODS_ORDER
+		   SET ORDER_CANCEL_OR_NOT = 'Y'
+	     WHERE ORDER_NUM = #{orderNum}
+	</update>
+	
+	<update id="insertRecalculate" parameterType="hashmap">
+	    UPDATE TBL_GOODS_ORDER
+		   SET ORDER_COUNT = #{count}
+	     WHERE ORDER_NUM = #{orderNo}
+	</update>
+	
+	<delete id="deleteWishlist" parameterType="hashmap">
+	    DELETE 
+          FROM TBL_GOODS_CART
+         WHERE GOODS_NUMBER = #{goodsNo}
+           AND USER_NO = #{userNo}
+	</delete>
+	
+	<insert id="insertInquiry" parameterType="hashmap">
+		INSERT 
+		  INTO TBL_GOODS_INQUIRY
+        (
+          GOODS_INQUIRY_NO, USER_NO, GOODS_NUMBER, GOODS_INQUIRY_TITLE, GOODS_INQUIRY_CONTENT, GOODS_CREATION_DATE, GOODS_INQUIRY_YN
+        )
+        VALUES
+        (
+          SEQ_TBL_GOODS_INQUIRY.NEXTVAL, #{userNum}, #{goodsNum}, '제목', #{inquiryText}, SYSDATE, DEFAULT
+        )
+	</insert>
+
+	<update id="deleteInquiry" parameterType="_int">
+		UPDATE TBL_GOODS_INQUIRY A
+		   SET A.GOODS_INQUIRY_STATUS_YN = 'N'
+	     WHERE A.GOODS_INQUIRY_NO = #{goodsInquiryNum}
+	</update>
+	
+	<insert id="reportReply" parameterType="hashmap">
+      INSERT INTO USER_REPORT
+         (
+           REPORT_NO
+         , USER_NO
+         , REPORT_REASON
+         , REPORTED_PERSON
+         , REPORT_PLACE_NO
+         , REPORT_PLACE_CODE
+         , REF_GOODS_NO
+         )
+         VALUES
+         (
+           SEQ_REPORT_NO.NEXTVAL
+            , #{userNo}
+            , #{reportReason}
+            , #{reportedPerson}
+            , #{reportReplyNo}
+            , 2
+            , #{goodsNo}
+         )
+   </insert>
+
+	
+	<resultMap id="selectInquiryReplyResultMap"  type="GoodsInquiryReplyDTO" >
+		<id property="goodsreplyNo" column="GOODS_REPLY_NO"/>
+		<result property="goodsReplyContent" column="GOODS_REPLY_CONTENT"/>
+		<result property="goodsReplyCreationDate" column="GOODS_REPLY_CREATION_DATE"/>
+		<association property="goodsinquiryNo" javaType="GoodsInquiryDTO">
+			<id column="GOODS_INQUIRY_NO" property="goodsInquiryNo" />
+		</association> 
+	</resultMap>
+	
+	<select id="selectInquiryReply" resultMap="selectInquiryReplyResultMap" >
+		SELECT
+		       A.GOODS_REPLY_NO
+		     , A.GOODS_INQUIRY_NO
+		     , A.GOODS_REPLY_CONTENT
+		     , A.GOODS_REPLY_CREATION_DATE
+		  FROM TBL_GOODS_INQUIRY_REPLY A
+		  JOIN TBL_GOODS_INQUIRY B ON(A.GOODS_INQUIRY_NO = B.GOODS_INQUIRY_NO) 
+		  JOIN TBL_GOODS C ON (B.GOODS_NUMBER = C.GOODS_NUMBER)
+		 WHERE C.GOODS_NUMBER = #{goodsInquiryNo}
+	</select>
+	
+	<resultMap id="selectAllPaymentList"  type="OrderDTO" >
+		<id property="orderNo" column="ORDER_NUM"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+		<result property="orderCount" column="ORDER_COUNT"/>
+		<result property="orderCancelOrNot" column="ORDER_CANCEL_OR_NOT"/>
+		<result property="paidOrNot" column="PAID_OR_NOT"/>
+		<association property="goodsNo" javaType="GoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum" />
+		</association> 
+		<association property="userNo" javaType="MemberDTO">
+			<id column="USER_NO" property="userNo" />
+		</association> 
+	</resultMap>
+	
+	<select id="paymentCheck" resultMap="selectAllPaymentList">
+		SELECT
+               ORDER_NUM
+             , GOODS_NUMBER
+             , USER_NO
+             , ORDER_DATE
+             , ORDER_COUNT
+             , ORDER_CANCEL_OR_NOT
+             , PAID_OR_NOT
+		  FROM TBL_GOODS_ORDER
+		 WHERE PAID_OR_NOT = 'Y'
+	</select>
+	
+	<resultMap id="selectPaidPaymentList"  type="PaymentDTO" >
+		<id property="paymentNo" column="PAYMENT_NUM"/>
+	</resultMap>
+	
+	<select id="paymentList" resultMap="selectPaidPaymentList">
+		SELECT
+			   A.PAYMENT_NUM
+		  FROM TBL_PAYMENT A
+		  WHERE A.ORDER_NUM = #{orderNo}
+	</select>
+	
+	<update id="updateGoodsLikeCount" parameterType="_int">
+		UPDATE TBL_GOODS A
+		   SET A.GOODS_LIKE_COUNT = A.GOODS_LIKE_COUNT + 1
+	     WHERE A.GOODS_NUMBER = #{goodsNo}
+	</update>
+	<update id="updateGoodsdisLikeCount" parameterType="_int">
+		UPDATE TBL_GOODS A
+		   SET A.GOODS_LIKE_COUNT = A.GOODS_LIKE_COUNT - 1
+	     WHERE A.GOODS_NUMBER = #{goodsNum}
+	</update>
+	
+	
+	<resultMap id="goodsAndFileResultMap2"  type="GoodsAndFileDTO" >
+		<id property="goodsNum" column="GOODS_NUMBER"/>
+		<collection property="goodsFile" ofType="AdminGoodsFileDTO">
+			<id property="number" column="FILE_NO"/>
+			<result property="savePath" column="SAVE_PATH"/>
+			<result property="thumbnailPath" column="THUMNAIL_PATH"/>
+			<result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+			<result property="fileSaveName" column="FILE_SAVE_NAME"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectPopular" resultMap="goodsAndFileResultMap2">
+		SELECT
+		       A.GOODS_NUMBER
+		     , B.FILE_NO
+		     , B.SAVE_PATH
+		     , B.THUMNAIL_PATH
+		     , B.FILE_ORIGIN_NAME
+		     , B.FILE_SAVE_NAME
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_FILE B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+        WHERE A.GOODS_CATEGORY_NUMBER = #{goodsNum}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

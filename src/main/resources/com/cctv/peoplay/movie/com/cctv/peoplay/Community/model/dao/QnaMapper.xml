@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cctv.peoplay.Community.model.dao.QnaMapper">
+	<resultMap id="QnaListMap" type="com.cctv.peoplay.Community.model.dto.QnaDTO">
+		<id column="INQUIRY_NO" property="inquiryNo" />
+		<result column="USER_NO" property="userNo" />
+		<result column="INQUIRY_TITLES" property="inquiryTitles" />
+		<result column="INQUIRY_CONTENT" property="inquiryContent" />
+		<result column="CREATION_DATE" property="creationDate" />
+		<result column="INQUIRY_YN" property="inquiryYn" />
+		<result column="INQUIRY_STATUS" property="inquiryStatus" />
+		<result column="DISCLOSURE_STATUS" property="disclosureStatus" />
+		<association property="writer" javaType="com.cctv.peoplay.member.model.dto.MemberDTO">
+			<id property="userNo" column="USER_NO"/>
+			<result property="nickname" column="NICKNAME"/>
+		</association>
+		<association property="comment" javaType="com.cctv.peoplay.Community.model.dto.commentDTO">
+			<id property="commentNo" column="COMMENT_NO"/>
+			<result property="answer" column="ANSWER"/>
+		</association>
+	</resultMap>
+	
+	<!-- 페이징 처리를 위한 전체 게시물 수 조회용 메소드 -->
+	<select id="count" resultType="int">
+		SELECT 	
+	           COUNT(*)
+	      FROM INQUIRY A
+	     WHERE A.INQUIRY_STATUS = 'Y'
+	</select>
+	
+	<!-- 게시판 리스트 + 페이징 처리 -->
+	<select id="qnalist" resultMap="QnaListMap">
+			SELECT 		
+		       A.INQUIRY_NO
+		     , A.USER_NO
+		     , A.INQUIRY_TITLES
+		     , A.INQUIRY_CONTENT
+		     , A.CREATION_DATE
+		     , A.INQUIRY_YN
+		     , A.INQUIRY_STATUS
+		     , A.DISCLOSURE_STATUS
+             , A.NICKNAME
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.INQUIRY_NO
+				     , B.USER_NO
+				     , B.INQUIRY_TITLES
+				     , B.INQUIRY_CONTENT
+				     , B.CREATION_DATE
+				     , B.INQUIRY_YN
+				     , B.INQUIRY_STATUS
+				     , B.DISCLOSURE_STATUS
+		             , B.NICKNAME
+		  		  FROM (SELECT  C.INQUIRY_NO
+						      , C.USER_NO
+						      , C.INQUIRY_TITLES
+						      , C.INQUIRY_CONTENT
+						      , C.CREATION_DATE
+						      , C.INQUIRY_YN
+						      , C.INQUIRY_STATUS
+						      , C.DISCLOSURE_STATUS
+				              , D.NICKNAME
+		  		  		  FROM INQUIRY C
+		  		  		  JOIN USER_INFO D ON(C.USER_NO = D.USER_NO)
+		  		  		 WHERE C.INQUIRY_STATUS = 'Y'
+		  		  		 ORDER BY C.INQUIRY_NO DESC
+		  		  		 
+		  		       ) B
+		       ) A
+		 WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="qnaAdminlist" resultMap="QnaListMap">
+			SELECT 		
+		       A.INQUIRY_NO
+		     , A.USER_NO
+		     , A.INQUIRY_TITLES
+		     , A.INQUIRY_CONTENT
+		     , A.CREATION_DATE
+		     , A.INQUIRY_YN
+		     , A.INQUIRY_STATUS
+		     , A.DISCLOSURE_STATUS
+             , A.NICKNAME
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.INQUIRY_NO
+				     , B.USER_NO
+				     , B.INQUIRY_TITLES
+				     , B.INQUIRY_CONTENT
+				     , B.CREATION_DATE
+				     , B.INQUIRY_YN
+				     , B.INQUIRY_STATUS
+				     , B.DISCLOSURE_STATUS
+		             , B.NICKNAME
+		  		  FROM (SELECT  C.INQUIRY_NO
+						      , C.USER_NO
+						      , C.INQUIRY_TITLES
+						      , C.INQUIRY_CONTENT
+						      , C.CREATION_DATE
+						      , C.INQUIRY_YN
+						      , C.INQUIRY_STATUS
+						      , C.DISCLOSURE_STATUS
+				              , D.NICKNAME
+		  		  		  FROM INQUIRY C
+		  		  		  JOIN USER_INFO D ON(C.USER_NO = D.USER_NO)
+		  		  		 WHERE C.INQUIRY_STATUS = 'Y'
+		  		  		 ORDER BY C.INQUIRY_NO DESC
+		  		  		 
+		  		       ) B
+		       ) A
+		 WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="searchCount" resultType="int" parameterType="hashmap">
+		SELECT 	
+	           COUNT(*)
+	      FROM INQUIRY A
+	      JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
+	     WHERE A.INQUIRY_STATUS = 'Y'
+	      <include refid="search"/>
+	</select>
+	
+	<!-- 게시판 검색 결과 조회용 -->
+	<select id="searchList" resultMap="QnaListMap" parameterType="hashmap">
+		SELECT 		
+		       A.INQUIRY_NO
+		     , A.USER_NO
+		     , A.INQUIRY_TITLES
+		     , A.INQUIRY_CONTENT
+		     , A.CREATION_DATE
+		     , A.INQUIRY_YN
+		     , A.INQUIRY_STATUS
+		     , A.DISCLOSURE_STATUS
+             , A.NICKNAME
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.INQUIRY_NO
+				     , B.USER_NO
+				     , B.INQUIRY_TITLES
+				     , B.INQUIRY_CONTENT
+				     , B.CREATION_DATE
+				     , B.INQUIRY_YN
+				     , B.INQUIRY_STATUS
+				     , B.DISCLOSURE_STATUS
+		             , B.NICKNAME
+		  		  FROM (SELECT  C.INQUIRY_NO
+						      , C.USER_NO
+						      , C.INQUIRY_TITLES
+						      , C.INQUIRY_CONTENT
+						      , C.CREATION_DATE
+						      , C.INQUIRY_YN
+						      , C.INQUIRY_STATUS
+						      , C.DISCLOSURE_STATUS
+				              , D.NICKNAME
+		  		  		  FROM INQUIRY C
+		  		  		  JOIN USER_INFO D ON(C.USER_NO = D.USER_NO)
+		  		  		 WHERE C.INQUIRY_STATUS = 'Y'
+		  		  		 <include refid="search"/>
+		  		  		 ORDER BY C.INQUIRY_NO DESC
+		  		       ) B
+		       ) A
+		 WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<sql id="search">
+	
+			<if test="searchCondition == 'writer'">
+				AND NICKNAME LIKE '%'|| #{searchValue} ||'%'
+		 	</if>
+		 	 <if test="searchCondition == 'inquiryTitles'">
+				AND INQUIRY_TITLES LIKE '%'|| #{searchValue} ||'%'
+			</if>
+			<if test="searchCondition == 'inquiryContent'">
+				AND INQUIRY_CONTENT LIKE '%'|| #{searchValue} ||'%'
+			</if>  
+	</sql>
+	
+	<!-- 게시판 상세페이지 -->
+	<select id="QnaDetail" resultMap="QnaListMap">
+		SELECT 
+		       A.INQUIRY_NO
+		     , A.USER_NO
+		     , A.INQUIRY_TITLES
+		     , A.INQUIRY_CONTENT
+		     , A.CREATION_DATE
+		     , A.INQUIRY_YN
+		     , A.INQUIRY_STATUS
+		     , A.DISCLOSURE_STATUS
+             , B.NICKNAME
+		  FROM INQUIRY A
+          JOIN USER_INFO B ON(A.USER_NO = B.USER_NO)
+		 WHERE A.INQUIRY_STATUS = 'Y'
+		   AND A.INQUIRY_NO = #{ inquiryNo }
+	</select>
+	
+	<!-- 글작성 인서트 -->
+	<insert id="insertQna">
+		INSERT 
+		  INTO INQUIRY 
+	    (
+	    INQUIRY_NO
+	    ,USER_NO
+	    ,INQUIRY_TITLES
+	    ,INQUIRY_CONTENT
+	    ,CREATION_DATE
+	    ,INQUIRY_YN
+	    ,INQUIRY_STATUS
+	    ,DISCLOSURE_STATUS
+	    )
+	    VALUES
+	    (
+	    SEQ_INQUIRY_NO.NEXTVAL
+	    , #{ userNo }
+	    , #{ inquiryTitles }
+	    , #{ inquiryContent }
+	    , SYSDATE
+	    , DEFAULT
+	    , DEFAULT
+	    , #{ disclosureStatus }
+	    )
+	</insert>
+	
+	<!-- 상세페이지 - 수정하기 -->
+	<update id="updateWrite" parameterType="com.cctv.peoplay.Community.model.dto.QnaDTO">
+	    UPDATE INQUIRY A
+		   SET A.INQUIRY_TITLES = #{ inquiryTitles }
+		     , A.INQUIRY_CONTENT = #{ inquiryContent }
+		     , A.DISCLOSURE_STATUS = #{ disclosureStatus }
+		 WHERE INQUIRY_STATUS = 'Y'
+		   AND INQUIRY_NO = #{ inquiryNo }
+	</update>
+	<!-- 댓글 유무 인서트 되면 Y로 업데이트 -->
+	<update id="CommentUpdate" parameterType="com.cctv.peoplay.Community.model.dto.QnaDTO">
+	   UPDATE INQUIRY A
+		   SET A.INQUIRY_YN = 'Y'
+		 WHERE A.INQUIRY_NO = #{ inquiryNo }
+	</update>
+	<!-- 댓글 유무 삭제 하면  N로 업데이트 -->
+	<update id="CommentDeleteUpdate" parameterType="com.cctv.peoplay.Community.model.dto.QnaDTO">
+	   UPDATE INQUIRY A
+		   SET A.INQUIRY_YN = 'N'
+		 WHERE A.INQUIRY_NO = #{ inquiryNo }
+	</update>
+	
+	
+	<!-- 게시글 삭제(업데이트) -->
+	<update id="qnaDelete" parameterType="int">
+		UPDATE 	
+		       INQUIRY A
+		   SET A.INQUIRY_STATUS = 'N'
+		 WHERE A.INQUIRY_STATUS = 'Y'
+		   AND A.INQUIRY_NO = #{ inquiryNo }
+	</update>
+	
+	
+</mapper>
