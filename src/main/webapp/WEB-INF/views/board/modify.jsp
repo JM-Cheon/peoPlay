@@ -134,7 +134,7 @@
 		        $summernote.summernote('insertNode', $img[0]);
 		      });
 		 
-				});
+			
 		
 	</script>
 
