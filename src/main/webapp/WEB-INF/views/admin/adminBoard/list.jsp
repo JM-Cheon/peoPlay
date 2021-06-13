@@ -67,10 +67,10 @@
 											</c:if>
 											<td><c:out value="${board.creationDate}" /></td>
 											<td><c:out value="${board.view}" /></td>
-								 		 <c:if test="${board.reportCount ge 10 }">			
+								 		 <c:if test="${board.reportCount ge 3 }">			
 											<td style="color: red;"><c:out value="${board.reportCount }"/></td>
 										    	</c:if>
-										    	 <c:if test="${board.reportCount lt 10 }">			
+										    	 <c:if test="${board.reportCount lt 3 }">			
 											<td ><c:out value="${board.reportCount }"/></td>
 										    	</c:if>
 										</tr>
