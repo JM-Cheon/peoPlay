@@ -46,7 +46,7 @@
 						<dl>
 							<dt>제목</dt>
 							<dd>
-								<input type="text" class="p-input-box" name="inquiryTitles" id="inquiryTitles" placeholder="글 제목을 입력해주세요.">
+								<input type="text" class="p-input-box" name="inquiryTitles" id="inquiryTitles" placeholder="사진 사이즈를 작게 조정해 주세요!">
 							</dd>
 						</dl>
 						<dl class="dp-none">
