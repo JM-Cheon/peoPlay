@@ -95,7 +95,7 @@
 			<collection property="goodsFiles" ofType="GoodsFileDTO">
 				<id property="number" column="FILE_NO"/>
 				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
-				<result property="fileType" column="FILE_FILE"/>
+				<result property="fileType" column="FILE_TYPE"/>
 			</collection>
 		</association>
 	</resultMap>
@@ -110,7 +110,7 @@
 			<collection property="goodsFiles" ofType="GoodsFileDTO">
 				<id property="number" column="FILE_NO"/>
 				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
-				<result property="fileType" column="FILE_FILE"/>
+				<result property="fileType" column="FILE_TYPE"/>
 			</collection>
 		</association>
 	</resultMap>
