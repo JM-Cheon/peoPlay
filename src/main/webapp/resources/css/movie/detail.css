@@ -8,7 +8,7 @@ body{
 }
   button.btn1 {
     left : 100px;
-    z-index:101; 
+	z-index: 2;
     font-size: 40px;
     background-color: white;
     border-radius:0.1em;
@@ -19,7 +19,7 @@ body{
   }
   button.btn2 {
     left : 400px;
-    z-index:101;
+    z-index: 2;
     font-size: 40px;
     background-color: white;
     border-radius:0.1em;
@@ -29,7 +29,7 @@ body{
 
   div.main1{
     left : 100px;
-    z-index:101;
+    z-index: 2;
     position: absolute;
     top : 200px;
   }
@@ -92,9 +92,9 @@ body{
   }
   section.likes{
     position: absolute;
+    z-index: 2;
     top: 700px; 
     margin-left: 100px; 
   }
   .mainImage{
-    z-index: -1;
   }

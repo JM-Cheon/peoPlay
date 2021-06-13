@@ -10,7 +10,7 @@
 </head> 
 <body>
 	<div class="admin_nav">
-		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/#';">영화 관리</div>
+		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/movie/adminButton';">영화 관리</div>
 		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/member';">회원 관리</div>
 		<div class="color1" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/goods';">굿즈 관리</div>
 		<div class="color2" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminBoard/reportList';">신고 관리</div>

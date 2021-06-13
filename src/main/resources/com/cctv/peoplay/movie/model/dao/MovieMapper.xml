@@ -96,9 +96,140 @@
 			<result column="MOVIE_NO" property="no2"/>
 			<result column="WISHLIST_DATE" property="wishlistDate"/>
 	</resultMap>
+
+	<!-- 시청내역 -->
+	<resultMap id="movieWatchListResultSet" type="com.cctv.peoplay.movie.model.dto.MovieWatchListDTO">
+		<association property="userNo" javaType="com.cctv.peoplay.member.model.dto.MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+			<result property="userName" column="USER_NAME"/>
+		</association>
+		<association property="no" javaType="com.cctv.peoplay.movie.model.dto.MovieDTO">
+			<result column="MOVIE_NO" property="no"/>
+		</association>
+	</resultMap>
+	
+	<resultMap id="movieWatchResultSet" type="com.cctv.peoplay.movie.model.dto.MovieWatchListDTO">
+			<id property="userNo2" column="USER_NO"/>
+			<result column="MOVIE_NO" property="no2"/>
+			<result column="WATCHLIST_DATE" property="watchListDate"/>
+	</resultMap>
+
+	<!-- 좋아요 싫어요 -->
+	<resultMap id="movieLikeDislikeListResultSet" type="com.cctv.peoplay.movie.model.dto.MovieLikeDislikeDTO">
+		<association property="userNo" javaType="com.cctv.peoplay.member.model.dto.MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+			<result property="userName" column="USER_NAME"/>
+		</association>
+		<association property="no" javaType="com.cctv.peoplay.movie.model.dto.MovieDTO">
+			<result column="MOVIE_NO" property="no"/>
+		</association>
+	</resultMap>
+	
+	<resultMap id="movieLikeDislikeResultSet" type="com.cctv.peoplay.movie.model.dto.MovieLikeDislikeDTO">
+			<id property="userNo2" column="USER_NO"/>
+			<result column="MOVIE_NO" property="no2"/>
+			<result column="MOVIE_LIKE_DISLIKE" property="likeDislike"/>
+	</resultMap>
+
+	<!-- 회원 선호 장르 리절트 맵 -->	
+	
+	<resultMap id="movieGenreListResultSet" type="com.cctv.peoplay.movie.model.dto.MovieUserFavoriteGenreDTO">
+		<association property="userNo" javaType="com.cctv.peoplay.member.model.dto.MemberDTO">
+			<result property="userNo" column="USER_NO"/>
+			<result property="userName" column="USER_NAME"/>
+		</association>
+		<association property="movieFavoriteGenreCategory" javaType="com.cctv.peoplay.movie.model.dto.MovieFavoriteGenreCategoryDTO">
+			<result column="FAVORITE_GENRE_NO" property="favoriteGenreNo"/>
+			<result column="FAVORITE_GENRE_NAME" property="favoriteGenreName"/>
+			<result column="GENRE_SHAME" property="genreShameNumber"/>
+		</association>
+	</resultMap>
+
+	<!-- 좋아요 싫어요 셀렉   -->
+	<select id="selectMemberlikeDislike" resultMap="movieLikeDislikeListResultSet">
+		SELECT
+		       A.MOVIE_NO
+		     , A.USER_NO
+		     , A.MOVIE_LIKE_DISLIKE
+		  FROM MOVIE_LIKE_DISLIKE A
+		 WHERE A.USER_NO = #{ userNo }
+	</select>
+	<!-- 재생 리스트   -->
+	<select id="selectMemberWatch" resultMap="movieWatchResultSet">
+		SELECT
+		       A.USER_NO
+		     , A.MOVIE_NO
+		     , A.WATCHLIST_DATE
+		  FROM MOVIE_WATCHLIST A
+		 WHERE A.USER_NO = #{ userNo }
+	</select>
+	<!-- 찜 셀렉   -->
+	<select id="selectMemberWish" resultMap="movieWishResultSet">
+		SELECT
+		       A.USER_NO
+		     , A.MOVIE_NO
+		     , A.WISHLIST_DATE
+		  FROM MOVIE_WISHLIST A
+		 WHERE A.USER_NO = #{ userNo }
+	</select>
+	<!-- 장르 셀렉   -->
+	<select id="selectMemberGenre" resultMap="movieGenreListResultSet">
+		SELECT
+		       A.USER_NO
+		     , A.FAVORITE_GENRE_NO
+		     , A.GENRE_SHAME
+		  FROM USER_FAVORITE_GENRE A
+		 WHERE A.USER_NO = #{ userNo }
+	</select>
+
+	<!-- 선호 장르 추가  -->
+	
+	<select id="movieGenreName" resultMap="movieResultSet">
+		SELECT
+		       A.GENRE_NAME
+		  FROM MOVIE A
+		 WHERE A.MOVIE_NO = #{ no }
+	</select>
+	
+  	<select id="seleteUserFavoriteGenre" resultMap="movieGenreListResultSet" parameterType="hashmap">
+		SELECT
+		       A.USER_NO
+		     , B.FAVORITE_GENRE_NO
+		     , B.FAVORITE_GENRE_NAME
+		  FROM USER_FAVORITE_GENRE A
+		  JOIN FAVORITE_GENRE_CATEGORY B ON (A.FAVORITE_GENRE_NO = B.FAVORITE_GENRE_NO)
+		 WHERE A.USER_NO = #{ userNo }
+		   AND B.FAVORITE_GENRE_NAME = #{ favoriteGenreName }
+	</select> 
+
+	<update id="genreCount" parameterType="hashmap">
+		UPDATE 
+		   USER_FAVORITE_GENRE A
+		  SET A.GENRE_SHAME = (SELECT B.GENRE_SHAME
+		                         FROM USER_FAVORITE_GENRE B
+		                        WHERE B.USER_NO = #{ userNo }
+		                          AND B.FAVORITE_GENRE_NO = #{ genreNo }
+		                       ) + 1
+		  WHERE A.USER_NO = #{ userNo }
+		    AND A.FAVORITE_GENRE_NO = #{ genreNo }
+	</update>
+	<update id="unGenreCount" parameterType="hashmap">
+		UPDATE 
+		   USER_FAVORITE_GENRE A
+		  SET A.GENRE_SHAME = (SELECT B.GENRE_SHAME
+		                         FROM USER_FAVORITE_GENRE B
+		                        WHERE B.USER_NO = #{ unuserNo }
+		                          AND B.FAVORITE_GENRE_NO = #{ ungenreNo }
+		                       ) - 1
+		  WHERE A.USER_NO = #{ unuserNo }
+		    AND A.FAVORITE_GENRE_NO = #{ ungenreNo }
+	</update>
+
+	
+	
+	
 	
 	<!-- 찜하기 -->
-
  	<select id="selectWish" resultMap="movieWishResultSet">
        SELECT 
 	         A.USER_NO
@@ -137,6 +268,202 @@
 	     AND A.MOVIE_NO = #{ no }
 	</delete> 
 	
+	<!-- 시청 내역 -->
+	<select id="selectWatch" resultMap="movieWatchResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+	    FROM MOVIE_WATCHLIST A
+	</select>
+
+ 	<select id="selectMovieWatchList" resultMap="movieWatchListResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+	    FROM MOVIE_WATCHLIST A
+	    LEFT JOIN USER_INFO B ON (A.USER_NO = B.USER_NO) 
+	   WHERE A.USER_NO = #{ userNo }
+		 AND A.MOVIE_NO = #{ no }
+	</select>
+	
+	<insert id="insertMovieWatchList" parameterType="hashmap">
+		INSERT INTO 
+		  MOVIE_WATCHLIST A
+		 (
+		   A.USER_NO
+		 , A.MOVIE_NO
+		 )
+		 VALUES
+		 (
+		    #{ userNo }
+		  , #{ no }
+		 )
+	</insert>	
+	
+	
+	
+	
+	<!-- 좋아요 업데이트 -->	
+	<update id="likeUpdate" parameterType="hashmap">
+       UPDATE 
+              MOVIE A
+          SET A.MOVIE_LIKE = (SELECT B.MOVIE_LIKE
+                                FROM MOVIE B
+                               WHERE B.MOVIE_NO = #{ likeUpdate }
+                             ) + 1
+        WHERE A.MOVIE_NO = #{ likeUpdate }
+	</update>
+	<!-- 싫어요 업데이트 -->		
+	<update id="disLikeUpdate" parameterType="hashmap">
+		 UPDATE 
+            MOVIE A
+         SET A.MOVIE_DISLIKE = (SELECT B.MOVIE_DISLIKE
+                                  FROM MOVIE B
+                                 WHERE B.MOVIE_NO = #{ disLikeUpdate }
+                                ) + 1
+         WHERE A.MOVIE_NO = #{ disLikeUpdate }
+	</update>
+	<!-- 좋아요 취소 업데이트 -->	
+	<update id="unlikeUpdate" parameterType="hashmap">
+       UPDATE 
+              MOVIE A
+          SET A.MOVIE_LIKE = (SELECT B.MOVIE_LIKE
+                                FROM MOVIE B
+                               WHERE B.MOVIE_NO = #{ unlikeUpdate }
+                             ) - 1
+        WHERE A.MOVIE_NO = #{ unlikeUpdate }
+	</update>
+	<!-- 싫어요 취소 업데이트 -->		
+	<update id="undisLikeUpdate" parameterType="hashmap">
+		 UPDATE 
+            MOVIE A
+         SET A.MOVIE_DISLIKE = (SELECT B.MOVIE_DISLIKE
+                                  FROM MOVIE B
+                                 WHERE B.MOVIE_NO = #{ undisLikeUpdate }
+                                ) - 1
+         WHERE A.MOVIE_NO = #{ undisLikeUpdate }
+	</update>
+
+
+
+
+
+
+
+	<!-- 좋아요 싫어요 리스트 -->	
+	<select id="likeAmount" resultMap="movieResultSet" >
+       SELECT 
+				A.MOVIE_NAME
+		      , A.MOVIE_NO
+              , A.MOVIE_LIKE
+              , A.MOVIE_DISLIKE
+           FROM MOVIE A
+          WHERE A.MOVIE_STATUS = 'Y'
+            AND A.MOVIE_NO = #{no}
+	</select>
+	<select id="dislikeAmount" resultMap="movieResultSet" >
+       SELECT 
+				A.MOVIE_NAME
+		      , A.MOVIE_NO
+              , A.MOVIE_LIKE
+              , A.MOVIE_DISLIKE
+           FROM MOVIE A
+          WHERE A.MOVIE_STATUS = 'Y'
+            AND A.MOVIE_NO = #{no}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 좋아요 싫어요 처리 -->
+	<select id="selectMovieLikeDislike" resultMap="movieLikeDislikeResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+           , A.MOVIE_LIKE_DISLIKE
+	    FROM MOVIE_LIKE_DISLIKE A
+	</select>
+
+ 	<select id="selectLikeRead" resultMap="movieLikeDislikeResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+           , A.MOVIE_LIKE_DISLIKE
+	    FROM MOVIE_LIKE_DISLIKE A
+	   WHERE A.MOVIE_LIKE_DISLIKE = '좋아요'
+	     AND A.USER_NO = #{ userNo }
+		 AND A.MOVIE_NO = #{ no }
+	</select>
+	<select id="selectDislikeRead" resultMap="movieLikeDislikeResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+           , A.MOVIE_LIKE_DISLIKE
+	    FROM MOVIE_LIKE_DISLIKE A
+	   WHERE A.MOVIE_LIKE_DISLIKE = '싫어요'
+	   	 AND A.USER_NO = #{ userNo }
+		 AND A.MOVIE_NO = #{ no }
+	</select> 
+
+
+ 	<select id="selectMovieLikeDislikeList" resultMap="movieLikeDislikeListResultSet">
+       SELECT 
+	         A.USER_NO
+	       , A.MOVIE_NO
+           , A.MOVIE_LIKE_DISLIKE
+	    FROM MOVIE_LIKE_DISLIKE A
+	    LEFT JOIN USER_INFO B ON (A.USER_NO = B.USER_NO) 
+	   WHERE A.USER_NO = #{ userNo }
+		 AND A.MOVIE_NO = #{ no }
+	</select>
+
+	<insert id="insertMovieLikeDislikeList" parameterType="hashmap">
+		INSERT INTO 
+		  MOVIE_LIKE_DISLIKE A
+		 (
+		    A.USER_NO
+		  , A.MOVIE_NO
+          , A.MOVIE_LIKE_DISLIKE
+		 )
+		 VALUES
+		 (
+		    #{ userNo }
+		  , #{ no }
+          , #{ likeDislike }
+		 )
+	</insert>	
+
+	<update id="updateMovieLikeList" parameterType="hashmap">
+       UPDATE 
+              MOVIE_LIKE_DISLIKE A
+		  SET A.MOVIE_LIKE_DISLIKE = '좋아요'
+		WHERE A.USER_NO = #{ userNo }
+          AND A.MOVIE_NO = #{ no }
+	</update>
+
+	<update id="updateMovieDislikeList" parameterType="hashmap">
+       UPDATE 
+              MOVIE_LIKE_DISLIKE A
+		  SET A.MOVIE_LIKE_DISLIKE = '싫어요'
+		WHERE A.USER_NO = #{ userNo }
+          AND A.MOVIE_NO = #{ no }	
+	</update>
+
+	<delete id="deleteMovieLikeDislikeList" parameterType="hashmap" >
+       DELETE 
+         FROM MOVIE_LIKE_DISLIKE A
+	    WHERE A.USER_NO = #{ userNo }
+	      AND A.MOVIE_NO = #{ no }
+	</delete> 
+	
+	
+
+	
 	<!-- 영화 sql  -->
 	<sql id="movies">
        A.MOVIE_NO
@@ -171,6 +498,7 @@
            FROM MOVIE A
 	 	   LEFT JOIN MOVIE_FILE B ON (A.MOVIE_NO = B.MOVIE_NO)
           WHERE A.MOVIE_STATUS = 'Y'
+            AND B.FILE_TYPE = 'SUB'
           ORDER BY A.REGISTRATION_DATE DESC
        <if test="condition == 'likes'">    
           ORDER BY A.MOVIE_LIKE DESC
@@ -220,7 +548,20 @@
 	</select>
 
 	<!-- 배우 리스트(영화기준 선택) -->
-	<select id="actorList" resultType="java.lang.String" resultMap="ActorResultSet">
+	<select id="actorList" resultMap="ActorResultSet" parameterType="_int">
+       SELECT
+              A.ACTOR_NO
+        	, A.MOVIE_NO
+            , A.ACTOR_NAME1
+            , A.ACTOR_NAME2
+            , A.ACTOR_NAME3
+            , A.ACTOR_NAME4
+            , A.ACTOR_NAME5
+         FROM ACTOR A
+        WHERE A.MOVIE_NO = #{ no }
+	      AND A.ACTOR_STATUS = 'Y'
+	</select>
+	<select id="adminActorList" resultMap="ActorResultSet">
        SELECT
               A.ACTOR_NO
         	, A.MOVIE_NO
@@ -367,49 +708,6 @@
 		WHERE A.REVIEW_NO = #{ replyNum }
 	</update>
 
-
-	<!-- 좋아요 업데이트 -->	
-	<update id="likeUpdate" parameterType="hashmap">
-       UPDATE 
-              MOVIE A
-          SET A.MOVIE_LIKE = (SELECT B.MOVIE_LIKE
-                                FROM MOVIE B
-                               WHERE B.MOVIE_NO = #{ likeUpdate }
-                             ) + 1
-        WHERE A.MOVIE_NO = #{ likeUpdate }
-	</update>
-	<!-- 싫어요 업데이트 -->		
-	<update id="disLikeUpdate" parameterType="hashmap">
-		 UPDATE 
-            MOVIE A
-         SET A.MOVIE_DISLIKE = (SELECT B.MOVIE_DISLIKE
-                                  FROM MOVIE B
-                                 WHERE B.MOVIE_NO = #{ disLikeUpdate }
-                                ) + 1
-         WHERE A.MOVIE_NO = #{ disLikeUpdate }
-	</update>
-
-	<!-- 좋아요 싫어요 리스트 -->	
-	<select id="likeAmount" resultMap="movieResultSet" >
-       SELECT 
-				A.MOVIE_NAME
-		      , A.MOVIE_NO
-              , A.MOVIE_LIKE
-              , A.MOVIE_DISLIKE
-           FROM MOVIE A
-          WHERE A.MOVIE_STATUS = 'Y'
-            AND A.MOVIE_NO = #{no}
-	</select>
-	<select id="dislikeAmount" resultMap="movieResultSet" >
-       SELECT 
-				A.MOVIE_NAME
-		      , A.MOVIE_NO
-              , A.MOVIE_LIKE
-              , A.MOVIE_DISLIKE
-           FROM MOVIE A
-          WHERE A.MOVIE_STATUS = 'Y'
-            AND A.MOVIE_NO = #{no}
-	</select>
 
 
 	<!-- 영화 insert -->
@@ -658,102 +956,7 @@
 		 WHERE A.MOVIE_NO = #{ no }
 		   AND A.FILE_TYPE LIKE 'MAIN'
 	</update>
-
 	
-	
-	<!-- 베스트 영화 -->
-	<select id="mainBastMovie" resultMap="movieResultSet" >
-	    SELECT RNUM
-		     , A.MOVIE_NAME
-		     , A.MOVIE_LIKE
-		     , A.MOVIE_VIDEO_RINK
-		  FROM (SELECT ROWNUM RNUM
-		             , B.MOVIE_NAME
-		             , B.MOVIE_LIKE
-		             , B.MOVIE_VIDEO_RINK
-		          FROM (SELECT C.MOVIE_NO 
-		                     , C.MOVIE_NAME
-		                     , C.MOVIE_INFO
-		                     , C.MOVIE_DIRECTOR
-		                     , C.PRODUCTION_YEAR
-		                     , C.MOVIE_TIME
-		                     , C.MOVIE_LIKE
-		                     , C.MOVIE_DISLIKE
-		                     , C.MOVIE_STATUS
-		                     , C.REGISTRATION_DATE
-		                     , C.MOVIE_END_DATE
-		                     , C.GENRE_NAME
-		                     , C.MOVIE_VIDEO_RINK
-		                  FROM MOVIE C
-		                 WHERE C.MOVIE_STATUS = 'Y'
-		                 ORDER BY C.MOVIE_LIKE DESC
-		                ) B
-		        ) A
-		 WHERE A.RNUM = 1
-	</select>
-	
-	
-	<!-- 메인 영화 인기 순위 -->
-	<select id="mainTopFavoriteMovie" resultMap="movieResultSet" >
-			SELECT RNUM
-		     , A.MOVIE_NAME
-		     , A.MOVIE_LIKE
-		     , A.MOVIE_VIDEO_RINK
-		  FROM (SELECT ROWNUM RNUM
-		             , B.MOVIE_NAME
-		             , B.MOVIE_LIKE
-		             , B.MOVIE_VIDEO_RINK
-		          FROM (SELECT C.MOVIE_NO 
-		                     , C.MOVIE_NAME
-		                     , C.MOVIE_INFO
-		                     , C.MOVIE_DIRECTOR
-		                     , C.PRODUCTION_YEAR
-		                     , C.MOVIE_TIME
-		                     , C.MOVIE_LIKE
-		                     , C.MOVIE_DISLIKE
-		                     , C.MOVIE_STATUS
-		                     , C.REGISTRATION_DATE
-		                     , C.MOVIE_END_DATE
-		                     , C.GENRE_NAME
-		                     , C.MOVIE_VIDEO_RINK
-		                  FROM MOVIE C
-		                 WHERE C.MOVIE_STATUS = 'Y'
-		                 ORDER BY C.MOVIE_LIKE DESC
-		                ) B
-		        ) A
-		 WHERE A.RNUM BETWEEN 1 AND 5
-	</select>
-	
-	<!-- 메인 영화 최신 순 -->
-	<select id="mainNewTopMovie" resultMap="movieResultSet">
-			SELECT RNUM
-		     , A.MOVIE_NAME
-		     , A.MOVIE_LIKE
-		     , A.MOVIE_VIDEO_RINK
-		  FROM (SELECT ROWNUM RNUM
-		             , B.MOVIE_NAME
-		             , B.MOVIE_LIKE
-		             , B.MOVIE_VIDEO_RINK
-		          FROM (SELECT C.MOVIE_NO 
-		                     , C.MOVIE_NAME
-		                     , C.MOVIE_INFO
-		                     , C.MOVIE_DIRECTOR
-		                     , C.PRODUCTION_YEAR
-		                     , C.MOVIE_TIME
-		                     , C.MOVIE_LIKE
-		                     , C.MOVIE_DISLIKE
-		                     , C.MOVIE_STATUS
-		                     , C.REGISTRATION_DATE
-		                     , C.MOVIE_END_DATE
-		                     , C.GENRE_NAME
-		                     , C.MOVIE_VIDEO_RINK
-		                  FROM MOVIE C
-		                 WHERE C.MOVIE_STATUS = 'Y'
-		                 ORDER BY C.REGISTRATION_DATE DESC
-		                ) B
-		         ) A
-	 	 WHERE A.RNUM BETWEEN 1 AND 5
-	</select>
 	
 	
 	

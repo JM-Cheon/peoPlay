@@ -198,8 +198,8 @@
 	 			<input type="radio" id="genreName" name="genreName" value="로맨스">
 	 			코미디 : 
 	 			<input type="radio" id="genreName" name="genreName" value="코미디">
-	 			호러 : 
-	 			<input type="radio" id="genreName" name="genreName" value="호러">
+	 			공포 : 
+	 			<input type="radio" id="genreName" name="genreName" value="공포">
 	 			</c:if>
 	 			<c:if test="${ requestScope.detail.genreName == '판타지'}">
 	 			액션 : 
@@ -210,8 +210,8 @@
 	 			<input type="radio" id="genreName" name="genreName" value="로맨스">
 	 			코미디 : 
 	 			<input type="radio" id="genreName" name="genreName" value="코미디">
-	 			호러 : 
-	 			<input type="radio" id="genreName" name="genreName" value="호러">
+	 			공포 : 
+	 			<input type="radio" id="genreName" name="genreName" value="공포">
 	 			</c:if>
 	 			<c:if test="${ requestScope.detail.genreName == '로맨스'}">
 	 			액션 : 
@@ -222,8 +222,8 @@
 	 			<input type="radio" id="genreName" name="genreName" value="로맨스" checked>
 	 			코미디 : 
 	 			<input type="radio" id="genreName" name="genreName" value="코미디">
-	 			호러 : 
-	 			<input type="radio" id="genreName" name="genreName" value="호러">
+	 			공포 : 
+	 			<input type="radio" id="genreName" name="genreName" value="공포">
 	 			</c:if>
 	 			<c:if test="${ requestScope.detail.genreName == '코미디'}">
 	 			액션 : 
@@ -234,10 +234,10 @@
 	 			<input type="radio" id="genreName" name="genreName" value="로맨스">
 	 			코미디 : 
 	 			<input type="radio" id="genreName" name="genreName" value="코미디" checked>
-	 			호러 : 
-	 			<input type="radio" id="genreName" name="genreName" value="호러">
+	 			공포 : 
+	 			<input type="radio" id="genreName" name="genreName" value="공포">
 	 			</c:if>
-	 			<c:if test="${ requestScope.detail.genreName == '호러'}">
+	 			<c:if test="${ requestScope.detail.genreName == '공포'}">
 	 			액션 : 
 	 			<input type="radio" id="genreName" name="genreName" value="액션" >
 	 			판타지 : 
@@ -246,8 +246,8 @@
 	 			<input type="radio" id="genreName" name="genreName" value="로맨스">
 	 			코미디 : 
 	 			<input type="radio" id="genreName" name="genreName" value="코미디">
-	 			호러 : 
-	 			<input type="radio" id="genreName" name="genreName" value="호러" checked>
+	 			공포 : 
+	 			<input type="radio" id="genreName" name="genreName" value="공포" checked>
 	 			</c:if>
 	        </div>
 	 		<div class="movie_insert_box">
@@ -257,7 +257,7 @@
 			
 	 		<div class="movie_insert_box">
 	 			출현 배우 : <br>
-             	<c:forEach var="actorList" items="${ requestScope.actorList }">
+             	<c:forEach var="actorList" items="${ requestScope.adminActorList }">
 	 			<input type="text" id="actorName1" name="actorName1" value="${ actorList.actorName1 }">
 	 		 	<input type="text" id="actorName2" name="actorName2" value="${ actorList.actorName2 }">
 	 			<input type="text" id="actorName3" name="actorName3" value="${ actorList.actorName3 }">

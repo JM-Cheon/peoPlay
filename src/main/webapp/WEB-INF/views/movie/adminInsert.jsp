@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <style>
    button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
+   input#info{ width: 650px; height: 50px; resize: none;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- <script>
@@ -27,8 +28,9 @@
 				영화이름 : <br>
 				<input type="text" id="name" name="name"><br>
 	        </div>
-	 		<div class="movie_insert_box">
+	 		<div class="movie_insert_box"  >
 				영화정보 : <br>
+				<div id="counter">(0 / 100)</div>
 				<input type="text" id="info" name="info"><br>
 	        </div>
 	 		<div class="movie_insert_box">
@@ -113,8 +115,8 @@
 	 			<input type="radio" id="genreName" name="genreName" value="로맨스">
 	 			코미디 : 
 	 			<input type="radio" id="genreName" name="genreName" value="코미디">
-	 			호러 : 
-	 			<input type="radio" id="genreName" name="genreName" value="호러">
+	 			공포 : 
+	 			<input type="radio" id="genreName" name="genreName" value="공포">
 	        </div>
 	 		<div class="movie_insert_box">
 	 			영상링크주소 : <br>
@@ -241,5 +243,21 @@
  	</script>
  	
  		<link rel="stylesheet" href="/peoplay/resources/css/movie/main.css">
+ 	<script>
+	  /* 키업 */
+    var replyText = document.getElementById("info").value; 
+
+    $(document).ready(function() {
+	    $('#info').on('keyup', function() {
+	        $('#counter').html("("+$(this).val().length+" / 100)");
+
+	        if($(this).val().length > 100) {
+	            $(this).val($(this).val().substring(0, 100));
+	            $('#counter').html("(100 / 100)");
+	        }
+	    })
+    })
+ 	</script>
+ 	
  	
 </html>
