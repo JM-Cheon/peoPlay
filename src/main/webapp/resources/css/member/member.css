@@ -47,14 +47,14 @@
 .pRight {color: #A5A5A5; text-align: right;}
 
 /* checkFavorite */
-.check_main{width: 100%; height: 1450px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
-.check_contents{width: 1100px; height: 1200px;}
+.check_main{width: 100%; height: 1750px; background-color: #181818; display: flex; justify-content: center; align-items: center;}
+.check_contents{width: 1100px; height: 1450px;}
 .check_title{width: 1100px; height: 200px; text-align: center;}
 .check_title > form > button{font-size: 15px; width: 300px; height: 40px; background-color: #A5A5A5;}
 .check_title > form > button:hover{background-color: #008916;}
 .check_title_top{font-size: 25px; color: #fff; font-weight: 600;}
 .check_title_bottom{font-size: 12px; color: #A5A5A5; margin: 15px;}
-.check_body{width: 1100px; height: 1000px;}
+.check_body{width: 1100px; height: 1300px;}
 .check_body > img{width: 170px; height: 240px; float: left; margin: 6.6px;}
 .check_body > img:hover{opacity: 0.5;}
 .clickImg {opacity: 0.5;}
