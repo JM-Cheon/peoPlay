@@ -98,6 +98,8 @@
                   LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
                ) C
          WHERE C.RANK = 1
+           AND C.FILE_STATUS = 'Y'
+           AND C.MOVIE_STATUS = 'Y'
 	</select>
 
 	<select id="selectBestMovieList" resultMap="movieResultMap">
@@ -160,6 +162,8 @@
                   FROM MOVIE A
                   LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
                ) C
+           WHERE C.FILE_STATUS = 'Y'
+             AND C.MOVIE_STATUS = 'Y'
            ORDER BY C.RANK
 	</select>
 
@@ -223,6 +227,8 @@
                   FROM MOVIE A
                   LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
                ) C
+           WHERE C.FILE_STATUS = 'Y'
+             AND C.MOVIE_STATUS = 'Y'
            ORDER BY C.RANK    
 	</select>
 
@@ -288,6 +294,8 @@
                   LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
 		         WHERE D.USER_NO = #{no}
                ) C
+           WHERE C.FILE_STATUS = 'Y'
+             AND C.MOVIE_STATUS = 'Y'
            ORDER BY C.RANK
 	</select>
 	
@@ -356,6 +364,8 @@
                                          WHERE D.USER_NO = #{no}
                                        )
                ) C
+           WHERE C.FILE_STATUS = 'Y'
+             AND C.MOVIE_STATUS = 'Y'
            ORDER BY C.RANK
 	</select>
 </mapper>
