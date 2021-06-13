@@ -3,11 +3,13 @@ package com.cctv.peoplay.movie.model.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.cctv.peoplay.member.model.dto.MemberDTO;
 import com.cctv.peoplay.movie.model.dto.ActorDTO;
 import com.cctv.peoplay.movie.model.dto.MovieDTO;
 import com.cctv.peoplay.movie.model.dto.MovieFileDTO;
+import com.cctv.peoplay.movie.model.dto.MovieLikeDislikeDTO;
 import com.cctv.peoplay.movie.model.dto.MovieReviewDTO;
+import com.cctv.peoplay.movie.model.dto.MovieUserFavoriteGenreDTO;
+import com.cctv.peoplay.movie.model.dto.MovieWatchListDTO;
 import com.cctv.peoplay.movie.model.dto.MovieWishListDTO;
 
 public interface MovieService {
@@ -19,17 +21,13 @@ public interface MovieService {
 	MovieDTO selectmovie(int no);
 
 	/* 배우 리스트 */
-	List<ActorDTO> actorList(int no);
+	ActorDTO actorList(int no);
+	List<ActorDTO> adminActorList(int no);
 	
 	/* 영화 파일 선택 */
 	MovieFileDTO selectMovieMainFile(int no);
 	MovieFileDTO selectMovieSubFile(int no);
 
-	/* like or dislike 카운트 */
-	
-	MovieDTO likeUpdate(HashMap<String, Object> likeUpdate);
-
-	MovieDTO disLikeUpdate(HashMap<String, Object> disLikeUpdate);
 
 	/* 영화 리뷰 전체 */
 	List<MovieReviewDTO> movieReviewList();
@@ -100,10 +98,6 @@ public interface MovieService {
 	
 	int movieSubFileOnePickDelete(int no);
 
-	/* 좋아요 싫어요 카운트 갯수*/
-	MovieDTO likeAmount(int movieNo);
-	
-	MovieDTO dislikeAmount(int movieNo);
 	
 	/* 찜하기 */
 	List<MovieWishListDTO> selectWish();
@@ -114,7 +108,67 @@ public interface MovieService {
 
 	MovieWishListDTO selectMovieWishList(HashMap<String, Integer> wishMap);
 
+	/* 시청내역 */
+	List<MovieWatchListDTO> selectWatch();
+	
+	int insertMovieWatchList(HashMap<String, Object> selectMovieWatchList);
+	
+	MovieWatchListDTO selectMovieWatchList(HashMap<String, Integer> watchMap);
 
+	/* 좋아요 싫어요 */
+
+	List<MovieLikeDislikeDTO> selectMovieLikeDislike();
+
+	MovieLikeDislikeDTO selectMovieLikeDislikeList(HashMap<String, Integer> likeDislikeMap);
+	
+	MovieLikeDislikeDTO selectLikeRead(HashMap<String, Integer> selectLikeRead);
+	
+	MovieLikeDislikeDTO selectDislikeRead(HashMap<String, Integer> selectDislikeRead);
+	
+	int insertMovieLikeDislikeList(HashMap<String, Object> selectMovieLikeDislikeList);
+	
+	int deleteMovieLikeDislikeList(HashMap<String, Object> deleteLikeDislikeList);
+
+	int updateMovieLikeList(HashMap<String, Object> updateLikeDislikeList);
+
+	int updateMovieDislikeList(HashMap<String, Object> updateDislikeList);
+	
+	/* 좋아요 싫어요 카운트 */
+	
+	int likeUpdate(HashMap<String, Object> likeUpdate);
+
+	int disLikeUpdate(HashMap<String, Object> disLikeUpdate);
+	
+	int unlikeUpdate(HashMap<String, Object> unlikeUpdate);
+	
+	int undisLikeUpdate(HashMap<String, Object> undisLikeUpdate);
+	
+	
+	/* 장르 선호 관련 */
+	
+	MovieDTO movieGenreName(HashMap<String, Integer> movieGenreName);
+	
+	MovieUserFavoriteGenreDTO seleteUserFavoriteGenre(HashMap<String, Object> selectGenre);
+	
+	int genreCount(HashMap<String, Object> genreCount);
+
+	int unGenreCount(HashMap<String, Object> unGenreCount);
+	
+	/* 회원 관련 정보 전달 */
+	MovieLikeDislikeDTO selectMemberlikeDislike(HashMap<String, Integer> member);
+	MovieWatchListDTO selectMemberWatch(HashMap<String, Integer> member);
+	MovieWishListDTO selectMemberWish(HashMap<String, Integer> member);
+	MovieUserFavoriteGenreDTO selectMemberGenre(HashMap<String, Integer> member);
+
+	
+	/* 좋아요 싫어요 카운트 갯수*/
+	MovieDTO likeAmount(int movieNo);
+	
+	MovieDTO dislikeAmount(int movieNo);
+
+	
+	
+	
 }	// -- end
 
 

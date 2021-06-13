@@ -29,8 +29,8 @@
 	    <button id="genreAction">액션</button>
 	    <button id="genreFantasy">판타지 </button>
 	    <button id="genreRomance">로맨스 </button>
-	    <button id="genreFear">코미디 </button>
-	    <button id="genreComedy">호러 </button>
+	    <button id="genreComedy">코미디 </button>
+	    <button id="genreHorror">공포 </button>
     </section>
       <br><br>
     <section align="center">
@@ -313,8 +313,8 @@
 		});
 	});
 	/* 코미디 장르 */
-	$("#genreFear").click(function(){
-	var genreFear = "코미디"; 
+	$("#genreComedy").click(function(){
+	var genreComedy = "코미디"; 
 		console.log("콘솔 전달 됨?")
 		$.ajax({
 			url: "movieGenre4",
@@ -365,15 +365,15 @@
 			},
 		});
 	});
-	/* 호러 장르 */
-	$("#genreComedy").click(function(){
-	var genreComedy = "호러"; 
+	/* 공포 장르 */
+	$("#genreHorror").click(function(){
+	var genreHorror = "공포"; 
 		console.log("콘솔 전달 됨?")
 		$.ajax({
 			url: "movieGenre5",
 			method: "POST",
 			data: {
-				'genreHorror' : '호러'
+				'genreHorror' : '공포'
 				},
 			success:function(genresResult5){
 				console.table(genresResult5);

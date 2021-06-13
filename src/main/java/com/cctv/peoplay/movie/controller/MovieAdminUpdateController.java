@@ -42,7 +42,7 @@ public class MovieAdminUpdateController {
 	public String list(Model model, HttpServletRequest request, @PathVariable("no") int no) throws Exception {
 		
 		model.addAttribute("detail", service.selectmovie(no));
-		model.addAttribute("actorList" , service.actorList(no));
+		model.addAttribute("adminActorList" ,  service.adminActorList(no));
 		model.addAttribute("movieMainFiles" , service.selectMovieMainFile(no));
 		model.addAttribute("movieSubFiles" , service.selectMovieSubFile(no));
 		model.addAttribute("list" , service.selectMovieList());

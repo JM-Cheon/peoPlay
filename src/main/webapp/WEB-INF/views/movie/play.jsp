@@ -9,9 +9,22 @@
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+   <script>
+    $(".nav ul li").click(function(){
+    	if("${ empty sessionScope.loginMember}" == "true"){
+    		if($(this).text() != "홈"){
+	    		alert("로그인 후 이용 가능합니다.");
+	    		return false;
+    		}
+    	} else {
+	    		return true;
+    	}
+    });
+    </script>
 <body>
 <jsp:include page="../common/header.jsp"/>
 	<br><br><br><br><br><br><br><br><br><br><br><br>
+	
 	<h2 align="center"><c:out value="${requestScope.play.name}"/></h2>
 	<br><br>
 	<div align="center">
@@ -19,6 +32,41 @@
 	</div>
 	<br><br><br><br><br><br><br><br><br>
 <jsp:include page="../common/footer.jsp"/>
+	<input type="hidden" id="selectWatchList" value="${watchList}">
+
 </body>
+
+<script>
+/* 재생 카운트 기능 */
+ $(document).ready(function() {
+    var userNo = ${ sessionScope.loginMember.userNo };
+    var movieNo = ${ requestScope.no};
+	console.log(userNo);
+	console.log(movieNo);
+	
+	var selectWatchList = document.getElementById("selectWatchList").value;
+	
+	
+	if(selectWatchList == '없음'){
+		
+/*  ajax로 insert */
+	$.ajax({
+        url : "${pageContext.servletContext.contextPath}/movie/watchList",
+        method : "POST",
+        data : {
+        	'userNo' : userNo,
+        	'movieNo' : movieNo
+        },
+           success : function(data) {
+
+           }, 
+           error:function(request, status, error){
+       		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+       		}
+  		}) 
+	}else if(selectWatchList == "있음"){
+}
+})
+</script>
 <link rel="stylesheet" href="/peoplay/resources/css/movie/main.css">
 </html>

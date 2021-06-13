@@ -11,7 +11,10 @@ import com.cctv.peoplay.movie.model.dao.MovieMapper;
 import com.cctv.peoplay.movie.model.dto.ActorDTO;
 import com.cctv.peoplay.movie.model.dto.MovieDTO;
 import com.cctv.peoplay.movie.model.dto.MovieFileDTO;
+import com.cctv.peoplay.movie.model.dto.MovieLikeDislikeDTO;
 import com.cctv.peoplay.movie.model.dto.MovieReviewDTO;
+import com.cctv.peoplay.movie.model.dto.MovieUserFavoriteGenreDTO;
+import com.cctv.peoplay.movie.model.dto.MovieWatchListDTO;
 import com.cctv.peoplay.movie.model.dto.MovieWishListDTO;
 
 @Service("movieService")
@@ -38,10 +41,14 @@ public class MovieServiceImpl implements MovieService {
 	
 	/* 배우 선택 */
 	@Override
-	public List<ActorDTO> actorList(int no) {
+	public ActorDTO actorList(int no) {
 		return mapper.actorList(no);
 	}
-
+	@Override
+	public List<ActorDTO> adminActorList(int no) {
+		return mapper.adminActorList(no);
+	}	
+		
 	/* 영화 파일 선택 */
 	@Override
 	public MovieFileDTO selectMovieMainFile(int no) {
@@ -67,15 +74,6 @@ public class MovieServiceImpl implements MovieService {
 		return mapper.mainNewTopMovie();
 	}
 	
-	@Override
-	public MovieDTO likeUpdate(HashMap<String, Object> likeUpdate) {
-		return mapper.likeUpdate(likeUpdate);
-	}
-
-	@Override
-	public MovieDTO disLikeUpdate(HashMap<String, Object> disLikeUpdate) {
-		return mapper.disLikeUpdate(disLikeUpdate);
-	}
 
 	@Override
 	public List<MovieReviewDTO> movieReviewList() {
@@ -199,20 +197,8 @@ public class MovieServiceImpl implements MovieService {
 		return mapper.movieSubFileOnePickDelete(no);
 	}
 
-	/* 좋아요 싫어요 리스트*/
-	@Override
-	public MovieDTO likeAmount(int movieNo) {
-		return mapper.likeAmount(movieNo);
-	}
-
-	@Override
-	public MovieDTO dislikeAmount(int movieNo) {
-		return mapper.dislikeAmount(movieNo);
-	}
 
 	/* 찜하기 */
-
-	
 	@Override
 	public int insertMovieWishList(HashMap<String, Object> insertWishList) {
 		return mapper.insertMovieWishList(insertWishList);
@@ -231,7 +217,144 @@ public class MovieServiceImpl implements MovieService {
 	public MovieWishListDTO selectMovieWishList(HashMap<String, Integer> wishMap) {
 		return mapper.selectMovieWishList(wishMap);
 	}
+
+	/* 시청 내역 */
+	@Override
+	public int insertMovieWatchList(HashMap<String, Object> selectMovieWatchList) {
+		return mapper.insertMovieWatchList(selectMovieWatchList);
+	}
 	
+	@Override
+	public List<MovieWatchListDTO> selectWatch() {
+		return mapper.selectWatch();
+	}
+	@Override
+	public MovieWatchListDTO selectMovieWatchList(HashMap<String, Integer> watchMap) {
+		return mapper.selectMovieWatchList(watchMap);
+	}
+
+	/* 좋아요 싫어요 */
+	@Override
+	public List<MovieLikeDislikeDTO> selectMovieLikeDislike() {
+		return mapper.selectMovieLikeDislike();
+	}
+	@Override
+	public MovieLikeDislikeDTO selectMovieLikeDislikeList(HashMap<String, Integer> likeDislikeMap) {
+		return mapper.selectMovieLikeDislikeList(likeDislikeMap);
+	}
+	
+	@Override
+	public MovieLikeDislikeDTO selectLikeRead(HashMap<String, Integer> selectLikeRead) {
+		return mapper.selectLikeRead(selectLikeRead);
+	}
+
+	@Override
+	public MovieLikeDislikeDTO selectDislikeRead(HashMap<String, Integer> selectDislikeRead) {
+		return mapper.selectDislikeRead(selectDislikeRead);
+	}
+	
+	@Override
+	public int insertMovieLikeDislikeList(HashMap<String, Object> selectMovieLikeDislikeList) {
+		return mapper.insertMovieLikeDislikeList(selectMovieLikeDislikeList);
+	}
+	@Override
+	public int deleteMovieLikeDislikeList(HashMap<String, Object> deleteLikeDislikeList) {
+		return mapper.deleteMovieLikeDislikeList(deleteLikeDislikeList);
+	}
+	@Override
+	public int updateMovieLikeList(HashMap<String, Object> updateLikeDislikeList) {
+		return mapper.updateMovieLikeList(updateLikeDislikeList);
+	}
+
+	@Override
+	public int updateMovieDislikeList(HashMap<String, Object> updateDislikeList) {
+		return mapper.updateMovieDislikeList(updateDislikeList);
+	}
+
+	/* 좋아요 싫어요 카운트 */
+
+	@Override
+	public int likeUpdate(HashMap<String, Object> likeUpdate) {
+		return mapper.likeUpdate(likeUpdate);
+	}
+
+	@Override
+	public int disLikeUpdate(HashMap<String, Object> disLikeUpdate) {
+		return mapper.disLikeUpdate(disLikeUpdate);
+	}
+
+	@Override
+	public int unlikeUpdate(HashMap<String, Object> unlikeUpdate) {
+		return mapper.unlikeUpdate(unlikeUpdate);
+	}
+
+	@Override
+	public int undisLikeUpdate(HashMap<String, Object> undisLikeUpdate) {
+		return mapper.undisLikeUpdate(undisLikeUpdate);
+	}
+
+	/* 장르 선호 관련 */
+	
+	
+	@Override
+	public MovieDTO movieGenreName(HashMap<String, Integer> movieGenreName) {
+		return mapper.movieGenreName(movieGenreName);
+	}	
+
+	@Override
+	public MovieUserFavoriteGenreDTO seleteUserFavoriteGenre(HashMap<String, Object> selectGenre) {
+		return mapper.seleteUserFavoriteGenre(selectGenre);
+	}
+
+	@Override
+	public int genreCount(HashMap<String, Object> genreCount) {
+		return mapper.genreCount(genreCount);
+	}
+
+	@Override
+	public int unGenreCount(HashMap<String, Object> unGenreCount) {
+		return mapper.unGenreCount(unGenreCount);
+	}
+	
+	
+	
+	/* 좋아요 싫어요 리스트*/
+	@Override
+	public MovieDTO likeAmount(int movieNo) {
+		return mapper.likeAmount(movieNo);
+	}
+
+	@Override
+	public MovieDTO dislikeAmount(int movieNo) {
+		return mapper.dislikeAmount(movieNo);
+	}
+
+	/* 회원 관련 정보 전달 */
+	@Override
+	public MovieLikeDislikeDTO selectMemberlikeDislike(HashMap<String, Integer> member) {
+		return mapper.selectMemberlikeDislike(member);
+	}
+	@Override
+	public MovieWatchListDTO selectMemberWatch(HashMap<String, Integer> member) {
+		return mapper.selectMemberWatch(member);
+	}
+	@Override
+	public MovieWishListDTO selectMemberWish(HashMap<String, Integer> member) {
+		return mapper.selectMemberWish(member);
+	}
+	@Override
+	public MovieUserFavoriteGenreDTO selectMemberGenre(HashMap<String, Integer> member) {
+		return mapper.selectMemberGenre(member);
+	}
+
+
+
+
+	
+
+
+	
+
 
 
 }	//  -- end
