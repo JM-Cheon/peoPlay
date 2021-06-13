@@ -631,7 +631,11 @@ $(document).on('click', '#modifyReplyOfBtn', function (e) {
  /* 게시판 신고 기타 사유 */
 $(document).on('click', '#boardReportBtn', function (e) {
 	
-	if(document.getElementById("reportContent").value == ""){
+	if(document.getElementById("reportReason").value == '기타'){
+		
+	
+	
+		if(document.getElementById("reportContent").value == ""){
 		
 		alert("내용을 입력해주세요");
 		e.preventDefault();
@@ -645,7 +649,7 @@ $(document).on('click', '#boardReportBtn', function (e) {
 
 	}
 	
-	  }); 
+ }}); 
  
 </script>
 

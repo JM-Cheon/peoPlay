@@ -542,6 +542,115 @@
 	 });
         
 	 </script>
+<script type="text/javascript">
+
+/*  댓글 널 값 처리 */
+$(document).on('click', '#comment_submit', function (e) {
+	
+	if(document.getElementById("replyInput").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#insertReplyForm").submit();
+
+	}
+	
+	  });
+
+/* 대댓글 널 값 처리 */
+$(document).on('click', '#replyOfInsert', function (e) {
+	
+	if(document.getElementById("replyOfContent").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#insertReplyOfForm").submit();
+
+	}
+	
+	  });
+	  
+/* 댓글 수정 */
+$(document).on('click', '#modifyReplyBtn', function (e) {
+	
+	if(document.getElementById("modiftReplyInput").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#modifyReplyForm").submit();
+
+	}
+	
+	  });
+
+
+
+/* 대댓글 수정 */ 
+$(document).on('click', '#modifyReplyOfBtn', function (e) {
+	
+	if(document.getElementById("modifyReplyOfInput").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#modifyReplyOfForm").submit();
+
+	}
+	
+	  }); 
+ 
+ 
+ 
+ 
+ /* 게시판 신고 기타 사유 */
+$(document).on('click', '#boardReportBtn', function (e) {
+	
+	if(document.getElementById("reportReason").value == '기타'){
+		
+	
+	
+		if(document.getElementById("reportContent").value == ""){
+		
+		alert("내용을 입력해주세요");
+		e.preventDefault();
+
+		return;
+		
+	}
+	else{
+		
+	$("#reportForm").submit();
+
+	}
+	
+ }}); 
+ 
+</script>
+
+
 
 </body>
 </html>
