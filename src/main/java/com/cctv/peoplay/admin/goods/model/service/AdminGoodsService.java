@@ -143,6 +143,9 @@ public interface AdminGoodsService {
 	/* 남은 재고 수량 업데이트 */
 	int updateGoodStock(int goodsStockIn);
 
+	/* 입고 된 수량이 있으면 업데이트 */
+	int updateStockManage(HashMap<String, Object> goodsDetail);
+
 	
 
 

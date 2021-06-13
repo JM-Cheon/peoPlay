@@ -235,6 +235,17 @@ private AdminGoodsMapper adminGoodsMapper;
 		return adminGoodsMapper.deletedetailfile(goodsNo);
 	}
 
+	@Override
+	public int updateGoodStock(int goodsStockIn) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateStockManage(HashMap<String, Object> goodsDetail) {
+		return adminGoodsMapper.updateStockManage(goodsDetail);
+	}
+
 
 
 

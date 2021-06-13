@@ -100,5 +100,7 @@ public interface AdminGoodsMapper {
 
 	public int deletedetailfile(int goodsNo);
 
+	public int updateStockManage(HashMap<String, Object> goodsDetail);
+
 
 }

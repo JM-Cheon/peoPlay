@@ -268,6 +268,8 @@ public class AdminGoodsController {
 		goodsDetail.put("goodsShortInfo", goodsShortInfo);
 		
 		int insertGoodsinfo = admingoodsService.insertGoodsinfo(goodsDetail);
+		
+
 //		GoodsDTO selectGoodsNum = admingoodsService.selectGoodsNum();
 		
 //		model.addAttribute("insertGoodsinfo", insertGoodsinfo);
@@ -451,6 +453,15 @@ public class AdminGoodsController {
 		goodsDetail.put("goodsOrigin", goodsOrigin);
 		
 		int updateGoodsinfo = admingoodsService.updateGoodsinfo(goodsDetail);
+		
+		if(updateGoodsinfo > 0) {
+			
+			if(goodsStockIn > 0) {
+				
+				int updateStockManage = admingoodsService.updateStockManage(goodsDetail);
+			}
+		}
+		
 //		GoodsDTO selectGoodsNum = admingoodsService.selectGoodsNum();
 		
 //		model.addAttribute("insertGoodsinfo", insertGoodsinfo);

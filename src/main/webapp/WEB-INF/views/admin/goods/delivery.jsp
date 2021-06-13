@@ -25,7 +25,7 @@
         </div>
         <div class="searchingDiv">
             <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/DeliverySearch" method="post" class="searchingForm move">
-                <div class="search-area" align="center" style="position: relative; left: 300px;">
+                <div class="search-area" align="center" style="position: relative; left: 329px;">
                     <select id="searchCondition" name="searchCondition">
                         <option value="deliveryStatus">배송상태</option>
                         <option value="deliveryMemo">배송 메모 </option>

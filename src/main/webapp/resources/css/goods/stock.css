@@ -32,16 +32,16 @@
     height: 40px;
 }
 .goodsName{
-    width: 150px;
+    width: 300px;
 }
 .goodsPrice{
-    width: 380px;
+    width: 180px;
 }
 .orderQuantities{
     width: 150px;
 }
 .totalPrice{
-    width: 150px;
+    width: 170px;
 }
 .p-board-paging ul {
 	display: table;
@@ -75,32 +75,12 @@
 	background-color: #008916;
 	color: white;
 }
-.textareareply{
-	    height: 225px;
-    width: 520px;
-    resize: none;
-    position: relative;
-    left: 179px;
+.back{
+position: relative;
+    left: 426px;
+    top: 47px;
 }
-.replyHeader{
-    height: 100px;
-    width: auto;
-    text-align: center;
-    position: relative;
-    top: 28px;
-    font-size: 25pt;
-    font-weight: 800
-}
-.btninquiry{
-	width: 200px;
-    border-radius: 15px;
-    position: relative;
-    left: 337px;
-	
-}
-.answerDiv{
-	width: 500px;
-    font-size: 30pt;
-    text-align: center;
-    color: red;
+.move{
+	position: relative;
+    right: 19px;
 }

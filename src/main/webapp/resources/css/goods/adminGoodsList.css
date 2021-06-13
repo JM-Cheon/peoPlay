@@ -88,6 +88,15 @@ color: #000; font-weight: 600; font-size: 20px; text-align: left; line-height: 4
 	position: relative;
 	top: 30px;
 }
+.admin{
+		background-color: #008916;
+	width: 100px;
+	height: 30px;
+	color: white;
+	border-radius: 10px;
+	position: relative;
+	top: 30px;
+}
 .p-board-paging ul {
 	display: table;
 	margin-left: auto;
