@@ -87,7 +87,7 @@
 	 
 
 <select id="selectBoardList" resultMap="boardAndMemberResultSet" >
- SELECT
+	    SELECT
                 A.POST_NO
 		      , A.USER_NO
    			  , A.NICKNAME
@@ -99,10 +99,11 @@
 		      , A.POST_STATUS
 		      , A.REPORT_COUNT
 		      , A.REPORT_CUMULATIVE
-           FROM (SELECT ROWNUM RNUM
+           FROM (SELECT
+                        ROWNUM RNUM
                       , B.POST_NO
 		              , B.USER_NO
-   			          , B.NICKNAME
+   			          , C.NICKNAME
    			          , B.POST_TITLE
    			          , B.VIEW_NO
    			          , B.CREATION_DATE
@@ -110,25 +111,13 @@
    			          , B.CATEGORY
    			          , B.POST_STATUS
    			          , B.REPORT_COUNT
-   			          , B.REPORT_CUMULATIVE
-		           FROM (SELECT C.POST_NO
-		             		  , C.USER_NO
-   			        		  , D.NICKNAME
-   			         		  , C.POST_TITLE
-   			        		  , C.VIEW_NO
-   			  		          , C.CREATION_DATE
-   			          		  , C.COMMENT_COUNT
-   			         		  , C.CATEGORY
-   			        		  , C.POST_STATUS
-   			        		  , C.REPORT_COUNT
-   			        		  , D.REPORT_CUMULATIVE
-		           			FROM USER_BOARD C
-		                    JOIN USER_INFO D ON(C.USER_NO =D.USER_NO)
-		                 WHERE POST_STATUS= 'Y'
-      				   ORDER BY C.POST_NO DESC
-		          ) B
-		    ) A
+   			          , C.REPORT_CUMULATIVE
+		           FROM USER_BOARD B
+		           JOIN USER_INFO C ON(B.USER_NO =C.USER_NO)
+		          WHERE POST_STATUS= 'Y'
+		          )A
         WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+        ORDER BY A.POST_NO DESC
         
 	</select>
 

@@ -51,7 +51,7 @@ public class AdminBoardController {
 		int totalCount= service.selectCount();
 		
 		
-		int limit =10;
+		int limit =15;
 		
 		int buttonAmount = 5;
 	
