@@ -73,7 +73,7 @@
 						<table>
 							<tr>
 								<td style="width: 740px;"></td>
-								<td><button type="button" onclick="" class="cancel-button">취소</button></td>
+								<td><button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/board/list'" class="cancel-button">취소</button></td>
 								<td style="width: 60px;"></td>
 								<td><button type="submit" class="submit-button">등록</button></td>
 								<td></td>
