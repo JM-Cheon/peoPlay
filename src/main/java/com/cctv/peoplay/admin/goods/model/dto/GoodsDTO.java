@@ -1,7 +1,7 @@
 package com.cctv.peoplay.admin.goods.model.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class GoodsDTO implements Serializable{

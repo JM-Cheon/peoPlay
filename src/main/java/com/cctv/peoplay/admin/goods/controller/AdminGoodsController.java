@@ -30,6 +30,7 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.GoodsInAndOutDTO;
 import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.model.service.AdminGoodsService;
 import com.cctv.peoplay.admin.goods.paging.Pagenation;
@@ -429,11 +430,13 @@ public class AdminGoodsController {
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNum"));
 		int goodsStock = Integer.parseInt(request.getParameter("goodsStock"));
 		int goodsMoney = Integer.parseInt(request.getParameter("goodsPrice"));
+		int goodsStockIn = Integer.parseInt(request.getParameter("goodsStockIn"));
 		String goodsNationality = request.getParameter("goodsNationality");
 		String goodsShortInfo = request.getParameter("goodsShortInfo");
 		String goodsStatus = request.getParameter("goodsStatus");
 		String goodsOrigin = request.getParameter("goodsOrigin");
 		String goodsNumber = request.getParameter("goodsNumber");
+
 		
 		HashMap<String, Object> goodsDetail = new HashMap<>();
 		goodsDetail.put("goodsNo", goodsNo);
@@ -441,7 +444,7 @@ public class AdminGoodsController {
 		goodsDetail.put("goodsCompany", goodsCompany);
 		goodsDetail.put("goodsMoney", goodsMoney);
 		goodsDetail.put("goodsMovie", goodsMovie);
-		goodsDetail.put("goodsStock", goodsStock);
+		goodsDetail.put("goodsStock", goodsStockIn);
 		goodsDetail.put("goodsNationality", goodsNationality);
 		goodsDetail.put("goodsShortInfo", goodsShortInfo);
 		goodsDetail.put("goodsStatus", goodsStatus);
@@ -495,6 +498,13 @@ public class AdminGoodsController {
 				file.put("filePath", filePath1);
 				file.put("thumbnailPath", filePath1);
 				file.put("goodsNumber", goodsNumber);
+				
+				if(i == 0) {
+					file.put("distinguish","head" );
+					
+				}else {
+					file.put("distinguish","body" );
+				}
 
 				goodsImageFiles.add(file);
 				
@@ -511,7 +521,11 @@ public class AdminGoodsController {
 
 				Map<String, String> file = goodsImageFiles.get(i);
 				
-				int imageFiles = admingoodsService.updateImageFiles(file);
+				int deletePastImage = admingoodsService.deletePastImage(goodsNo);
+				if(deletePastImage> 0) {
+					
+					int imageFiles = admingoodsService.updateImageFiles(file);
+				}
 
 				goodsFiles.get(i).transferTo(new File(filePath1 + "\\" + file.get("saveName")));
 
@@ -544,8 +558,7 @@ public class AdminGoodsController {
 	
 		
 		List<Map<String, String>> goodsDetailFilessave = new ArrayList<>();
-		if((goodsDetailFiles.isEmpty())) {
-			System.out.println("dd");
+		if(!(goodsDetailFiles.isEmpty())) {
 		for(int i = 0; i < goodsDetailFiles.size(); i ++) {
 			/* 파일명 변경 처리 */
 			String originFileName2 = goodsDetailFiles.get(i).getOriginalFilename();
@@ -561,6 +574,7 @@ public class AdminGoodsController {
 			detailFile.put("goodsNumber", goodsNumber);
 
 			goodsDetailFilessave.add(detailFile);
+			System.out.println("goodsdetailFile" + goodsDetailFiles );
 			}
 		/* 파일을 저장한다. */
 		try {
@@ -571,7 +585,11 @@ public class AdminGoodsController {
 				
 				goodsDetailFiles.get(i).transferTo(new File(filePath2 + "\\" + detailFile.get("saveName")));
 				
-				int savedetailfiles = admingoodsService.updategoodsDetailFiles(detailFile);
+				int deletedetailfile = admingoodsService.deletedetailfile(goodsNo);
+				
+				if(deletedetailfile > 0) {
+					int savedetailfiles = admingoodsService.updategoodsDetailFiles(detailFile);
+				}
 			}
 			
 			model.addAttribute("message", "파일 업로드 성공!");
@@ -776,12 +794,6 @@ public class AdminGoodsController {
 			@RequestParam("inquiryReplyNum") int inquiryReplyNum, @RequestParam("inquiryAnswer") String inquiryAnswer,
 			@RequestParam("goodsNum") int goodsNum, @RequestParam("userNo") int userNo) {
 		
-		System.out.println("왓어?");
-		System.out.println("inquiryAnswer" + inquiryAnswer);
-		System.out.println("inquiryReplyNum" + inquiryReplyNum);
-		System.out.println("goodsNum" + goodsNum);
-		System.out.println("userNo" + userNo);
-		
 		HashMap<String, Object> answerInquiry = new HashMap<>();
 		answerInquiry.put("inquiryReplyNum", inquiryReplyNum);
 		answerInquiry.put("inquiryAnswer", inquiryAnswer);
@@ -789,7 +801,6 @@ public class AdminGoodsController {
 		answerInquiry.put("userNo", userNo);
 		
 		int updateInquiryAnswer = admingoodsService.updateInquiryAnswer(answerInquiry);
-		System.out.println("ddd");
 		
 		if(updateInquiryAnswer > 0) {
 			
@@ -800,7 +811,7 @@ public class AdminGoodsController {
 	}
 	
 	@GetMapping("/goods/InquiryAnswer")
-	public String GoodsStock(HttpServletRequest request, Model model) {
+	public String GoodsInquiryAnswer(HttpServletRequest request, Model model) {
 		
 		String currentPage = request.getParameter("currentPage");
 
@@ -834,7 +845,101 @@ public class AdminGoodsController {
 		return "admin/goods/inquiryAnswer";
 		
 	}	
-	
+	@GetMapping("/goods/Stock")
+	public String GoodsStock(HttpServletRequest request, Model model) {
+		
+		String currentPage = request.getParameter("currentPage");
+		
+		int pageNo = 1;
+		
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		List<GoodsDTO> goodsStock = admingoodsService.selectGoodsStock();
+		
+		if(goodsStock.isEmpty()) {
+			
+			for(int i = 0; i < goodsStock.size(); i ++) {
+				
+				GoodsDTO insertStock =  new GoodsDTO();
+				insertStock.setGoodsNum(goodsStock.get(i).getGoodsNum());
+				insertStock.setGoodsStock(goodsStock.get(i).getGoodsStock());
+				insertStock.setGoodsRegistrationDate(goodsStock.get(i).getGoodsRegistrationDate());
+				
+				int insertInitiate = admingoodsService.insertInitiate(insertStock);
+			}
+		}
+		
+		int totalCount = admingoodsService.stockList();
+		
+		
+		int limit = 14;
+		
+		int buttonAmount = 4;
+		
+		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		List<GoodsInAndOutDTO> selectGoodsList = admingoodsService.selectGoodsList(pageInfo);
+		
+		Gson gson = new GsonBuilder().create();
+		
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("selectGoodsList", selectGoodsList);
+		
+		return "admin/goods/manageStock";
+		
+	}	
+	@PostMapping("goods/StockSearch")
+	public String Stocksearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
+			@RequestParam("searchValue") String searchValue) {
+ 		
+ 		String condition = request.getParameter("searchCondition");
+		String value = request.getParameter("searchValue");
+
+		HashMap<String, String> searchMap = new HashMap<>();
+		searchMap.put("searchCondition", condition);
+		searchMap.put("searchValue", value);
+		
+		String currentPage = request.getParameter("currentPage");
+
+		int pageNo = 1;
+
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		// 검색 후 페이징 처리용
+		int totalCount = admingoodsService.searchStockSearch(searchMap);
+		int limit = 14;
+
+		int buttonAmount = 4;
+
+		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+ 		
+		// 검색하려고 Map에 담았다.
+		HashMap<String, Object> searchListMap = new HashMap<>();
+		searchListMap.put("searchCondition", searchCondition);
+		searchListMap.put("searchValue", searchValue);
+		searchListMap.put("startRow", pageInfo.getStartRow());
+		searchListMap.put("endRow", pageInfo.getEndRow());
+
+		List<GoodsInAndOutDTO> selectGoodsList = admingoodsService.selectStockPaging(searchListMap);
+		
+		model.addAttribute("selectGoodsList", selectGoodsList);
+
+		model.addAttribute("pageInfo", pageInfo);
+		
+		return "admin/goods/manageStock";
+ 		
+ 	}
 	
 	
 	

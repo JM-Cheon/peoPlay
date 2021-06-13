@@ -146,6 +146,7 @@ $(document).on('click', '.cancel', function() {
 	const goodsNo = document.getElementById("goodsNum").value;
 	
 	if(confirm("주문을 취소하시겠습니까?") == true){
+			
     	location.href = "${ pageContext.servletContext.contextPath }/goods/cancel?orderNum=" + parseInt(orderNum) + "&goodsNo=" + parseInt(goodsNo);
 	} else {
 		return;
@@ -155,10 +156,17 @@ $(document).on('click', '.cancel', function() {
 
 	$('.counts').on("click",function() {
 
-		const count = document.getElementById("counts").value;
+		var count = document.getElementById("counts").value;
 
-		const orderNo = document.getElementById("orderNo").value;
+		var orderNo = document.getElementById("orderNo").value;
+		
+		var stock = ${requestScope.selectOneGoodsInfo.goodsStock};
 
+				if(stock <= count){
+					alert('남은 재고 수량' + '(' + stock + ')' + '보다 큰 수량을 주문하실 수 없습니다.');
+					return;
+				}
+				
 		$.ajax({
 
 			url : "recalculate",
@@ -170,6 +178,7 @@ $(document).on('click', '.cancel', function() {
 
 			},
 			success : function(data) {
+				
 
 				document.getElementById("rePrice").innerHTML = "";
 				document.getElementById("rePrice").innerHTML = data.goodsNo.goodsPrice + '원';
@@ -183,9 +192,10 @@ $(document).on('click', '.cancel', function() {
 				document.getElementById("subReTotalPrice").innerHTML = '가격 : ' + (data.goodsNo.goodsPrice * data.orderCount) + '원';
 				document.getElementById("totalPrice2").value = (data.goodsNo.goodsPrice * data.orderCount);
 				document.getElementById("totalPrice").value = document.getElementById("reTotalPrice").innerHTML;
+				document.getElementById("quantities").value = data.orderCount;
 			
 			},
-			error : function(error){
+			error : function(error){ 
 				
 			}
 
@@ -201,7 +211,15 @@ $(document).on('click', '.cancel', function() {
 			
 			alert("약관에 동의해 주세요");
 			return;
+		}else{
+			
+			if(document.getElementById("totalPrice2").value >= 1000000){
+				
+				alert('최종 결제 금액이 백만원을 초과할 수 없습니다.');
+				return;
+			}
 		}
+		
 		
 		$(function() {
 			IMP.init('imp66805185');

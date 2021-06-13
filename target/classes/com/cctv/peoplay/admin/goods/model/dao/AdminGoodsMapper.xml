@@ -530,33 +530,64 @@
 		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<update id="updateGoodsinfo" parameterType="hashmap">
-		UPDATE TBL_GOODS
-	       SET GOODS_NAME = #{goodsName},
-	   	       GOODS_PRICE = #{goodsMoney},
-	           GOODS_STATUS = #{goodsStatus},
-	           GOODS_COMPANY = #{goodsCompany},
-	           GOODS_SHORT_INFO = #{goodsShortInfo},
-	           GOODS_ORIGIN = #{goodsOrigin}
+		UPDATE TBL_GOODS A
+	       SET A.GOODS_NAME = #{goodsName},
+	   	       A.GOODS_PRICE = #{goodsMoney},
+	           A.GOODS_STATUS = #{goodsStatus},
+	           A.GOODS_COMPANY = #{goodsCompany},
+	           A.GOODS_SHORT_INFO = #{goodsShortInfo},
+	           A.GOODS_ORIGIN = #{goodsOrigin},
+	           A.GOODS_STOCK = A.GOODS_STOCK + #{goodsStock}
 	     WHERE GOODS_NUMBER= #{goodsNo}
 	</update>
 	
-	<update id="updateImageFiles" parameterType="hashmap">
-		UPDATE TBL_GOODS_FILE
-	       SET FILE_ORIGIN_NAME = #{originFileName}
-			 , FILE_SAVE_NAME = #{saveName}
-			 , SAVE_PATH = #{filePath}
-			 , THUMNAIL_PATH = #{thumbnailPath}
-	     WHERE GOODS_NUMBER= #{goodsNumber}
-	</update>  
+	<insert id="updateImageFiles" parameterType="hashmap">
+	     <if test="distinguish == 'head'">
+		INSERT INTO TBL_GOODS_FILE
+			(
+			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
+			, FILE_SAVE_NAME, SAVE_PATH, THUMNAIL_PATH
+			, FILE_TYPE, FILE_STATUS
+			)
+			VALUES
+			
+			(
+			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNumber}, 
+			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
+			, 'head', 'Y'
+			)
+			</if>
+			<if test="distinguish == 'body'">
+		INSERT INTO TBL_GOODS_FILE
+			(
+			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
+			, FILE_SAVE_NAME, SAVE_PATH, THUMNAIL_PATH
+			, FILE_TYPE, FILE_STATUS
+			)
+			VALUES
+			
+			(
+			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNumber}, 
+			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
+			, 'body', 'Y'
+			)
+			</if>
+	</insert>  
 	
-	<update id="updategoodsDetailFiles" parameterType="hashmap">
-		UPDATE TBL_GOODS_DETAIL_FILE
-	       SET DETAIL_FILE_ORGIN_NAME = #{originFileName}
-			 , DETAIL_FILE_SAVE_NAME = #{saveName}
-			 , DETAIL_SAVE_PATH = #{filePath}
-			 , DETAIL_THUMBNAIL_PATH = #{thumbnailPath}
-	     WHERE GOODS_NUMBER= #{goodsNumber}
-	</update> 
+	<insert id="updategoodsDetailFiles" parameterType="hashmap">
+		INSERT INTO TBL_GOODS_DETAIL_FILE
+			(
+			  DETAIL_FILE_NO, GOODS_NUMBER, DETAIL_FILE_ORGIN_NAME
+			, DETAIL_FILE_SAVE_NAME, DETAIL_SAVE_PATH, DETAIL_THUMBNAIL_PATH
+			, DETAIL_FILE_TYPE, DETAIL_FILE_STATUS
+			)
+			VALUES
+			(
+			  SEQ_TBL_GOODS_DETAIL_FILE.NEXTVAL, #{goodsNumber}, 
+			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
+			, 'body', 'Y'
+			)
+	</insert> 
 	
 	<select id="deliverygoodsCount" resultType="int">
 		SELECT
@@ -825,7 +856,148 @@
 		UPDATE TBL_GOODS
 		   SET GOODS_STATUS = 'Y'
 	     WHERE GOODS_NUMBER = #{goodsNum}
-	</update>	
+	</update>
+	
+	<select id="selectGoodsStock" resultMap="selectAllGoodsResult" parameterType="AdminGoodsDTO">
+		SELECT
+		       A.GOODS_NUMBER
+		     , A.GOODS_NAME
+		     , A.GOODS_STOCK
+		  FROM TBL_GOODS A
+		 ORDER BY A.GOODS_NUMBER DESC
+	</select>
+	
+	<insert id="insertInitiate" parameterType="GoodsDTO">
+		INSERT 
+		  INTO TBL_GOODS_IN_AND_OUT
+        (
+          IN_AND_OUT_CODE, GOODS_NUMBER, GOOD_IN_OUT_DATE
+        , GOODS_COUNT, IN_AND_OUT_STATUS
+        )
+        VALUES
+        (
+          SEQ_TBL_GOODS_IN_AND_OUT.NEXTVAL, #{goodsNum}, SYSDATE
+        , #{goodsStock}, '입고'
+        )
+	</insert>	
+	
+	<resultMap id="stockResultMap"  type="GoodsInAndOutDTO" >
+		<id property="inAndOutCode" column="IN_AND_OUT_CODE"/>
+		<result property="goodsInOutDate" column="GOOD_IN_OUT_DATE"/>
+		<result property="goodsCount" column="GOODS_COUNT"/>
+		<result property="inAndOutStatus" column="IN_AND_OUT_STATUS"/>
+		<association property="goodsNum" javaType="AdminGoodsDTO">
+			<id column="GOODS_NUMBER" property="goodsNum" />
+			<result property="goodsName" column="GOODS_NAME"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectGoodsList" resultMap="stockResultMap" >
+		 SELECT
+		       Y.IN_AND_OUT_CODE
+		     , Y.GOODS_NAME
+		     , Y.GOOD_IN_OUT_DATE
+		     , Y.GOODS_COUNT
+		     , Y.IN_AND_OUT_STATUS           
+		  FROM (
+		           SELECT
+		                   ROWNUM RNUM
+		                 , X.IN_AND_OUT_CODE
+		                 , X.GOODS_NAME
+		                 , X.GOOD_IN_OUT_DATE
+		                 , X.GOODS_COUNT
+		                 , X.IN_AND_OUT_STATUS
+		              FROM (
+		                    SELECT
+		                           A.IN_AND_OUT_CODE
+		                         , B.GOODS_NAME
+		                         , A.GOOD_IN_OUT_DATE
+		                         , A.GOODS_COUNT
+		                         , A.IN_AND_OUT_STATUS
+		                      FROM TBL_GOODS_IN_AND_OUT A
+		                      JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		                     ORDER BY A.IN_AND_OUT_CODE DESC
+		                ) X
+		           )Y
+	 WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	 
+	</select>
+	<select id="stockList" resultType="int">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_GOODS_IN_AND_OUT A
+	</select>
+	
+	<select id="searchStockSearch" resultType="int" parameterType="hashmap">
+        SELECT
+		       COUNT(*)
+		  FROM TBL_GOODS_IN_AND_OUT A
+		  JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER) 
+		 WHERE GOODS_COUNT > -1
+		<include refid="searchStock"/>
+	</select>
+	
+	<select id="selectStockPaging" resultMap="stockResultMap" >
+		 SELECT
+		       Y.IN_AND_OUT_CODE
+		     , Y.GOODS_NAME
+		     , Y.GOOD_IN_OUT_DATE
+		     , Y.GOODS_COUNT
+		     , Y.IN_AND_OUT_STATUS           
+		  FROM (
+		           SELECT
+		                   ROWNUM RNUM
+		                 , X.IN_AND_OUT_CODE
+		                 , X.GOODS_NAME
+		                 , X.GOOD_IN_OUT_DATE
+		                 , X.GOODS_COUNT
+		                 , X.IN_AND_OUT_STATUS
+		              FROM (
+		                    SELECT
+		                           A.IN_AND_OUT_CODE
+		                         , B.GOODS_NAME
+		                         , A.GOOD_IN_OUT_DATE
+		                         , A.GOODS_COUNT
+		                         , A.IN_AND_OUT_STATUS
+		                      FROM TBL_GOODS_IN_AND_OUT A
+		                      JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		                      WHERE GOODS_COUNT > -1
+		<include refid="searchStock"/>
+		                ) X
+		           )Y
+	 WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	 
+	</select>
+	
+	<sql id="searchStock">
+		<if test="searchCondition == 'in'">
+		AND A.IN_AND_OUT_STATUS = '입고'
+		AND B.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY A.IN_AND_OUT_CODE DESC
+		</if>
+		<if test="searchCondition == 'out'">
+		AND A.IN_AND_OUT_STATUS = '출고'
+		AND B.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY A.IN_AND_OUT_CODE DESC
+		 </if>
+		<if test="searchCondition == 'date'">
+		AND B.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY A.GOOD_IN_OUT_DATE DESC
+		</if>
+		<if test="searchCondition == 'goodsName'">
+		AND B.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY B.GOODS_NAME DESC
+		</if>
+	</sql>
+	
+	<delete id="deletePastImage">
+		DELETE
+		  FROM TBL_GOODS_FILE
+		 WHERE GOODS_NUMBER = #{goodsNo}
+	</delete>
+	<delete id="deletedetailfile">
+		DELETE
+		  FROM TBL_GOODS_DETAIL_FILE
+		 WHERE GOODS_NUMBER = #{goodsNo}
+	</delete>
 </mapper>
 
 

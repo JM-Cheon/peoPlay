@@ -17,6 +17,7 @@
 </head>
 
 <body>
+<br><br>
 	<div id="wrapper">
 		<br> <br> <br> <br> <br>
 		<section id="sec1">
@@ -84,7 +85,11 @@
 						</tr>
 						<tr>
 							<td class="info_tab_td">남은 재고 수량 :</td>
-							<td class="info_tab_sub"><input min="1" type="number" value="${requestScope.selectGoodsInfoByGoodsNo.goodsStock }" name="goodsStock"></td>
+							<td class="info_tab_sub"><input type="number" readonly="readonly" value="${requestScope.selectGoodsInfoByGoodsNo.goodsStock }" name="goodsStock"></td>
+						</tr>
+						<tr>
+							<td class="info_tab_td">추가 입고 수량 : </td>
+							<td class="info_tab_sub"><input min="0" type="number" name="goodsStockIn"></td>
 						</tr>
 						<tr>
 							<td class="info_tab_td">짧은 설명 : </td>
@@ -114,7 +119,7 @@
 						</tr>
 						<tr>
 							<td class="info_tab_td">상세페이지 : </td>
-							<td class="info_tab_sub"><input type="file" name="goodsDetailFiles" multiple="multiple"></td>
+							<td class="info_tab_sub"><input type="file" id="detailFiles" name="goodsDetailFiles" multiple="multiple"></td>
 						</tr>
 					</table>
 				<button type="button" class="btn_update_delete" id="updateBtn" style="position: relative; top: 80px; left: 36px;">수정하기</button>
@@ -139,11 +144,7 @@
 	});
 	
 
-	$("#updateBtn").click(function(){
-		
-		if(confirm("상품을 수정하시겠습니까?") == true){
-			
-				/* if(document.getElementById("goodsName").value === ""
+	/* 			 if(document.getElementById("goodsName").value === ""
 					|| document.getElementById("goodsCategory").value == ""
 					|| document.getElementById("goodsCompany").value == ""
 					|| document.getElementById("goodsMoney").value == ""
@@ -151,21 +152,25 @@
 					|| document.getElementById("goodsStock").value == ""
 					|| document.getElementById("goodsNationality").value == ""
 					|| document.getElementById("goodsShortInfo").value == ""
-					|| document.getElementById("goodsFiles").value == ""
-					|| document.getElementById("thumbnailImg1").value == ""
-					|| document.getElementById("thumbnailImg2").value == ""
-					|| document.getElementById("thumbnailImg3").value == ""
-					|| document.getElementById("thumbnailImg4").value == ""
-					){
-				alert("빈칸으로 제출 할 수 없습니다");
-			}else{
+					
+
 				
 			}  */
-			 $("#updateData").submit(); 
-		} else {
+	$("#updateBtn").click(function(){
+		
+		if(confirm("상품을 수정하시겠습니까?") == true){
+			 if(document.getElementById("detailFiles").value == ""
+			|| document.getElementById("thumbnailImg1").value == ""
+			 ){
+					alert("빈칸으로 제출 할 수 없습니다");
+				}else{ 
+			 
+					$("#updateData").submit(); 
+		}
+		}else{
 			return;
-		} 
-	});
+		}
+		});
 	
 	function deleteGoods(val1) {
 		

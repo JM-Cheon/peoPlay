@@ -288,6 +288,16 @@ public class GoodsServiceImpl implements GoodsService {
 
 	}
 
+	@Override
+	public int insertOutGoods(HashMap<String, Object> payment) {
+		return goodsMapper.insertOutGoods(payment);
+	}
+
+	@Override
+	public int updateGoodsStock(HashMap<String, Object> payment) {
+		return goodsMapper.updateGoodsStock(payment);
+	}
+
 
 
 

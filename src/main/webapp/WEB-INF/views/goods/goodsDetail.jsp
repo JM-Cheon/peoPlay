@@ -952,37 +952,43 @@ $(document).on('click', '#btnDeleteReply', function() {
      	const memNum = ${requestScope.loginMember.userNo};
      	const count = document.getElementById("quantities").value;
      	var order =  document.getElementById("cartListCheck").value;
+     	var stock = ${requestScope.selectOneGoodsInfo.goodsStock};
      	/* 이미 주문한 상태인 경우  변수를 다르게 가져오자 */
      	
-     	if(count == 0){
-     		alert("수량을 선택해주세요!");
-     	} else {
-     	
-    	if(order === "없음"){
-    		
-    		if(confirm("바로 구매를 하시겠습니까?") == true){
-    		
-    	location.href = "${ pageContext.servletContext.contextPath }/goods/newOrder?goodsNum=" + goodsNum + "&memNum=" + memNum + "&count=" + count;
-    		
-    		return;
-    		
-    	} else {
-    		
-    		return;
-    	}
-    	
-    	}else{
-    		
-    		if(confirm("이미 주문 상품에 담겨 있습니다. 주문 상품 페이지로 가시겠습니까?") == true){
-    			
-    			location.href = "${ pageContext.servletContext.contextPath }/goods/order?goodsNum=" + goodsNum + "&memNum=" + memNum + "&count=" + count;
-    	    	
-    			return;
-    		}else{
-    			return;
-    		}
-    	}
-    	
+     	if(stock >= count){
+     		
+	     	if(count == 0){
+	     		alert("수량을 선택해주세요!");
+	     	} else {
+	     	
+	    	if(order === "없음"){
+	    		
+	    		if(confirm("바로 구매를 하시겠습니까?") == true){
+	    		
+	    	location.href = "${ pageContext.servletContext.contextPath }/goods/newOrder?goodsNum=" + goodsNum + "&memNum=" + memNum + "&count=" + count;
+	    		
+	    		return;
+	    		
+	    	} else {
+	    		
+	    		return;
+	    	}
+	    	
+	    	}else{
+	    		
+	    		if(confirm("이미 주문 상품에 담겨 있습니다. 주문 상품 페이지로 가시겠습니까?") == true){
+	    			
+	    			location.href = "${ pageContext.servletContext.contextPath }/goods/order?goodsNum=" + goodsNum + "&memNum=" + memNum + "&count=" + count;
+	    	    	
+	    			return;
+	    		}else{
+	    			return;
+	    		}
+	    	}
+	    	
+	     	}
+     	}else{
+     		alert('남은 재고 수량' + '(' + stock + ')' + '보다 큰 수량을 주문하실 수 없습니다.');
      	}
     } 
     

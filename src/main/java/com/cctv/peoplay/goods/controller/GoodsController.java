@@ -350,6 +350,9 @@ public class GoodsController {
 			
 			int totalPrice = amount * price;
 			
+			GoodsDTO selectOneGoodsInfo = goodsService.selectOneGoodsInfo(goodsNum);
+			model.addAttribute("selectOneGoodsInfo", selectOneGoodsInfo);
+			
 			/* 선택한 굿즈 이미지 파일을 가져오기 */
 			model.addAttribute("goodsAndFile", goodsAndFile);
 			model.addAttribute("totalPrice", totalPrice);
@@ -388,11 +391,11 @@ public class GoodsController {
 			int price = orderInfo.getGoodsNo().getGoodsPrice();
 			
 			int totalPrice = amount * price;
-			
+			GoodsDTO selectOneGoodsInfo = goodsService.selectOneGoodsInfo(goodsNum);
+			model.addAttribute("selectOneGoodsInfo", selectOneGoodsInfo);
 			/* 선택한 굿즈 이미지 파일을 가져오기 */
 			model.addAttribute("goodsAndFile", goodsAndFile);
 			model.addAttribute("totalPrice", totalPrice);
-			
 			return "goods/goodsorder";
 	 }
 	 
@@ -510,17 +513,25 @@ public class GoodsController {
 	 @PostMapping(value="/payGoods", produces = "application/json; charset=UTF-8")
 	 public String PayGoods(ModelAndView mv, HttpServletResponse response, @RequestParam("orderNo") int orderNo,
 			 @RequestParam("totalPrice2") int totalPrice2,  @RequestParam("deliveryCode") int deliveryCode,
-			 @RequestParam("goodsNum") int goodsNum, Model model, HttpServletRequest request) {
+			 @RequestParam("goodsNum") int goodsNum, @RequestParam("quantities") int quantities,
+			 Model model, HttpServletRequest request) {
 		 
 		 	/* session에서 회원 정보 가져오기  */
 		 	
 			HashMap<String, Object> payment = new HashMap<>();
 			payment.put("orderNo", orderNo);
 			payment.put("totalPrice", totalPrice2);
+			payment.put("quantities", quantities);
+			payment.put("goodsNum", goodsNum);
 		 	
 			int updatePayment = goodsService.updatePayment(payment);
 			if(updatePayment > 0) {
 		 		 int updatePaidGoods = goodsService.updatePaidGoods(orderNo);
+		 		 
+		 		 if(updatePaidGoods > 0	) {
+		 			 int updateGoodsStock = goodsService.updateGoodsStock(payment);
+		 			 int insertOutGoods = goodsService.insertOutGoods(payment);
+		 		 }
 			 }
 			
 //			PaymentDTO paymentNo = goodsService.paymentNo(orderNo);

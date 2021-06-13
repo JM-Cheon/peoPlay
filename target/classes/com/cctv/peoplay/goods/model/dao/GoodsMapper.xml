@@ -1073,7 +1073,25 @@
         WHERE A.GOODS_CATEGORY_NUMBER = #{goodsNum}
 	</select>
 	
-	
+	<insert id="insertOutGoods" parameterType="hashmap">
+		INSERT 
+		  INTO TBL_GOODS_IN_AND_OUT
+        (
+          IN_AND_OUT_CODE, GOODS_NUMBER, GOOD_IN_OUT_DATE
+        , GOODS_COUNT, IN_AND_OUT_STATUS
+        )
+        VALUES
+        (
+          SEQ_TBL_GOODS_IN_AND_OUT.NEXTVAL, #{goodsNum}, SYSDATE
+        , #{quantities}, '출고'
+        )
+	</insert>
+		
+	<update id="updateGoodsStock" parameterType="hashmap">
+		UPDATE TBL_GOODS A
+		   SET A.GOODS_STOCK = A.GOODS_STOCK - #{quantities}
+	     WHERE A.GOODS_NUMBER = #{goodsNum}
+	</update>
 </mapper>
 
 

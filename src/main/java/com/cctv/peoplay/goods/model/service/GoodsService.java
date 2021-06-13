@@ -160,5 +160,11 @@ public interface GoodsService {
 
 	List<GoodsAndFileDTO> selectPopular(int i);
 
+	/* 출고 된 상품을 inAndOut에 삽입 */
+	int insertOutGoods(HashMap<String, Object> payment);
+
+	/* 출고된 상품 갯수 만큼 재고를 차감 */
+	int updateGoodsStock(HashMap<String, Object> payment);
+
 
 }

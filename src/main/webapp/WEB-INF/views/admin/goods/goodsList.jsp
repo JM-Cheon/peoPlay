@@ -18,6 +18,7 @@
        
 <h2 class="head">굿즈 관리</h2>
 	<div class="adminBtn"> 
+		  <button id="admin" class="admin">입출고 내역</button>  
 		  <button id="adminStock" class="adminStock">상품 문의 답변</button>  
 		  <button id="adminPayment" class="adminPayment">결제관리</button> 
 		  <button id="adminDelivery" class="adminDelivery">배송관리</button>
@@ -188,6 +189,13 @@ $('#adminDelivery').on("click",function() {
 $('#adminStock').on("click",function() {
 	 
 	 location.href = "${ pageContext.servletContext.contextPath }/admin/goods/InquiryAnswer";
+	 
+ });
+ 
+ /* 입출고 내역 */
+$('#admin').on("click",function() {
+	 
+	 location.href = "${ pageContext.servletContext.contextPath }/admin/goods/Stock";
 	 
  });
  

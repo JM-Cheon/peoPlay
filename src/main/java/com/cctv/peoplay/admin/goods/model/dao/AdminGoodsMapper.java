@@ -8,6 +8,7 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.GoodsInAndOutDTO;
 import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
@@ -82,6 +83,22 @@ public interface AdminGoodsMapper {
 	public List<GoodsInquiryReplyDTO> selectInquiryReply();
 
 	public int resaleGoods(int goodsNum);
+
+	public int stockList();
+
+	public List<GoodsDTO> selectGoodsStock();
+
+	public int insertInitiate(GoodsDTO insertStock);
+
+	public List<GoodsInAndOutDTO> selectGoodsList(PagenationDTO pageInfo);
+
+	public int searchStockSearch(HashMap<String, String> searchMap);
+
+	public List<GoodsInAndOutDTO> selectStockPaging(HashMap<String, Object> searchListMap);
+
+	public int deletePastImage(int goodsNo);
+
+	public int deletedetailfile(int goodsNo);
 
 
 }

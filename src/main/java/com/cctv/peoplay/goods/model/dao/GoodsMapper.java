@@ -121,5 +121,9 @@ public interface GoodsMapper {
 
 	int updateGoodsdisLikeCount(int goodsNum);
 
+	int insertOutGoods(HashMap<String, Object> payment);
+
+	int updateGoodsStock(HashMap<String, Object> payment);
+
 	
 }

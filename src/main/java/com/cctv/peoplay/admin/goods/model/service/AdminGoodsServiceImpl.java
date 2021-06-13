@@ -12,6 +12,7 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.GoodsInAndOutDTO;
 import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
@@ -193,6 +194,47 @@ private AdminGoodsMapper adminGoodsMapper;
 	public int resaleGoods(int goodsNum) {
 		return adminGoodsMapper.resaleGoods(goodsNum);
 	}
+
+	@Override
+	public int stockList() {
+		return adminGoodsMapper.stockList();
+	}
+
+	@Override
+	public List<GoodsDTO> selectGoodsStock() {
+		return adminGoodsMapper.selectGoodsStock();
+	}
+
+	@Override
+	public int insertInitiate(GoodsDTO insertStock) {
+		return adminGoodsMapper.insertInitiate(insertStock);
+	}
+
+	@Override
+	public List<GoodsInAndOutDTO> selectGoodsList(PagenationDTO pageInfo) {
+		return adminGoodsMapper.selectGoodsList(pageInfo);
+	}
+
+	@Override
+	public int searchStockSearch(HashMap<String, String> searchMap) {
+		return adminGoodsMapper.searchStockSearch(searchMap);
+	}
+
+	@Override
+	public List<GoodsInAndOutDTO> selectStockPaging(HashMap<String, Object> searchListMap) {
+		return adminGoodsMapper.selectStockPaging(searchListMap);
+	}
+
+	@Override
+	public int deletePastImage(int goodsNo) {
+		return adminGoodsMapper.deletePastImage(goodsNo);
+	}
+
+	@Override
+	public int deletedetailfile(int goodsNo) {
+		return adminGoodsMapper.deletedetailfile(goodsNo);
+	}
+
 
 
 

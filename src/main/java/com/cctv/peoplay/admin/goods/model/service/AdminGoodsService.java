@@ -8,6 +8,7 @@ import com.cctv.peoplay.admin.goods.model.dto.DeliveryDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndDetailFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsAndFileDTO;
 import com.cctv.peoplay.admin.goods.model.dto.GoodsDTO;
+import com.cctv.peoplay.admin.goods.model.dto.GoodsInAndOutDTO;
 import com.cctv.peoplay.admin.goods.model.dto.OrderDTO;
 import com.cctv.peoplay.admin.goods.paging.PagenationDTO;
 import com.cctv.peoplay.goods.model.dto.GoodsInqueryDTO;
@@ -116,7 +117,33 @@ public interface AdminGoodsService {
 	/* 삭제한 상품 재 판매 */
 	int resaleGoods(int goodsNum);
 
+	/* stock count 조회용 */
+	int stockList();
 
+	/* 모든 상품에 대한 stock 조회 */
+	List<GoodsDTO> selectGoodsStock();
+
+	/* 초기에 입력한 상품 insert */
+	int insertInitiate(GoodsDTO insertStock);
+
+	/* 모든 stock 조회 (paging) */
+	List<GoodsInAndOutDTO> selectGoodsList(PagenationDTO pageInfo);
+
+	/* 조건별 조회 (paging) */
+	int searchStockSearch(HashMap<String, String> searchMap);
+
+	List<GoodsInAndOutDTO> selectStockPaging(HashMap<String, Object> searchListMap);
+
+	/* 기존 기본페이지 사진 파일 삭제 */
+	int deletePastImage(int goodsNo);
+
+	/* 기존 상세페이지 파일 삭제 */
+	int deletedetailfile(int goodsNo);
+	
+	/* 남은 재고 수량 업데이트 */
+	int updateGoodStock(int goodsStockIn);
+
+	
 
 
 }
