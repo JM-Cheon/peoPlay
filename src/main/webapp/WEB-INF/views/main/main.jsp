@@ -52,7 +52,8 @@
 		                    <p class="main_title">내가 찜한 영화</p>
 		                    <ul>
 		                        <li>
-			            			<c:if test="<fn:length(${ requestScope.zzimList })/> gt 8">
+		                        	<c:set var="zzimlist" value="${ requestScope.zzimList }" />
+			            			<c:if test="${fn:length(zzimlist) ge 8}">
 			                        <div id="zzim-left" class="section_btn">
 			                            <img src="${ pageContext.servletContext.contextPath }/resources/images/main-left-arrow.png">
 			                        </div>
@@ -75,7 +76,7 @@
 		                            </div>
 		                        </li>
 		                        <li>
-		                        	<c:if test="<fn:length(${ requestScope.zzimList })/> gt 8">
+		                        	<c:if test="${fn:length(zzimlist) ge 8}">
 		                            <div id="zzim-right" class="section_btn">
 		                                <img src="${ pageContext.servletContext.contextPath }/resources/images/main-right-arrow.png">
 		                            </div>
@@ -88,7 +89,8 @@
 	                    <p class="main_title">추천 영화</p>
 	                    <ul>
 	                        <li>
-	                        	<c:if test="<fn:length(${ requestScope.favList })/> gt 8">
+	                        	<c:set var="favList" value="${ requestScope.favList }" />
+			            		<c:if test="${fn:length(favList) ge 8}">
 	                            <div id="fav-left" class="section_btn">
 	                                <img src="${ pageContext.servletContext.contextPath }/resources/images/main-left-arrow.png">
 	                            </div>
@@ -111,7 +113,7 @@
 	                            </div>
 	                        </li>
 	                        <li>
-	                        	<c:if test="<fn:length(${ requestScope.favList })/> gt 8">
+	                        	<c:if test="${fn:length(favList) ge 8}">
 	                            <div id="fav-right" class="section_btn">
 	                                <img src="${ pageContext.servletContext.contextPath }/resources/images/main-right-arrow.png">
 	                            </div>
@@ -125,7 +127,8 @@
                     <p class="main_title">인기 영화</p>
                     <ul>
                         <li>
-                        	<c:if test="<fn:length(${ requestScope.bestList })/> gt 8">
+                        	<c:set var="bestList" value="${ requestScope.bestList }" />
+			            	<c:if test="${fn:length(bestList) ge 8}">
                             <div id="best-left" class="section_btn">
                                 <img src="${ pageContext.servletContext.contextPath }/resources/images/main-left-arrow.png">
                             </div>
@@ -160,7 +163,7 @@
                             </div>
                         </li>
                         <li>
-                        	<c:if test="<fn:length(${ requestScope.bestList })/> gt 8">
+                        	<c:if test="${fn:length(bestList) ge 8}">
                             <div id="best-right" class="section_btn">
                                 <img src="${ pageContext.servletContext.contextPath }/resources/images/main-right-arrow.png">
                             </div>
@@ -172,7 +175,8 @@
                     <p class="main_title">최신 영화</p>
                     <ul>
                         <li>
-                        	<c:if test="<fn:length(${ requestScope.newList })/> gt 8">
+                        	<c:set var="newList" value="${ requestScope.newList }" />
+			            	<c:if test="${fn:length(newList) ge 8}">
                             <div id="new-left" class="section_btn">
                                 <img src="${ pageContext.servletContext.contextPath }/resources/images/main-left-arrow.png">
                             </div>
@@ -207,7 +211,7 @@
                             </div>
                         </li>
                         <li>
-                        	<c:if test="<fn:length(${ requestScope.newList })/> gt 8">
+                        	<c:if test="${fn:length(newList) ge 8}">
                             <div id="new-right" class="section_btn">
                                 <img src="${ pageContext.servletContext.contextPath }/resources/images/main-right-arrow.png">
                             </div>

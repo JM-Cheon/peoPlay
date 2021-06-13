@@ -941,6 +941,8 @@
                   LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
 		         WHERE D.USER_NO = #{userNo}
                ) C
+		   WHERE C.FILE_STATUS = 'Y'
+             AND C.MOVIE_STATUS = 'Y'
            ORDER BY C.RANK
 	</select>
 
@@ -1006,6 +1008,8 @@
                   LEFT JOIN MOVIE_FILE B ON(A.MOVIE_NO = B.MOVIE_NO)
 		         WHERE D.USER_NO = #{userNo}
                ) C
+		   WHERE C.FILE_STATUS = 'Y'
+             AND C.MOVIE_STATUS = 'Y'
            ORDER BY C.RANK
 	</select>
 	
