@@ -30,11 +30,11 @@
                     	<form action="${pageContext.servletContext.contextPath}/admin/adminBoard/selectReportList" method="get">
                 <table>                
                     <tr class="reportCategory"> 
-                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value=1>자유게시판</button></td>
-                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value=2>굿즈</button></td>
-                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value=3>댓글</button></td>
-                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value=4>대댓글</button></td>
-                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value=5>영화후기</button></td>
+                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value="1" style="color: white;">자유게시판</button></td>
+                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value="2" style="color: white;">굿즈</button></td>
+                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value="3" style="color: white;">댓글</button></td>
+                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value="4"  style="color: white;">대댓글</button></td>
+                        <td class="td-reportCategory"> <button class="btnNo" type="submit" name="no" value="5" style="color: white;">영화후기</button></td>
                     
                     </tr>
                 </table>

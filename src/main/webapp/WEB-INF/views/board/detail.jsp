@@ -281,7 +281,7 @@
           	<tbody style="border-style: solid; border-color: white; border-width: 1px; font-size: 16px; background-color: #2C2C2C;">
           	
           	 <tr>
-          	 <td style="color: white; width: 200px;"> <c:out value="${ replyOf.memberDTO.nickname}"/>  </td>
+          	 <td style="color: white; width: 200px;"> <c:out value="↪${ replyOf.memberDTO.nickname}"/>  </td>
           	
           	  </tr>
           	  
