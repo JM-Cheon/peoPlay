@@ -5,13 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 영화 관리</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/peoplay/resources/css/movie/list.css">
 
-<style>
-   button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
-</style>
 </head>
 <body>
 	<br><br><br><br><br><br><br><br><br><br><br>

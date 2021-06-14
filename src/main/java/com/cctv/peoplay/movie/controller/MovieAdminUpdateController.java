@@ -85,13 +85,11 @@ public class MovieAdminUpdateController {
 		updateActors.setActorName5(request.getParameter("actorName5"));
 		updateActors.setNo(Integer.valueOf(request.getParameter("no")));
 
-		System.out.println(updateActors);
 		service.updateActors(updateActors);
 		
 		/* 경로 설정 */
 		/* webapp 아래의 resources까지의 경로를 추출*/
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		System.out.println(root);
 		String filePath = root + "\\images\\movieImageFiles";
 		
 		/* 폴더 생성 */
@@ -150,17 +148,17 @@ public class MovieAdminUpdateController {
 	/* start : 서브파일만 있는 경우 */
 		} else if(originFileName1 == "" && originFileName2 != ""){
 			
-		System.out.println("서브 파일 : " + originFileName2);
-		System.out.println("메인 파일 : " + originFileName1);
+//		System.out.println("서브 파일 : " + originFileName2);
+//		System.out.println("메인 파일 : " + originFileName1);
 	
-		System.out.println("기존 파일 삭제 번호 값 받았는지 : " + no);
+//		System.out.println("기존 파일 삭제 번호 값 받았는지 : " + no);
 		service.movieSubFileOnePickDelete(no);
-		System.out.println("기존 파일 삭제 되었음");
+//		System.out.println("기존 파일 삭제 되었음");
 		
 		
 		String ext2 = originFileName2.substring(originFileName2.lastIndexOf("."));
 		String saveName2 = UUID.randomUUID().toString().replace("-", "") + ext2;
-		System.out.println("2.변경한 이름 : " + saveName2);
+//		System.out.println("2.변경한 이름 : " + saveName2);
 		
 		/* 파일을 저장한다. */
 		try {
@@ -178,32 +176,28 @@ public class MovieAdminUpdateController {
 		/* 새로운 파일 등록 */
 		MovieFileDTO movieFileUpdateSub = new MovieFileDTO();
 		
-		System.out.println("새로운 서브파일등록 전 까지?6");
 		movieFileUpdateSub.setNo(Integer.valueOf(request.getParameter("no")));
 		movieFileUpdateSub.setOriginName(originFileName2);
 		movieFileUpdateSub.setSaveName(saveName2);
 		movieFileUpdateSub.setSavePath(filePath);
-		System.out.println("새로운 서브파일등록 셋팅 까지 오는가 ?7");
 		
 		service.updateMovieFileSub(movieFileUpdateSub);
-		System.out.println(movieFileUpdateSub);
+//		System.out.println(movieFileUpdateSub);
 		
-		System.out.println("마무리8");
 		
 	/* start : 메인파일만 있는 경우 */
 		} else if(originFileName1 != "" && originFileName2 == "") {
 			
-		System.out.println("서브 파일 : " + originFileName2);
-		System.out.println("메인 파일 : " + originFileName1);
+//		System.out.println("서브 파일 : " + originFileName2);
+//		System.out.println("메인 파일 : " + originFileName1);
 
-		System.out.println("기존 파일 삭제 번호 값 받았는지 : " + no);
+//		System.out.println("기존 파일 삭제 번호 값 받았는지 : " + no);
 		service.movieMainFileOnePickDelete(no);
-		System.out.println("기존 파일 삭제 되었음");
 		
 		
 		String ext1 = originFileName1.substring(originFileName1.lastIndexOf("."));
 		String saveName1 = UUID.randomUUID().toString().replace("-", "") + ext1;
-		System.out.println("1.변경한 이름 : " + saveName1);
+//		System.out.println("1.변경한 이름 : " + saveName1);
 		
 		/* 파일을 저장한다. */
 		try {
@@ -221,15 +215,13 @@ public class MovieAdminUpdateController {
 		/* 새로운 파일 등록 */
 		MovieFileDTO movieFileUpdateMain = new MovieFileDTO();
 		
-		System.out.println("새로운 서브파일등록 전 까지?6");
 		movieFileUpdateMain.setNo(Integer.valueOf(request.getParameter("no")));
 		movieFileUpdateMain.setOriginName(originFileName1);
 		movieFileUpdateMain.setSaveName(saveName1);
 		movieFileUpdateMain.setSavePath(filePath);
-		System.out.println("새로운 서브파일등록 셋팅 까지 오는가 ?7");
 		
 		service.updateMovieFileMain(movieFileUpdateMain);
-		System.out.println(movieFileUpdateMain);
+//		System.out.println(movieFileUpdateMain);
 		
 		
 		} else {
@@ -244,18 +236,17 @@ public class MovieAdminUpdateController {
 	@PostMapping("movieDelete")
 	public String deleteMovie(Model model,@RequestParam int movieNo
 			, HttpServletRequest request, RedirectAttributes rttr) {
-		System.out.println("삭제 넘어오는지.");
-		System.out.println(movieNo);
+//		System.out.println(movieNo);
 		MovieDTO deleteMovie = new MovieDTO();
 		
 		deleteMovie.setNo(movieNo);
 
-		System.out.println("삭제 값 : " + deleteMovie);
+//		System.out.println("삭제 값 : " + deleteMovie);
 		
 		service.movieDelete(movieNo);
 		service.actorDelete(movieNo);
 		service.movieFileDelete(movieNo);
-		System.out.println("삭제 완료. ");
+//		System.out.println("삭제 완료. ");
 		
 		return "redirect:/movie/adminUpdateSelect";
 	}

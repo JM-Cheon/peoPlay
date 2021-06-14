@@ -7,8 +7,7 @@
 .sec3 .reply {font-size: 20pt;font-family: "맑은 고딕";}
 
 /* 등록버튼 */
-.sec3 .repliedbtn {   height: 90px;background-color: #faae5a;width: 90px;float: right;color: white;
-               border-radius: 8px;}
+.sec3 .repliedbtn {   height: 90px;background-color: #faae5a;width: 90px;float: right;color: white; border-radius: 8px;}
 
 /* 달려진 댓글 아이디  테이블*/
 .sec3 .tab_reply .repliedId {width: 100px;}

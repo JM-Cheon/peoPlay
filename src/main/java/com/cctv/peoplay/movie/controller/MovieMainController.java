@@ -31,7 +31,7 @@ public class MovieMainController {
 		model.addAttribute("list" , service.selectMovieList());
 		model.addAttribute("newTopMovie", service.mainNewTopMovie());
 		model.addAttribute("topFavoriteMovie", service.mainTopFavoriteMovie());
-		System.out.println(model);
+//		System.out.println(model);
 
 		return "main/main";
 	}

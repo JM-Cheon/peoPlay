@@ -24,7 +24,7 @@ public class MovieAdminButtonPageController {
 		public String adminPage1(Model model) throws Exception {
 			model.addAttribute("list" , service.selectMovieList());
 
-			System.out.println(model);
+//			System.out.println(model);
 			
 			return "movie/adminButton";
 		}
@@ -32,7 +32,7 @@ public class MovieAdminButtonPageController {
 		public String adminPage2(Model model) throws Exception {
 			model.addAttribute("list" , service.selectMovieList());
 			
-			System.out.println(model);
+//			System.out.println(model);
 			
 			return "movie/adminInsert";
 		}
@@ -40,7 +40,7 @@ public class MovieAdminButtonPageController {
 		public String adminPage3(Model model) throws Exception {
 			model.addAttribute("list" , service.selectMovieList());
 			
-			System.out.println(model);
+//			System.out.println(model);
 			
 			return "movie/adminUpdateSelect";
 		}

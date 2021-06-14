@@ -5,15 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 영화 수정삭제</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
+<link rel="stylesheet" href="/peoplay/resources/css/movie/admin.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style>
-   button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
-   input#info{ width: 650px; height: 50px; resize: none;}
-   input#movieVideoRink{ width: 420px;}
-   
-</style>
 </head>
 <body>
 		<br><br><br>
@@ -273,25 +268,30 @@
 				서브사진 파일 : 
 				<input type="file" id="singleFile2" name="singleFile2" onchange="loadImg(this,2)"><br>
 	        </div>
-			<br><br>
-	        <div class="content-img-area1" id="contentImgArea1">
- 				<figure>
-				<img style="width: 1000px; height: 500px;" src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieMainFiles.saveName}">
-				<figcaption>메인 사진</figcaption>
-				</figure> 
-				<div class="content-img-area1" id="contentImgArea1">
-					<img id="contentImg1" width="1200" height="500">
-				</div>
-			</div>
+	        <br><br>
 			<div class="content-img-area2" id="contentImgArea2">
 				<figure> 
-				<img style="width: 300px; height: 300px;" src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieSubFiles.saveName}">
-				<figcaption>서브 사진</figcaption> 
+				<img style="width: 150px; height: 200px;" src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieSubFiles.saveName}">
+				<br><br>
+				<h2>등록할 서브 사진</h2>
+				<br> 
 				</figure>
 				<div class="content-img-area2" id="contentImgArea2">
-					<img id="contentImg2" width="300" height="300">
+					<img id="contentImg2" width="150" height="200">
 				</div> 
 			</div>	
+				<br><br>
+	        <div class="content-img-area1" id="contentImgArea1">
+ 				<figure>
+				<img style="width: 1920px; height: 800px;" src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieMainFiles.saveName}">
+				<br><br>
+				<h2>등록할 메인 사진</h2>
+				<br>
+				</figure> 
+				<div class="content-img-area1" id="contentImgArea1">
+					<img id="contentImg1" width="1920" height="800">
+				</div>
+			</div>
 
 			<br><br>
            		<button class="movieUpdate mvimg" id="movieUpdateBtn"  type="button">

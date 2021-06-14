@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>영화 정보</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -15,12 +15,15 @@
 </head>
 
 <body>
-<jsp:include page="../common/header.jsp"/>
-        <img  class="mainImage"src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieMainFiles.saveName}" alt="메인상단" width="1920px">
+	<!-- 헤더 -->
+	<jsp:include page="../common/header.jsp"/>
+
+    <!-- 메인 이미지 -->
+    <img  class="mainImage"src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieMainFiles.saveName}" alt="메인상단" width="1920px">
 
 	<!-- 관람등급 -->
-      <div class="main1">
-      	  <c:choose> 
+    <div class="main1">
+      	 <c:choose> 
 			  <c:when test="${!empty detail}">
 		      	  <c:if test="${requestScope.detail.ratingName eq'전체관람' }">
 			          <img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/RATING_ALL.png" alt="연령제한"><br>
@@ -39,29 +42,33 @@
 			          <c:out value="${requestScope.detail.ratingName}" />
 				  </c:if>
 	          </c:when>
-          </c:choose>
-          <h2 style=font-size:30px>
-           <c:out value="${requestScope.detail.name}" />
-          </h2>
-            <br><br><br>
-          <div style="font-size:20px; width:600px; "> 
+         </c:choose>
+		
+    <!-- 영화 이름 -->
+         <h2 style=font-size:30px>
+         	<c:out value="${requestScope.detail.name}" />
+         </h2>
+         <br><br><br>
+    <!-- 영화 정보 -->     
+         <div style="font-size:20px; width:600px; "> 
 			<c:out value="${requestScope.detail.info}" />
-          </div>
-        </div>
+         </div>
+    </div>
 
-	<!-- 영화 시청 -->
+	<!-- 영화 재생 (시청) -->
 	<div id="divWatch">
-	    <input type="hidden" id="selectWatchList" value="${watchList}">
-		<button class="btn1" type="button" id="WatchList" onclick="location.href='${ pageContext.servletContext.contextPath}/movie/${ requestScope.detail.no }/play'">▶ 재생</button>
+	     <input type="hidden" id="selectWatchList" value="${watchList}">
+		 <button class="btn1" type="button" id="WatchList" onclick="location.href='${ pageContext.servletContext.contextPath}/movie/${ requestScope.detail.no }/play'">▶ 재생</button>
 	</div>
 	
 	<br><br>
-   <section class="likes" style="width:800px">
+	<!-- 좋아요 싫어요 찜 -->
+    <section class="likes" style="width:800px">
     	<div style="width: 100px; margin: 0px 10px 10px 0px; float:left;">
-     	<input type="hidden" id="selectlikeList" value="${likeDislikeList}">
-	      <button type="button" id="likeList" class="likeUpdate" style="border-radius:20px;">
-	      	<img alt="좋아요" src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/like.png">
-	      </button>
+     	    <input type="hidden" id="selectlikeList" value="${likeDislikeList}">
+	        <button type="button" id="likeList" class="likeUpdate" style="border-radius:20px;">
+	      		<img alt="좋아요" src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/like.png">
+	        </button>
      	</div>
 
      	<div style="width: 100px; margin: 0px 10px 10px 0px; float:left;">
@@ -77,61 +84,76 @@
       			<img id="img" alt="찜" src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/check.png">
       		</button>
      	</div>
-
-  </section>
-
-  <section class="mv_test"><br><br><br><br>
-    <article class="art1">
-        <div>
-        <br>
-          <h2>제작년도 : <c:out value="${requestScope.detail.productionYear}"/></h2><br>
-          <h2>영화 시간 : <c:out value="${requestScope.detail.movieTime}"/></h2><br>
-          <h2>감독 : <c:out value="${requestScope.detail.director}"/></h2>
-        </div><br>
-        
-        <h2>작품 소개</h2>
-        <p style="font-size:20px;"><c:out value="${requestScope.detail.info}" />
-        </p>
-    </article>
-        <article  class="art2"><br>
-              <h2>출현 :    
-			  <c:out value="${requestScope.actorList}"/>
-			  </h2><br>  
-              <h2>장르 : <c:out value="${requestScope.detail.genreName}" /> </h2><br>
-              <h2>관람 등급 : <c:out value="${requestScope.detail.ratingName}" /> </h2>
-            <div>
-	       		<c:choose> 
-					<c:when test="${!empty detail}">
-							<tr	style="height: 60px; font-size: 17px; color: white; text-align: center;">
-						<c:if test="${ requestScope.detail.watchFear eq '높음' }">
-							<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/FEAR.png">
-						 </c:if>
-						<c:if test="${ requestScope.detail.watchModification eq '높음' }">
-							<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/MODIFICATION.png">
-						 </c:if>
-						<c:if test="${ requestScope.detail.watchDrug eq '높음' }">
-							<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/DRUG.png">
-						 </c:if>
-						<c:if test="${ requestScope.detail.watchSensationality eq '높음' }">
-							<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/SENSATIONALITY.png">
-						 </c:if>
-						<c:if test="${ requestScope.detail.watchScript eq '높음' }">
-							<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/SCRIPT.png">
-						 </c:if>
-						<c:if test="${ requestScope.detail.watchTitle eq '높음' }">
-							<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/TITLE.png">
-						 </c:if>
-						<c:if test="${ requestScope.detail.watchViolence eq '높음' }">
-							<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/VIOLENCE.png">
-						 </c:if>
-						</c:when>
-				</c:choose>
-            </div>
-        </article>
     </section>
+
+    <!-- 영화 정보 -->
+    <section class="mv_test">
+    <br><br><br><br>
+    	<!-- 제작년도, 영화시간, 감독 -->
+	    <article class="art1">
+	        <div>
+	        <br>
+		        <h2>제작년도 : <c:out value="${requestScope.detail.productionYear}"/></h2>
+		        <br>
+		        <h2>영화 시간 : <c:out value="${requestScope.detail.movieTime}"/></h2>
+		        <br>
+		        <h2>감독 : <c:out value="${requestScope.detail.director}"/></h2>
+	        </div>
+	        <br>
+    	<!-- 영화 줄거리 -->	        
+		<h2>작품 소개</h2>
+		        <p style="font-size:20px;"><c:out value="${requestScope.detail.info}" />
+		        </p>
+	    </article>
+		
+		<!-- 배우, 장르, 관람등급 및 등급 이미지 -->    
+	    <article  class="art2">
+    		   <br>
+               <h2>출현 :    
+			   		<c:out value="${requestScope.actorList}"/>
+			   </h2>
+			   <br>  
+               <h2>장르 : 
+               		<c:out value="${requestScope.detail.genreName}" /> 
+               </h2>
+               <br>
+               <h2>관람 등급 : 
+               		<c:out value="${requestScope.detail.ratingName}" /> 
+               </h2>
+	            <div>
+		       		<c:choose> 
+						<c:when test="${!empty detail}">
+							<tr	style="height: 60px; font-size: 17px; color: white; text-align: center;">
+							<c:if test="${ requestScope.detail.watchFear eq '높음' }">
+								<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/FEAR.png">
+							</c:if>
+							<c:if test="${ requestScope.detail.watchModification eq '높음' }">
+								<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/MODIFICATION.png">
+							</c:if>
+							<c:if test="${ requestScope.detail.watchDrug eq '높음' }">
+								<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/DRUG.png">
+							</c:if>
+							<c:if test="${ requestScope.detail.watchSensationality eq '높음' }">
+								<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/SENSATIONALITY.png">
+							</c:if>
+							<c:if test="${ requestScope.detail.watchScript eq '높음' }">
+								<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/SCRIPT.png">
+							</c:if>
+							<c:if test="${ requestScope.detail.watchTitle eq '높음' }">
+								<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/TITLE.png">
+							</c:if>
+							<c:if test="${ requestScope.detail.watchViolence eq '높음' }">
+								<img src="${ pageContext.servletContext.contextPath }/resources/images/movieIcon/VIOLENCE.png">
+							</c:if>
+							</c:when>
+					 </c:choose>
+	            </div>
+	    </article>
+    </section>
+<!-- 정보 관련 end -->
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br>
-	<!-- 후기 작성 -->
+	<!-- 후기 상단 -->
     <div align="center" style="background-color:gray;" class="replyAll">
     <div class="p-admin-comment">
           <h2 class="form-signin-heading">영화 후기</h2>
@@ -140,34 +162,36 @@
                 <input name="댓글달기" class="replyText" id="replyText"  >
             	<button type="button" class="repliedbtn" id="repliedbtn" > 등록하기 </button>
        </div>
+       <!-- 후기 하단 -->
     		<div class="div_reply_ajax" id="div_reply_ajax" style="overflow: auto;">
-             <c:forEach var="movieReview" items="${ requestScope.review}">
-                <table class="ajax_table">
-                	<tr>
-                		<td class="repliedId">
-			                            닉네임 : ${ movieReview.memberInfo.nickname }
-                		</td>
-                		<td class="repliedtime">
-			                <fmt:formatDate var="resultDate" value="${movieReview.registrationDate }" pattern="yyyy-MM-dd hh:mm:ss" />${resultDate}
-                		</td>
-                	</tr>	
-                	<tr>
-                		<td class="replied">
- 				       		<c:out value="${movieReview.review }"/>
-                		</td>
-                	</tr>
-                	<tr>
-                        <td>
-                        	<c:if test="${ movieReview.memberInfo.userNo eq sessionScope.loginMember.userNo }">
-                        	<button type="button" class="replyDelete" id="${ movieReview.reviewNo }"> 삭제 </button>
-                        	</c:if>
-                        </td>
-                    </tr>
-                </table>
-             </c:forEach>
+	             <c:forEach var="movieReview" items="${ requestScope.review}">
+	                <table class="ajax_table">
+	                	<tr>
+	                		<td class="repliedId">
+				                                     닉네임 : ${ movieReview.memberInfo.nickname }
+	                		</td>
+	                		<td class="repliedtime">
+				                <fmt:formatDate var="resultDate" value="${movieReview.registrationDate }" pattern="yyyy-MM-dd hh:mm:ss" />${resultDate}
+	                		</td>
+	                	</tr>	
+	                	<tr>
+	                		<td class="replied">
+	 				       		<c:out value="${movieReview.review }"/>
+	                		</td>
+	                	</tr>
+	                	<tr>
+	                        <td>
+	                        	<c:if test="${ movieReview.memberInfo.userNo eq sessionScope.loginMember.userNo }">
+	                        		<button type="button" class="replyDelete" id="${ movieReview.reviewNo }"> 삭제 </button>
+	                        	</c:if>
+	                        </td>
+	                    </tr>
+	                </table>
+	             </c:forEach>
           	</div>
 		</div>          
       </div>
+      <!-- 장르 값 가져오기 -->
       <c:if test="${ requestScope.detail.genreName == '액션'}">
 	    <input type="hidden" id="detailGenreValue" value="action">
 	  </c:if>
@@ -183,19 +207,14 @@
       <c:if test="${ requestScope.detail.genreName == '공포'}">
 	    <input type="hidden" id="detailGenreValue" value="horror">
 	  </c:if>
-	  <div>
-	  </div>	
-<%-- 	  ${ requsetScope.genreselect.favoriteGenreName};
- --%>	  
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  	<jsp:include page="../common/footer.jsp"/>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<jsp:include page="../common/footer.jsp"/>
 </body>
 	<link rel="stylesheet" href="/peoplay/resources/css/movie/detail.css">
 	<link rel="stylesheet" href="/peoplay/resources/css/movie/review.css">
-
-	
 <script>  
-	/* 들어왔을 때  컬러 변경  wishList  */
+	/* 찜 : 들어왔을 때  컬러 변경  wishList  */
 	$(function(){
 		if(document.getElementById("selectWishList").value == '없음'){
 			
@@ -205,7 +224,7 @@
 		}
 		
 	}); 
-	/* 들어왔을 때  컬러 변경  likeDislikeList  */
+	/* 좋아요 : 들어왔을 때  컬러 변경  likeDislikeList  */
  	$(function(){
 		if(document.getElementById("selectlikeList").value == '없음'){
 			
@@ -215,7 +234,7 @@
 		}
 		
 	});  
-	/* 들어왔을 때  컬러 변경  dislikeDislikeList  */
+	/* 싫어요 : 들어왔을 때  컬러 변경  dislikeDislikeList  */
  	$(function(){
 		if(document.getElementById("selectDislikeList").value == '없음'){
 			
@@ -225,7 +244,7 @@
 		}
 		
 	});  
-	/* 들어왔을 때  컬러 변경  likeDislikeList  */
+	/* 좋아요 : 들어왔을 때  컬러 변경  likeDislikeList  */
  	$(function(){
 		if(document.getElementById("selectlikeList").value == '좋아요'){
 			
@@ -235,7 +254,7 @@
 		}
 		
 	});  
-	/* 들어왔을 때  컬러 변경  dislikeDislikeList  */
+	/* 싫어요 : 들어왔을 때  컬러 변경  dislikeDislikeList  */
  	$(function(){
 		if(document.getElementById("selectDislikeList").value == '싫어요'){
 			
@@ -246,7 +265,7 @@
 		
 	});  
 
-		/* 댓글 ajax */
+	/* 후기 작성 ajax */
 		$("#repliedbtn").click(function(){
 		   var $userNo = ${sessionScope.loginMember.userNo };
 		   var $movieNo = ${ requestScope.detail.no};
@@ -316,7 +335,7 @@
 		   }
 		   
 		})
-		  /* 댓글 삭제 기능 */
+		/* 후기 삭제 기능 */
 		function replyDelete(){
 		$(".replyDelete").click(function(){
 			if(confirm("리뷰를 삭제하시겠습니까?") == true){ 
@@ -380,7 +399,7 @@
 					}
 		   		})	
 			}
-		/* 댓글 삭제 기능 */
+		/* 후기 삭제 기능 한번더 붙여주기 */
 		$(".replyDelete").click(function(){
 			   if(confirm("리뷰를 삭제하시겠습니까?") == true){ 
 			   var $userNo = ${ sessionScope.loginMember.userNo };
@@ -440,6 +459,7 @@
 		       });  
 			 }
 		   })
+
 		/* 찜 기능 */
 		$("#wishList").click(function(){
 		
@@ -465,8 +485,8 @@
 		               }, 
 		               error:function(request, status, error){
 		           		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		           	}
-		      }) 
+		           	   }
+		         }) 
 		      
 		    		/*success 후 색 변경 */
 		    		document.getElementById("selectWishList").value =  "있음";
@@ -488,17 +508,17 @@
 				               error:function(request, status, error){
 				           		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				           	}
-				       }) 
+				        }) 
 		    		/* success 후 색 변경 */
 		    		document.getElementById("selectWishList").value =  "없음";
 				 	$("#wishList").css({"color" : "#008916","background-color": "white"}); 
 					
 		    	}
-		   })
+		})
 
 			
 		  /* 키업 */
-		     var replyText = document.getElementById("replyText").value; 
+		  var replyText = document.getElementById("replyText").value; 
 		
 		     $(document).ready(function() {
 		 	    $('#replyText').on('keyup', function() {
@@ -510,9 +530,10 @@
 		 	        }
 		 	    })
 		     })
-		  </script>
+</script>
 <script>
-	/* 재생 카운트 기능 */
+<!-- 시청목록 ajax start-->
+	/* 시청목록 기능 */
 	$("#WatchList").click(function(){
 
 	    var userNo = ${ sessionScope.loginMember.userNo };
@@ -525,7 +546,7 @@
     	
     	if(selectWatchList == '없음'){
     		
-    /*  ajax로 insert */
+    /* 시청목록 ajax로 insert */
     	$.ajax({
             url : "${pageContext.servletContext.contextPath}/movie/watchList",
             method : "POST",
@@ -541,10 +562,12 @@
            		}
       		}) 
     	}else if(selectWatchList == "있음"){
-    }
-   })
-   
-	/* 좋아요 기능 */
+    	}
+  })
+<!-- 시청목록 ajax end-->
+
+<!-- 싫어요 ajax start-->
+  /* 좋아요 기능 */
 	$("#likeList").click(function(){
 
 			
@@ -562,7 +585,7 @@
     		
     /*  ajax로 insert */
 // 첫번째 등록
-    	$.ajax({
+    $.ajax({
             url : "${pageContext.servletContext.contextPath}/movie/likeList",
             method : "POST",
             data : {
@@ -578,9 +601,8 @@
                }, 
                error:function(request, status, error){
            		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-           		}
+           	   }
       		}) 
-      		
       		
       		/*success 후 색 변경 */
 		    document.getElementById("selectlikeList").value =  "좋아요";
@@ -607,8 +629,7 @@
                    error:function(request, status, error){
                		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                		}
-          		}) 
-
+            }) 
 
         		/* success 후 색 변경 */
         		document.getElementById("selectlikeList").value =  "좋아요";
@@ -635,9 +656,8 @@
                    }, 
                    error:function(request, status, error){
                		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-               		}
-          		}) 
-
+               	   }
+          	}) 
 
           		/*success 후 색 변경 */
     		    document.getElementById("selectlikeList").value =  "좋아요";
@@ -647,8 +667,9 @@
     		 	$("#dislikeList").css({"color" : "#008916","background-color": "white"}); 
     		 	
     	}/* 싫어요 & 좋아요 상태*/  
-	})
-  
+	}) 
+<!-- 좋아요 ajax end-->  
+<!-- 싫어요 ajax start-->  
    
    	/* 싫어요 기능 */
 	$("#dislikeList").click(function(){
@@ -664,10 +685,8 @@
 
     	if(selectDislikeList == '없음' && selectlikeList == '없음'){
     		
-    /*  ajax로 insert */
+    /* 싫어요 ajax로 insert */
 // 첫번째 등록
-
-
     	$.ajax({
             url : "${pageContext.servletContext.contextPath}/movie/dislikeList",
             method : "POST",
@@ -676,16 +695,17 @@
             	'movieNo' : movieNo,
             	'genreName' : genreName
             },
-               success : function(data) {
-            	   alert("싫어요 등록 완료");
+                success : function(data) {
+                alert("싫어요 등록 완료");
 
-            	   
-            	   document.getElementById("selectDislikeList").value = "싫어요";
+            	document.getElementById("selectDislikeList").value = "싫어요";
 
-               }, 
-               error:function(request, status, error){
-           		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-           		}
+                }, 
+                
+                error:function(request, status, error){
+           	    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+           	   
+                }
       		}) 
       		
     		/* success 후 색 변경 */
@@ -706,15 +726,17 @@
                 	'genreName' : genreName
                 },
                    success : function(data) {
-                	   alert("싫어요 취소 완료");
+                   alert("싫어요 취소 완료");
 
-                	   document.getElementById("selectDislikeList").value = "없음";
+                   document.getElementById("selectDislikeList").value = "없음";
                 	   
                    }, 
+                
                    error:function(request, status, error){
-               		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-               		}
-          		}) 
+               	   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               	   
+                   }
+          	}) 
           		
            		/* success 후 색 변경 */
         		document.getElementById("selectDislikeList").value =  "싫어요";
@@ -739,10 +761,12 @@
                 	   document.getElementById("selectDislikeList").value = "싫어요";
 
                    }, 
+                   
                    error:function(request, status, error){
-               		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-               		}
-          		}) 
+               	   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               	   
+                   }
+          	}) 
           		
         		/* success 후 색 변경 */
         		document.getElementById("selectDislikeList").value =  "싫어요";
@@ -753,8 +777,7 @@
     		
     	}/* 싫어요 & 좋아요 상태*/ 
 	})
-
-   
+<!-- 싫어요 end-->
 </script>  
 
 </html>

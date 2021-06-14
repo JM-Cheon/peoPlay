@@ -77,13 +77,13 @@ public class MovieAdminInsertController {
 		insertActors.setActorName4(request.getParameter("actorName4"));
 		insertActors.setActorName5(request.getParameter("actorName5"));
 		
-		System.out.println(insertActors);
+//		System.out.println(insertActors);
 		service.insertActors(insertActors);
 
 		/* 경로 설정 */
 		/* webapp 아래의 resources까지의 경로를 추출*/
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		System.out.println(root);
+//		System.out.println(root);
 		String filePath = root + "\\images\\movieImageFiles";
 		
 		/* 폴더 생성 */
@@ -123,14 +123,14 @@ public class MovieAdminInsertController {
 		movieFileInsertSub.setSavePath(filePath);
 
 		service.insertMovieFileSub(movieFileInsertSub);
-		System.out.println(movieFileInsertSub);
+//		System.out.println(movieFileInsertSub);
 		
 		movieFileInsertMain.setOriginName(originFileName1);
 		movieFileInsertMain.setSaveName(saveName1);
 		movieFileInsertMain.setSavePath(filePath);
 
 		service.insertMovieFileMain(movieFileInsertMain);
-		System.out.println(movieFileInsertMain);
+//		System.out.println(movieFileInsertMain);
 		
 		
 		return "movie/adminButton";

@@ -5,20 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 영화 등록</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
-<style>
-   button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
-   input#info{ width: 650px; height: 50px; resize: none;}
-   input#movieVideoRink{ width: 420px;}
-</style>
+<link rel="stylesheet" href="/peoplay/resources/css/movie/admin.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- <script>
-	const message = '${ requestScope.message }';
-	if(message != null && message !== '') {
-		alert(message);
-	}
-</script> -->
 </head>
 <body>
 	<br><br><br>
@@ -31,7 +21,6 @@
 	        </div>
 	 		<div class="movie_insert_box"  >
 				영화정보 : <br>
-				<div id="counter">(0 / 100)</div>
 				<input type="text" id="info" name="info"><br>
 	        </div>
 	 		<div class="movie_insert_box">
@@ -139,17 +128,16 @@
 				<input type="file" id="singleFile2" name="singleFile2" onchange="loadImg(this,2)"><br>
 	        </div>
 			<br><br>
-			<div class="content-img-area1" id="contentImgArea1">
-				<div class="content-img-area1" id="contentImgArea1">
-					<img id="contentImg1" width="1200" height="500">
-				</div>
-			</div>
 			<div class="content-img-area2" id="contentImgArea2">
 				<div class="content-img-area2" id="contentImgArea2">
-					<img id="contentImg2" width="300" height="300">
+					<img id="contentImg2" width="150" height="200">
 				</div> 
 			</div>
-			
+			<div class="content-img-area1" id="contentImgArea1">
+				<div class="content-img-area1" id="contentImgArea1">
+					<img id="contentImg1" width="1920" height="800">
+				</div>
+			</div>
 			
 			
 			<br><br>
@@ -244,21 +232,6 @@
  	</script>
  	
  		<link rel="stylesheet" href="/peoplay/resources/css/movie/main.css">
- 	<script>
-	  /* 키업 */
-    var replyText = document.getElementById("info").value; 
-
-    $(document).ready(function() {
-	    $('#info').on('keyup', function() {
-	        $('#counter').html("("+$(this).val().length+" / 100)");
-
-	        if($(this).val().length > 100) {
-	            $(this).val($(this).val().substring(0, 100));
-	            $('#counter').html("(100 / 100)");
-	        }
-	    })
-    })
- 	</script>
  	
  	
 </html>

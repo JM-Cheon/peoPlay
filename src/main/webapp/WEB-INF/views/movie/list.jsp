@@ -5,26 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>영화 리스트</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <link rel="stylesheet" href="/peoplay/resources/css/movie/list.css">
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <style>
-   #section_search_ajax{ width:1300px; height:600px; margin-left:270px; overflow: auto; }
-   button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
-   article.movieList{ width: 200px; height: 300px; margin: 0px 10px 10px 0px; float:left; }    
-   figcaption{ width: 150px; }
-   .movieSearch{ height: 40px; width: 50px; background-color: #606060; }
-   .CategoryGenre button{ height: 50px; width: 200px; background-color: #606060; }
-   select{ width: 100px; margin-left: 1300px; }	
-   .searchText{ border-radius: 5px; height: 40px; width: 200px; font-size: 16px; resize: none;}
-    </style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
 
     <br><br><br><br><br><br><br>
+    <!-- 장르 버튼 -->
     <section align="center" class="CategoryGenre">
 	    <button id="genreAction">액션</button>
 	    <button id="genreFantasy">판타지 </button>
@@ -32,20 +23,22 @@
 	    <button id="genreComedy">코미디 </button>
 	    <button id="genreHorror">공포 </button>
     </section>
-      <br><br>
+    <br><br>
+    <!-- 영화 리스트 -->
     <section align="center">
         <h2>영화 리스트</h2><br>
         	<div class="searchTextArea" id="searchTextArea">
             	<input name="검색" class="searchText" id="searchText" placeholder="제목 검색">
             	<button type="button" id="movieSearch" class="movieSearch">검색</button>
         	</div>
-      <br><br><br><br><br>
+    <br><br><br><br><br>
     </section>
-      <h2 class="groupName" style="margin-left:900px;">리스트</h2><br><br>
+    
+    <h2 class="groupName" style="margin-left:900px;">리스트</h2><br><br>
       	<table id="CategoryGenre" border="1">
 		<tbody></tbody>
       	</table>
-      <section id="section_search_ajax" >
+    <section id="section_search_ajax" >
  	    	   <c:forEach var="movie" items="${ requestScope.list }">
 		           	<article class="movieList">
 		                 	<img src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${ movie.movieFile.saveName }" alt="영화" class="mvimg">
@@ -54,8 +47,8 @@
 		                 </button>
 			        </article>
 		       </c:forEach>
- 	  </section>
-       <br><br><br><br><br><br><br><br>
+ 	</section>
+    <br><br><br><br><br><br><br><br>
    	 
 <jsp:include page="../common/footer.jsp"/>
 </body>
@@ -66,28 +59,24 @@
 	/* 페이지 이동 */
 	if(document.getElementsByTagName("article")) {
 	const $tds = document.getElementsByTagName("article");
-	for(var i = 0 ; i < $tds.length ; i++) {
-	
+		for(var i = 0 ; i < $tds.length ; i++) {
 	   
-	$tds[i].onmouseenter = function() {
-	   this.parentNode.style.cursor = "pointer";
-	}
-	   
-	$tds[i].onclick = function() {
-			  const no = $(this).children("button").attr("id");
-		  	  location.href = "${ pageContext.servletContext.contextPath }/movie/" + parseInt(no);
+			$tds[i].onmouseenter = function() {
+			   this.parentNode.style.cursor = "pointer";
+			}
+			   
+			$tds[i].onclick = function() {
+						  const no = $(this).children("button").attr("id");
+					  	  location.href = "${ pageContext.servletContext.contextPath }/movie/" + parseInt(no);
 			}   
 		}
-	
 	} 
-
-
 </script>	
 	
 <script>
 
 
-
+<!-- 영화 검색 -->
 	/* 검색 ajax */
 	$("#movieSearch").click(function(){
 	   
@@ -96,59 +85,57 @@
 	   if(searchText == ""){
 	      alert("영화 제목을 입력해주세요");
 	   } else{
-	   
-	   console.log(searchText);
-	   $.ajax({
-	      
-	      url : "movieSearch",
-	      method : "POST",
-	      data : {
-	    	  	   "searchText" : searchText
-	      		},
-	      success : function(SearchNameResult) {
-				console.table(SearchNameResult);
-	            
-		        var $section = $("#section_search_ajax");
-	            $section.html(""); 
-
-	            for(var index in SearchNameResult){
-	            	
- 		        var $postList = $("<article class='movieList'>");
- 		        var $moreList = $( 
- 		        		
- 		        				"<img src=${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/"
-				            	+SearchNameResult[index].movieFile.saveName + " alt='영화'" + "class='mvimg'>"
-				            	+ "<button id=" + SearchNameResult[index].no + " class='mvimg'>"
-								+ SearchNameResult[index].name + "</button>" + "</article>" 
-	            				);
- 		        
-         	        console.log($section);
-         	        $postList.append($moreList);
-         	        $section.append($postList);	
-         	        
-         	   	if(document.getElementsByTagName("article")) {
-         	   	const $tds = document.getElementsByTagName("article");
-         	   	for(var i = 0 ; i < $tds.length ; i++) {
-         	   	
-         	   	   
-         	   	$tds[i].onmouseenter = function() {
-         	   	   this.parentNode.style.cursor = "pointer";
-         	   	}
-         	   	   
-         	   	$tds[i].onclick = function() {
-         	   			  const no = $(this).children("button").attr("id");
-         	   		  	  location.href = "${ pageContext.servletContext.contextPath }/movie/" + parseInt(no);
-         	   			}   
-         	   		}
-         	   	
-         	   	} 
-	            				
-	           }
-	            				
-			},
-		});
-		}
-	   });
+	   		 	
+	   		   console.log(searchText);
+			   $.ajax({
+			      
+			      url : "movieSearch",
+			      method : "POST",
+			      data : {
+			    	  	   "searchText" : searchText
+			      		 },
+			      success : function(SearchNameResult) {
+				   	    console.table(SearchNameResult);
+			            
+				        var $section = $("#section_search_ajax");
+			            $section.html(""); 
+		
+			            for(var index in SearchNameResult){
+			            	
+			 		        var $postList = $("<article class='movieList'>");
+			 		        var $moreList = $( 
+			 		        		
+			 		        				"<img src=${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/"
+							            	+SearchNameResult[index].movieFile.saveName + " alt='영화'" + "class='mvimg'>"
+							            	+ "<button id=" + SearchNameResult[index].no + " class='mvimg'>"
+											+ SearchNameResult[index].name + "</button>" + "</article>" 
+				            				);
+			 		        
+			         	        console.log($section);
+			         	        $postList.append($moreList);
+			         	        $section.append($postList);	
+			         	        
+			         	   	if(document.getElementsByTagName("article")) {
+			         	   	const $tds = document.getElementsByTagName("article");
+				         	   	
+				         	   	for(var i = 0 ; i < $tds.length ; i++) {
+				         	   	
+				         	   	   
+					         	   	$tds[i].onmouseenter = function() {
+					         	   	   this.parentNode.style.cursor = "pointer";
+					         	   	}
+					         	   	   
+					         	   	$tds[i].onclick = function() {
+					         	   			  const no = $(this).children("button").attr("id");
+					         	   		  	  location.href = "${ pageContext.servletContext.contextPath }/movie/" + parseInt(no);
+					         	   	}   
+				         	   	}
+			         	   	} 
+				        }
+				   },
+			   });
+ 		 }
+	});
 					
 	           
 	/* 액션 장르 */

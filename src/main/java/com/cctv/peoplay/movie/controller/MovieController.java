@@ -26,7 +26,7 @@ public class MovieController {
 	public String list(Model model) throws Exception {
 		model.addAttribute("list" , service.selectMovieList());
 
-		System.out.println(model);
+//		System.out.println(model);
 		
 		return "movie/list";
 	}

@@ -5,18 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 영화수정 리스트</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <style>
    button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- <script>
-	const message = '${ requestScope.message }';
-	if(message != null && message !== '') {
-		alert(message);
-	}
-</script> -->
 </head>
 <hr>
 	<h2 align="center">관리자 영화 수정</h2>
@@ -39,7 +33,6 @@
 	<link rel="stylesheet" href="/peoplay/resources/css/movie/main.css">
 <script>
 	/* 영화 수정 페이지 이동 */
-	
 	if(document.getElementsByTagName("article")) {
 	const $tds = document.getElementsByTagName("article");
 	for(var i = 0 ; i < $tds.length ; i++) {

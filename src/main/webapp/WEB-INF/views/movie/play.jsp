@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>영화 시청</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>

@@ -2,6 +2,30 @@
 
 #section_search_ajax{ width:1300px; height:600px; margin-left:270px; overflow: auto; }
 
+
+/* 리스트 제목 버튼 */
 button.mvimg{ height: 30px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
 
+/* 영화 단위 article */
 article#movieList{ width: 200px; height: 300px; margin: 0px 10px 10px 0px; float:left; }
+/* 검색 serction*/
+#section_search_ajax{ width:1300px; height:600px; margin-left:270px; overflow: auto; }
+/* 버튼과 영화 이미지 */
+button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
+/* 영화 단위 article */
+article.movieList{ width: 200px; height: 300px; margin: 0px 10px 10px 0px; float:left; }    
+
+/* 사진 캡션 */
+figcaption{ width: 150px; }
+
+/* 영화 검색 버튼 */
+.movieSearch{ height: 40px; width: 50px; background-color: #606060; }
+
+/* 장르 버튼 */
+.CategoryGenre button{ height: 50px; width: 200px; background-color: #606060; }
+
+/* */
+select{ width: 100px; margin-left: 1300px; }	
+
+/* 검색창 */
+.searchText{ border-radius: 5px; height: 40px; width: 200px; font-size: 16px; resize: none;}
