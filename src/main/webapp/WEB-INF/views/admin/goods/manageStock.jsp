@@ -25,7 +25,7 @@
         </div>
          <div class="searchingDiv">
             <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/StockSearch" method="post" class="searchingForm move">
-                <div class="search-area" align="center" style="position: relative; left: 337px;">
+                <div class="search-area" align="center">
                     <select id="searchCondition" name="searchCondition">
                         <option value="in">입고</option>
                         <option value="out">출고 </option>
@@ -214,6 +214,10 @@ $('.AjaxdeliveryStatus').change(function() {
 });
 
 
+$("#gobackAdmin").click(function(){
+	console.log('dd');
+	location.href = "${ pageContext.servletContext.contextPath }/admin/goods";
+});
 
 const link = "${ pageContext.servletContext.contextPath }/admin/goods/Stock";
 const searchlink = "${ pageContext.servletContext.contextPath }/admin/goods/StockSearch";

@@ -568,3 +568,13 @@ height: 500px;
     position: relative;
     left: 179px;
 }
+.information{
+	position: relative; left: 30px; font-size: 15pt;
+}
+.tdstyle{
+	background-color: #faae5a; font-size: 14pt; font-weight: 600;
+}
+
+.tab_style{
+	width: 1000px; height: 100px; text-align: center;
+}

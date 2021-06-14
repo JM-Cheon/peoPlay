@@ -46,7 +46,7 @@
 				</p>
 				<br>
 				<hr>
-				<table  class="info_tab" style=" position: relative; left: 30px; font-size: 15pt;">
+				<table  class="info_tab information" >
 					<tr>
 						<td class="info_tab_td">판매가</td>
 						<td class="info_tab_td2">${selectOneGoodsInfo.goodsPrice }원</td>
@@ -228,13 +228,13 @@
 							<table
 								style="width: 1000px; height: 100px; text-align: center; background-color: #faae5a">
 								<tr>
-									<td class="no" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;" >번호</td>
-									<td class="evaluate" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">상품평</td>
-									<td class="author" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">작성자</td>
-									<td class="date" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">작성일</td>
-									<td class="updatedelete" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">수정 /
+									<td class="no tdstyle"  >번호</td>
+									<td class="evaluate tdstyle" >상품평</td>
+									<td class="author tdstyle" >작성자</td>
+									<td class="date tdstyle" >작성일</td>
+									<td class="updatedelete tdstyle">수정 /
 										삭제</td>
-									<td class="report" style="background-color: #faae5a;  font-size: 14pt; font-weight: 600;">신고</td>
+									<td class="report tdstyle">신고</td>
 								</tr>
 							</table>
 							<c:forEach var="review"
@@ -294,13 +294,13 @@
 							<table
 								style="width: 1000px; height: 100px; text-align: center; background-color: #faae5a">
 								<tr>
-									<td class="no" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">번호</td>
-									<td class="evaluate" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">문의내용</td>
-									<td class="author" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">작성자</td>
-									<td class="date" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">작성일</td>
-									<td class="updatedelete" style="background-color: #faae5a; font-size: 14pt; font-weight: 600;">수정 /
+									<td class="no tdstyle">번호</td>
+									<td class="evaluate tdstyle" >문의내용</td>
+									<td class="author tdstyle" >작성자</td>
+									<td class="date tdstyle">작성일</td>
+									<td class="updatedelete tdstyle">수정 /
 										삭제</td>
-									<td class="answer" style="background-color: #faae5a;  font-size: 14pt; font-weight: 600;">답변보기</td>
+									<td class="answer tdstyle" >답변보기</td>
 								</tr>
 							</table>
 							<c:forEach var="inquiry"

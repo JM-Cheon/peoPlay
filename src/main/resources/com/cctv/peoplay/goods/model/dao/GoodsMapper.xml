@@ -1092,6 +1092,11 @@
 		   SET A.GOODS_STOCK = A.GOODS_STOCK - #{quantities}
 	     WHERE A.GOODS_NUMBER = #{goodsNum}
 	</update>
+	<delete id="deleteWishList" parameterType="hashmap">
+	    DELETE
+          FROM TBL_GOODS_CART
+         WHERE GOODS_NUMBER = #{goodsNum}
+	</delete>
 </mapper>
 
 

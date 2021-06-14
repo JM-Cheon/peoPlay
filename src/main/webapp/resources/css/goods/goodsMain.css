@@ -104,6 +104,8 @@
     height: 30px;
     width: 70px;
     border-radius: 10px;
+    position: relative;
+    left: 2px;
 }
 
 #popularGoods {
@@ -249,4 +251,17 @@
 .p-board-paging ul li button:hover {
 	color: #181818;
 	background-color: #fff;
+}
+.searchvalue{
+	left : 28px; border: 0.5px solid; position: relative;
+}
+.paging{
+	width: 350px; position: relative; bottom: -14px;left: 394px; float: left;
+	
+}
+.search-area{
+	position: relative; left: 300px;
+}
+.searchingCondition{
+	position: relative; left: 22px;
 }

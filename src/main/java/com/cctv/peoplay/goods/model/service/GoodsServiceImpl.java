@@ -172,7 +172,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List<GoodsDTO> selectWbAllGoods(PagenationDTO pageInfo) {
-		return goodsMapper.selectPixarAllGoods(pageInfo);
+		return goodsMapper.selectWbAllGoods(pageInfo);
 	}
 
 	@Override
@@ -296,6 +296,11 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public int updateGoodsStock(HashMap<String, Object> payment) {
 		return goodsMapper.updateGoodsStock(payment);
+	}
+
+	@Override
+	public int deleteWishList(HashMap<String, Object> payment) {
+		return goodsMapper.deleteWishList(payment);
 	}
 
 

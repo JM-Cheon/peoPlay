@@ -81,10 +81,10 @@
 							<td class="info_tab_td">상품 가격 :</td>
 							<td class="info_tab_sub"><input min="0" step="100" type="number" id="goodsMoney" name="goodsMoney"></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td class="info_tab_td">관련 영화 :</td>
 							<td class="info_tab_sub"><input type="text" id="goodsMovie" name="goodsMovie"></td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td class="info_tab_td">배송 구분 :</td>
 							<td class="info_tab_sub">

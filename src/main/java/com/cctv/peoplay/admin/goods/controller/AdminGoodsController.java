@@ -951,6 +951,56 @@ public class AdminGoodsController {
 		return "admin/goods/manageStock";
  		
  	}
+	@PostMapping("goods/InquirySearch")
+	public String Inquirysearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
+			@RequestParam("searchValue") String searchValue) {
+		
+		String condition = request.getParameter("searchCondition");
+		String value = request.getParameter("searchValue");
+		
+		HashMap<String, String> searchMap = new HashMap<>();
+		searchMap.put("searchCondition", condition);
+		searchMap.put("searchValue", value);
+		
+		String currentPage = request.getParameter("currentPage");
+		
+		int pageNo = 1;
+		
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		// 검색 후 페이징 처리용
+		int totalCount = admingoodsService.searchInquirySearch(searchMap);
+		int limit = 14;
+		
+		int buttonAmount = 4;
+		
+		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		// 검색하려고 Map에 담았다.
+		HashMap<String, Object> searchListMap = new HashMap<>();
+		searchListMap.put("searchCondition", searchCondition);
+		searchListMap.put("searchValue", searchValue);
+		searchListMap.put("startRow", pageInfo.getStartRow());
+		searchListMap.put("endRow", pageInfo.getEndRow());
+		
+		List<GoodsInqueryDTO> selectInquiryList = admingoodsService.selectInquiryPaging(searchListMap);
+		List<GoodsInquiryReplyDTO> selectInquiryReply = admingoodsService.selectInquiryReply();
+
+		Gson gson = new GsonBuilder().create();
+		
+		model.addAttribute("selectInquiryReply", gson.toJson(selectInquiryReply));
+		model.addAttribute("inquiryListPaging", selectInquiryList);
+		model.addAttribute("pageInfo", pageInfo);
+		
+		return "admin/goods/inquiryAnswer";
+		
+	}
 	
 	
 	

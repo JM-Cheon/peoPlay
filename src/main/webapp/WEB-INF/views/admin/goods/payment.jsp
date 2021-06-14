@@ -26,7 +26,7 @@
         </div>
          <div class="searchingDiv">
             <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/paymentSearch" method="post" class="searchingForm move">
-                <div class="search-area" align="center" style="position: relative; left: 300px;">
+                <div class="search-area" align="center">
                     <select id="searchCondition" name="searchCondition">
                         <option value="totalPrice">높은 가격순 검색</option>
                         <option value="date">날짜 순 검색</option>

@@ -225,7 +225,9 @@ $('.AjaxdeliveryStatus').change(function() {
 	
 });
 
-
+$("#gobackAdmin").click(function(){
+	location.href = "${ pageContext.servletContext.contextPath }/admin/goods";
+});
 
 const link = "${ pageContext.servletContext.contextPath }/admin/goods/Delivery";
 const searchlink = "${ pageContext.servletContext.contextPath }/admin/goods/DeliverySearch";

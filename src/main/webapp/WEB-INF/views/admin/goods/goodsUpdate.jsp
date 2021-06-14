@@ -89,7 +89,7 @@
 						</tr>
 						<tr>
 							<td class="info_tab_td">추가 입고 수량 : </td>
-							<td class="info_tab_sub"><input min="0" type="number" name="goodsStockIn"></td>
+							<td class="info_tab_sub"><input min="0" value="0" type="number" name="goodsStockIn"></td>
 						</tr>
 						<tr>
 							<td class="info_tab_td">짧은 설명 : </td>
@@ -122,8 +122,8 @@
 							<td class="info_tab_sub"><input type="file" id="detailFiles" name="goodsDetailFiles" multiple="multiple"></td>
 						</tr>
 					</table>
-				<button type="button" class="btn_update_delete" id="updateBtn" style="position: relative; top: 80px; left: 36px;">수정하기</button>
-				<button type="button" class="btn_update_delete" id="gobackBtn" style="position: relative; top: 80px; left: 54px;">목록으로</button>
+				<button type="button" class="btn_update_delete" id="updateBtn" >수정하기</button>
+				<button type="button" class="btn_update_delete deleting" id="gobackBtn" >목록으로</button>
 			</form>
 			</div>
 		</section>

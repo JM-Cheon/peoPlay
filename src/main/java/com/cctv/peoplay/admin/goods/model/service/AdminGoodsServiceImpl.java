@@ -246,6 +246,16 @@ private AdminGoodsMapper adminGoodsMapper;
 		return adminGoodsMapper.updateStockManage(goodsDetail);
 	}
 
+	@Override
+	public int searchInquirySearch(HashMap<String, String> searchMap) {
+		return adminGoodsMapper.searchInquirySearch(searchMap);
+	}
+
+	@Override
+	public List<GoodsInqueryDTO> selectInquiryPaging(HashMap<String, Object> searchListMap) {
+		return adminGoodsMapper.selectInquiryPaging(searchListMap);
+	}
+
 
 
 

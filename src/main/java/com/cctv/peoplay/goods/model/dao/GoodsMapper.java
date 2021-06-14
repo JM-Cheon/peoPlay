@@ -125,5 +125,7 @@ public interface GoodsMapper {
 
 	int updateGoodsStock(HashMap<String, Object> payment);
 
+	int deleteWishList(HashMap<String, Object> payment);
+
 	
 }

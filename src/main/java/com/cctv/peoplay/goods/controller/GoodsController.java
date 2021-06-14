@@ -89,7 +89,6 @@ public class GoodsController {
 		List<GoodsDTO> selectpixarGoods = goodsService.selectPixarAllGoods(pageInfopixar);
 		List<GoodsDTO> selectwbGoods = goodsService.selectWbAllGoods(pageInfowb);
 		
-		
 		List<GoodsAndFileDTO> goodsAndFile = goodsService.selectPopular(1);
 		
 		List<GoodsDTO> marvelpopularList = goodsService.selectPopularGoods(1);
@@ -531,6 +530,7 @@ public class GoodsController {
 		 		 if(updatePaidGoods > 0	) {
 		 			 int updateGoodsStock = goodsService.updateGoodsStock(payment);
 		 			 int insertOutGoods = goodsService.insertOutGoods(payment);
+		 			 int deleteWishList = goodsService.deleteWishList(payment);
 		 		 }
 			 }
 			

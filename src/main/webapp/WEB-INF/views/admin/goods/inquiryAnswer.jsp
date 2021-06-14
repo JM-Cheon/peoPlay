@@ -24,18 +24,19 @@
         <div class="headerPayment">
                문의 내역 관리
         </div>
-        <%-- <div class="searchingDiv">
-            <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/DeliverySearch" method="post" class="searchingForm">
+         <div class="searchingDiv">
+            <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/InquirySearch" method="post" class="searchingForm">
                 <div class="search-area" align="center" style="position: relative; left: 300px;">
                     <select id="searchCondition" name="searchCondition">
-                        <option value="deliveryStatus">배송상태</option>
-                        <option value="deliveryMemo">배송 메모 </option>
+                        <option value="member">회원</option>
+                        <option value="question">문의 내용 </option>
                         <option value="goodsName">상품명 검색</option>
                     </select> <input style="border: 1px solid" type="search" id="searchValue" name="searchValue" style="position: relative;">
                     <button  type="submit" class="searhchingBtn">검색하기</button>
                 </div>
             </form>
-        </div> --%>
+         <button  type="button" class="searhchingBtn back" id="gobackAdmin">뒤로가기</button>
+        </div> 
         <div class="ListDiv">
             <table class="tab_list">
                 <tr>
@@ -365,6 +366,9 @@ if(document.getElementById("nextPage")){
 		location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
 	}
 }
+$("#gobackAdmin").click(function(){
+	location.href = "${ pageContext.servletContext.contextPath }/admin/goods";
+});
 </script>
 </body>
 </html>

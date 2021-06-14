@@ -22,7 +22,7 @@
 <jsp:include page="../common/header.jsp"/>
     <br><br><br><br><br><br>
     <div id="wrapper">
-    <p style="font-size: 16pt; font-weight: 800; color: #008916;">주문 결제 </p>
+    <p class="ordering">주문 결제 </p>
     <br>
 <hr style=" border-color: #008916; font-weight: 800;">
         <section id="sec1">

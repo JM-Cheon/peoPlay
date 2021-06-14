@@ -43,7 +43,6 @@
 				<p class="everyday_text">WB</p>
 			</button>
 		</div>
-
 		<section id="popularGoods">
 			<div class="popular">
 				<p class="popular_word">인기 상품</p>
@@ -108,7 +107,7 @@
 							</button>
 						</div>
 					</c:forEach>
-				</div>
+				</div> 
 				<div class="wb">
 					<c:forEach var="wbpopularList"
 						items="${ requestScope.wbpopularList }">
@@ -136,14 +135,14 @@
 				<form id="searchForm"
 					action="${ pageContext.servletContext.contextPath }/goods/search"
 					method="get">
-					<div class="search-area" align="center" style="position: relative; left: 300px;">
-						<select id="searchCondition" name="searchCondition" style="position: relative; left: 22px;">
+					<div class="search-area" align="center" >
+						<select id="searchCondition" name="searchCondition" class="searchingCondition">
 							<option value="searchAll">이름 검색</option>
 							<option value="latest">최신순</option>
 							<option value="famous">높은 인기순</option>
 							<option value="price">높은 가격순</option>
-						</select> <input type="search" id="searchValue" name="searchValue" style="left : 28px; border: 0.5px solid; position: relative;">
-						<button type="submit" style="position: relative; left: 34px;" class="searhchingBtn">검색하기</button>
+						</select> <input type="search" id="searchValue" name="searchValue" class="searchvalue">
+						<button type="submit" class="searhchingBtn">검색하기</button>
 					</div>
 				</form>
 			</div>
@@ -165,7 +164,7 @@
 							</div>
 						</c:if>
 					</c:forEach>
-					<section class="marvel2 on p-board-paging" align="center" style="width: 350px; position: relative; bottom: -14px;left: 394px;">
+					<section class="marvel2 on p-board-paging paging" align="center"  >
 					<ul>
 					<c:choose>
 						<c:when test="${ !empty requestScope.searchValue }">
@@ -454,6 +453,6 @@ if(document.getElementById("nextPage")){
 
 		
 	</script>
-<jsp:include page="../common/footer.jsp"/>
+<%-- <jsp:include page="../common/footer.jsp"/> --%>
 </body>
 </html>

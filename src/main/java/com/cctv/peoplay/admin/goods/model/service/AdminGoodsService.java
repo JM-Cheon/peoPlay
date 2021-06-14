@@ -146,6 +146,12 @@ public interface AdminGoodsService {
 	/* 입고 된 수량이 있으면 업데이트 */
 	int updateStockManage(HashMap<String, Object> goodsDetail);
 
+	/* 문의 내역 count */
+	int searchInquirySearch(HashMap<String, String> searchMap);
+
+	/* 조건 별 문의 내역 조회 */
+	List<GoodsInqueryDTO> selectInquiryPaging(HashMap<String, Object> searchListMap);
+
 	
 
 

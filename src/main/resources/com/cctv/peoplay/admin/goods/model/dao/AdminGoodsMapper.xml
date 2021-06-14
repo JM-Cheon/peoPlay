@@ -1012,6 +1012,80 @@
         , #{goodsStock}, '입고'
         )
 	</insert>
+	
+	<select id="searchInquirySearch" resultType="int" parameterType="hashmap">
+		SELECT
+		       COUNT(*)
+		  FROM TBL_GOODS_INQUIRY A
+		  JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		  JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+		 WHERE B.GOODS_PRICE > 0
+		<include refid="searchInquiry"/>
+	</select>
+	
+	<select id="selectInquiryPaging" resultMap="inquiryListResultMap" parameterType="hashmap">
+		SELECT
+               Y.GOODS_INQUIRY_NO
+             , Y.GOODS_INQUIRY_CONTENT
+             , Y.GOODS_CREATION_DATE
+             , Y.GOODS_INQUIRY_YN
+             , Y.GOODS_NAME
+             , Y.GOODS_NUMBER
+             , Y.USER_NAME
+             , Y.USER_NO
+             , Y.GOODS_REPLY_CONTENT
+		     , Y.GOODS_REPLY_CREATION_DATE
+		  FROM (
+		        SELECT
+		               ROWNUM RNUM    
+		             , X.GOODS_INQUIRY_NO
+                     , X.GOODS_INQUIRY_CONTENT
+                     , X.GOODS_CREATION_DATE
+                     , X.GOODS_INQUIRY_YN
+                     , X.GOODS_NAME
+                     , X.GOODS_NUMBER
+                     , X.USER_NAME
+                     , X.USER_NO
+                     , X.GOODS_REPLY_CONTENT
+		             , X.GOODS_REPLY_CREATION_DATE
+		          FROM (          
+		                SELECT
+		                       A.GOODS_INQUIRY_NO
+		                     , A.GOODS_INQUIRY_CONTENT
+		                     , A.GOODS_CREATION_DATE
+		                     , A.GOODS_INQUIRY_YN
+		                     , B.GOODS_NAME
+                             , B.GOODS_NUMBER
+		                     , C.USER_NAME
+		                     , C.USER_NO
+		                     , D.GOODS_REPLY_NO
+		                     , D.GOODS_REPLY_CONTENT
+		                     , D.GOODS_REPLY_CREATION_DATE
+		                  FROM TBL_GOODS_INQUIRY A
+		                  LEFT JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		                  LEFT JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+		                  LEFT JOIN TBL_GOODS_INQUIRY_REPLY D ON (A.GOODS_INQUIRY_NO = D.GOODS_INQUIRY_NO)
+		                 WHERE B.GOODS_PRICE > 0
+	<include refid="searchInquiry"/>
+		                ) X
+		          ) Y
+    WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	
+	</select>
+	
+	<sql id="searchInquiry">
+		<if test="searchCondition == 'member'">
+		AND C.USER_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY A.GOODS_INQUIRY_NO DESC
+		</if>
+		<if test="searchCondition == 'question'">
+		AND A.GOODS_INQUIRY_CONTENT LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY A.GOODS_INQUIRY_NO DESC
+		 </if>
+		<if test="searchCondition == 'goodsName'">
+		AND B.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	  ORDER BY A.GOODS_INQUIRY_NO DESC
+		</if>
+	</sql>
 </mapper>
 
 

@@ -166,5 +166,8 @@ public interface GoodsService {
 	/* 출고된 상품 갯수 만큼 재고를 차감 */
 	int updateGoodsStock(HashMap<String, Object> payment);
 
+	/* 상품 구매 후 장바구니 LIST 삭제 */
+	int deleteWishList(HashMap<String, Object> payment);
+
 
 }

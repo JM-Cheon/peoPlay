@@ -102,5 +102,9 @@ public interface AdminGoodsMapper {
 
 	public int updateStockManage(HashMap<String, Object> goodsDetail);
 
+	public int searchInquirySearch(HashMap<String, String> searchMap);
+
+	public List<GoodsInqueryDTO> selectInquiryPaging(HashMap<String, Object> searchListMap);
+
 
 }

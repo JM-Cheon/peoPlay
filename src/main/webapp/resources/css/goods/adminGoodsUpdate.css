@@ -194,3 +194,10 @@ body {
 	font-weight: 500;
 	display:none;
 }
+.btn_update_delete{
+	position: relative; top: 80px; left: 36px;
+}
+.deleting{
+	position: relative; top: 80px; left: 36px;
+	position: relative; top: 80px; left: 54px;
+}

@@ -104,3 +104,12 @@
     text-align: center;
     color: red;
 }
+.back{
+	position: relative;
+    top:-30px;
+    left: 514px;
+}
+.searchingForm{
+	position: relative;
+    left: 19px;
+}
