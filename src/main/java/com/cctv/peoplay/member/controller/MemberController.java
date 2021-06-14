@@ -1,6 +1,8 @@
 package com.cctv.peoplay.member.controller;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cctv.peoplay.common.date.DateCalculator;
 import com.cctv.peoplay.common.mail.SendMail;
+import com.cctv.peoplay.goods.model.dto.GoodsCartDTO;
 import com.cctv.peoplay.member.model.dto.MemberDTO;
 import com.cctv.peoplay.member.model.dto.SubscribePaymentDTO;
 import com.cctv.peoplay.member.model.dto.SubscriptionDTO;
@@ -241,7 +244,18 @@ public class MemberController {
 		model.addAttribute("memberBoardList", memberService.selectMemberBoard(loginMember.getUserNo()));
 		model.addAttribute("zzimList", memberService.selectMemberWishMovieList(loginMember.getUserNo()));
 		model.addAttribute("watchList", memberService.selectWatchMovieList(loginMember.getUserNo()));
-		model.addAttribute("basketList", memberService.selectBasketList(loginMember.getUserNo()));
+		
+		List<GoodsCartDTO> basketList = memberService.selectBasketList(loginMember.getUserNo());
+		HashMap<String, Integer> cartSelecter = new HashMap<>();
+		for(GoodsCartDTO c : basketList) {
+			c.setUserNum(loginMember);
+			cartSelecter.put("userNo", loginMember.getUserNo());
+			int goodsNum = c.getGoodsNum().getGoodsNum();
+			cartSelecter.put("goodsNum", goodsNum);
+			c.setCartCount(memberService.selectCartCount(cartSelecter));
+		}
+		model.addAttribute("basketList", basketList);
+		
 		model.addAttribute("goodsLikeList", memberService.selectGoodsLikeList(loginMember.getUserNo()));
 		model.addAttribute("orderList", memberService.selectOrderList(loginMember.getUserNo()));
 	}

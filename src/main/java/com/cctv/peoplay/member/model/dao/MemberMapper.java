@@ -1,5 +1,6 @@
 package com.cctv.peoplay.member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.cctv.peoplay.Community.model.dto.QnaDTO;
@@ -77,5 +78,7 @@ public interface MemberMapper {
 	List<QnaDTO> selectAsk(int userNo);
 
 	List<DeliveryDTO> selectOrderList(int userNo);
+
+	int selectCartCount(HashMap<String, Integer> cartSelecter);
 
 }

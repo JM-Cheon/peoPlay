@@ -84,12 +84,12 @@
 		</collection>
 	</resultMap>
 	
-	<resultMap id="GoodsCartResultMap" type="GoodsCartDTO">
+	<resultMap id="GoodsCartCountResultMap" type="GoodsCartDTO">
 		<result column="CART_COUNT" property="cartCount"/>
-		<association property="userNum" javaType="MemberDTO">
-			<result property="userNo" column="USER_NO"/>
-		</association>
- 		<collection property="goodsNum" ofType="GoodsDTO">
+	</resultMap>
+	
+	<resultMap id="GoodsCartResultMap" type="GoodsCartDTO">
+ 		<association property="goodsNum" javaType="GoodsDTO">
 			<id property="goodsNum" column="GOODS_NUMBER"/>
 			<result property="goodsName" column="GOODS_NAME"/>
 			<collection property="goodsFiles" ofType="GoodsFileDTO">
@@ -97,7 +97,7 @@
 				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
 				<result property="fileType" column="FILE_TYPE"/>
 			</collection>
-		</collection>
+		</association>
 	</resultMap>
 
 	<resultMap id="GoodsLikeResultMap" type="GoodsLikeDTO">
@@ -1026,6 +1026,17 @@
 		  JOIN TBL_GOODS_CART B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
 		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
 		 WHERE B.USER_NO = #{userNo}
+		   AND C.FILE_TYPE = 'head'
+	</select>
+
+	<select id="selectCartCount" resultType="_int" parameterType="hashmap">
+		SELECT
+		       B.CART_COUNT
+		  FROM TBL_GOODS A
+		  JOIN TBL_GOODS_CART B ON(A.GOODS_NUMBER = B.GOODS_NUMBER)
+		  LEFT JOIN TBL_GOODS_FILE C ON(A.GOODS_NUMBER = C.GOODS_NUMBER)
+		 WHERE B.USER_NO = #{userNo}
+		   AND A.GOODS_NUMBER = #{goodsNum}
 		   AND C.FILE_TYPE = 'head'
 	</select>
 

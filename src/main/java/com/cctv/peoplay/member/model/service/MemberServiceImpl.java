@@ -1,5 +1,6 @@
 package com.cctv.peoplay.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -199,6 +200,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<DeliveryDTO> selectOrderList(int userNo) {
 		return mapper.selectOrderList(userNo);
+	}
+
+	@Override
+	public int selectCartCount(HashMap<String, Integer> cartSelecter) {
+		return mapper.selectCartCount(cartSelecter);
 	}
 	
 }
