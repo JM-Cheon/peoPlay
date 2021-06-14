@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-		<br><br><br>
+<br><br><br>
 		<h2 align="center">관리자 영화 수정</h2> 
 		<div align="center">
 		<form action="${ pageContext.servletContext.contextPath }/admin/${ no }" id="enroll" method="post" encType="multipart/form-data">
@@ -313,7 +313,7 @@
 		</form> 
 		</div>
 		
-		    <br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
 </body>
 <script>
 

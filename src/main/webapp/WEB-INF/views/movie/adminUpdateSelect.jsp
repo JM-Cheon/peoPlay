@@ -7,9 +7,7 @@
 <meta charset="UTF-8">
 <title>관리자 영화수정 리스트</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
-<style>
-   button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
-</style>
+<link rel="stylesheet" href="/peoplay/resources/css/movie/list.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <hr>
@@ -37,14 +35,14 @@
 	const $tds = document.getElementsByTagName("article");
 	for(var i = 0 ; i < $tds.length ; i++) {
 	   
-	$tds[i].onmouseenter = function() {
-	   this.parentNode.style.cursor = "pointer";
-	}
+		$tds[i].onmouseenter = function() {
+		   this.parentNode.style.cursor = "pointer";
+		}
 	   
-	$tds[i].onclick = function() {
-			  const no = $(this).children("button").attr("id");
-		  	  location.href = "${ pageContext.servletContext.contextPath }/admin/" + parseInt(no);
-		}   
+			$tds[i].onclick = function() {
+					  const no = $(this).children("button").attr("id");
+				  	  location.href = "${ pageContext.servletContext.contextPath }/admin/" + parseInt(no);
+				}   
 	}
 	
 	} 

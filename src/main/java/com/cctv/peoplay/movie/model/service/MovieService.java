@@ -39,20 +39,20 @@ public interface MovieService {
 	/* 리뷰  인서트 */
 	int reviewInsert(HashMap<String, Object> reviews);
 	
-	/* 메인 베스트 영화 */
+	/* 메인 베스트 영화  (테스트) */
 	MovieDTO mainBastMovie();
 	
-	/* 메인 영화 인기 순위*/
+	/* 메인 영화 인기 순위 (테스트) */
 	List<MovieDTO> mainTopFavoriteMovie();
 	
-	/* 메인 영화 최신 순위*/
+	/* 메인 영화 최신 순위  (테스트)*/
 	List<MovieDTO> mainNewTopMovie();
 
 	/* 영화 댓글 삭제 */
 	int reviewDelete(HashMap<String, Object> reviewDelete);
 	
 	
-	/* list 영화 검색 */
+	/* 장르 list 영화 검색 */
 	
 	List<MovieDTO> movieNameSearch(HashMap<String, Object> SearchName);
 	

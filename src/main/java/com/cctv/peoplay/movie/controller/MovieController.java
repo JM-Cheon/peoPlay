@@ -22,6 +22,7 @@ public class MovieController {
 	}
 	
 	
+	/* 영화 리스트 맵핑 */
 	@GetMapping("list")
 	public String list(Model model) throws Exception {
 		model.addAttribute("list" , service.selectMovieList());

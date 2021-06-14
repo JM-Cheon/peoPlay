@@ -41,7 +41,7 @@ public interface MovieMapper {
 	/* 리뷰 딜리트 */
 	int reviewDelete(HashMap<String, Object> reviewDelete);
 	
-	/* 메인 */
+	/* 메인(test) */
 	MovieDTO mainBastMovie();
 
 	List<MovieDTO> mainNewTopMovie();
@@ -50,7 +50,7 @@ public interface MovieMapper {
 	
 	
 	
-	/* list 영화 검색 */
+	/* 장르 list 영화 검색 */
 	
 	List<MovieDTO> movieNameSearch(HashMap<String, Object> SearchName);
 	
@@ -145,7 +145,6 @@ public interface MovieMapper {
 	MovieDTO movieGenreName(HashMap<String, Integer> movieGenreName);
 	
 	MovieUserFavoriteGenreDTO seleteUserFavoriteGenre(HashMap<String, Object> selectGenre);
-	
 
 	int genreCount(HashMap<String, Object> genreCount);
 

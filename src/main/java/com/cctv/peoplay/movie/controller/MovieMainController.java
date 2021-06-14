@@ -23,7 +23,7 @@ public class MovieMainController {
 		this.service = service;
 	}
 	
-	/* 메인 관련*/
+	/* 메인 관련 (테스트)*/
 	@GetMapping(value= {"main"})
 	public String mainlist(Model model, HttpServletRequest request) throws Exception {
 

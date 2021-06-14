@@ -59,17 +59,17 @@ public class MovieServiceImpl implements MovieService {
 		return mapper.selectMovieSubFile(no);
 	}
 	
-	/* 메인 베스트 영화 */
+	/* 메인 베스트 영화 (테스트) */
 	public MovieDTO mainBastMovie() {
 		return mapper.mainBastMovie();
 	}
 	
-	/* 메인 영화 인기 순위*/
+	/* 메인 영화 인기 순위  (테스트)*/
 	public List<MovieDTO> mainTopFavoriteMovie(){
 		return mapper.mainTopFavoriteMovie();
 	}
 	
-	/* 메인 영화 최신 순위*/
+	/* 메인 영화 최신 순위  (테스트)*/
 	public List<MovieDTO> mainNewTopMovie(){
 		return mapper.mainNewTopMovie();
 	}

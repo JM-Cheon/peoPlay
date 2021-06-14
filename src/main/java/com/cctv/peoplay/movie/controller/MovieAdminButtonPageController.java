@@ -20,6 +20,7 @@ public class MovieAdminButtonPageController {
 		public MovieAdminButtonPageController(MovieService service) {
 			this.service = service;
 		}
+		/* 관리자 메인 맵핑 */
 		@GetMapping(value={"adminButton"})
 		public String adminPage1(Model model) throws Exception {
 			model.addAttribute("list" , service.selectMovieList());
@@ -28,6 +29,7 @@ public class MovieAdminButtonPageController {
 			
 			return "movie/adminButton";
 		}
+		/* 관리자 인서트 리스트 맵핑 */
 		@GetMapping(value={"adminInsert"})
 		public String adminPage2(Model model) throws Exception {
 			model.addAttribute("list" , service.selectMovieList());
@@ -36,6 +38,7 @@ public class MovieAdminButtonPageController {
 			
 			return "movie/adminInsert";
 		}
+		/* 관리자 업데이트 목록 맵핑*/
 		@GetMapping(value={"adminUpdateSelect"})
 		public String adminPage3(Model model) throws Exception {
 			model.addAttribute("list" , service.selectMovieList());

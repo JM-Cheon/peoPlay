@@ -10,8 +10,9 @@
 <title>영화 정보</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
+<style>
+.detailText{z-index: 2; position: absolute; width: 45%; height: 800px; background: rgba(20, 20, 20, 0.3); top: 0; padding: 230px 100px 0px 100px;}
+</style>
 </head>
 
 <body>
@@ -19,8 +20,8 @@
 	<jsp:include page="../common/header.jsp"/>
 
     <!-- 메인 이미지 -->
-    <img  class="mainImage"src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieMainFiles.saveName}" alt="메인상단" width="1920px">
-
+    <img  class="mainImage"src="${ pageContext.servletContext.contextPath }/resources/images/movieImageFiles/${requestScope.movieMainFiles.saveName}" alt="메인상단" width="1920px" height="800px">
+	<div class="detailText">
 	<!-- 관람등급 -->
     <div class="main1">
       	 <c:choose> 
@@ -50,11 +51,11 @@
          </h2>
          <br><br><br>
     <!-- 영화 정보 -->     
-         <div style="font-size:20px; width:600px; "> 
+         <div style="font-size:20px; width:600px; font-weight: 600;"> 
 			<c:out value="${requestScope.detail.info}" />
          </div>
     </div>
-
+	</div>
 	<!-- 영화 재생 (시청) -->
 	<div id="divWatch">
 	     <input type="hidden" id="selectWatchList" value="${watchList}">

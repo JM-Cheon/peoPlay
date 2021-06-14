@@ -152,6 +152,8 @@
 </body>
 
 <script>
+
+		<!-- 등록시 썸네일 출력 -->
 		const $contentImgArea1 = document.getElementById("contentImgArea1");
 		const $contentImgArea2 = document.getElementById("contentImgArea2");
 		
@@ -179,6 +181,7 @@
 		}
 </script>
 <script>
+<!--빈 값 체크-->
  	$("#movieInsertBtn").click(function(){
  		if(document.getElementById("name").value == ""){
  			alert("영화이름 값을 확인해주세요.");
@@ -229,9 +232,8 @@
  			$("#enroll").submit();
  		}
  	});
- 	</script>
- 	
- 		<link rel="stylesheet" href="/peoplay/resources/css/movie/main.css">
+ </script>
+ <link rel="stylesheet" href="/peoplay/resources/css/movie/main.css">
  	
  	
 </html>

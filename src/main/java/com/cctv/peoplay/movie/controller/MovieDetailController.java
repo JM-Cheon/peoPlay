@@ -62,10 +62,8 @@ public class MovieDetailController {
 		model.addAttribute("wish", service.selectWish());
 		model.addAttribute("watch", service.selectWatch());
 		
-		/* 장르 처리 */
 		
-		
-		/* 좋아요 싫어요 해시 맵 */
+		/* 좋아요 싫어요 체크 여부 확인 */
 		HashMap<String, Integer> likeDislikeMap = new HashMap<>();
 		likeDislikeMap.put("userNo", loginMember.getUserNo());
 		likeDislikeMap.put("no", no);
@@ -73,7 +71,7 @@ public class MovieDetailController {
 		MovieLikeDislikeDTO dislikeList = service.selectDislikeRead(likeDislikeMap);
 
 		
-		// 있으면 좋아요 비어 있으면 없음
+		// 있으면 좋아요 값 넘김 비어 있으면 없음 넘김
 		if(!(likeList == null)) {
 			String nothing = "좋아요";
 			model.addAttribute("likeDislikeList", nothing);
@@ -82,7 +80,7 @@ public class MovieDetailController {
 			model.addAttribute("likeDislikeList", nothing);
 		}
 
-		// 있으면 싫어요 비어 있으면 없음
+		// 있으면 싫어요 값 넘김 비어 있으면 없음 넘김
 		if(!(dislikeList == null)) {
 			String nothing = "싫어요";
 			model.addAttribute("dislikeList", nothing);
@@ -92,13 +90,13 @@ public class MovieDetailController {
 		}
 			
 		
-	/* 찜 해시 맵 */
+	/* 찜 등록여부 확인 */
 	HashMap<String, Integer> wishMap = new HashMap<>();
 	wishMap.put("userNo", loginMember.getUserNo());
 	wishMap.put("no", no);
 	MovieWishListDTO wishList = service.selectMovieWishList(wishMap);
 	
-	/* 찜 list */
+	/* 찜 list 있고 없음 넘김 */
 	if(!(wishList == null)) {
 		if(!(wishList.getNo().getNo() == no && wishList.getUserNo().getUserNo() == loginMember.getUserNo())) {
 			String nothing = "없음";
@@ -144,6 +142,7 @@ public class MovieDetailController {
 		int movieNo = Integer.valueOf(request.getParameter("movieNo"));
 		
 		
+		/* 좋아요 값 넘기기*/
 		String like = "좋아요";
 		HashMap<String, Object> insertMovieLikeDislikeList = new HashMap<String, Object>();
 		insertMovieLikeDislikeList.put("userNo", userNo);
@@ -153,7 +152,7 @@ public class MovieDetailController {
 		HashMap<String, Object> likeUpdate = new HashMap<String, Object>();
 		likeUpdate.put("likeUpdate", movieNo);
 		
-		// 추가
+		// 카운트 추가
 		service.insertMovieLikeDislikeList(insertMovieLikeDislikeList);
 		service.likeUpdate(likeUpdate);
 
@@ -181,7 +180,7 @@ public class MovieDetailController {
 		MovieUserFavoriteGenreDTO generinsert = service.seleteUserFavoriteGenre(selectGenre);
 		
 		
-		/* 장르 카운트  추가 */
+//		/* 장르 카운트  추가 */
 		HashMap<String, Object> GenreCount = new HashMap<String, Object>();
 		GenreCount.put("userNo", generinsert.getUserNo().getUserNo());
 		GenreCount.put("genreNo", generinsert.getMovieFavoriteGenreCategory().getFavoriteGenreNo());

@@ -190,6 +190,7 @@
 		 WHERE A.MOVIE_NO = #{ no }
 	</select>
 	
+	<!-- 회원 선호장르 선택 -->
   	<select id="seleteUserFavoriteGenre" resultMap="movieGenreListResultSet" parameterType="hashmap">
 		SELECT
 		       A.USER_NO
@@ -201,6 +202,7 @@
 		   AND B.FAVORITE_GENRE_NAME = #{ favoriteGenreName }
 	</select> 
 
+	<!-- 장르 카운트 -->
 	<update id="genreCount" parameterType="hashmap">
 		UPDATE 
 		   USER_FAVORITE_GENRE A
@@ -235,7 +237,7 @@
 	       , A.MOVIE_NO
 	    FROM MOVIE_WISHLIST A
 	</select>
-
+	<!-- 회원 찜한 장르 셀렉  -->
  	<select id="selectMovieWishList" resultMap="movieWishListResultSet">
        SELECT 
 	         A.USER_NO
@@ -245,7 +247,7 @@
 	   WHERE A.USER_NO = #{ userNo }
 		 AND A.MOVIE_NO = #{ no }
 	</select>
-
+	<!-- 회원 찜하기 등록 -->
  	<insert id="insertMovieWishList" parameterType="hashmap">
 		INSERT INTO 
 		  MOVIE_WISHLIST A
@@ -259,7 +261,7 @@
 		  , #{ no }
 		 )
 	</insert>	
-	
+	<!-- 회원 찜하기 삭제 -->
 	<delete id="deleteMovieWishList" parameterType="hashmap" >
        DELETE 
          FROM MOVIE_WISHLIST A
@@ -275,6 +277,7 @@
 	    FROM MOVIE_WATCHLIST A
 	</select>
 
+	<!-- 회원 찜하기 셀렉 -->
  	<select id="selectMovieWatchList" resultMap="movieWatchListResultSet">
        SELECT 
 	         A.USER_NO
@@ -284,7 +287,7 @@
 	   WHERE A.USER_NO = #{ userNo }
 		 AND A.MOVIE_NO = #{ no }
 	</select>
-	
+	<!-- 회원 시청내역 등록 -->
 	<insert id="insertMovieWatchList" parameterType="hashmap">
 		INSERT INTO 
 		  MOVIE_WATCHLIST A
@@ -298,9 +301,6 @@
 		  , #{ no }
 		 )
 	</insert>	
-	
-	
-	
 	
 	<!-- 좋아요 업데이트 -->	
 	<update id="likeUpdate" parameterType="hashmap">
@@ -343,42 +343,6 @@
          WHERE A.MOVIE_NO = #{ undisLikeUpdate }
 	</update>
 
-
-
-
-
-
-
-	<!-- 좋아요 싫어요 리스트 -->	
-	<select id="likeAmount" resultMap="movieResultSet" >
-       SELECT 
-				A.MOVIE_NAME
-		      , A.MOVIE_NO
-              , A.MOVIE_LIKE
-              , A.MOVIE_DISLIKE
-           FROM MOVIE A
-          WHERE A.MOVIE_STATUS = 'Y'
-            AND A.MOVIE_NO = #{no}
-	</select>
-	<select id="dislikeAmount" resultMap="movieResultSet" >
-       SELECT 
-				A.MOVIE_NAME
-		      , A.MOVIE_NO
-              , A.MOVIE_LIKE
-              , A.MOVIE_DISLIKE
-           FROM MOVIE A
-          WHERE A.MOVIE_STATUS = 'Y'
-            AND A.MOVIE_NO = #{no}
-	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<!-- 좋아요 싫어요 처리 -->
 	<select id="selectMovieLikeDislike" resultMap="movieLikeDislikeResultSet">
        SELECT 
@@ -388,6 +352,7 @@
 	    FROM MOVIE_LIKE_DISLIKE A
 	</select>
 
+	<!-- 좋아요 싫어요 화면으로 값 넘기기 -->
  	<select id="selectLikeRead" resultMap="movieLikeDislikeResultSet">
        SELECT 
 	         A.USER_NO
@@ -409,7 +374,7 @@
 		 AND A.MOVIE_NO = #{ no }
 	</select> 
 
-
+	<!-- 회원 좋아요 싫어요 값 여부 확인  -->
  	<select id="selectMovieLikeDislikeList" resultMap="movieLikeDislikeListResultSet">
        SELECT 
 	         A.USER_NO
@@ -421,6 +386,7 @@
 		 AND A.MOVIE_NO = #{ no }
 	</select>
 
+	<!-- 회원 좋아요 싫어요 값 등록 -->
 	<insert id="insertMovieLikeDislikeList" parameterType="hashmap">
 		INSERT INTO 
 		  MOVIE_LIKE_DISLIKE A
@@ -437,6 +403,7 @@
 		 )
 	</insert>	
 
+	<!-- 회원 좋아요 싫어요 없음으로 변경 -->
 	<update id="updateMovieLikeList" parameterType="hashmap">
        UPDATE 
               MOVIE_LIKE_DISLIKE A
@@ -956,6 +923,27 @@
 		   AND A.FILE_TYPE LIKE 'MAIN'
 	</update>
 	
+	<!-- 좋아요 싫어요 리스트 (테스트) -->	
+	<select id="likeAmount" resultMap="movieResultSet" >
+       SELECT 
+				A.MOVIE_NAME
+		      , A.MOVIE_NO
+              , A.MOVIE_LIKE
+              , A.MOVIE_DISLIKE
+           FROM MOVIE A
+          WHERE A.MOVIE_STATUS = 'Y'
+            AND A.MOVIE_NO = #{no}
+	</select>
+	<select id="dislikeAmount" resultMap="movieResultSet" >
+       SELECT 
+				A.MOVIE_NAME
+		      , A.MOVIE_NO
+              , A.MOVIE_LIKE
+              , A.MOVIE_DISLIKE
+           FROM MOVIE A
+          WHERE A.MOVIE_STATUS = 'Y'
+            AND A.MOVIE_NO = #{no}
+	</select>
 	
 	
 	
