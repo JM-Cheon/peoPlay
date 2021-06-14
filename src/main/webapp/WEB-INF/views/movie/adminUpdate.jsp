@@ -10,7 +10,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
    button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
-
+   input#info{ width: 650px; height: 50px; resize: none;}
+   input#movieVideoRink{ width: 420px;}
+   
 </style>
 </head>
 <body>
@@ -253,18 +255,18 @@
 	 		<div class="movie_insert_box">
 	 			영상링크주소 : <br>
 	 			<input type="text" id="movieVideoRink" name="movieVideoRink" value="${ requestScope.detail.movieVideoRink }">
-	        </div>
+	        </div><br>
 			
 	 		<div class="movie_insert_box">
-	 			출현 배우 : <br>
+	 			출현 배우  <br>
              	<c:forEach var="actorList" items="${ requestScope.adminActorList }">
-	 			<input type="text" id="actorName1" name="actorName1" value="${ actorList.actorName1 }">
-	 		 	<input type="text" id="actorName2" name="actorName2" value="${ actorList.actorName2 }">
-	 			<input type="text" id="actorName3" name="actorName3" value="${ actorList.actorName3 }">
-	 			<input type="text" id="actorName4" name="actorName4" value="${ actorList.actorName4 }">
-	 			<input type="text" id="actorName5" name="actorName5" value="${ actorList.actorName5 }">
+	 			배우 1:  <input type="text" id="actorName1" name="actorName1" value="${ actorList.actorName1 }"><br>
+	 		 	배우 2:  <input type="text" id="actorName2" name="actorName2" value="${ actorList.actorName2 }"><br>
+	 			배우 3:  <input type="text" id="actorName3" name="actorName3" value="${ actorList.actorName3 }"><br>
+	 			배우 4:  <input type="text" id="actorName4" name="actorName4" value="${ actorList.actorName4 }"><br>
+	 			배우 5:  <input type="text" id="actorName5" name="actorName5" value="${ actorList.actorName5 }"><br>
 	 			</c:forEach>
-	        </div>
+	        </div><br>
 	 		<div class="movie_insert_box">	<!-- 영화 파일 el로 이미지 넣기 -->
 				메인사진 파일 : 
 				<input type="file" id="singleFile1" name="singleFile1" onchange="loadImg(this,1)"><br>

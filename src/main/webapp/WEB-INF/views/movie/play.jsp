@@ -9,18 +9,7 @@
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-   <script>
-    $(".nav ul li").click(function(){
-    	if("${ empty sessionScope.loginMember}" == "true"){
-    		if($(this).text() != "홈"){
-	    		alert("로그인 후 이용 가능합니다.");
-	    		return false;
-    		}
-    	} else {
-	    		return true;
-    	}
-    });
-    </script>
+
 <body>
 <jsp:include page="../common/header.jsp"/>
 	<br><br><br><br><br><br><br><br><br><br><br><br>
