@@ -511,9 +511,11 @@
 		if($(this).attr("class") == "blackN"){
 			$(this).removeClass();
 			$(this).addClass("blackY");
+			$(this).parent().parent().children().eq(5).text("BLACK");
 		} else {
 			$(this).removeClass();
 			$(this).addClass("blackN");
+			$(this).parent().parent().children().eq(5).text("MEMBER");
 		}
 
 		$.ajax({
