@@ -44,7 +44,7 @@
 						<dl>
 							<dt>제목</dt>
 							<dd>
-								<input type="text" class="p-input-box" name="ntcTitle" id="ntcTitle" placeholder="사진 사이즈를 작게 조정해 주세요!">
+								<input type="text" class="p-input-box" name="ntcTitle" id="ntcTitle" placeholder="제목을 입력해주세요.">
 							</dd>
 						</dl>
 							<textarea id="summernote" name="ntcContent"></textarea>
@@ -112,7 +112,7 @@
 			maxHeight: null,             // 최대 높이
 			focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 			lang: "ko-KR",					// 한글 설정
-			placeholder: '내용을 입력해주세요.',	//placeholder 설정
+			placeholder: '파일 업로드시 사진 사이즈를 작게 조정해 주세요!',	//placeholder 설정
         callbacks: {
           onImageLinkInsert: function(url) {
             // url is the image url from the dialog

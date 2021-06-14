@@ -363,9 +363,9 @@ const searchLink = "${ pageContext.servletContext.contextPath }/QNAadmin/search"
 				$tds[i].onclick = function() {
 					var nick = this.parentNode.children[2].innerText;
 					var yn = this.parentNode.children[4].innerText;
-					
+					var am = ${ sessionScope.loginMember.userRole == 'ADMIN'};
 					if(yn == "비공개"){						
-						if(nick == "${ sessionScope.loginMember.nickname }"){
+						if(nick == "${ sessionScope.loginMember.nickname }" || am){
 							const inquiryNo = this.parentNode.children[0].innerText;
 							location.href = "${ pageContext.servletContext.contextPath }/QNA/qnaDetail/" + parseInt(inquiryNo);   
 						} else {
