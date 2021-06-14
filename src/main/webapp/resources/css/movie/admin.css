@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+
+
+/* 버튼 */
+button.mvimg{ height: 40px; width: 150px; background-color: #606060; margin-top: 10px; margin-bottom: 10px; }
+
+/* 영화 정보 */
+input#info{ width: 650px; height: 50px; resize: none;}
+   
+/* 비디오링크 */   
+input#movieVideoRink{ width: 420px;}
