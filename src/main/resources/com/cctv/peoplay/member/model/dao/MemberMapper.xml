@@ -85,11 +85,11 @@
 	</resultMap>
 	
 	<resultMap id="GoodsCartResultMap" type="GoodsCartDTO">
-		<result column="CART_COUNT" property="cartCount" />
+		<result column="CART_COUNT" property="cartCount"/>
 		<association property="userNum" javaType="MemberDTO">
 			<result property="userNo" column="USER_NO"/>
 		</association>
-		<association property="goodsNum" javaType="GoodsDTO">
+ 		<collection property="goodsNum" ofType="GoodsDTO">
 			<id property="goodsNum" column="GOODS_NUMBER"/>
 			<result property="goodsName" column="GOODS_NAME"/>
 			<collection property="goodsFiles" ofType="GoodsFileDTO">
@@ -97,7 +97,7 @@
 				<result property="fileSaveName" column="FILE_SAVE_NAME"/>
 				<result property="fileType" column="FILE_TYPE"/>
 			</collection>
-		</association>
+		</collection>
 	</resultMap>
 
 	<resultMap id="GoodsLikeResultMap" type="GoodsLikeDTO">
