@@ -447,6 +447,46 @@
         	  </script>
         	  
 
+  <!--게시글 신고창 -->
+  <script>
+  
+        	window.onload = function() {
+        		 
+        	    function onClick() {
+        	        document.querySelector('.modal_wrap').style.display ='block';
+        	        document.querySelector('.black_bg').style.display ='block';
+        	    }   
+        	    function offClick() {
+        	        document.querySelector('.modal_wrap').style.display ='none';
+        	        document.querySelector('.black_bg').style.display ='none';
+        	    }
+        	 
+        	    document.getElementById('report_modal').addEventListener('click', onClick);
+        	    document.querySelector('.modal_close').addEventListener('click', offClick);
+        	 
+        	};
+        	/* 기타 사유 선택시 textArea */
+        	function reportCategoryChanged(reportReason){
+        		
+        		console.log(reportReason);
+        		
+        		if(reportReason == '기타'){
+        			
+        			var $reportContentText = document.getElementById("reportContent");
+        			$reportContentText.style.display = "block";
+        			
+        		} else {
+        			
+        			var $reportContentText = document.getElementById("reportContent");
+        			$reportContentText.style.display = "none";
+        			
+        		}
+        		
+        	};
+        	
+        	  </script>
+        	  
+
 	   	<script type="text/javascript">
  	
 	   	
@@ -489,12 +529,12 @@
 	 /* 대댓글 수정 창 활성화 */
 	 
         var modifyReplyOfArea = $("div[id^='modifyReplyOfArea_']");
-        var modifyReplyOfBtn =$("button[id^='modifyReplyOf_']");
+        var modifyReplyOfClick =$("button[id^='modifyReplyOf_']");
         	 
-		 	$(modifyReplyOfBtn).on('click',function(){
+		 	$(modifyReplyOfClick).on('click',function(){
 				console.log(modifyReplyOfBtn.index(this));
 				console.log(modifyReplyOfArea);
-				modifyReplyOfArea[modifyReplyOfBtn.index(this)].style.display='block';
+				modifyReplyOfArea[modifyReplyOfClick.index(this)].style.display='block';
 	  	});
 	 
 	 /* 댓글 신고창 활성화 */
@@ -542,6 +582,7 @@
 	 });
         
 	 </script>
+
 <script type="text/javascript">
 
 /*  댓글 널 값 처리 */
@@ -564,64 +605,57 @@ $(document).on('click', '#comment_submit', function (e) {
 	  });
 
 /* 대댓글 널 값 처리 */
-$(document).on('click', '#replyOfInsert', function (e) {
-	
-	if(document.getElementById("replyOfContent").value == ""){
-		
-		alert("내용을 입력해주세요");
-		e.preventDefault();
+ 
+  var replyOfContent =$("input[id^='replyOfContent_']");
+ var replyOfInsert =$("button[id^='replyOfInsert_']");
 
-		return;
-		
-	}
-	else{
-		
-	$("#insertReplyOfForm").submit();
-
-	}
 	
-	  });
-	  
+				$(replyOfInsert).on('click',function(e){	
+					
+					if($(replyOfContent[replyOfInsert.index(this)]).val()==""){
+						
+						alert("내용을 입력해주세요");
+						e.preventDefault()
+						return;
+					}else{
+						$('insertReplyOfForm').submit();
+					}
+		});
+
+	   
 /* 댓글 수정 */
-$(document).on('click', '#modifyReplyBtn', function (e) {
-	
-	if(document.getElementById("modiftReplyInput").value == ""){
+ var modiftReplyInput =$("input[id^='modiftReplyInput_']");
+ var modifyReplyBtn =$("button[id^='modifyReplyBtn_']");
+ 
+ $(modifyReplyBtn).on('click',function(e){	
 		
-		alert("내용을 입력해주세요");
-		e.preventDefault();
-
-		return;
-		
-	}
-	else{
-		
-	$("#modifyReplyForm").submit();
-
-	}
-	
-	  });
+		if($(modiftReplyInput[modifyReplyBtn.index(this)]).val()==""){
+			
+			alert("내용을 입력해주세요");
+			e.preventDefault()
+			return;
+		}else{
+			$('modifyReplyForm').submit();
+		}
+});
 
 
 
 /* 대댓글 수정 */ 
-$(document).on('click', '#modifyReplyOfBtn', function (e) {
-	
-	if(document.getElementById("modifyReplyOfInput").value == ""){
-		
-		alert("내용을 입력해주세요");
-		e.preventDefault();
-
-		return;
-		
-	}
-	else{
-		
-	$("#modifyReplyOfForm").submit();
-
-	}
-	
-	  }); 
+ var modifyReplyOfContent =$("input[id^='modifyReplyOfContent_']");
+ var modifyReplyOfBtn =$("button[id^='modifyReplyOfBtn_']");
  
+ 		$(modifyReplyOfBtn).on('click',function(e){	
+		
+		if($(modifyReplyOfContent[modifyReplyOfBtn.index(this)]).val()==""){
+			
+			alert("내용을 입력해주세요");
+			e.preventDefault()
+			return;
+		}else{
+			$('modifyReplyOfForm').submit();
+		}
+});
  
  
  
@@ -649,8 +683,6 @@ $(document).on('click', '#boardReportBtn', function (e) {
  }}); 
  
 </script>
-
-
 
 </body>
 </html>

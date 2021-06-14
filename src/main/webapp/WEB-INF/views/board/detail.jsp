@@ -202,9 +202,9 @@
            	 	
             <tr class=replyOfInput id="replyOfInput_${status.index}" style=" margin-right: 30px; height: 30px; font-size: 16px; margin-left: 30px; background-color: #2C2C2C;">
            	<td style="color: white" width="200px">댓글 작성: </td>
-           	<td><input type="text" name="replyOfContent" style="width: 700px;height: 30px;text-align: center;" placeholder="댓글을 입력해주세요" id="replyOfContent"></td>
+           	<td><input type="text" name="replyOfContent" style="width: 700px;height: 30px;text-align: center;" placeholder="댓글을 입력해주세요" id="replyOfContent_${status.index}" ></td>
            	<td width="100px"></td>
-           	<td><button style="color: white; width: 100px" type="submit" id="replyOfInsert" >작성</button> </td>
+           	<td><button style="color: white; width: 100px" type="submit" id="replyOfInsert_${status.index}"  >작성</button> </td>
            	<td width="30px;"> </td>
            	<td><button style="color: white; width: 100px" id="cancleReplyOf_${status.index}" type="button" >취소</button> </td>
            	
@@ -257,9 +257,9 @@
            	<table style="margin-left: 200px; font-size: 16px;">
            	<tr style="height: 30px; background-color: #2C2C2C;">
            	<td style="color: white;" width="130px"> 내용 : </td>
-           	<td  width="600px"><input type="text" name="modifyContent" value="${reply.content }" style="width: 600px; height: 30px; " id="modiftReplyInput"></td>
+           	<td  width="600px"><input type="text" name="modifyContent" value="${reply.content }" style="width: 600px; height: 30px; " id="modiftReplyInput_${status.index}"></td>
            	<td width="200px"> </td>
-           	<td><button type="submit" style="color: white; width: 100px" id="modifyReplyBtn">수정</button> </td>
+           	<td><button type="submit" style="color: white; width: 100px" id="modifyReplyBtn_${status.index}">수정</button> </td>
            	<td><button type="button" id="cancleModifyReplyBtn_${status.index }" style=" color: white; width: 100px" >취소</button> </td>
            	
            	</tr>
@@ -351,9 +351,9 @@
            	
            	<tr style="height: 30px; background-color: #2C2C2C;">
            	<td style="color: white;" width="130px"> 내용 : </td>
-           	<td  width="600px"><input type="text" name="modifyReplyOfContent" value="${replyOf.content }" style="width: 600px;height: 30px;" id="modifyReplyOfInput"></td>
+           	<td  width="600px"><input type="text" id="modifyReplyOfContent_${status.index}" name="modifyReplyOfContent" value="${replyOf.content }" style="width: 600px;height: 30px;"></td>
            	<td width="200px"> </td>
-           	<td><button type="submit" style="color: white; width: 100px" id="modifyReplyOfBtn">수정</button> </td>
+           	<td><button type="submit" style="color: white; width: 100px" id="modifyReplyOfBtn_${status.index}">수정</button> </td>
            	<td><button type="button" id="cancleModifyReplyOfBtn_${status.index }" style=" color: white; width: 100px">취소</button> </td>
            	
            	</tr>
@@ -491,12 +491,12 @@
 	 /* 대댓글 수정 창 활성화 */
 	 
         var modifyReplyOfArea = $("div[id^='modifyReplyOfArea_']");
-        var modifyReplyOfBtn =$("button[id^='modifyReplyOf_']");
+        var modifyReplyOfClick =$("button[id^='modifyReplyOf_']");
         	 
-		 	$(modifyReplyOfBtn).on('click',function(){
+		 	$(modifyReplyOfClick).on('click',function(){
 				console.log(modifyReplyOfBtn.index(this));
 				console.log(modifyReplyOfArea);
-				modifyReplyOfArea[modifyReplyOfBtn.index(this)].style.display='block';
+				modifyReplyOfArea[modifyReplyOfClick.index(this)].style.display='block';
 	  	});
 	 
 	 /* 댓글 신고창 활성화 */
@@ -567,64 +567,57 @@ $(document).on('click', '#comment_submit', function (e) {
 	  });
 
 /* 대댓글 널 값 처리 */
-$(document).on('click', '#replyOfInsert', function (e) {
-	
-	if(document.getElementById("replyOfContent").value == ""){
-		
-		alert("내용을 입력해주세요");
-		e.preventDefault();
+ 
+  var replyOfContent =$("input[id^='replyOfContent_']");
+ var replyOfInsert =$("button[id^='replyOfInsert_']");
 
-		return;
-		
-	}
-	else{
-		
-	$("#insertReplyOfForm").submit();
-
-	}
 	
-	  });
-	  
+				$(replyOfInsert).on('click',function(e){	
+					
+					if($(replyOfContent[replyOfInsert.index(this)]).val()==""){
+						
+						alert("내용을 입력해주세요");
+						e.preventDefault()
+						return;
+					}else{
+						$('insertReplyOfForm').submit();
+					}
+		});
+
+	   
 /* 댓글 수정 */
-$(document).on('click', '#modifyReplyBtn', function (e) {
-	
-	if(document.getElementById("modiftReplyInput").value == ""){
+ var modiftReplyInput =$("input[id^='modiftReplyInput_']");
+ var modifyReplyBtn =$("button[id^='modifyReplyBtn_']");
+ 
+ $(modifyReplyBtn).on('click',function(e){	
 		
-		alert("내용을 입력해주세요");
-		e.preventDefault();
-
-		return;
-		
-	}
-	else{
-		
-	$("#modifyReplyForm").submit();
-
-	}
-	
-	  });
+		if($(modiftReplyInput[modifyReplyBtn.index(this)]).val()==""){
+			
+			alert("내용을 입력해주세요");
+			e.preventDefault()
+			return;
+		}else{
+			$('modifyReplyForm').submit();
+		}
+});
 
 
 
 /* 대댓글 수정 */ 
-$(document).on('click', '#modifyReplyOfBtn', function (e) {
-	
-	if(document.getElementById("modifyReplyOfInput").value == ""){
-		
-		alert("내용을 입력해주세요");
-		e.preventDefault();
-
-		return;
-		
-	}
-	else{
-		
-	$("#modifyReplyOfForm").submit();
-
-	}
-	
-	  }); 
+ var modifyReplyOfContent =$("input[id^='modifyReplyOfContent_']");
+ var modifyReplyOfBtn =$("button[id^='modifyReplyOfBtn_']");
  
+ 		$(modifyReplyOfBtn).on('click',function(e){	
+		
+		if($(modifyReplyOfContent[modifyReplyOfBtn.index(this)]).val()==""){
+			
+			alert("내용을 입력해주세요");
+			e.preventDefault()
+			return;
+		}else{
+			$('modifyReplyOfForm').submit();
+		}
+});
  
  
  
