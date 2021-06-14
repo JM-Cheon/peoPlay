@@ -165,7 +165,7 @@
 							</div>
 						</c:if>
 					</c:forEach>
-					<article class="marvel2 on p-board-paging" align="center" style="width: 350px; position: relative; bottom: -14px;left: 394px;">
+					<section class="marvel2 on p-board-paging" align="center" style="width: 350px; position: relative; bottom: -14px;left: 394px;">
 					<ul>
 					<c:choose>
 						<c:when test="${ !empty requestScope.searchValue }">
@@ -268,7 +268,7 @@
 						</c:otherwise>
 					</c:choose>
 					</ul>
-				</article>
+				</section>
 				</div>
 				
 				
@@ -325,7 +325,7 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<section class="wb2">
+				<div class="wb2">
 					<c:forEach var="selectwbGoods"
 						items="${ requestScope.selectwbGoods }">
 						<c:if
@@ -342,7 +342,7 @@
 							</div>
 						</c:if>
 					</c:forEach>
-				</section>
+				</div>
 			</div>
 		</section>
 	</div> 

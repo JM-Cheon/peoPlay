@@ -47,6 +47,7 @@ import com.google.gson.GsonBuilder;
 public class AdminGoodsController {
 	
 	private final AdminGoodsService admingoodsService;
+	private static Boolean isStock = true;
 
 	@Autowired
 	public AdminGoodsController(AdminGoodsService admingoodsService) {
@@ -873,10 +874,9 @@ public class AdminGoodsController {
 		
 		List<GoodsDTO> goodsStock = admingoodsService.selectGoodsStock();
 		
-		if(goodsStock.isEmpty()) {
-			
+		if(isStock) {
+				isStock = false;
 			for(int i = 0; i < goodsStock.size(); i ++) {
-				
 				GoodsDTO insertStock =  new GoodsDTO();
 				insertStock.setGoodsNum(goodsStock.get(i).getGoodsNum());
 				insertStock.setGoodsStock(goodsStock.get(i).getGoodsStock());

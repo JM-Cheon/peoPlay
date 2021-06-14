@@ -22,9 +22,9 @@
     <br><br><br><br><br><br>
     <div id="wrapper">
         <div class="headerPayment">
-            결제 관리  <button class="searhchingBtn back" id="gobackAdmin" onclick="location.href ='${ pageContext.servletContext.contextPath }/admin/goods';">뒤로가기</button>
+            결제 관리 
         </div>
-        <div class="searchingDiv">
+         <div class="searchingDiv">
             <form id="searchForm" action="${ pageContext.servletContext.contextPath }/admin/goods/paymentSearch" method="post" class="searchingForm move">
                 <div class="search-area" align="center" style="position: relative; left: 300px;">
                     <select id="searchCondition" name="searchCondition">
@@ -35,8 +35,8 @@
                     <button  type="submit" class="searhchingBtn">검색하기</button>
                 </div>
             </form>
-                    
-        </div>
+                <button class="searhchingBtn back" id="gobackAdmin" >뒤로가기</button>     
+        </div> 
         <div class="ListDiv">
             <table class="tab_list" >
                 <tr>
