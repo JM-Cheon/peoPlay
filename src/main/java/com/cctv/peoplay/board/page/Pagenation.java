@@ -58,8 +58,7 @@ public static PageDTO getPageInfo(int pageNo, int totalCount,int limit, int butt
 		
 		
 		
-		System.out.println("시작열"+startRow);
-		System.out.println("종료열"+endRow);
+		
 		
 		if(endRow > totalCount) {
 			
