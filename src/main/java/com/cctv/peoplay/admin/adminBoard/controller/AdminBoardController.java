@@ -107,6 +107,7 @@ public class AdminBoardController {
 		model.addAttribute("list", selectReportList);
 		model.addAttribute("no", no);
 		
+		System.out.println(selectReportList);
 		
 		return "admin/adminBoard/reportList";
 	}

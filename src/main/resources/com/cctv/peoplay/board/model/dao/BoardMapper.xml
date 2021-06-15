@@ -6,6 +6,7 @@
     <mapper namespace="com.cctv.peoplay.board.model.dao.BoardMapper">
 
 
+
 	<resultMap id="boardAndMemberResultSet" type="com.cctv.peoplay.board.model.dto.BoardAndMemberDTO">
 		<id column="POST_NO" property="no" />
 		<result column="USER_NO" property="userNo" />
@@ -53,13 +54,18 @@
  	<result column="REF_BOARD_NO" property="refBoardNo"/>
  	 <result column="REF_GOODS_NO" property="refGoodsNo"/>
  	 <result column="REF_MOVIE_NO" property="refMovieNo"/>
- 	<association property="reportPlaceDTO" javaType="com.cctv.peoplay.board.model.dto.ReportPlaceDTO">
- 	<id column="REPORT_PLACE_CODE" property="code"/>
- 	<result column="REPORT_PLACE_NAME" property="name"/></association>
- 	<association property="reporter" resultMap="memberResultMap"></association>
- 	<association property="reported" resultMap="memberResultMap"></association>
- 	
+ 		<association property="reportPlaceDTO" javaType="com.cctv.peoplay.board.model.dto.ReportPlaceDTO">
+ 			<id column="REPORT_PLACE_CODE" property="code"/>
+ 			<result column="REPORT_PLACE_NAME" property="name"/>
+ 		</association>
+ 		<association property="reporter" javaType="MemberDTO"> 
+ 			<result column="NICKNAME" property="nickname"/>
+ 		</association>
+		<association property="reported" javaType="MemberDTO"> 
+ 			<result column="REPORTED" property="nickname"/>
+ 		</association>
  	</resultMap>
+	
 	
 	
 	 <resultMap type="com.cctv.peoplay.board.model.dto.BoardReplyDTO" id="replyResultMap">
