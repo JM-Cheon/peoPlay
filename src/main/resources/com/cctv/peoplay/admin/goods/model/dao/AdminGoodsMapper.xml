@@ -863,6 +863,7 @@
 		       A.GOODS_NUMBER
 		     , A.GOODS_NAME
 		     , A.GOODS_STOCK
+		     , A.GOODS_REGISTRATION_DATE
 		  FROM TBL_GOODS A
 		 ORDER BY A.GOODS_NUMBER DESC
 	</select>
@@ -876,7 +877,7 @@
         )
         VALUES
         (
-          SEQ_TBL_GOODS_IN_AND_OUT.NEXTVAL, #{goodsNum}, SYSDATE
+          SEQ_TBL_GOODS_IN_AND_OUT.NEXTVAL, #{goodsNum}, #{goodsRegistrationDate}
         , #{goodsStock}, '입고'
         )
 	</insert>	

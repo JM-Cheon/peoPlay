@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PeoPlay : 굿즈 입출고 내역 관리 페이지</title>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <link rel="stylesheet" href="/peoplay/resources/css/goods/stock.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

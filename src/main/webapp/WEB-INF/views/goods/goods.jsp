@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PeoPlay : 굿즈 메인 페이지</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
@@ -287,7 +287,7 @@
 						</c:if>
 					</c:forEach>
 				</div>
-				<div class="ghibri2">
+				<div class="ghibri2" >
 					<c:forEach var="selectghibriGoods"
 						items="${ requestScope.selectghibriGoods }">
 						<c:if

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <link rel="stylesheet" href="/peoplay/resources/css/goods/admingoodsDetail.css">
 
-<title>Document</title>
+<title>PeoPlay : 굿즈 상세 관리  페이지</title>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 

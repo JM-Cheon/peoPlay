@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css"><head>
 <link rel="stylesheet" href="/peoplay/resources/css/goods/adminGoodsList.css"><head>
     <meta charset="UTF-8">
-    <title>관리자 - 굿즈관리</title>
+    <title>PeoPlay : 굿즈 메인 관리 페이지</title>
 </head>
 
 <body>

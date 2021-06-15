@@ -10,8 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<title>Insert title here</title>
+<title>PeoPlay : 굿즈 주문 완료 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <link rel="stylesheet" href="/peoplay/resources/css/goods/goodsOrderFinished.css">
@@ -41,18 +40,18 @@
                     <table class="order_table">
                         <tr>
                             <td class="order_table_title">주문 번호 : </td>
-                            <td class="order_table_sub_title">${requestScope.selectDeliveryInfo.paymentNum.paymentNo }</td>
+                            <td class="order_table_sub_title">${sessionScope.selectDeliveryInfo.paymentNum.paymentNo }</td>
                         </tr>
                         <tr >
                             <td class="order_table_title" >배송지 정보 : </td>
-                            <td class="order_table_sub_title">${ fn:split(requestScope.selectDeliveryInfo.userNo.userAddress, '$')[1] }</td>
+                            <td class="order_table_sub_title">${ fn:split(sessionScope.selectDeliveryInfo.userNo.userAddress, '$')[1] }</td>
                         <tr>
 							<td></td>
-                            <td class="order_table_sub_title">${requestScope.selectDeliveryInfo.userNo.userName } </td>
+                            <td class="order_table_sub_title">${sessionScope.selectDeliveryInfo.userNo.userName } </td>
                         </tr>
                         <tr>
 							<td></td>
-                            <td class="order_table_sub_title"> ${requestScope.selectDeliveryInfo.userNo.phone }</td>
+                            <td class="order_table_sub_title"> ${sessionScope.selectDeliveryInfo.userNo.phone }</td>
                         </tr>
                         <tr>
                             <td class="order_table_title">배송 메모 : </td>
@@ -65,11 +64,11 @@
                 <div class="order_list2">
                     <table class="order_table">
                         <tr>
-                            <td rowspan="3" class="order_tab_img_td"><img src="/peoplay/resources/images/goods/goodsImageFiles/${requestScope.goodsAndFile.goodsFile[0].fileSaveName}" alt="" class="order_tab_img"></td>
-                            <td class="order_product" style="font-family: '맑은 고딕'">${requestScope.selectDeliveryInfo.goodsNum.goodsName }</td>
+                            <td rowspan="3" class="order_tab_img_td"><img src="/peoplay/resources/images/goods/goodsImageFiles/${sessionScope.goodsAndFile.goodsFile[0].fileSaveName}" alt="" class="order_tab_img"></td>
+                            <td class="order_product" style="font-family: '맑은 고딕'">${sessionScope.selectDeliveryInfo.goodsNum.goodsName }</td>
                         </tr>
                         <tr> 
-                            <td class="order_product_price" style="font-family: '맑은 고딕'">상품 금액 : ${requestScope.selectDeliveryInfo.paymentNum.paymentPrice } 원</td>
+                            <td class="order_product_price" style="font-family: '맑은 고딕'">상품 금액 : ${sessionScope.selectDeliveryInfo.paymentNum.paymentPrice } 원</td>
                         </tr>
                     </table>
                 </div>
@@ -79,7 +78,7 @@
                     <table  class="total_price_tab">
                         <tr>
                             <td class="total_price_title">상품 금액 : </td>
-                            <td class="total_price_sub_title">${requestScope.selectDeliveryInfo.paymentNum.paymentPrice } 원</td>
+                            <td class="total_price_sub_title">${sessionScope.selectDeliveryInfo.paymentNum.paymentPrice } 원</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="total_price_space"></td>
@@ -93,7 +92,7 @@
                         </tr>
                         <tr>
                             <td class="total_price_title">최종 결제 금액 : </td>
-                            <td class="total_price_sub_title">${requestScope.selectDeliveryInfo.paymentNum.paymentPrice } 원</td>
+                            <td class="total_price_sub_title">${sessionScope.selectDeliveryInfo.paymentNum.paymentPrice } 원</td>
                         </tr>
                     </table>
                 </div>

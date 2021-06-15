@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -513,7 +513,7 @@ public class GoodsController {
 	 public String PayGoods(ModelAndView mv, HttpServletResponse response, @RequestParam("orderNo") int orderNo,
 			 @RequestParam("totalPrice2") int totalPrice2,  @RequestParam("deliveryCode") int deliveryCode,
 			 @RequestParam("goodsNum") int goodsNum, @RequestParam("quantities") int quantities,
-			 Model model, HttpServletRequest request) {
+			 Model model, HttpServletRequest request, HttpSession session) {
 		 
 		 	/* session에서 회원 정보 가져오기  */
 		 	
@@ -534,21 +534,10 @@ public class GoodsController {
 		 		 }
 			 }
 			
-//			PaymentDTO paymentNo = goodsService.paymentNo(orderNo);
-			
-//			DeliveryDTO delivery = new DeliveryDTO();
-//			PaymentDTO pay = new PaymentDTO();
-//			GoodsDTO goods = new GoodsDTO();
-//			MemberDTO mem = new MemberDTO();
-			
-//			delivery.setShipmentMemoCode(deliveryCode);
-//			delivery.setPaymentNum(pay);
-//			delivery.setGoodsNum(goods);
-//			delivery.setUserNo(mem);
 			MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 
 			GoodsAndFileDTO goodsAndFile = goodsService.goodsAndFile(goodsNum);
-			model.addAttribute("goodsAndFile", goodsAndFile);
+			session.setAttribute("goodsAndFile", goodsAndFile);
 			
 			HashMap<String, Object> delivery2 = new HashMap<>();
 			delivery2.put("orderNo", orderNo);
@@ -575,11 +564,12 @@ public class GoodsController {
 				str = "택배함에 넣어주세요.";
 			}
 
-			model.addAttribute("selectDeliveryInfo", selectDeliveryInfo);
-			model.addAttribute("deliveryCode", str);
-		 	
+			session.setAttribute("selectDeliveryInfo", selectDeliveryInfo);
+			session.setAttribute("deliveryCode", str);
+			
 		 	return "goods/orderFinished";
 	 }
+	 
 	 	@GetMapping("search")
 		public String search(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
 				@RequestParam("searchValue") String searchValue) {

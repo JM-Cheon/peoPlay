@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Insert title here</title>
+<title>PeoPlay : 굿즈 상세 페이지</title>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

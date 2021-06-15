@@ -7,7 +7,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
-    <title>peoPlay</title>
+    <title>PeoPlay : 굿즈 주문 페이지</title>
 	<link rel="stylesheet" href="/peoplay/resources/css/common/reset.css">
 	<link rel="stylesheet" href="/peoplay/resources/css/goods/goodsOrder.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -17,9 +17,15 @@
     </style>
 </head>
 <jsp:include page="../common/header.jsp"/>
+<!-- 뒤로가기로 회원가입 페이지 보는 것을 방지하기 위한 스크립트 -->
+
 	
 <body>
-
+<script type = "text/javascript" >
+      setTimeout(function(){
+          window.history.forward();
+       }, 0);   
+</script>
     <br><br><br><br><br>
     <div id="wrapper">
     <div class="mainText">주문 결제</div>

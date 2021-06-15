@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/peoplay/resources/css/common/reset.css"><head>
 <link rel="stylesheet" href="/peoplay/resources/css/goods/enroll.css"><head>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>Insert title here</title>
+<title>PeoPlay : 굿즈 상품 등록 관리 페이지</title>
 
 </head>
 <body>
