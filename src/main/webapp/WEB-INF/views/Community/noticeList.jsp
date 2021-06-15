@@ -92,11 +92,11 @@
 											</li>
 
 											<c:if test="${ requestScope.pageInfo.pageNo == 1 }">
-												<button disabled><i class="fas fa-angle-left"><!--이전--></i></button>
+												<button disabled><i class="fas fa-angle-left"><!--이전--></i><</button>
 											</c:if>
 											<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
 											<li>
-												<button id="searchPrevPage"><i class="fas fa-angle-left"><!--이전--></i></button>
+												<button id="searchPrevPage"><i class="fas fa-angle-left"><!--이전--></i><</button>
 												</li>
 											</c:if>
 

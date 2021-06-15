@@ -172,10 +172,14 @@
             	                	
             	                location.href = "${ pageContext.request.contextPath}/QNA/qnaList";
             	                }
+            			 
+            			 
             		}else{
             			alert("취소 되었습니다.");
             		}
       		  });
+        	
+        	
             $(document).on('click', '#btnList', function (e) {
                 e.preventDefault();
                 if(admin){

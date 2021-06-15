@@ -210,11 +210,9 @@ public class QnaController {
 		@GetMapping("delete/{inquiryNo}")
 		public String qnaDelete (Model model, @PathVariable("inquiryNo") int inquiryNo) {
 			
-			int deleteResult = qnaService.qnaDelete(inquiryNo);
+			 qnaService.qnaDelete(inquiryNo);
 			
-			if(deleteResult > 0) {
-				
-			}
+		
 
 			return "redirect:/QNA/qnaList";
 		}
