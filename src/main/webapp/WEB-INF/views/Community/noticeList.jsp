@@ -122,13 +122,13 @@
 											<c:if
 												test="${ requestScope.pageInfo.pageNo == requestScope.pageInfo.maxPage }">
 												<li>
-												<button disabled><i class="fas fa-angle-right"><!--다음--></i></button>
+												<button disabled><i class="fas fa-angle-right"><!--다음--></i>></button>
 												</li>
 											</c:if>
 											<c:if
 												test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
 												<li>
-												<button id="searchNextPage"><i class="fas fa-angle-right"><!--다음--></i></button>
+												<button id="searchNextPage"><i class="fas fa-angle-right"><!--다음--></i>></button>
 												</li>
 											</c:if>
 											<li>
