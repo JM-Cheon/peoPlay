@@ -178,7 +178,7 @@
            <tr>
            <td style="color: white; width: 200px"><c:out value="${ reply.date}"></c:out></td>
            <td style="width: 300px"></td>
-             <c:if test="${sessionScope.loginMember.userNo ==  requestScope.detail.userNo || sessionScope.loginMember.userRole == 'ADMIN'}"> 
+             <c:if test="${sessionScope.loginMember.userNo ==  reply.userNo || sessionScope.loginMember.userRole == 'ADMIN'}"> 
            
            <td > <button type="button" id="replyModify_${status.index} "  style=" width: 100px; color: white; background-color:#2C2C2C;">수정</button></td>
            <td > <button type="submit" id="replyDelete" style=" width: 100px; color: white;">삭제 </button></td>
@@ -291,7 +291,7 @@
            <tr>
            <td style="color: white; width: 200px"><c:out value="${ replyOf.date}"></c:out></td>
            <td style="width: 200px"></td>
-            <c:if test="${sessionScope.loginMember.userNo ==  requestScope.detail.userNo || sessionScope.loginMember.userRole == 'ADMIN'}"> 
+            <c:if test="${sessionScope.loginMember.userNo ==  replyOf.userNo || sessionScope.loginMember.userRole == 'ADMIN'}"> 
            
            <td > <button type="button" id="modifyReplyOf_${status.index }"  style=" width: 100px; color: white;">수정 </button></td>
            <td > <button type="submit"  style=" width: 100px; color: white;">삭제 </button></td>
