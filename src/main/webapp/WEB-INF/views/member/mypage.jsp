@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -401,7 +402,7 @@
                                                 <td class="my_productHistory_body">${ order.goodsNum.goodsName }</td>
                                                 <td class="my_productHistory_body">${ order.paymentNum.orderNo.orderCount }</td>
                                                 <td class="my_productHistory_body">${ order.paymentNum.paymentPrice }</td>
-                                                <td class="my_productHistory_body">${ order.paymentNum.orderNo.orderDate }</td>
+                                                <td class="my_productHistory_body"><fmt:formatDate value="${ order.paymentNum.orderNo.orderDate }" pattern="yyyy-MM-dd hh:mm:ss" /></td>
                                                 <td class="my_productHistory_body">${ order.shipmentMemoCode.shipmentStatus }</td>
                                             </tr>
                                             </c:forEach>

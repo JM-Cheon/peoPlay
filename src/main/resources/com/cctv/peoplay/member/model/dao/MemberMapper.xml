@@ -1088,6 +1088,7 @@
 		     , B.PAYMENT_PRICE
 		     , C.ORDER_DATE
 		     , C.ORDER_COUNT
+		     , C.ORDER_NUM
 		     , D.GOODS_NAME
 		     , E.SHIPMENT_STATUS
 		  FROM TBL_DELIVERY A
