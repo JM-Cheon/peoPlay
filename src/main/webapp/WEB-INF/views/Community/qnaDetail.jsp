@@ -164,6 +164,7 @@
             	
             		if(con){
             			alert("삭제되었습니다.");
+            			location.href='${ pageContext.servletContext.contextPath}/QNA/delete/${ requestScope.qnaDetail.inquiryNo }';
             			 if(admin){
                          	
             	                location.href = "${ pageContext.request.contextPath}/QNAadmin/qnaList";
@@ -179,7 +180,7 @@
             		}
       		  });
         	
-        	
+        	 
             $(document).on('click', '#btnList', function (e) {
                 e.preventDefault();
                 if(admin){

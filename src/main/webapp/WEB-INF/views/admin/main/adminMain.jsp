@@ -18,16 +18,22 @@
 				<jsp:include page="../common/adminMenu.jsp"/>
                     <div class="admin_graph_box">
                         <div class="admin_graph_box_title">
+                            <!-- 
                             <select id="admin">
                                 <option value="member">회원 통계</option>
                                 <option value="movie">영화 통계</option>
                                 <option value="goods">굿즈 통계</option>
                                 <option value="board">게시판 통계</option>
                             </select>
+                            
                             <p id="title">회원 통계</p>
+                             -->
+                            <p id="title">매출 현황</p>
                         </div>
                         <div class="admin_graph_box_body">
-                            
+							<p>일 매출 : ${ requestScope.day }</p>
+							<p>월 매출 : ${ requestScope.month }</p>
+							<p>연 매출 : ${ requestScope.year }</p>
                         </div>
                     </div>
                 </div>

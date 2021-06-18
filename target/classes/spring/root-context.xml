@@ -55,6 +55,7 @@
 					  com.cctv.peoplay.member.model.dao, 
 					  com.cctv.peoplay.board.model.dao,
 					  com.cctv.peoplay.admin.member.model.dao,
+					  com.cctv.peoplay.admin.main.model.dao,
 					  com.cctv.peoplay.Community.model.dao,
 					  com.cctv.peoplay.admin.goods.model.dao,
 					  com.cctv.peoplay.goods.model.dao,

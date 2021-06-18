@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cctv.peoplay.admin.main.model.dao.AdminMainMapper">
+
+	<select id="selectPaymentByDay" resultType="_int">
+		SELECT
+		       NVL(SUM(A.PAYMENT_PRICE), 0)
+		  FROM PAYMENT A
+		 WHERE TO_CHAR(A.PAYMENT_DATE, 'YYYY/MM/DD') = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+	</select>
+
+	<select id="selectPaymentByMonth" resultType="_int">
+		SELECT
+		       NVL(SUM(A.PAYMENT_PRICE), 0)
+		  FROM PAYMENT A
+		 WHERE TO_CHAR(A.PAYMENT_DATE, 'YYYY/MM') = TO_CHAR(SYSDATE, 'YYYY/MM')
+	</select>
+
+	<select id="selectPaymentByYear" resultType="_int">
+		SELECT
+		       NVL(SUM(A.PAYMENT_PRICE), 0)
+		  FROM PAYMENT A
+		 WHERE TO_CHAR(A.PAYMENT_DATE, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')
+	</select>
+
+</mapper>

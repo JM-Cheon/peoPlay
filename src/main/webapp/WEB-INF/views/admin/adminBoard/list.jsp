@@ -19,6 +19,7 @@
 
 		<div class="wrap-back">
 			<div class="center">
+			
 				<div style="height: 300px;"></div>
 				<div class="title">자유게시판(관리자 모드)</div>
 				<div class="board" style="height: auto;">
