@@ -279,7 +279,6 @@ function viewInquiryReply(Obj){
 
 function checkAnswer(Obj){
 	
-	
 	console.log($(Obj).parents("tr").find('td').eq(0).find('input').val())
 		
 	document.getElementById("questionNum").value = $(Obj).parents("tr").find('td').eq(0).find('input').val();

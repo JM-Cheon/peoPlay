@@ -270,7 +270,6 @@
 				</section>
 				</div>
 				
-				
 				<div class="dc2">
 					<c:forEach var="selectdcGoods" items="${ requestScope.selectdcGoods }">
 						<c:if test="${ selectdcGoods.goodsCategoryNum.goodsCategoryNum eq '2' }">
@@ -366,8 +365,7 @@
 
 		}
 		
-		
-		
+		/* 카테고리별 탭으로 변경하는 알고리즘 */
 		$(document).ready(function() {
 			$(".everyday_div > .button > p").click(function() {
 				var idx = $(".everyday_div > .button > p").index($(this));

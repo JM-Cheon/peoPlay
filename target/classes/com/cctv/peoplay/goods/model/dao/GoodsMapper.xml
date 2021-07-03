@@ -40,315 +40,310 @@
 		</association>
 	</resultMap>
 	
-	
-	
-	
-	
-	
 	<select id="selectAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
 		SELECT
-	       C.GOODS_NUMBER
-	     , C.GOODS_CATEGORY_NUMBER
-	     , C.MOVIE_NO2
-	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
-	     , C.GOODS_NAME
-	     , C.GOODS_PRICE
-	     , C.GOODS_REGISTRATION_DATE
-	     , C.GOODS_STOCK
-	     , C.GOODS_STATUS
-	     , C.GOODS_DETAIL
-	     , C.GOODS_ORIGIN
-	     , C.GOODS_COMPANY
-	     , C.GOODS_LIKE_COUNT
-		 , C.GOODS_SHORT_INFO
-		 , C.FILE_SAVE_NAME
-	  FROM (	
-			SELECT
-			       ROWNUM RNUM
-			     , B.GOODS_NUMBER
-			     , B.GOODS_CATEGORY_NUMBER
-			     , B.MOVIE_NO2
-			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
-			     , B.GOODS_NAME
-			     , B.GOODS_PRICE
-			     , B.GOODS_REGISTRATION_DATE
-			     , B.GOODS_STOCK
-			     , B.GOODS_STATUS
-			     , B.GOODS_DETAIL
-			     , B.GOODS_ORIGIN
-			     , B.GOODS_COMPANY
-			     , B.GOODS_LIKE_COUNT
-				 , B.GOODS_SHORT_INFO
-				 , B.FILE_SAVE_NAME
-			  FROM (	
-					SELECT
-					       A.GOODS_NUMBER
-					     , A.GOODS_CATEGORY_NUMBER
-					     , A.MOVIE_NO2
-					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
-					     , A.GOODS_NAME
-					     , A.GOODS_PRICE
-					     , A.GOODS_REGISTRATION_DATE
-					     , A.GOODS_STOCK
-					     , A.GOODS_STATUS
-					     , A.GOODS_DETAIL
-					     , A.GOODS_ORIGIN
-					     , A.GOODS_COMPANY
-					     , A.GOODS_LIKE_COUNT
-						 , A.GOODS_SHORT_INFO
-						 , D.FILE_SAVE_NAME
-					  FROM TBL_GOODS A
-					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
-					 WHERE A.GOODS_CATEGORY_NUMBER = 1
-					   AND D.FILE_TYPE = 'head'
-				     ORDER BY A.GOODS_NUMBER ASC
-				) B
-		)C
-	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+	           C.GOODS_NUMBER
+		     , C.GOODS_CATEGORY_NUMBER
+		     , C.MOVIE_NO2
+		     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , C.GOODS_NAME
+		     , C.GOODS_PRICE
+		     , C.GOODS_REGISTRATION_DATE
+		     , C.GOODS_STOCK
+		     , C.GOODS_STATUS
+		     , C.GOODS_DETAIL
+		     , C.GOODS_ORIGIN
+		     , C.GOODS_COMPANY
+		     , C.GOODS_LIKE_COUNT
+			 , C.GOODS_SHORT_INFO
+			 , C.FILE_SAVE_NAME
+		  FROM (	
+				SELECT
+				       ROWNUM RNUM
+				     , B.GOODS_NUMBER
+				     , B.GOODS_CATEGORY_NUMBER
+				     , B.MOVIE_NO2
+				     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+				     , B.GOODS_NAME
+				     , B.GOODS_PRICE
+				     , B.GOODS_REGISTRATION_DATE
+				     , B.GOODS_STOCK
+				     , B.GOODS_STATUS
+				     , B.GOODS_DETAIL
+				     , B.GOODS_ORIGIN
+				     , B.GOODS_COMPANY
+				     , B.GOODS_LIKE_COUNT
+					 , B.GOODS_SHORT_INFO
+					 , B.FILE_SAVE_NAME
+				  FROM (	
+						SELECT
+						       A.GOODS_NUMBER
+						     , A.GOODS_CATEGORY_NUMBER
+						     , A.MOVIE_NO2
+						     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+						     , A.GOODS_NAME
+						     , A.GOODS_PRICE
+						     , A.GOODS_REGISTRATION_DATE
+						     , A.GOODS_STOCK
+						     , A.GOODS_STATUS
+						     , A.GOODS_DETAIL
+						     , A.GOODS_ORIGIN
+						     , A.GOODS_COMPANY
+						     , A.GOODS_LIKE_COUNT
+							 , A.GOODS_SHORT_INFO
+							 , D.FILE_SAVE_NAME
+						  FROM TBL_GOODS A
+						  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE A.GOODS_CATEGORY_NUMBER = 1
+						   AND D.FILE_TYPE = 'head'
+					     ORDER BY A.GOODS_NUMBER ASC
+					) B
+			)C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectdcAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
 		SELECT
-	       C.GOODS_NUMBER
-	     , C.GOODS_CATEGORY_NUMBER
-	     , C.MOVIE_NO2
-	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
-	     , C.GOODS_NAME
-	     , C.GOODS_PRICE
-	     , C.GOODS_REGISTRATION_DATE
-	     , C.GOODS_STOCK
-	     , C.GOODS_STATUS
-	     , C.GOODS_DETAIL
-	     , C.GOODS_ORIGIN
-	     , C.GOODS_COMPANY
-	     , C.GOODS_LIKE_COUNT
-		 , C.GOODS_SHORT_INFO
-		 , C.FILE_SAVE_NAME
-	  FROM (	
-			SELECT
-			       ROWNUM RNUM
-			     , B.GOODS_NUMBER
-			     , B.GOODS_CATEGORY_NUMBER
-			     , B.MOVIE_NO2
-			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
-			     , B.GOODS_NAME
-			     , B.GOODS_PRICE
-			     , B.GOODS_REGISTRATION_DATE
-			     , B.GOODS_STOCK
-			     , B.GOODS_STATUS
-			     , B.GOODS_DETAIL
-			     , B.GOODS_ORIGIN
-			     , B.GOODS_COMPANY
-			     , B.GOODS_LIKE_COUNT
-				 , B.GOODS_SHORT_INFO
-				 , B.FILE_SAVE_NAME
-			  FROM (	
-					SELECT
-					       A.GOODS_NUMBER
-					     , A.GOODS_CATEGORY_NUMBER
-					     , A.MOVIE_NO2
-					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
-					     , A.GOODS_NAME
-					     , A.GOODS_PRICE
-					     , A.GOODS_REGISTRATION_DATE
-					     , A.GOODS_STOCK
-					     , A.GOODS_STATUS
-					     , A.GOODS_DETAIL
-					     , A.GOODS_ORIGIN
-					     , A.GOODS_COMPANY
-					     , A.GOODS_LIKE_COUNT
-						 , A.GOODS_SHORT_INFO
-						 , D.FILE_SAVE_NAME
-					  FROM TBL_GOODS A
-					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
-					 WHERE A.GOODS_CATEGORY_NUMBER = 2
-					   AND D.FILE_TYPE = 'head'
-				     ORDER BY A.GOODS_NUMBER ASC
-				) B
-		)C
-	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+		       C.GOODS_NUMBER
+		     , C.GOODS_CATEGORY_NUMBER
+		     , C.MOVIE_NO2
+		     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , C.GOODS_NAME
+		     , C.GOODS_PRICE
+		     , C.GOODS_REGISTRATION_DATE
+		     , C.GOODS_STOCK
+		     , C.GOODS_STATUS
+		     , C.GOODS_DETAIL
+		     , C.GOODS_ORIGIN
+		     , C.GOODS_COMPANY
+		     , C.GOODS_LIKE_COUNT
+			 , C.GOODS_SHORT_INFO
+			 , C.FILE_SAVE_NAME
+		  FROM (	
+				SELECT
+				       ROWNUM RNUM
+				     , B.GOODS_NUMBER
+				     , B.GOODS_CATEGORY_NUMBER
+				     , B.MOVIE_NO2
+				     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+				     , B.GOODS_NAME
+				     , B.GOODS_PRICE
+				     , B.GOODS_REGISTRATION_DATE
+				     , B.GOODS_STOCK
+				     , B.GOODS_STATUS
+				     , B.GOODS_DETAIL
+				     , B.GOODS_ORIGIN
+				     , B.GOODS_COMPANY
+				     , B.GOODS_LIKE_COUNT
+					 , B.GOODS_SHORT_INFO
+					 , B.FILE_SAVE_NAME
+				  FROM (	
+						SELECT
+						       A.GOODS_NUMBER
+						     , A.GOODS_CATEGORY_NUMBER
+						     , A.MOVIE_NO2
+						     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+						     , A.GOODS_NAME
+						     , A.GOODS_PRICE
+						     , A.GOODS_REGISTRATION_DATE
+						     , A.GOODS_STOCK
+						     , A.GOODS_STATUS
+						     , A.GOODS_DETAIL
+						     , A.GOODS_ORIGIN
+						     , A.GOODS_COMPANY
+						     , A.GOODS_LIKE_COUNT
+							 , A.GOODS_SHORT_INFO
+							 , D.FILE_SAVE_NAME
+						  FROM TBL_GOODS A
+						  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE A.GOODS_CATEGORY_NUMBER = 2
+						   AND D.FILE_TYPE = 'head'
+					     ORDER BY A.GOODS_NUMBER ASC
+					) B
+			)C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectghibriAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
 		SELECT
-	       C.GOODS_NUMBER
-	     , C.GOODS_CATEGORY_NUMBER
-	     , C.MOVIE_NO2
-	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
-	     , C.GOODS_NAME
-	     , C.GOODS_PRICE
-	     , C.GOODS_REGISTRATION_DATE
-	     , C.GOODS_STOCK
-	     , C.GOODS_STATUS
-	     , C.GOODS_DETAIL
-	     , C.GOODS_ORIGIN
-	     , C.GOODS_COMPANY
-	     , C.GOODS_LIKE_COUNT
-		 , C.GOODS_SHORT_INFO
-		 , C.FILE_SAVE_NAME
-	  FROM (	
-			SELECT
-			       ROWNUM RNUM
-			     , B.GOODS_NUMBER
-			     , B.GOODS_CATEGORY_NUMBER
-			     , B.MOVIE_NO2
-			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
-			     , B.GOODS_NAME
-			     , B.GOODS_PRICE
-			     , B.GOODS_REGISTRATION_DATE
-			     , B.GOODS_STOCK
-			     , B.GOODS_STATUS
-			     , B.GOODS_DETAIL
-			     , B.GOODS_ORIGIN
-			     , B.GOODS_COMPANY
-			     , B.GOODS_LIKE_COUNT
-				 , B.GOODS_SHORT_INFO
-				 , B.FILE_SAVE_NAME
-			  FROM (	
-					SELECT
-					       A.GOODS_NUMBER
-					     , A.GOODS_CATEGORY_NUMBER
-					     , A.MOVIE_NO2
-					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
-					     , A.GOODS_NAME
-					     , A.GOODS_PRICE
-					     , A.GOODS_REGISTRATION_DATE
-					     , A.GOODS_STOCK
-					     , A.GOODS_STATUS
-					     , A.GOODS_DETAIL
-					     , A.GOODS_ORIGIN
-					     , A.GOODS_COMPANY
-					     , A.GOODS_LIKE_COUNT
-						 , A.GOODS_SHORT_INFO
-						 , D.FILE_SAVE_NAME
-					  FROM TBL_GOODS A
-					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
-					 WHERE A.GOODS_CATEGORY_NUMBER = 3
-					   AND D.FILE_TYPE = 'head'
-				     ORDER BY A.GOODS_NUMBER ASC
-				) B
-		)C
-	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+		       C.GOODS_NUMBER
+		     , C.GOODS_CATEGORY_NUMBER
+		     , C.MOVIE_NO2
+		     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , C.GOODS_NAME
+		     , C.GOODS_PRICE
+		     , C.GOODS_REGISTRATION_DATE
+		     , C.GOODS_STOCK
+		     , C.GOODS_STATUS
+		     , C.GOODS_DETAIL
+		     , C.GOODS_ORIGIN
+		     , C.GOODS_COMPANY
+		     , C.GOODS_LIKE_COUNT
+			 , C.GOODS_SHORT_INFO
+			 , C.FILE_SAVE_NAME
+		  FROM (	
+				SELECT
+				       ROWNUM RNUM
+				     , B.GOODS_NUMBER
+				     , B.GOODS_CATEGORY_NUMBER
+				     , B.MOVIE_NO2
+				     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+				     , B.GOODS_NAME
+				     , B.GOODS_PRICE
+				     , B.GOODS_REGISTRATION_DATE
+				     , B.GOODS_STOCK
+				     , B.GOODS_STATUS
+				     , B.GOODS_DETAIL
+				     , B.GOODS_ORIGIN
+				     , B.GOODS_COMPANY
+				     , B.GOODS_LIKE_COUNT
+					 , B.GOODS_SHORT_INFO
+					 , B.FILE_SAVE_NAME
+				  FROM (	
+						SELECT
+						       A.GOODS_NUMBER
+						     , A.GOODS_CATEGORY_NUMBER
+						     , A.MOVIE_NO2
+						     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+						     , A.GOODS_NAME
+						     , A.GOODS_PRICE
+						     , A.GOODS_REGISTRATION_DATE
+						     , A.GOODS_STOCK
+						     , A.GOODS_STATUS
+						     , A.GOODS_DETAIL
+						     , A.GOODS_ORIGIN
+						     , A.GOODS_COMPANY
+						     , A.GOODS_LIKE_COUNT
+							 , A.GOODS_SHORT_INFO
+							 , D.FILE_SAVE_NAME
+						  FROM TBL_GOODS A
+						  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE A.GOODS_CATEGORY_NUMBER = 3
+						   AND D.FILE_TYPE = 'head'
+					     ORDER BY A.GOODS_NUMBER ASC
+					) B
+			)C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectPixarAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
 		SELECT
-	       C.GOODS_NUMBER
-	     , C.GOODS_CATEGORY_NUMBER
-	     , C.MOVIE_NO2
-	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
-	     , C.GOODS_NAME
-	     , C.GOODS_PRICE
-	     , C.GOODS_REGISTRATION_DATE
-	     , C.GOODS_STOCK
-	     , C.GOODS_STATUS
-	     , C.GOODS_DETAIL
-	     , C.GOODS_ORIGIN
-	     , C.GOODS_COMPANY
-	     , C.GOODS_LIKE_COUNT
-		 , C.GOODS_SHORT_INFO
-		 , C.FILE_SAVE_NAME
-	  FROM (	
-			SELECT
-			       ROWNUM RNUM
-			     , B.GOODS_NUMBER
-			     , B.GOODS_CATEGORY_NUMBER
-			     , B.MOVIE_NO2
-			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
-			     , B.GOODS_NAME
-			     , B.GOODS_PRICE
-			     , B.GOODS_REGISTRATION_DATE
-			     , B.GOODS_STOCK
-			     , B.GOODS_STATUS
-			     , B.GOODS_DETAIL
-			     , B.GOODS_ORIGIN
-			     , B.GOODS_COMPANY
-			     , B.GOODS_LIKE_COUNT
-				 , B.GOODS_SHORT_INFO
-				 , B.FILE_SAVE_NAME
-			  FROM (	
-					SELECT
-					       A.GOODS_NUMBER
-					     , A.GOODS_CATEGORY_NUMBER
-					     , A.MOVIE_NO2
-					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
-					     , A.GOODS_NAME
-					     , A.GOODS_PRICE
-					     , A.GOODS_REGISTRATION_DATE
-					     , A.GOODS_STOCK
-					     , A.GOODS_STATUS
-					     , A.GOODS_DETAIL
-					     , A.GOODS_ORIGIN
-					     , A.GOODS_COMPANY
-					     , A.GOODS_LIKE_COUNT
-						 , A.GOODS_SHORT_INFO
-						 , D.FILE_SAVE_NAME
-					  FROM TBL_GOODS A
-					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
-					 WHERE A.GOODS_CATEGORY_NUMBER = 4
-					   AND D.FILE_TYPE = 'head'
-				     ORDER BY A.GOODS_NUMBER ASC
-				) B
-		)C
-	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+		       C.GOODS_NUMBER
+		     , C.GOODS_CATEGORY_NUMBER
+		     , C.MOVIE_NO2
+		     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , C.GOODS_NAME
+		     , C.GOODS_PRICE
+		     , C.GOODS_REGISTRATION_DATE
+		     , C.GOODS_STOCK
+		     , C.GOODS_STATUS
+		     , C.GOODS_DETAIL
+		     , C.GOODS_ORIGIN
+		     , C.GOODS_COMPANY
+		     , C.GOODS_LIKE_COUNT
+			 , C.GOODS_SHORT_INFO
+			 , C.FILE_SAVE_NAME
+		  FROM (	
+				SELECT
+				       ROWNUM RNUM
+				     , B.GOODS_NUMBER
+				     , B.GOODS_CATEGORY_NUMBER
+				     , B.MOVIE_NO2
+				     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+				     , B.GOODS_NAME
+				     , B.GOODS_PRICE
+				     , B.GOODS_REGISTRATION_DATE
+				     , B.GOODS_STOCK
+				     , B.GOODS_STATUS
+				     , B.GOODS_DETAIL
+				     , B.GOODS_ORIGIN
+				     , B.GOODS_COMPANY
+				     , B.GOODS_LIKE_COUNT
+					 , B.GOODS_SHORT_INFO
+					 , B.FILE_SAVE_NAME
+				  FROM (	
+						SELECT
+						       A.GOODS_NUMBER
+						     , A.GOODS_CATEGORY_NUMBER
+						     , A.MOVIE_NO2
+						     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+						     , A.GOODS_NAME
+						     , A.GOODS_PRICE
+						     , A.GOODS_REGISTRATION_DATE
+						     , A.GOODS_STOCK
+						     , A.GOODS_STATUS
+						     , A.GOODS_DETAIL
+						     , A.GOODS_ORIGIN
+						     , A.GOODS_COMPANY
+						     , A.GOODS_LIKE_COUNT
+							 , A.GOODS_SHORT_INFO
+							 , D.FILE_SAVE_NAME
+						  FROM TBL_GOODS A
+						  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE A.GOODS_CATEGORY_NUMBER = 4
+						   AND D.FILE_TYPE = 'head'
+					     ORDER BY A.GOODS_NUMBER ASC
+					) B
+			)C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectWbAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
 		SELECT
-	       C.GOODS_NUMBER
-	     , C.GOODS_CATEGORY_NUMBER
-	     , C.MOVIE_NO2
-	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
-	     , C.GOODS_NAME
-	     , C.GOODS_PRICE
-	     , C.GOODS_REGISTRATION_DATE
-	     , C.GOODS_STOCK
-	     , C.GOODS_STATUS
-	     , C.GOODS_DETAIL
-	     , C.GOODS_ORIGIN
-	     , C.GOODS_COMPANY
-	     , C.GOODS_LIKE_COUNT
-		 , C.GOODS_SHORT_INFO
-		 , C.FILE_SAVE_NAME
-	  FROM (	
-			SELECT
-			       ROWNUM RNUM
-			     , B.GOODS_NUMBER
-			     , B.GOODS_CATEGORY_NUMBER
-			     , B.MOVIE_NO2
-			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
-			     , B.GOODS_NAME
-			     , B.GOODS_PRICE
-			     , B.GOODS_REGISTRATION_DATE
-			     , B.GOODS_STOCK
-			     , B.GOODS_STATUS
-			     , B.GOODS_DETAIL
-			     , B.GOODS_ORIGIN
-			     , B.GOODS_COMPANY
-			     , B.GOODS_LIKE_COUNT
-				 , B.GOODS_SHORT_INFO
-				 , B.FILE_SAVE_NAME
-			  FROM (	
-					SELECT
-					       A.GOODS_NUMBER
-					     , A.GOODS_CATEGORY_NUMBER
-					     , A.MOVIE_NO2
-					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
-					     , A.GOODS_NAME
-					     , A.GOODS_PRICE
-					     , A.GOODS_REGISTRATION_DATE
-					     , A.GOODS_STOCK
-					     , A.GOODS_STATUS
-					     , A.GOODS_DETAIL
-					     , A.GOODS_ORIGIN
-					     , A.GOODS_COMPANY
-					     , A.GOODS_LIKE_COUNT
-						 , A.GOODS_SHORT_INFO
-						 , D.FILE_SAVE_NAME
-					  FROM TBL_GOODS A
-					  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
-					 WHERE A.GOODS_CATEGORY_NUMBER = 5
-					   AND D.FILE_TYPE = 'head'
-				     ORDER BY A.GOODS_NUMBER ASC
-				) B
-		)C
-	WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+		       C.GOODS_NUMBER
+		     , C.GOODS_CATEGORY_NUMBER
+		     , C.MOVIE_NO2
+		     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , C.GOODS_NAME
+		     , C.GOODS_PRICE
+		     , C.GOODS_REGISTRATION_DATE
+		     , C.GOODS_STOCK
+		     , C.GOODS_STATUS
+		     , C.GOODS_DETAIL
+		     , C.GOODS_ORIGIN
+		     , C.GOODS_COMPANY
+		     , C.GOODS_LIKE_COUNT
+			 , C.GOODS_SHORT_INFO
+			 , C.FILE_SAVE_NAME
+		  FROM (	
+				SELECT
+				       ROWNUM RNUM
+				     , B.GOODS_NUMBER
+				     , B.GOODS_CATEGORY_NUMBER
+				     , B.MOVIE_NO2
+				     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+				     , B.GOODS_NAME
+				     , B.GOODS_PRICE
+				     , B.GOODS_REGISTRATION_DATE
+				     , B.GOODS_STOCK
+				     , B.GOODS_STATUS
+				     , B.GOODS_DETAIL
+				     , B.GOODS_ORIGIN
+				     , B.GOODS_COMPANY
+				     , B.GOODS_LIKE_COUNT
+					 , B.GOODS_SHORT_INFO
+					 , B.FILE_SAVE_NAME
+				  FROM (	
+						SELECT
+						       A.GOODS_NUMBER
+						     , A.GOODS_CATEGORY_NUMBER
+						     , A.MOVIE_NO2
+						     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+						     , A.GOODS_NAME
+						     , A.GOODS_PRICE
+						     , A.GOODS_REGISTRATION_DATE
+						     , A.GOODS_STOCK
+						     , A.GOODS_STATUS
+						     , A.GOODS_DETAIL
+						     , A.GOODS_ORIGIN
+						     , A.GOODS_COMPANY
+						     , A.GOODS_LIKE_COUNT
+							 , A.GOODS_SHORT_INFO
+							 , D.FILE_SAVE_NAME
+						  FROM TBL_GOODS A
+						  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE A.GOODS_CATEGORY_NUMBER = 5
+						   AND D.FILE_TYPE = 'head'
+					     ORDER BY A.GOODS_NUMBER ASC
+					) B
+			)C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectPopularGoods" resultMap="selectAllGoodsResult" parameterType="_int">
@@ -368,7 +363,8 @@
 			 , B.GOODS_LIKE_COUNT
 			 , B.GOODS_SHORT_INFO
 			 , B.FILE_SAVE_NAME
-		  FROM ( SELECT
+		  FROM ( 
+		         SELECT
 		                ROWNUM RNUM
 				      , A.GOODS_NUMBER
 				      , A.GOODS_CATEGORY_NUMBER
@@ -435,9 +431,9 @@
 	
 	<insert id="insertcart" parameterType="hashmap">
 		INSERT 
-		  INTO TBL_GOODS_CART
+		  INTO TBL_GOODS_CART A
         (
-          GOODS_NUMBER, USER_NO, CART_COUNT
+          A.GOODS_NUMBER, A.USER_NO, A.CART_COUNT
         )
         VALUES
         (
@@ -489,20 +485,22 @@
 	</select>
 	<insert id="insertReply" parameterType="hashmap">
 		INSERT 
-		  INTO TBL_GOODS_REVIEW
+		  INTO TBL_GOODS_REVIEW A
         (
-          GOODS_REVIEW_NUM, PAYMENT_NUM, USER_NO, GOODS_NUMBER, REVIEW_DATE, GOODS_REVIEW_CONTENT
+          A.GOODS_REVIEW_NUM, A.PAYMENT_NUM, A.USER_NO
+        , A.GOODS_NUMBER, A.REVIEW_DATE, A.GOODS_REVIEW_CONTENT
         )
         VALUES
         (
-          SEQ_TBL_GOODS_REVIEW.NEXTVAL, #{payNum}, #{userNum}, #{goodsNum}, SYSDATE, #{replytext}
+          SEQ_TBL_GOODS_REVIEW.NEXTVAL, #{payNum}, #{userNum}
+        , #{goodsNum}, SYSDATE, #{replytext}
         )
 	</insert>
 	
 	<delete id="deleteReply" parameterType="_int">
 	    DELETE 
-          FROM TBL_GOODS_REVIEW
-         WHERE GOODS_REVIEW_NUM = #{goodsReviewNum}
+          FROM TBL_GOODS_REVIEW A
+         WHERE A.GOODS_REVIEW_NUM = #{goodsReviewNum}
 	</delete>
 	
 	<resultMap id="goodsAndFileResultMap"  type="GoodsAndFileDTO" >
@@ -544,11 +542,13 @@
 		INSERT 
 		  INTO TBL_GOODS_ORDER
         (
-          ORDER_NUM, GOODS_NUMBER, USER_NO, ORDER_DATE, ORDER_COUNT, ORDER_CANCEL_OR_NOT
+          ORDER_NUM, GOODS_NUMBER, USER_NO, ORDER_DATE
+        , ORDER_COUNT, ORDER_CANCEL_OR_NOT
         )
         VALUES
         (
-         SEQ_TBL_GOODS_ORDER.NEXTVAL, #{goodsNum}, #{memNum}, SYSDATE, #{count}, 'N'
+          SEQ_TBL_GOODS_ORDER.NEXTVAL, #{goodsNum}, #{memNum}
+        , SYSDATE, #{count}, 'N'
         )
 	</insert>
 	
@@ -641,7 +641,8 @@
 	
 	<select id="selectGoodsLikeList" resultMap="GetGoodsLikeResultMap">
 		SELECT
-	           *
+	           A.GOODS_NUMBER
+	         , A.USER_NO
     	  FROM TBL_GOODS_LIKE A
 	     WHERE A.GOODS_NUMBER = #{goodsNo}
 	       AND A.USER_NO = #{userNo}
@@ -656,31 +657,34 @@
 		</association>
 	</resultMap>
 	
-	
-	
 	<insert id="insertLike" parameterType="hashmap">
-	INSERT INTO TBL_GOODS_LIKE A
-	(GOODS_NUMBER, USER_NO)
-	VALUES
-	(#{goodsNum}, #{memNum})
+		INSERT 
+		  INTO TBL_GOODS_LIKE A
+		(
+		A.GOODS_NUMBER, A.USER_NO
+		)
+		VALUES
+		(
+		#{goodsNum}, #{memNum}
+		)
 	</insert>
 	
 	<delete id="dislikeList" parameterType="hashmap">
-	DELETE 
-	  FROM TBL_GOODS_LIKE
-	 WHERE GOODS_NUMBER = #{goodsNum}
+		DELETE 
+		  FROM TBL_GOODS_LIKE A
+		 WHERE A.GOODS_NUMBER = #{goodsNum}
 	</delete>
 	
 	<update id="replyUpdate" parameterType="hashmap">
-	UPDATE TBL_GOODS_REVIEW
-	   SET GOODS_REVIEW_CONTENT = #{updateContent}
-     WHERE GOODS_REVIEW_NUM = #{reviewNum}
+		UPDATE TBL_GOODS_REVIEW A
+		   SET A.GOODS_REVIEW_CONTENT = #{updateContent}
+	     WHERE A.GOODS_REVIEW_NUM = #{reviewNum}
 	</update>
 	
 	<update id="inquiryUpdate" parameterType="hashmap">
-	UPDATE TBL_GOODS_INQUIRY
-	   SET GOODS_INQUIRY_CONTENT = #{inquiryUpdateContent}
-     WHERE GOODS_INQUIRY_NO = #{inquiryNum}
+		UPDATE TBL_GOODS_INQUIRY A
+		   SET A.GOODS_INQUIRY_CONTENT = #{inquiryUpdateContent}
+	     WHERE A.GOODS_INQUIRY_NO = #{inquiryNum}
 	</update>
 	
 	<select id="countTotalGoods" resultType="int">
@@ -689,8 +693,6 @@
 	      FROM TBL_GOODS A
 	     WHERE A.GOODS_CATEGORY_NUMBER = #{num}
 	</select>
-	
-
 	
 	<select id="searchCount" resultType="int" parameterType="hashmap">
         SELECT
@@ -717,65 +719,65 @@
 	</sql>
 	
 	<select id="searchlist" resultMap="selectAllGoodsResult" parameterType="hashmap">
-			SELECT
-	       C.GOODS_NUMBER
-	     , C.GOODS_CATEGORY_NUMBER
-	     , C.MOVIE_NO2
-	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
-	     , C.GOODS_NAME
-	     , C.GOODS_PRICE
-	     , C.GOODS_REGISTRATION_DATE
-	     , C.GOODS_STOCK
-	     , C.GOODS_STATUS
-	     , C.GOODS_DETAIL
-	     , C.GOODS_ORIGIN
-	     , C.GOODS_COMPANY
-	     , C.GOODS_LIKE_COUNT
-		 , C.GOODS_SHORT_INFO
-		 , C.FILE_SAVE_NAME
-	  FROM (	
-			SELECT
-			       ROWNUM RNUM
-			     , B.GOODS_NUMBER
-			     , B.GOODS_CATEGORY_NUMBER
-			     , B.MOVIE_NO2
-			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
-			     , B.GOODS_NAME
-			     , B.GOODS_PRICE
-			     , B.GOODS_REGISTRATION_DATE
-			     , B.GOODS_STOCK
-			     , B.GOODS_STATUS
-			     , B.GOODS_DETAIL
-			     , B.GOODS_ORIGIN
-			     , B.GOODS_COMPANY
-			     , B.GOODS_LIKE_COUNT
-				 , B.GOODS_SHORT_INFO
-				 , B.FILE_SAVE_NAME
-			  FROM (	
-					SELECT
-					       A.GOODS_NUMBER
-					     , A.GOODS_CATEGORY_NUMBER
-					     , A.MOVIE_NO2
-					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
-					     , A.GOODS_NAME
-					     , A.GOODS_PRICE
-					     , A.GOODS_REGISTRATION_DATE
-					     , A.GOODS_STOCK
-					     , A.GOODS_STATUS
-					     , A.GOODS_DETAIL
-					     , A.GOODS_ORIGIN
-					     , A.GOODS_COMPANY
-					     , A.GOODS_LIKE_COUNT
-						 , A.GOODS_SHORT_INFO
-					     , D.FILE_SAVE_NAME
-				      FROM TBL_GOODS A
-				      JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
-					 WHERE A.GOODS_CATEGORY_NUMBER = 1
-					   AND D.FILE_TYPE = 'head'
-	<include refid="search"/>
-					) B
-			)C
-		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+		SELECT
+		       C.GOODS_NUMBER
+		     , C.GOODS_CATEGORY_NUMBER
+		     , C.MOVIE_NO2
+		     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+		     , C.GOODS_NAME
+		     , C.GOODS_PRICE
+		     , C.GOODS_REGISTRATION_DATE
+		     , C.GOODS_STOCK
+		     , C.GOODS_STATUS
+		     , C.GOODS_DETAIL
+		     , C.GOODS_ORIGIN
+		     , C.GOODS_COMPANY
+		     , C.GOODS_LIKE_COUNT
+			 , C.GOODS_SHORT_INFO
+			 , C.FILE_SAVE_NAME
+		  FROM (	
+				SELECT
+				       ROWNUM RNUM
+				     , B.GOODS_NUMBER
+				     , B.GOODS_CATEGORY_NUMBER
+				     , B.MOVIE_NO2
+				     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+				     , B.GOODS_NAME
+				     , B.GOODS_PRICE
+				     , B.GOODS_REGISTRATION_DATE
+				     , B.GOODS_STOCK
+				     , B.GOODS_STATUS
+				     , B.GOODS_DETAIL
+				     , B.GOODS_ORIGIN
+				     , B.GOODS_COMPANY
+				     , B.GOODS_LIKE_COUNT
+					 , B.GOODS_SHORT_INFO
+					 , B.FILE_SAVE_NAME
+				  FROM (	
+						SELECT
+						       A.GOODS_NUMBER
+						     , A.GOODS_CATEGORY_NUMBER
+						     , A.MOVIE_NO2
+						     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+						     , A.GOODS_NAME
+						     , A.GOODS_PRICE
+						     , A.GOODS_REGISTRATION_DATE
+						     , A.GOODS_STOCK
+						     , A.GOODS_STATUS
+						     , A.GOODS_DETAIL
+						     , A.GOODS_ORIGIN
+						     , A.GOODS_COMPANY
+						     , A.GOODS_LIKE_COUNT
+							 , A.GOODS_SHORT_INFO
+						     , D.FILE_SAVE_NAME
+					      FROM TBL_GOODS A
+					      JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE A.GOODS_CATEGORY_NUMBER = 1
+						   AND D.FILE_TYPE = 'head'
+		<include refid="search"/>
+						) B
+				)C
+			WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 
 	<resultMap id="selectAllGoodsInquiry" type="GoodsInquiryDTO">
@@ -812,15 +814,17 @@
 	</select>
 	
 	<insert id="updatePayment" parameterType="hashmap">
-		INSERT INTO TBL_PAYMENT
-		     ( 
-		       PAYMENT_NUM, ORDER_NUM, PAYMENY_DATE
-		     , PAYMENT_PRICE, PAYMENT_TYPE
-	      	 )
-		 VALUES
-		     (
-		     SEQ_TBL_PAYMENT.NEXTVAL, #{orderNo}, SYSDATE, #{totalPrice}, '카카오'
-		      )
+		INSERT
+		  INTO TBL_PAYMENT A
+		( 
+		  A.PAYMENT_NUM, A.ORDER_NUM, A.PAYMENY_DATE
+		, A.PAYMENT_PRICE, A.PAYMENT_TYPE
+	    )
+		VALUES
+		(
+		  SEQ_TBL_PAYMENT.NEXTVAL, #{orderNo}, SYSDATE
+		, #{totalPrice}, '카카오'
+		)
 	</insert>
 	
 	<update id="updatePaidGoods" parameterType="_int">
@@ -835,13 +839,6 @@
 			<id column="ORDER_NUM" property="orderNo" />
 		</association> 
 	</resultMap>
-	
-<!-- 	<select id="paymentNo" resultMap="selectPaymentNoResult" >
-		SELECT
-     	       A.PAYMENT_NUM
-	      FROM TBL_PAYMENT A
-	     WHERE A.ORDER_NUM = #{orderNo}
-	</select> -->
 
 	<insert id="updatedelivery" parameterType="hashmap">
 		<selectKey keyProperty="paymentNo" order="BEFORE" resultType="_int">
@@ -849,15 +846,17 @@
 	                SEQ_TBL_PAYMENT.CURRVAL
 	           FROM DUAL
 	     </selectKey>
-		INSERT INTO TBL_DELIVERY
-		     ( 
-		       DELIVERY_NUMBER, PAYMENT_NUM, GOODS_NUMBER
-             , USER_NO, SHIPMENT_CODE, SHIPMENT_MEMO_CODE
-	      	 )
-		 VALUES
-		     (
-		     SEQ_TBL_DELIVERY.NEXTVAL, #{paymentNo},  #{goodsNum}, #{memNum}, 1, #{deliveryCode}
-		      )
+		INSERT
+		  INTO TBL_DELIVERY A
+		( 
+		  A.DELIVERY_NUMBER, A.PAYMENT_NUM, A.GOODS_NUMBER
+        , A.USER_NO, A.SHIPMENT_CODE, A.SHIPMENT_MEMO_CODE
+	    )
+		VALUES
+	    (
+		  SEQ_TBL_DELIVERY.NEXTVAL, #{paymentNo},  #{goodsNum}
+		, #{memNum}, 1, #{deliveryCode}
+		)
 	</insert>
 		
 	<resultMap id="selectDeliveryResultMap" type="DeliveryDTO">
@@ -918,33 +917,37 @@
 	</select> 
 	
 	<update id="cancelOrder" parameterType="_int">
-		UPDATE TBL_GOODS_ORDER
-		   SET ORDER_CANCEL_OR_NOT = 'Y'
-	     WHERE ORDER_NUM = #{orderNum}
+		UPDATE TBL_GOODS_ORDER A
+		   SET A.ORDER_CANCEL_OR_NOT = 'Y'
+	     WHERE A.ORDER_NUM = #{orderNum}
 	</update>
 	
 	<update id="insertRecalculate" parameterType="hashmap">
-	    UPDATE TBL_GOODS_ORDER
-		   SET ORDER_COUNT = #{count}
-	     WHERE ORDER_NUM = #{orderNo}
+	    UPDATE TBL_GOODS_ORDER A
+		   SET A.ORDER_COUNT = #{count}
+	     WHERE A.ORDER_NUM = #{orderNo}
 	</update>
 	
 	<delete id="deleteWishlist" parameterType="hashmap">
 	    DELETE 
-          FROM TBL_GOODS_CART
-         WHERE GOODS_NUMBER = #{goodsNo}
-           AND USER_NO = #{userNo}
+          FROM TBL_GOODS_CART A
+         WHERE A.GOODS_NUMBER = #{goodsNo}
+           AND A.USER_NO = #{userNo}
 	</delete>
 	
 	<insert id="insertInquiry" parameterType="hashmap">
 		INSERT 
-		  INTO TBL_GOODS_INQUIRY
+		  INTO TBL_GOODS_INQUIRY A
         (
-          GOODS_INQUIRY_NO, USER_NO, GOODS_NUMBER, GOODS_INQUIRY_TITLE, GOODS_INQUIRY_CONTENT, GOODS_CREATION_DATE, GOODS_INQUIRY_YN
+          A.GOODS_INQUIRY_NO, A.USER_NO, A.GOODS_NUMBER
+        , A.GOODS_INQUIRY_TITLE, A.GOODS_INQUIRY_CONTENT, A.GOODS_CREATION_DATE
+        , A.GOODS_INQUIRY_YN
         )
         VALUES
         (
-          SEQ_TBL_GOODS_INQUIRY.NEXTVAL, #{userNum}, #{goodsNum}, '제목', #{inquiryText}, SYSDATE, DEFAULT
+          SEQ_TBL_GOODS_INQUIRY.NEXTVAL, #{userNum}, #{goodsNum}
+        , '제목', #{inquiryText}, SYSDATE
+        , DEFAULT
         )
 	</insert>
 
@@ -955,26 +958,19 @@
 	</update>
 	
 	<insert id="reportReply" parameterType="hashmap">
-      INSERT INTO USER_REPORT
-         (
-           REPORT_NO
-         , USER_NO
-         , REPORT_REASON
-         , REPORTED_PERSON
-         , REPORT_PLACE_NO
-         , REPORT_PLACE_CODE
-         , REF_GOODS_NO
-         )
-         VALUES
-         (
-           SEQ_REPORT_NO.NEXTVAL
-            , #{userNo}
-            , #{reportReason}
-            , #{reportedPerson}
-            , #{reportReplyNo}
-            , 2
-            , #{goodsNo}
-         )
+      INSERT 
+        INTO USER_REPORT A
+      (
+        A.REPORT_NO, A.USER_NO, A.REPORT_REASON
+      , A.REPORTED_PERSON, A.REPORT_PLACE_NO, A.REPORT_PLACE_CODE
+      , A.REF_GOODS_NO
+      )
+      VALUES
+      (
+        SEQ_REPORT_NO.NEXTVAL, #{userNo}, #{reportReason}
+      , #{reportedPerson}, #{reportReplyNo}, 2
+      , #{goodsNo}
+      )
    </insert>
 
 	
@@ -1015,15 +1011,15 @@
 	
 	<select id="paymentCheck" resultMap="selectAllPaymentList">
 		SELECT
-               ORDER_NUM
-             , GOODS_NUMBER
-             , USER_NO
-             , ORDER_DATE
-             , ORDER_COUNT
-             , ORDER_CANCEL_OR_NOT
-             , PAID_OR_NOT
-		  FROM TBL_GOODS_ORDER
-		 WHERE PAID_OR_NOT = 'Y'
+               A.ORDER_NUM
+             , A.GOODS_NUMBER
+             , A.USER_NO
+             , A.ORDER_DATE
+             , A.ORDER_COUNT
+             , A.ORDER_CANCEL_OR_NOT
+             , A.PAID_OR_NOT
+		  FROM TBL_GOODS_ORDER A
+		 WHERE A.PAID_OR_NOT = 'Y'
 	</select>
 	
 	<resultMap id="selectPaidPaymentList"  type="PaymentDTO" >
@@ -1075,10 +1071,10 @@
 	
 	<insert id="insertOutGoods" parameterType="hashmap">
 		INSERT 
-		  INTO TBL_GOODS_IN_AND_OUT
+		  INTO TBL_GOODS_IN_AND_OUT A
         (
-          IN_AND_OUT_CODE, GOODS_NUMBER, GOOD_IN_OUT_DATE
-        , GOODS_COUNT, IN_AND_OUT_STATUS
+          A.IN_AND_OUT_CODE, A.GOODS_NUMBER, A.GOOD_IN_OUT_DATE
+        , A.GOODS_COUNT, A.IN_AND_OUT_STATUS
         )
         VALUES
         (
@@ -1094,8 +1090,8 @@
 	</update>
 	<delete id="deleteWishList" parameterType="hashmap">
 	    DELETE
-          FROM TBL_GOODS_CART
-         WHERE GOODS_NUMBER = #{goodsNum}
+          FROM TBL_GOODS_CART A
+         WHERE A.GOODS_NUMBER = #{goodsNum}
 	</delete>
 </mapper>
 

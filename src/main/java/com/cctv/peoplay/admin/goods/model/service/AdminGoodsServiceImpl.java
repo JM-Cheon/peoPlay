@@ -237,8 +237,7 @@ private AdminGoodsMapper adminGoodsMapper;
 
 	@Override
 	public int updateGoodStock(int goodsStockIn) {
-		// TODO Auto-generated method stub
-		return 0;
+		return adminGoodsMapper.updateGoodStock(goodsStockIn);
 	}
 
 	@Override

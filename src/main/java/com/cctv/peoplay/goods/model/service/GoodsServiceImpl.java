@@ -48,14 +48,12 @@ public class GoodsServiceImpl implements GoodsService {
 	/* 선택한 굿즈(일반 굿즈) 조회해오기 */
 	@Override
 	public GoodsDTO selectOneGoodsInfo(int goodsNo) {
-
 		return goodsMapper.selectOneGoodsInfo(goodsNo);
 	}
 	
 	/* 선택한 굿즈(일반 굿즈) 사진 첨부파일 불러오기 */
 	@Override
 	public GoodsAndFileDTO goodsAndFile(int goodsNo) {
-		
 		return goodsMapper.goodsAndFile(goodsNo);
 	}
 
@@ -63,14 +61,12 @@ public class GoodsServiceImpl implements GoodsService {
 	/* 장바구니 담기 (ajax 처리) */
 	@Override
 	public int insertcart(HashMap<String, Integer> cart) {
-		// TODO Auto-generated method stub
 		return goodsMapper.insertcart(cart);
 	}
 
 	/* 장바구니 내역 조회 */
 	@Override
 	public List<GoodsCartDTO> cartList(HashMap<String, Integer> cartListMap) {
-		
 		return goodsMapper.cartList(cartListMap);
 	}
 

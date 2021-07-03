@@ -42,25 +42,25 @@ public interface AdminGoodsService {
 	/* 굿즈 상세페이지 insert */
 	int goodsDetailFiles(Map<String, String> detailFile);
 
-	/* 굿즈 상품 총 개수 count */
+	/* 굿즈 상품 총 개수 count (paging처리를 위해) */
 	int goodsCount();
 
 	/* 페이징 처리용 select */
 	List<GoodsDTO> selectAdminAllGoodsPaging(PagenationDTO pageInfo);
 
-	/* 조건 별 검색 */
+	/* 조건 별 검색 된 것에 대한 count 메소드 */
 	int searchCount(HashMap<String, String> searchMap);
 
 	/* 조건별로 검색한거 조회 */
 	List<GoodsDTO> searchlist(HashMap<String, Object> searchListMap);
 
-	/* 결제 내역 조회 (페이징 처리 */
+	/* 결제 내역 조회 (페이징 처리) */
 	List<OrderDTO> paymentList(PagenationDTO pageInfo);
 
-	/* 페이징 처리 (결제 count) */
+	/* 결제 관리에 대해서 조건별로 페이징 처리를 위한 count하는 메소드 */
 	int searchPaymentCount(HashMap<String, String> searchMap);
 
-	/* 조건 별 검색 (페이징 처리) */
+	/* 결제 관리에 대해서 조건별 검색 후 조회해오는 메소드  */
 	List<GoodsDTO> searchPaymentlist(HashMap<String, Object> searchListMap);
 
 	/* 페이징 처리를 위한 결제 테이블 count */
@@ -129,9 +129,10 @@ public interface AdminGoodsService {
 	/* 모든 stock 조회 (paging) */
 	List<GoodsInAndOutDTO> selectGoodsList(PagenationDTO pageInfo);
 
-	/* 조건별 조회 (paging) */
+	/* 재고 관리에 대해서 조건별 조회를 paging전 조건 별 개수를 count하는 메소드 */
 	int searchStockSearch(HashMap<String, String> searchMap);
 
+	/* 재고내역을 불러오는 메소드 */
 	List<GoodsInAndOutDTO> selectStockPaging(HashMap<String, Object> searchListMap);
 
 	/* 기존 기본페이지 사진 파일 삭제 */
@@ -151,8 +152,5 @@ public interface AdminGoodsService {
 
 	/* 조건 별 문의 내역 조회 */
 	List<GoodsInqueryDTO> selectInquiryPaging(HashMap<String, Object> searchListMap);
-
-	
-
 
 }

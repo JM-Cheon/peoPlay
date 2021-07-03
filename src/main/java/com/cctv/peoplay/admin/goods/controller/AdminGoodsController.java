@@ -55,9 +55,9 @@ public class AdminGoodsController {
 
 	}
 	
-	/* 관리자 메인 페이지(굿즈상품 관련) 뿌려주는 메소드 */
+	/* 관리자 메인 페이지(굿즈상품 관련) 뿌려주는 메소드 (페이징 처리 포함) */
 	@GetMapping("goods")
-	public String goodslist(HttpServletRequest request, @ModelAttribute GoodsDTO goodsDTO, Model model) {
+	public String adminGoodslist(HttpServletRequest request, @ModelAttribute GoodsDTO goodsDTO, Model model) {
 		
 		String currentPage = request.getParameter("currentPage");
 
@@ -79,22 +79,19 @@ public class AdminGoodsController {
 		
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 
-//		List<GoodsDTO> selectAllGoodslist = admingoodsService.selectAdminAllGoods(goodsDTO);
-		
 		List<GoodsDTO> selectAllGoodslistPaging = admingoodsService.selectAdminAllGoodsPaging(pageInfo);
 		List<GoodsAndFileDTO> goodsAndFile = admingoodsService.mainGoodsAndFile();
 		
 		model.addAttribute("selectAllGoodslist", selectAllGoodslistPaging);
 		model.addAttribute("goodsAndFile", goodsAndFile);
 		model.addAttribute("pageInfo", pageInfo);
-//		model.addAttribute("selectAllGoodslistPaging", selectAllGoodslistPaging);
-		
-		
 
 		return "admin/goods/goodsList";
 	}
+	
+	/* 전체 상품을 조건별로 검색 후 조회하는 메소드 */
 	@PostMapping("goods/search")
-	public String search(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
+	public String adminGoodsSearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
 			@RequestParam("searchValue") String searchValue) {
  		
  		String condition = request.getParameter("searchCondition");
@@ -124,7 +121,7 @@ public class AdminGoodsController {
 
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
  		
-		// 검색하려고 Map에 담았다.
+		// 검색을 위해 Map에 담음
 		HashMap<String, Object> searchListMap = new HashMap<>();
 		searchListMap.put("searchCondition", searchCondition);
 		searchListMap.put("searchValue", searchValue);
@@ -136,17 +133,15 @@ public class AdminGoodsController {
 		List<GoodsAndFileDTO> goodsAndFile = admingoodsService.mainGoodsAndFile();
 		
 		model.addAttribute("goodsAndFile", goodsAndFile);
-		
 		model.addAttribute("selectAllGoodslist", searchList);
-
 		model.addAttribute("pageInfo", pageInfo);
 		
 		return "admin/goods/goodsList";
- 		
  	}
 	
+	/* 관리자 페이지에서 선택한 굿즈 상품의 상세 정보를 가져오는메소드 */
 	@GetMapping("/goods/{goodsNo}")
-	public String AdminGoodsDetail(Model model, @PathVariable("goodsNo") int goodsNo, ModelAndView mv) {
+	public String adminGoodsDetailByGoodsNo(Model model, @PathVariable("goodsNo") int goodsNo, ModelAndView mv) {
 		
 		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNo);
 		
@@ -167,21 +162,19 @@ public class AdminGoodsController {
 			
 		}
 		model.addAttribute("selectGoodsInfoByGoodsNo", selectGoodsInfoByGoodsNo);
-
 		model.addAttribute("goodsAndFile", goodsAndFile);
-		
 		model.addAttribute("goodsAndDetailFile", goodsAndDetailFile);
 		
 		return "admin/goods/goodsDetail";
 	}
 	
+	/* 관리자 페이지에서 상품을 삭제시 사용하는 메소드 (Ajax로 GoodsStatus를 N으로 변경) */
 	@PostMapping("/goods/adminDeleteGoods")
 	@ResponseBody
-	public String deleteGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
+	public String adminDeleteGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
 		
 		int deleteGoods = admingoodsService.deleteGoods(goodsNum);
-		
-		
+
 		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNum);
 		
 		Gson gson = new GsonBuilder().create();
@@ -189,13 +182,14 @@ public class AdminGoodsController {
 		return gson.toJson(selectGoodsInfoByGoodsNo);
 		
 	}
+	
+	/* 관리자 페이지에서 굿즈 상품 상태를 N에서 Y로 바꿔주는 메소드 (Ajax로 처리) */
 	@PostMapping("/goods/adminliveGoods")
 	@ResponseBody
-	public String ResaleGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
+	public String adminResaleGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
 		
 		int resale = admingoodsService.resaleGoods(goodsNum);
 		
-		
 		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNum);
 		
 		Gson gson = new GsonBuilder().create();
@@ -203,9 +197,10 @@ public class AdminGoodsController {
 		return gson.toJson(selectGoodsInfoByGoodsNo);
 		
 	}
+	
+	/* 관리자 페이지에서 선택한 굿즈 상품에 대한 수정하는 메소드 */
 	@GetMapping("/goods/update")
-	public String updateGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
-		
+	public String adminUpdateGoods(Model model, @RequestParam("goodsNum") int goodsNum) {
 		
 		GoodsDTO selectGoodsInfoByGoodsNo = admingoodsService.selectGoodsInfoByGoodsNo(goodsNum);
 		
@@ -222,20 +217,22 @@ public class AdminGoodsController {
 		return "admin/goods/goodsUpdate";
 		
 	}
+	
+	/* 관리자 페이지에서 상품을 등록하기 위한 메소드 */
 	@GetMapping("/goods/enroll")
-	public String enrollGoods(Model model) {
-		
-		
-		return "admin/goods/enroll";
-		
-	}
-	@PostMapping("/goods/enrollGoods")
-	public String enrollGoodsDetail(Model model) {
-		
+	public String adminEnrollGoods(Model model) {
 		
 		return "admin/goods/enroll";
 	}
 	
+	/* 관리자 페이지에서 상품을 등록하기 위한 메소드 */
+	@PostMapping("/goods/enrollGoods")
+	public String adminEnrollGoodsDetail(Model model) {
+		
+		return "admin/goods/enroll";
+	}
+	
+	/* 관리자 페이지에서 상세정보를 받아서 저장하는 메소드 */
 	@PostMapping("/goods/enrollGoodsData")
 	public String enrollGoodsDetailData(HttpServletRequest request, RedirectAttributes model, 
 			@RequestParam(name="goodsFiles1", required=false)  MultipartFile goodsFiles1,
@@ -245,6 +242,7 @@ public class AdminGoodsController {
 			@RequestParam(name="goodsFiles5", required=false) MultipartFile  goodsFiles5,
 			@RequestParam(name="goodsDetailFiles", required=false) List<MultipartFile> goodsDetailFiles) {
 		
+		/* 등록할 굿즈 상품 정보 받기 */
 		String goodsName = request.getParameter("goodsName");
 		String goodsCompany = request.getParameter("goodsCompany");
 		String goodsMovie = request.getParameter("goodsMovie");
@@ -254,8 +252,6 @@ public class AdminGoodsController {
 		int goodsMoney = Integer.parseInt(request.getParameter("goodsMoney"));
 		String goodsNationality = request.getParameter("goodsNationality");
 		String goodsShortInfo = request.getParameter("goodsShortInfo");
-		
-		
 		
 		HashMap<String, Object> goodsDetail = new HashMap<>();
 		goodsDetail.put("goodsName", goodsName);
@@ -270,11 +266,6 @@ public class AdminGoodsController {
 		
 		int insertGoodsinfo = admingoodsService.insertGoodsinfo(goodsDetail);
 		
-
-//		GoodsDTO selectGoodsNum = admingoodsService.selectGoodsNum();
-		
-//		model.addAttribute("insertGoodsinfo", insertGoodsinfo);
-		
 		/* 앞에 보여지는 페이지 사진 처리 */
 		String root1 = request.getSession().getServletContext().getRealPath("resources");
 		
@@ -284,6 +275,8 @@ public class AdminGoodsController {
 		if(!mkdir1.exists()) {
 			mkdir1.mkdirs();
 		}
+		
+		/* 사진 등록 시 등록한 사진만 등록 할 수 있도록 예외 처리 */
 		List<MultipartFile> goodsFiles = new ArrayList<>();
 		if(!goodsFiles1.isEmpty()) {
 			goodsFiles.add(goodsFiles1);
@@ -299,7 +292,6 @@ public class AdminGoodsController {
 		
 		
 		List<Map<String, String>> goodsImageFiles = new ArrayList<>();
-		
 		
 		for(int i = 0; i < goodsFiles.size(); i ++) {
 			
@@ -317,7 +309,7 @@ public class AdminGoodsController {
 				file.put("filePath", filePath1);
 				file.put("thumbnailPath", filePath1);
 				
-				
+				/* 메인 사진과 그렇지 않은 사진을 처리 */
 				if(i == 0) {
 					file.put("distinguish","head" );
 					
@@ -329,8 +321,6 @@ public class AdminGoodsController {
 				
 			} 
 			
-			
-//			model.addAttribute("imageFiles", imageFiles);
 		}
 
 		/* 파일을 저장한다. */
@@ -374,6 +364,7 @@ public class AdminGoodsController {
 		if(!goodsDetailFiles.isEmpty()) {
 			
 			for(int i = 0; i < goodsDetailFiles.size(); i ++) {
+				
 				/* 파일명 변경 처리 */
 				String originFileName2 = goodsDetailFiles.get(i).getOriginalFilename();
 				String ext2 = originFileName2.substring(originFileName2.lastIndexOf("."));
@@ -427,6 +418,7 @@ public class AdminGoodsController {
 			@RequestParam(name="goodsFiles5", required=false) MultipartFile  goodsFiles5,
 			@RequestParam(name="goodsDetailFiles", required=false) List<MultipartFile> goodsDetailFiles) {
 		
+		/* 수정할 정보를 받는 곳 */
 		String goodsName = request.getParameter("goodsName");
 		String goodsCompany = request.getParameter("goodsCompany");
 		String goodsMovie = request.getParameter("goodsMovie");
@@ -463,10 +455,6 @@ public class AdminGoodsController {
 			}
 		}
 		
-//		GoodsDTO selectGoodsNum = admingoodsService.selectGoodsNum();
-		
-//		model.addAttribute("insertGoodsinfo", insertGoodsinfo);
-		
 		/* 앞에 보여지는 페이지 사진 처리 */
 		String root1 = request.getSession().getServletContext().getRealPath("resources");
 		
@@ -478,6 +466,7 @@ public class AdminGoodsController {
 		}
 		List<MultipartFile> goodsFiles = new ArrayList<>();
 		
+		/* 사진 수정시 수정한 사진만 등록 할 수 있도록 예외 처리 */
 		if(!goodsFiles1.isEmpty()) {
 			goodsFiles.add(goodsFiles1);
 		}else if(!goodsFiles2.isEmpty()) {
@@ -522,8 +511,6 @@ public class AdminGoodsController {
 				
 			} 
 			
-			
-//			model.addAttribute("imageFiles", imageFiles);
 		}
 
 		/* 파일을 저장한다. */
@@ -533,6 +520,7 @@ public class AdminGoodsController {
 
 				Map<String, String> file = goodsImageFiles.get(i);
 				
+				/* 파일을 저장전에 이전에 저장한 사진데이터를 지우는 메소드 */
 				int deletePastImage = admingoodsService.deletePastImage(goodsNo);
 				if(deletePastImage> 0) {
 					
@@ -625,8 +613,9 @@ public class AdminGoodsController {
 		return "redirect:/admin/goods";
 	}
 	
+	/* 관리자 페이지 중 결제관리 페이지를 paging처리하는 메소드 */
 	@GetMapping("/goods/Payment")
-	public String GoodsPayment(HttpServletRequest request, Model model) {
+	public String adminGoodsPayment(HttpServletRequest request, Model model) {
 		
 		String currentPage = request.getParameter("currentPage");
 
@@ -656,6 +645,8 @@ public class AdminGoodsController {
 		return "admin/goods/payment";
 		
 	}
+	
+	/* 관리자 페이지 중 결제관리 페이지를 조건별 검색 후 paging처리하는 메소드 */ 
 	@PostMapping("goods/paymentSearch")
 	public String Paymentsearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
 			@RequestParam("searchValue") String searchValue) {
@@ -687,7 +678,6 @@ public class AdminGoodsController {
 
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
  		
-		// 검색하려고 Map에 담았다.
 		HashMap<String, Object> searchListMap = new HashMap<>();
 		searchListMap.put("searchCondition", searchCondition);
 		searchListMap.put("searchValue", searchValue);
@@ -704,6 +694,7 @@ public class AdminGoodsController {
  		
  	}
 	
+	/* 관리자 페이지 중 배송관리 페이지를 paging처리하는 메소드 */
 	@GetMapping("/goods/Delivery")
 	public String GoodsDelivery(HttpServletRequest request, Model model) {
 		
@@ -734,7 +725,9 @@ public class AdminGoodsController {
 		
 		return "admin/goods/delivery";
 		
-	}	
+	}
+	
+	/* 관리자 페이지 중 배송관리 페이지를  조건별로 검색 후 paging처리하는 메소드 */
 	@PostMapping("goods/DeliverySearch")
 	public String Deliverysearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
 			@RequestParam("searchValue") String searchValue) {
@@ -766,7 +759,6 @@ public class AdminGoodsController {
 
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
  		
-		// 검색하려고 Map에 담았다.
 		HashMap<String, Object> searchListMap = new HashMap<>();
 		searchListMap.put("searchCondition", searchCondition);
 		searchListMap.put("searchValue", searchValue);
@@ -783,7 +775,7 @@ public class AdminGoodsController {
  		
  	}	
 	
-	
+	/* 관리자 페이지 중 배송관리 페이지에서 배송 상태에 대해서 Ajax로 저장하는 메소드 */
 	@PostMapping(value="/goods/deliveryStatus", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String deliveryStatus(HttpServletResponse response,
@@ -801,29 +793,10 @@ public class AdminGoodsController {
 		return gson.toJson(updateStatus);
 	}
 	
-	@PostMapping(value="/goods/inquiryAnswerAdmin", produces = "application/json; charset=UTF-8")
-	public String nquiryAnswerAdmin(HttpServletResponse response,
-			@RequestParam("inquiryReplyNum") int inquiryReplyNum, @RequestParam("inquiryAnswer") String inquiryAnswer,
-			@RequestParam("goodsNum") int goodsNum, @RequestParam("userNo") int userNo) {
-		
-		HashMap<String, Object> answerInquiry = new HashMap<>();
-		answerInquiry.put("inquiryReplyNum", inquiryReplyNum);
-		answerInquiry.put("inquiryAnswer", inquiryAnswer);
-		answerInquiry.put("goodsNum", goodsNum);
-		answerInquiry.put("userNo", userNo);
-		
-		int updateInquiryAnswer = admingoodsService.updateInquiryAnswer(answerInquiry);
-		
-		if(updateInquiryAnswer > 0) {
-			
-			int updateYN = admingoodsService.updateYN(inquiryReplyNum);
-		}
-		
-		return "redirect:/admin/goods/InquiryAnswer";
-	}
 	
+	/* 관리자 페이지 중에서 고객이 문의한 것을 paging 처리하는 메소드 */
 	@GetMapping("/goods/InquiryAnswer")
-	public String GoodsInquiryAnswer(HttpServletRequest request, Model model) {
+	public String adminGoodsInquiryAnswer(HttpServletRequest request, Model model) {
 		
 		String currentPage = request.getParameter("currentPage");
 
@@ -856,9 +829,33 @@ public class AdminGoodsController {
 		
 		return "admin/goods/inquiryAnswer";
 		
-	}	
+	}
+	
+	/* 관리자 페이지 중 문의 답변 중 답변을 처리하는 메소드 */
+	@PostMapping(value="/goods/inquiryAnswerAdmin", produces = "application/json; charset=UTF-8")
+	public String adminIquiryAnswer(HttpServletResponse response,
+			@RequestParam("inquiryReplyNum") int inquiryReplyNum, @RequestParam("inquiryAnswer") String inquiryAnswer,
+			@RequestParam("goodsNum") int goodsNum, @RequestParam("userNo") int userNo) {
+		
+		HashMap<String, Object> answerInquiry = new HashMap<>();
+		answerInquiry.put("inquiryReplyNum", inquiryReplyNum);
+		answerInquiry.put("inquiryAnswer", inquiryAnswer);
+		answerInquiry.put("goodsNum", goodsNum);
+		answerInquiry.put("userNo", userNo);
+		
+		int updateInquiryAnswer = admingoodsService.updateInquiryAnswer(answerInquiry);
+		
+		if(updateInquiryAnswer > 0) {
+			
+			int updateYN = admingoodsService.updateYN(inquiryReplyNum);
+		}
+		
+		return "redirect:/admin/goods/InquiryAnswer";
+	}
+	
+	/* 관리자 페이지 중 재고관리 페이지를 paging 처리하는 메소드 */
 	@GetMapping("/goods/Stock")
-	public String GoodsStock(HttpServletRequest request, Model model) {
+	public String adminGoodsStock(HttpServletRequest request, Model model) {
 		
 		String currentPage = request.getParameter("currentPage");
 		
@@ -888,7 +885,6 @@ public class AdminGoodsController {
 		
 		int totalCount = admingoodsService.stockList();
 		
-		
 		int limit = 14;
 		
 		int buttonAmount = 4;
@@ -903,9 +899,11 @@ public class AdminGoodsController {
 		
 		return "admin/goods/manageStock";
 		
-	}	
+	}
+	
+	/* 관리자 페이지 중 재고관리 페이지를 조건별로 검색 후 paging 처리하는 메소드 */
 	@PostMapping("goods/StockSearch")
-	public String Stocksearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
+	public String adminStocksearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
 			@RequestParam("searchValue") String searchValue) {
  		
  		String condition = request.getParameter("searchCondition");
@@ -935,7 +933,6 @@ public class AdminGoodsController {
 
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
  		
-		// 검색하려고 Map에 담았다.
 		HashMap<String, Object> searchListMap = new HashMap<>();
 		searchListMap.put("searchCondition", searchCondition);
 		searchListMap.put("searchValue", searchValue);
@@ -951,8 +948,10 @@ public class AdminGoodsController {
 		return "admin/goods/manageStock";
  		
  	}
+	
+	/* 관리자 페이지 중 문의사항을 조건별로 검색 후 페이지를 paging 처리하는 메소드 */
 	@PostMapping("goods/InquirySearch")
-	public String Inquirysearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
+	public String adminInquirysearch(Model model, HttpServletRequest request, @RequestParam("searchCondition") String searchCondition,
 			@RequestParam("searchValue") String searchValue) {
 		
 		String condition = request.getParameter("searchCondition");
@@ -982,7 +981,6 @@ public class AdminGoodsController {
 		
 		PagenationDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		// 검색하려고 Map에 담았다.
 		HashMap<String, Object> searchListMap = new HashMap<>();
 		searchListMap.put("searchCondition", searchCondition);
 		searchListMap.put("searchValue", searchValue);
@@ -1001,8 +999,5 @@ public class AdminGoodsController {
 		return "admin/goods/inquiryAnswer";
 		
 	}
-	
-	
-	
 	
 }

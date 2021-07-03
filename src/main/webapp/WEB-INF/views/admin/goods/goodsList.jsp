@@ -267,13 +267,13 @@ $('#admin').on("click",function() {
  	}
  }
  
- 
+ /* 선택한 상품에 대해 상세 정보 이동 */
  function chooseGoods(val1, val2){
 	 
 		location.href = "${ pageContext.servletContext.contextPath }/admin/goods/" + parseInt(val1);
 
  }
- 
+ /* 새 상품 등록 버튼 */
  function enroll(){
 	 
 		location.href = "${ pageContext.servletContext.contextPath }/admin/goods/enroll";

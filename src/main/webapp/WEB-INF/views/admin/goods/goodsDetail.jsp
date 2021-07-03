@@ -125,12 +125,14 @@ function Img${requestScope.goodsAndFile.goodsFile[4].number}() {
 </script>
 	<script >
 	
+	/* 수정하기 버튼 메소드 */
 	function updateGoods(val1) {
 		const goodsNum	= val1;
 		location.href = "${ pageContext.servletContext.contextPath }/admin/goods/update?goodsNum=" + goodsNum;
 
 	}
 	
+	/* 상품 삭제 메소드 (Ajax) */
 	function deleteGoods(val1) {
 		
 		const goodsNum = val1;
@@ -188,6 +190,8 @@ function Img${requestScope.goodsAndFile.goodsFile[4].number}() {
  				
  			} 
 	}
+	
+	/* 상품 판매 또는 삭제 Ajax Onload 메소드 */
 	$(function(){
 		if(document.getElementById("goodsStatusYN").value == '판매가능'){
 			

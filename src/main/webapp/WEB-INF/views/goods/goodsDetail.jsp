@@ -81,7 +81,6 @@
 					좋아요  </button>
 				<button class="btn_buy"
 					onclick="buyGoods(${requestScope.selectOneGoodsInfo.goodsNum}, ${requestScope.loginMember.userNo })">바로구매</button>
-					<%-- onclick="buyGoods(${requestScope.selectOneGoodsInfo.goodsNum}, ${requestScope.loginMember.userNo })">바로구매</button> --%>
 			</div>
 		</section>
 		<section id="sec2">
@@ -189,9 +188,7 @@
 							문의 답변
 						</div>
 						<div id="inquiryAnswerDiv" class="quiryBody">
-							 
 						</div>
-						
 				        <input type="hidden" id="inquiryReplyNum" name="inquiryReplyNum">
 				        <input type="hidden" id="goodsNumber" name="goodsNumber" value="${ requestScope.selectOneGoodsInfo.goodsNum}">
 	
@@ -232,8 +229,7 @@
 									<td class="evaluate tdstyle" >상품평</td>
 									<td class="author tdstyle" >작성자</td>
 									<td class="date tdstyle" >작성일</td>
-									<td class="updatedelete tdstyle">수정 /
-										삭제</td>
+									<td class="updatedelete tdstyle">수정 / 삭제</td>
 									<td class="report tdstyle">신고</td>
 								</tr>
 							</table>
@@ -384,16 +380,14 @@
                     </tr>
                 </table>
 					</div>
-				
 				</div>
 				<br> <br> <br> <br> <br><br> <br> <br> <br> <br>
+				<input type="hidden" id="cartListCheck" value="${cartList}">
 			</div>
-
-
 		<br> <br> <br> <br> <br>
 		<!-- savePath -->
 
-<input type="hidden" id="cartListCheck" value="${cartList}">
+
 	</div>
 	
 	<script type="text/javascript">
@@ -414,9 +408,9 @@
         document.getElementById("img").src = "/peoplay/resources/images/goods/goodsImageFiles/${requestScope.goodsAndFile.goodsFile[4].fileSaveName}";
     }  
 	</script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
-	
+	/* 좋아요 버튼 색깔 전환 */
 	$(function(){
 		if(document.getElementById("likeDislike").value == '없음'){
 			
@@ -428,24 +422,23 @@
 		
 	});
 	
+	/* 댓글 업데이트 모달창 */
 	function updateReply(Obj){
 		
 		document.getElementById('id01').style.display='block';		
- 		
 		document.getElementById("reviewNum").value = $(Obj).parents("tr").find('td').eq(0).html();
-
  	}
 	
+	/* 댓글 신고 모달창 */
 	function reportReply(Obj){
 		
 		document.getElementById('id02').style.display='block';		
- 		
 		document.getElementById("reportReplyNo").value = $(Obj).parents("tr").find('td').eq(0).html();
 		document.getElementById("reportedPerson").value = $(Obj).parents("tr").find('td').eq(2).find('input').val();
 		
-
  	}
 	
+	/* 문의사항 업데이트 모달창 */
 	function updateInquiry(Obj){
 		
 		document.getElementById('id03').style.display='block';		
@@ -454,6 +447,7 @@
 
  	}
 	
+	/* 문의사항 답변 */
 	 function viewInquiryReply(Obj){
 		 
 		document.getElementById("inquiryReplyNum").value = $(Obj).parents("tr").find('td').eq(0).html();
@@ -474,13 +468,6 @@
 		
 		document.getElementById("repliedbtnYN").disabled;
 		alert('상품을 구매하신 후에 댓글을 이용하실 수 있습니다.');
-	});
-	
-	
-	$(".goinquiry").click(function(){
-		
-		window.open("", "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );
-
 	});
 	
 	/* 문의사항 등록 */
@@ -695,27 +682,9 @@
 		}
 	});
 	
-	
-	
-	<%--	 var no = document.getElementById("imgNo0").value;
-		 var no = this.parentNode.children[0].value; 
-
-
-	 function Img() {   
-		 var test = "${requestScope.goodsAndFile.goodsFile[document.getElementById('imgNo0').value].savePath}";
-	        document.getElementById("img").src = test;
-    }--%>
-	
-
-
-
-    /* 신고 버튼 */
-
-
 	/* 문의사항 삭제  ajax */
 	$(document).on('click', '#btnDeleteInquiry', function() {
    
-		
 		if(confirm("문의내용을 삭제하시겠습니까?") == true){ 
 			
 			const $goodsInquiryNum = this.parentNode.children[0].value;
@@ -913,7 +882,6 @@ $(document).on('click', '#btnDeleteReply', function() {
     function cart(val1, val2) {
     	
     	if(confirm("장바구니에 등록하시겠습니까?") == true){
-    		
     	
     	const goodsNum = val1;
     	const userNum = val2;
@@ -943,8 +911,6 @@ $(document).on('click', '#btnDeleteReply', function() {
     	}
     }
 
-	
-    
     /* 바로구매 버튼 */
      function buyGoods(val1, val2) {
     	
@@ -953,7 +919,6 @@ $(document).on('click', '#btnDeleteReply', function() {
      	const count = document.getElementById("quantities").value;
      	var order =  document.getElementById("cartListCheck").value;
      	var stock = ${requestScope.selectOneGoodsInfo.goodsStock};
-     	/* 이미 주문한 상태인 경우  변수를 다르게 가져오자 */
      	
      	if(stock >= count){
      		
@@ -992,7 +957,7 @@ $(document).on('click', '#btnDeleteReply', function() {
      	}
     } 
     
-    /* 후기 100자 초과시 초과되었다고 알림 */
+    /* 후기 50자 초과시 초과되었다고 알림 */
   	$(function(){
 	
 	  $("#replytext").keyup(function(){
@@ -1020,7 +985,7 @@ $(document).on('click', '#btnDeleteReply', function() {
 	  
   });
     
-    /* 후기 100자 초과시 초과되었다고 알림 */
+    /* 문의사항 50자 초과시 초과되었다고 알림 */
   	$(function(){
 	
 	  $("#inquirytext").keyup(function(){
@@ -1048,6 +1013,7 @@ $(document).on('click', '#btnDeleteReply', function() {
 	  
   });
   
+  /* 좋아요 버튼 ajax */
   function likebtn(val1, val2){
     	
 		const goodsNum = val1;
@@ -1105,6 +1071,7 @@ $(document).on('click', '#btnDeleteReply', function() {
     	
     }
 
+    /* 댓글, 상품 문의, 배송 관련 탭 알고리즘 */ 
 	$(document).ready(function() {
 		$(".everyday_div > .button > p").click(function() {
 			var idx = $(".everyday_div > .button > p").index($(this));

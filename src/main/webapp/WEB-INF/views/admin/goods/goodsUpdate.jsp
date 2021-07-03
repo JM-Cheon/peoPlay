@@ -138,24 +138,13 @@
 
 </body>
 	<script >
+	/* 뒤로가기 버튼 */
 	$("#gobackBtn").click(function(){
 		
 		location.href = "${ pageContext.servletContext.contextPath }/admin/goods";
 	});
 	
-
-	/* 			 if(document.getElementById("goodsName").value === ""
-					|| document.getElementById("goodsCategory").value == ""
-					|| document.getElementById("goodsCompany").value == ""
-					|| document.getElementById("goodsMoney").value == ""
-					|| document.getElementById("goodsMovie").value == ""
-					|| document.getElementById("goodsStock").value == ""
-					|| document.getElementById("goodsNationality").value == ""
-					|| document.getElementById("goodsShortInfo").value == ""
-					
-
-				
-			}  */
+	/* 수정하기 버튼 */
 	$("#updateBtn").click(function(){
 		
 		if(confirm("상품을 수정하시겠습니까?") == true){
@@ -172,6 +161,7 @@
 		}
 		});
 	
+	/* 상품 삭제 버튼 */
 	function deleteGoods(val1) {
 		
 		const goodsNum = val1;
@@ -189,11 +179,6 @@
 					},
 				success : function(data){
 					
-					/* goodsStatus를 못가져오는 상태 */
-					/*  for(var i = 0 ; i < data.length ; i++){
-						 console.log(data[i].goodsStatus);
-					 } */
-					 
 					 $(".status").text(data.status);
 				},
 				
@@ -208,7 +193,7 @@
 			return;
 		} 
 	}
-	
+	/* 이미지 변환 메소드 */
 	const $titleImgArea = document.getElementById("titleImgArea");
 	const $contentImgArea1 = document.getElementById("contentImgArea1");
 	const $contentImgArea2 = document.getElementById("contentImgArea2");
@@ -250,9 +235,6 @@
 									break;
 						}
 					}
-					/* readAsDataURL은 Blob이나 file에서 읽어오는 역할을 함 */
-					/* Blob(Binary Large Object) : 바이너리 형태의 큰 객체(이미지, 사운드, 비디오같은 멀티미디어 객체) */
-					/* 우리가 이미지를 브라우저에 뿌려주기 위해서는 base64 encoded string으로 변환해 주어야 한다. */
 					reader.readAsDataURL(value.files[0]);
 				}
 			}

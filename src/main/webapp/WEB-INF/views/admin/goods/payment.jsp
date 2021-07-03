@@ -194,6 +194,7 @@
 </body>
 <script type="text/javascript">
 
+/* 뒤로 가기 버튼 */
 $("#gobackAdmin").click(function(){
 	console.log('dd');
 	location.href = "${ pageContext.servletContext.contextPath }/admin/goods";

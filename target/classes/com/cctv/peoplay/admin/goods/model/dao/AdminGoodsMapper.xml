@@ -157,18 +157,19 @@
 		 WHERE A.GOODS_NUMBER = #{goodsNo}
 	</select>
 	<update id="deleteGoods" parameterType="_int">
-		UPDATE TBL_GOODS
-		   SET GOODS_STATUS = 'N'
-		 WHERE GOODS_NUMBER = #{goodsNum}
+		UPDATE TBL_GOODS A
+		   SET A.GOODS_STATUS = 'N'
+		 WHERE A.GOODS_NUMBER = #{goodsNum}
 	</update>
 	<insert id="insertGoodsinfo">
-		INSERT INTO TBL_GOODS 
+		INSERT
+		  INTO TBL_GOODS A
 		(
-		  GOODS_NUMBER, GOODS_CATEGORY_NUMBER, MOVIE_NO2
-		, GOODS_SHIPMENT_CLAFFIFY_CODE, GOODS_NAME, GOODS_PRICE
-		, GOODS_REGISTRATION_DATE, GOODS_STOCK, GOODS_STATUS
-		, GOODS_DETAIL, GOODS_ORIGIN, GOODS_COMPANY
-		, GOODS_SHORT_INFO, GOODS_LIKE_COUNT
+		  A.GOODS_NUMBER, A.GOODS_CATEGORY_NUMBER, A.MOVIE_NO2
+		, A.GOODS_SHIPMENT_CLAFFIFY_CODE, A.GOODS_NAME, A.GOODS_PRICE
+		, A.GOODS_REGISTRATION_DATE, A.GOODS_STOCK, A.GOODS_STATUS
+		, A.GOODS_DETAIL, A.GOODS_ORIGIN, A.GOODS_COMPANY
+		, A.GOODS_SHORT_INFO, A.GOODS_LIKE_COUNT
 		)
 		VALUES
 		(
@@ -187,11 +188,11 @@
 	           FROM DUAL
 	     </selectKey>
 	     <if test="distinguish == 'head'">
-		INSERT INTO TBL_GOODS_FILE
+			INSERT INTO TBL_GOODS_FILE A
 			(
-			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
-			, FILE_SAVE_NAME, SAVE_PATH, THUMNAIL_PATH
-			, FILE_TYPE, FILE_STATUS
+			  A.FILE_NO, A.GOODS_NUMBER, A.FILE_ORIGIN_NAME
+			, A.FILE_SAVE_NAME, A.SAVE_PATH, A.THUMNAIL_PATH
+			, A.FILE_TYPE, A.FILE_STATUS
 			)
 			VALUES
 			
@@ -200,42 +201,43 @@
 			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
 			, 'head', 'Y'
 			)
-			</if>
-			<if test="distinguish == 'body'">
-		INSERT INTO TBL_GOODS_FILE
+		</if>
+		<if test="distinguish == 'body'">
+			INSERT INTO TBL_GOODS_FILE A
 			(
-			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
-			, FILE_SAVE_NAME, SAVE_PATH, THUMNAIL_PATH
-			, FILE_TYPE, FILE_STATUS
+		      A.FILE_NO, A.GOODS_NUMBER, A.FILE_ORIGIN_NAME
+			, A.FILE_SAVE_NAME, A.SAVE_PATH, A.THUMNAIL_PATH
+			, A.FILE_TYPE, A.FILE_STATUS
 			)
 			VALUES
-			
+				
 			(
-			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNum}, 
-			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
-			, 'body', 'Y'
+			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNum}
+		    , #{originFileName}, #{saveName}, #{filePath}
+		    , #{filePath}, 'body', 'Y'
 			)
-			</if>
+		</if>
 	</insert>
 	<insert id="goodsDetailFiles">
-		INSERT INTO TBL_GOODS_DETAIL_FILE
+		INSERT 
+		  INTO TBL_GOODS_DETAIL_FILE
 		<selectKey keyProperty="goodsNum" order="BEFORE" resultType="_int">
 	         SELECT
 	                SEQ_TBL_GOODS.CURRVAL
 	           FROM DUAL
 	     </selectKey>
 		
-			(
-			  DETAIL_FILE_NO, GOODS_NUMBER, DETAIL_FILE_ORGIN_NAME
-			, DETAIL_FILE_SAVE_NAME, DETAIL_SAVE_PATH, DETAIL_THUMBNAIL_PATH
-			, DETAIL_FILE_TYPE, DETAIL_FILE_STATUS
-			)
-			VALUES
-			(
-			  SEQ_TBL_GOODS_DETAIL_FILE.NEXTVAL, #{goodsNum}, 
-			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
-			, 'body', 'Y'
-			)
+		(
+		  DETAIL_FILE_NO, GOODS_NUMBER, DETAIL_FILE_ORGIN_NAME
+		, DETAIL_FILE_SAVE_NAME, DETAIL_SAVE_PATH, DETAIL_THUMBNAIL_PATH
+		, DETAIL_FILE_TYPE, DETAIL_FILE_STATUS
+		)
+		VALUES
+		(
+		  SEQ_TBL_GOODS_DETAIL_FILE.NEXTVAL, #{goodsNum}, #{originFileName}
+		, #{saveName}, #{filePath}, #{filePath}
+		, 'body', 'Y'
+		)
 	</insert>
 	<select id="goodsCount" resultType="int">
 		SELECT
@@ -243,7 +245,7 @@
 		  FROM TBL_GOODS
 	</select>
 	<select id="selectAdminAllGoodsPaging" resultMap="selectAllGoodsResult" parameterType="AdminGoodsDTO">
-			SELECT
+	    SELECT
 		       C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
 		     , C.MOVIE_NO2
@@ -298,9 +300,9 @@
 						  JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 						 WHERE D.FILE_TYPE = 'head'
 					     ORDER BY A.GOODS_NUMBER ASC
-					) B
-			)C
-		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+					   ) B
+			   )C
+		 WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="searchCount" resultType="int" parameterType="hashmap">
@@ -313,77 +315,77 @@
 	
 	<sql id="search">
 		<if test="searchCondition == 'latest'">
-		AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY GOODS_REGISTRATION_DATE DESC
+		   AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY GOODS_REGISTRATION_DATE DESC
 		</if>
 		<if test="searchCondition == 'famous'">
-		AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY GOODS_LIKE_COUNT DESC
+	       AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY GOODS_LIKE_COUNT DESC
 		 </if>
 		<if test="searchCondition == 'price'">
-		AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY GOODS_PRICE DESC
+		   AND GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY GOODS_PRICE DESC
 		</if>
 	</sql>	
 	
 	<select id="searchlist" resultMap="selectAllGoodsResult" parameterType="hashmap">
-			SELECT
-	       C.GOODS_NUMBER
-	     , C.GOODS_CATEGORY_NUMBER
-	     , C.MOVIE_NO2
-	     , C.GOODS_SHIPMENT_CLAFFIFY_CODE
-	     , C.GOODS_NAME
-	     , C.GOODS_PRICE
-	     , C.GOODS_REGISTRATION_DATE
-	     , C.GOODS_STOCK
-	     , C.GOODS_STATUS
-	     , C.GOODS_DETAIL
-	     , C.GOODS_ORIGIN
-	     , C.GOODS_COMPANY
-	     , C.GOODS_LIKE_COUNT
-		 , C.GOODS_SHORT_INFO
-		 , C.FILE_SAVE_NAME
-	  FROM (	
-			SELECT
-			       ROWNUM RNUM
-			     , B.GOODS_NUMBER
-			     , B.GOODS_CATEGORY_NUMBER
-			     , B.MOVIE_NO2
-			     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
-			     , B.GOODS_NAME
-			     , B.GOODS_PRICE
-			     , B.GOODS_REGISTRATION_DATE
-			     , B.GOODS_STOCK
-			     , B.GOODS_STATUS
-			     , B.GOODS_DETAIL
-			     , B.GOODS_ORIGIN
-			     , B.GOODS_COMPANY
-			     , B.GOODS_LIKE_COUNT
-				 , B.GOODS_SHORT_INFO
-				 , B.FILE_SAVE_NAME
-			  FROM (	
-					SELECT
-					       A.GOODS_NUMBER
-					     , A.GOODS_CATEGORY_NUMBER
-					     , A.MOVIE_NO2
-					     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
-					     , A.GOODS_NAME
-					     , A.GOODS_PRICE
-					     , A.GOODS_REGISTRATION_DATE
-					     , A.GOODS_STOCK
-					     , A.GOODS_STATUS
-					     , A.GOODS_DETAIL
-					     , A.GOODS_ORIGIN
-					     , A.GOODS_COMPANY
-					     , A.GOODS_LIKE_COUNT
-						 , A.GOODS_SHORT_INFO
-						 , D.FILE_SAVE_NAME
-					  FROM TBL_GOODS A
-				      JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
-					 WHERE D.FILE_TYPE = 'head'
+	    SELECT
+	           C.GOODS_NUMBER
+	         , C.GOODS_CATEGORY_NUMBER
+	         , C.MOVIE_NO2
+	         , C.GOODS_SHIPMENT_CLAFFIFY_CODE
+	         , C.GOODS_NAME
+	         , C.GOODS_PRICE
+		     , C.GOODS_REGISTRATION_DATE
+		     , C.GOODS_STOCK
+		     , C.GOODS_STATUS
+		     , C.GOODS_DETAIL
+		     , C.GOODS_ORIGIN
+		     , C.GOODS_COMPANY
+		     , C.GOODS_LIKE_COUNT
+			 , C.GOODS_SHORT_INFO
+			 , C.FILE_SAVE_NAME
+	  	  FROM (	
+			    SELECT
+			           ROWNUM RNUM
+				     , B.GOODS_NUMBER
+				     , B.GOODS_CATEGORY_NUMBER
+				     , B.MOVIE_NO2
+				     , B.GOODS_SHIPMENT_CLAFFIFY_CODE
+				     , B.GOODS_NAME
+				     , B.GOODS_PRICE
+				     , B.GOODS_REGISTRATION_DATE
+				     , B.GOODS_STOCK
+				     , B.GOODS_STATUS
+				     , B.GOODS_DETAIL
+				     , B.GOODS_ORIGIN
+				     , B.GOODS_COMPANY
+				     , B.GOODS_LIKE_COUNT
+					 , B.GOODS_SHORT_INFO
+					 , B.FILE_SAVE_NAME
+				  FROM (	
+						SELECT
+						       A.GOODS_NUMBER
+						     , A.GOODS_CATEGORY_NUMBER
+						     , A.MOVIE_NO2
+						     , A.GOODS_SHIPMENT_CLAFFIFY_CODE
+						     , A.GOODS_NAME
+						     , A.GOODS_PRICE
+						     , A.GOODS_REGISTRATION_DATE
+						     , A.GOODS_STOCK
+						     , A.GOODS_STATUS
+						     , A.GOODS_DETAIL
+						     , A.GOODS_ORIGIN
+						     , A.GOODS_COMPANY
+						     , A.GOODS_LIKE_COUNT
+							 , A.GOODS_SHORT_INFO
+							 , D.FILE_SAVE_NAME
+						  FROM TBL_GOODS A
+					      JOIN TBL_GOODS_FILE D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
+						 WHERE D.FILE_TYPE = 'head'
 	<include refid="search"/>
-					) B
-			)C
+					  ) B
+			  )C
 		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
@@ -429,7 +431,7 @@
                      , X.GOODS_PRICE
 		          FROM (          
 		                SELECT
-                     DISTINCT  A.ORDER_NUM
+                               DISTINCT A.ORDER_NUM
 		                     , A.ORDER_DATE
 		                     , A.ORDER_COUNT
 		                     , A.ORDER_CANCEL_OR_NOT
@@ -469,16 +471,16 @@
 	
 	<sql id="searchPayment">
 		<if test="searchCondition == 'totalPrice'">
-		AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY D.GOODS_PRICE DESC
+	  	   AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY D.GOODS_PRICE DESC
 		</if>
 		<if test="searchCondition == 'date'">
-		AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY A.ORDER_DATE DESC
+		   AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY A.ORDER_DATE DESC
 		 </if>
 		<if test="searchCondition == 'goodsName'">
-		AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY D.GOODS_NAME DESC
+		   AND D.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY D.GOODS_NAME DESC
 		</if>
 	</sql>
 	
@@ -509,7 +511,7 @@
                      , X.GOODS_PRICE
 		          FROM (          
 		                SELECT
-                     DISTINCT  A.ORDER_NUM
+                               DISTINCT  A.ORDER_NUM
 		                     , A.ORDER_DATE
 		                     , A.ORDER_COUNT
 		                     , A.ORDER_CANCEL_OR_NOT
@@ -525,8 +527,8 @@
 		                  JOIN TBL_GOODS D ON (A.GOODS_NUMBER = D.GOODS_NUMBER)
 		                 WHERE A.PAID_OR_NOT = 'Y'
 	<include refid="searchPayment"/>
-		                ) X
-		          ) Y
+		               ) X
+		        ) Y
 		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<update id="updateGoodsinfo" parameterType="hashmap">
@@ -542,51 +544,54 @@
 	</update>
 	
 	<insert id="updateImageFiles" parameterType="hashmap">
-	     <if test="distinguish == 'head'">
-		INSERT INTO TBL_GOODS_FILE
-			(
-			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
-			, FILE_SAVE_NAME, SAVE_PATH, THUMNAIL_PATH
-			, FILE_TYPE, FILE_STATUS
-			)
-			VALUES
+	    <if test="distinguish == 'head'">
+		INSERT 
+		  INTO TBL_GOODS_FILE A
+	    (
+		  A.FILE_NO, A.GOODS_NUMBER, A.FILE_ORIGIN_NAME
+		, A.FILE_SAVE_NAME, A.SAVE_PATH, A.THUMNAIL_PATH
+		, A.FILE_TYPE, A.FILE_STATUS
+		)
+		VALUES
 			
-			(
-			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNumber}, 
-			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
-			, 'head', 'Y'
-			)
-			</if>
-			<if test="distinguish == 'body'">
-		INSERT INTO TBL_GOODS_FILE
-			(
-			  FILE_NO, GOODS_NUMBER, FILE_ORIGIN_NAME
-			, FILE_SAVE_NAME, SAVE_PATH, THUMNAIL_PATH
-			, FILE_TYPE, FILE_STATUS
-			)
-			VALUES
+		(
+	      SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNumber},  #{originFileName}
+	    , #{saveName}, #{filePath}, #{filePath}
+	    , 'head', 'Y'
+		)
+		</if>
+		<if test="distinguish == 'body'">
+		INSERT 
+		  INTO TBL_GOODS_FILE A
+		(
+	      A.FILE_NO, A.GOODS_NUMBER, A.FILE_ORIGIN_NAME
+		, A.FILE_SAVE_NAME, A.SAVE_PATH, A.THUMNAIL_PATH
+		, A.FILE_TYPE, A.FILE_STATUS
+		)
+		VALUES
 			
-			(
-			  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNumber}, 
-			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
-			, 'body', 'Y'
-			)
-			</if>
+		(
+		  SEQ_TBL_GOODS_FILE.NEXTVAL, #{goodsNumber}, #{originFileName}
+		, #{saveName}, #{filePath}, #{filePath}
+	    , 'body', 'Y'
+		)
+		</if>
 	</insert>  
 	
 	<insert id="updategoodsDetailFiles" parameterType="hashmap">
-		INSERT INTO TBL_GOODS_DETAIL_FILE
-			(
-			  DETAIL_FILE_NO, GOODS_NUMBER, DETAIL_FILE_ORGIN_NAME
-			, DETAIL_FILE_SAVE_NAME, DETAIL_SAVE_PATH, DETAIL_THUMBNAIL_PATH
-			, DETAIL_FILE_TYPE, DETAIL_FILE_STATUS
-			)
-			VALUES
-			(
-			  SEQ_TBL_GOODS_DETAIL_FILE.NEXTVAL, #{goodsNumber}, 
-			  #{originFileName}, #{saveName}, #{filePath}, #{filePath}
-			, 'body', 'Y'
-			)
+		INSERT 
+		  INTO TBL_GOODS_DETAIL_FILE A
+		(
+		  A.DETAIL_FILE_NO, A.GOODS_NUMBER, A.DETAIL_FILE_ORGIN_NAME
+		, A.DETAIL_FILE_SAVE_NAME, A.DETAIL_SAVE_PATH, A.DETAIL_THUMBNAIL_PATH
+		, A.DETAIL_FILE_TYPE, A.DETAIL_FILE_STATUS
+		)
+		VALUES
+		(
+		  SEQ_TBL_GOODS_DETAIL_FILE.NEXTVAL, #{goodsNumber}, #{originFileName}
+		, #{saveName}, #{filePath}, #{filePath}
+		, 'body', 'Y'
+		)
 	</insert> 
 	
 	<select id="deliverygoodsCount" resultType="int">
@@ -616,39 +621,39 @@
 	
 	<select id="deliveryList" resultMap="selectDeliveryResult" parameterType="hashmap">
 	     SELECT
-           Y.DELIVERY_NUMBER
-         , Y.PAYMENT_PRICE
-         , Y.GOODS_NAME
-         , Y.USER_NAME
-         , Y.SHIPMENT_STATUS
-         , Y.SHIPMENT_MEMO_NAME
-       FROM (  
-             SELECT
-                   ROWNUM RNUM 
-                 , X.DELIVERY_NUMBER
-                 , X.PAYMENT_PRICE
-                 , X.GOODS_NAME
-                 , X.USER_NAME
-                 , X.SHIPMENT_STATUS
-                 , X.SHIPMENT_MEMO_NAME
-              FROM (      
-                    SELECT
-                           A.DELIVERY_NUMBER
-                         , B.PAYMENT_PRICE
-                         , C.GOODS_NAME
-                         , D.USER_NAME
-                         , E.SHIPMENT_STATUS
-                         , F.SHIPMENT_MEMO_NAME
-                      FROM TBL_DELIVERY A
-                      LEFT JOIN TBL_PAYMENT B ON (A.PAYMENT_NUM = B.PAYMENT_NUM)
-                      LEFT JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
-                      LEFT JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
-                      LEFT JOIN TBL_DELIVERY_STATUS E ON (A.SHIPMENT_CODE = E.SHIPMENT_CODE)
-                      LEFT JOIN TBL_DELIVERY_MEMO F ON (A.SHIPMENT_MEMO_CODE = F.SHIPMENT_MEMO_CODE)
-                     ORDER BY A.DELIVERY_NUMBER DESC
-                  )X
-           )Y       
- 		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 
+                Y.DELIVERY_NUMBER
+              , Y.PAYMENT_PRICE
+              , Y.GOODS_NAME
+              , Y.USER_NAME
+              , Y.SHIPMENT_STATUS
+              , Y.SHIPMENT_MEMO_NAME
+           FROM (  
+                 SELECT
+                        ROWNUM RNUM 
+	                  , X.DELIVERY_NUMBER
+	                  , X.PAYMENT_PRICE
+	                  , X.GOODS_NAME
+	                  , X.USER_NAME
+	                  , X.SHIPMENT_STATUS
+                      , X.SHIPMENT_MEMO_NAME
+                   FROM (      
+                         SELECT
+	                            A.DELIVERY_NUMBER
+	                          , B.PAYMENT_PRICE
+	                          , C.GOODS_NAME
+	                          , D.USER_NAME
+	                          , E.SHIPMENT_STATUS
+	                          , F.SHIPMENT_MEMO_NAME
+	                       FROM TBL_DELIVERY A
+	                       LEFT JOIN TBL_PAYMENT B ON (A.PAYMENT_NUM = B.PAYMENT_NUM)
+	                       LEFT JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
+	                       LEFT JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
+	                       LEFT JOIN TBL_DELIVERY_STATUS E ON (A.SHIPMENT_CODE = E.SHIPMENT_CODE)
+	                       LEFT JOIN TBL_DELIVERY_MEMO F ON (A.SHIPMENT_MEMO_CODE = F.SHIPMENT_MEMO_CODE)
+	                      ORDER BY A.DELIVERY_NUMBER DESC
+	                      )X
+	                )Y       
+ 		    WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 
 	</select>
 	
 	<select id="searchDeliveryCount" resultType="int" parameterType="hashmap">
@@ -666,54 +671,54 @@
 	
 	<sql id="searchDelivery">
 		<if test="searchCondition == 'deliveryStatus'">
-		AND E.SHIPMENT_STATUS LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY A.DELIVERY_NUMBER DESC
+		   AND E.SHIPMENT_STATUS LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY A.DELIVERY_NUMBER DESC
 		</if>
 		<if test="searchCondition == 'deliveryMemo'">
-		AND F.SHIPMENT_MEMO_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY A.DELIVERY_NUMBER DESC
+		   AND F.SHIPMENT_MEMO_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY A.DELIVERY_NUMBER DESC
 		 </if>
 		<if test="searchCondition == 'goodsName'">
-		AND C.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
-	  ORDER BY C.GOODS_NAME DESC
+		   AND C.GOODS_NAME LIKE '%'|| #{searchValue} ||'%'
+	     ORDER BY C.GOODS_NAME DESC
 		</if>
 	</sql>
 	
 	<select id="searchDeliverylist" resultMap="selectDeliveryResult" parameterType="hashmap">
 	     SELECT
-           Y.DELIVERY_NUMBER
-         , Y.PAYMENT_PRICE
-         , Y.GOODS_NAME
-         , Y.USER_NAME
-         , Y.SHIPMENT_STATUS
-         , Y.SHIPMENT_MEMO_NAME
-       FROM (  
-             SELECT
-                   ROWNUM RNUM 
-                 , X.DELIVERY_NUMBER
-                 , X.PAYMENT_PRICE
-                 , X.GOODS_NAME
-                 , X.USER_NAME
-                 , X.SHIPMENT_STATUS
-                 , X.SHIPMENT_MEMO_NAME
-              FROM (      
-                    SELECT
-                           A.DELIVERY_NUMBER
-                         , B.PAYMENT_PRICE
-                         , C.GOODS_NAME
-                         , D.USER_NAME
-                         , E.SHIPMENT_STATUS
-                         , F.SHIPMENT_MEMO_NAME
-                      FROM TBL_DELIVERY A
-                      LEFT JOIN TBL_PAYMENT B ON (A.PAYMENT_NUM = B.PAYMENT_NUM)
-                      LEFT JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
-                      LEFT JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
-                      LEFT JOIN TBL_DELIVERY_STATUS E ON (A.SHIPMENT_CODE = E.SHIPMENT_CODE)
-                      LEFT JOIN TBL_DELIVERY_MEMO F ON (A.SHIPMENT_MEMO_CODE = F.SHIPMENT_MEMO_CODE)
-                     WHERE B.PAYMENT_PRICE > 0
+                Y.DELIVERY_NUMBER
+              , Y.PAYMENT_PRICE
+              , Y.GOODS_NAME
+              , Y.USER_NAME
+              , Y.SHIPMENT_STATUS
+              , Y.SHIPMENT_MEMO_NAME
+           FROM (  
+                 SELECT
+                        ROWNUM RNUM 
+                      , X.DELIVERY_NUMBER
+	                  , X.PAYMENT_PRICE
+	                  , X.GOODS_NAME
+	                  , X.USER_NAME
+	                  , X.SHIPMENT_STATUS
+	                  , X.SHIPMENT_MEMO_NAME
+                   FROM (      
+                         SELECT
+	                            A.DELIVERY_NUMBER
+	                          , B.PAYMENT_PRICE
+	                          , C.GOODS_NAME
+	                          , D.USER_NAME
+	                          , E.SHIPMENT_STATUS
+	                          , F.SHIPMENT_MEMO_NAME
+	                       FROM TBL_DELIVERY A
+	                       LEFT JOIN TBL_PAYMENT B ON (A.PAYMENT_NUM = B.PAYMENT_NUM)
+	                       LEFT JOIN TBL_GOODS C ON (A.GOODS_NUMBER = C.GOODS_NUMBER)
+	                       LEFT JOIN USER_INFO D ON (A.USER_NO = D.USER_NO)
+	                       LEFT JOIN TBL_DELIVERY_STATUS E ON (A.SHIPMENT_CODE = E.SHIPMENT_CODE)
+	                       LEFT JOIN TBL_DELIVERY_MEMO F ON (A.SHIPMENT_MEMO_CODE = F.SHIPMENT_MEMO_CODE)
+	                      WHERE B.PAYMENT_PRICE > 0
      	<include refid="searchDelivery"/>
-                  )X
-           )Y       
+                         )X
+                  )Y       
  		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 
 	</select>
  	<update id="updateStatus" parameterType="hashmap">
@@ -813,11 +818,11 @@
 	</select>
 	
 	<insert id="updateInquiryAnswer" parameterType="hashmap">
-		INSERT 
-		  INTO TBL_GOODS_INQUIRY_REPLY
+		INSERT
+          INTO TBL_GOODS_INQUIRY_REPLY A
         (
-          GOODS_REPLY_NO, USER_NO, GOODS_INQUIRY_NO
-        , GOODS_REPLY_CONTENT, GOODS_REPLY_CREATION_DATE
+          A.GOODS_REPLY_NO, A.USER_NO, A.GOODS_INQUIRY_NO
+        , A.GOODS_REPLY_CONTENT, A.GOODS_REPLY_CREATION_DATE
         )
         VALUES
         (
@@ -827,9 +832,9 @@
 	</insert>
 	
 	<update id="updateYN" parameterType="_int">
-		UPDATE TBL_GOODS_INQUIRY
-		   SET GOODS_INQUIRY_YN = 'Y'
-	     WHERE GOODS_INQUIRY_NO = #{inquiryReplyNum}
+		UPDATE TBL_GOODS_INQUIRY A
+		   SET A.GOODS_INQUIRY_YN = 'Y'
+	     WHERE A.GOODS_INQUIRY_NO = #{inquiryReplyNum}
 	</update>
 	
 	<resultMap id="selectInquiryReplyResultMap"  type="GoodsInquiryReplyDTO" >
@@ -870,10 +875,10 @@
 	
 	<insert id="insertInitiate" parameterType="GoodsDTO">
 		INSERT 
-		  INTO TBL_GOODS_IN_AND_OUT
+		  INTO TBL_GOODS_IN_AND_OUT A
         (
-          IN_AND_OUT_CODE, GOODS_NUMBER, GOOD_IN_OUT_DATE
-        , GOODS_COUNT, IN_AND_OUT_STATUS
+          A.IN_AND_OUT_CODE, A.GOODS_NUMBER, A.GOOD_IN_OUT_DATE
+        , A.GOODS_COUNT, A.IN_AND_OUT_STATUS
         )
         VALUES
         (
@@ -895,32 +900,32 @@
 	
 	<select id="selectGoodsList" resultMap="stockResultMap" >
 		 SELECT
-		       Y.IN_AND_OUT_CODE
-		     , Y.GOODS_NAME
-		     , Y.GOOD_IN_OUT_DATE
-		     , Y.GOODS_COUNT
-		     , Y.IN_AND_OUT_STATUS           
-		  FROM (
-		           SELECT
-		                   ROWNUM RNUM
-		                 , X.IN_AND_OUT_CODE
-		                 , X.GOODS_NAME
-		                 , X.GOOD_IN_OUT_DATE
-		                 , X.GOODS_COUNT
-		                 , X.IN_AND_OUT_STATUS
-		              FROM (
-		                    SELECT
-		                           A.IN_AND_OUT_CODE
-		                         , B.GOODS_NAME
-		                         , A.GOOD_IN_OUT_DATE
-		                         , A.GOODS_COUNT
-		                         , A.IN_AND_OUT_STATUS
-		                      FROM TBL_GOODS_IN_AND_OUT A
-		                      JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
-		                     ORDER BY A.IN_AND_OUT_CODE DESC
-		                ) X
-		           )Y
-	 WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	 
+		        Y.IN_AND_OUT_CODE
+		      , Y.GOODS_NAME
+		      , Y.GOOD_IN_OUT_DATE
+		      , Y.GOODS_COUNT
+		      , Y.IN_AND_OUT_STATUS           
+		   FROM (
+		         SELECT
+		                ROWNUM RNUM
+	                  , X.IN_AND_OUT_CODE
+	                  , X.GOODS_NAME
+	                  , X.GOOD_IN_OUT_DATE
+	                  , X.GOODS_COUNT
+	                  , X.IN_AND_OUT_STATUS
+	               FROM (
+	                     SELECT
+	                            A.IN_AND_OUT_CODE
+	                          , B.GOODS_NAME
+	                          , A.GOOD_IN_OUT_DATE
+	                          , A.GOODS_COUNT
+	                          , A.IN_AND_OUT_STATUS
+	                       FROM TBL_GOODS_IN_AND_OUT A
+	                       JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+	                      ORDER BY A.IN_AND_OUT_CODE DESC
+	                      ) X
+	            )Y
+            WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	 
 	</select>
 	<select id="stockList" resultType="int">
 		SELECT
@@ -939,33 +944,33 @@
 	
 	<select id="selectStockPaging" resultMap="stockResultMap" >
 		 SELECT
-		       Y.IN_AND_OUT_CODE
-		     , Y.GOODS_NAME
-		     , Y.GOOD_IN_OUT_DATE
-		     , Y.GOODS_COUNT
-		     , Y.IN_AND_OUT_STATUS           
-		  FROM (
-		           SELECT
-		                   ROWNUM RNUM
-		                 , X.IN_AND_OUT_CODE
-		                 , X.GOODS_NAME
-		                 , X.GOOD_IN_OUT_DATE
-		                 , X.GOODS_COUNT
-		                 , X.IN_AND_OUT_STATUS
-		              FROM (
-		                    SELECT
-		                           A.IN_AND_OUT_CODE
-		                         , B.GOODS_NAME
-		                         , A.GOOD_IN_OUT_DATE
-		                         , A.GOODS_COUNT
-		                         , A.IN_AND_OUT_STATUS
-		                      FROM TBL_GOODS_IN_AND_OUT A
-		                      JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
-		                      WHERE GOODS_COUNT > -1
+		        Y.IN_AND_OUT_CODE
+		      , Y.GOODS_NAME
+		      , Y.GOOD_IN_OUT_DATE
+		      , Y.GOODS_COUNT
+		      , Y.IN_AND_OUT_STATUS           
+		   FROM (
+		         SELECT
+		                ROWNUM RNUM
+		              , X.IN_AND_OUT_CODE
+		              , X.GOODS_NAME
+		              , X.GOOD_IN_OUT_DATE
+		              , X.GOODS_COUNT
+		              , X.IN_AND_OUT_STATUS
+		           FROM (
+		                 SELECT
+		                        A.IN_AND_OUT_CODE
+		                      , B.GOODS_NAME
+		                      , A.GOOD_IN_OUT_DATE
+		                      , A.GOODS_COUNT
+		                      , A.IN_AND_OUT_STATUS
+		                   FROM TBL_GOODS_IN_AND_OUT A
+		                   JOIN TBL_GOODS B ON (A.GOODS_NUMBER = B.GOODS_NUMBER)
+		                  WHERE GOODS_COUNT > -1
 		<include refid="searchStock"/>
 		                ) X
-		           )Y
-	 WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	 
+		          )Y
+	        WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	 
 	</select>
 	
 	<sql id="searchStock">
@@ -991,21 +996,21 @@
 	
 	<delete id="deletePastImage">
 		DELETE
-		  FROM TBL_GOODS_FILE
-		 WHERE GOODS_NUMBER = #{goodsNo}
+		  FROM TBL_GOODS_FILE A
+		 WHERE A.GOODS_NUMBER = #{goodsNo}
 	</delete>
 	<delete id="deletedetailfile">
 		DELETE
-		  FROM TBL_GOODS_DETAIL_FILE
-		 WHERE GOODS_NUMBER = #{goodsNo}
+		  FROM TBL_GOODS_DETAIL_FILE A
+		 WHERE A.GOODS_NUMBER = #{goodsNo}
 	</delete>
 	
 	<insert id="updateStockManage" parameterType="hashmap">
 		INSERT 
-		  INTO TBL_GOODS_IN_AND_OUT
+		  INTO TBL_GOODS_IN_AND_OUT A
         (
-          IN_AND_OUT_CODE, GOODS_NUMBER, GOOD_IN_OUT_DATE
-        , GOODS_COUNT, IN_AND_OUT_STATUS
+          A.IN_AND_OUT_CODE, A.GOODS_NUMBER, A.GOOD_IN_OUT_DATE
+        , A.GOODS_COUNT, A.IN_AND_OUT_STATUS
         )
         VALUES
         (

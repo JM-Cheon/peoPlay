@@ -130,6 +130,7 @@
 </body>
 <script type="text/javascript">
 
+/* 이미지 변환 메소드 */
 const $titleImgArea = document.getElementById("titleImgArea");
 const $contentImgArea1 = document.getElementById("contentImgArea1");
 const $contentImgArea2 = document.getElementById("contentImgArea2");
@@ -172,13 +173,11 @@ function loadImg(value, num) {
 						break;
 			}
 		}
-		/* readAsDataURL은 Blob이나 file에서 읽어오는 역할을 함 */
-		/* Blob(Binary Large Object) : 바이너리 형태의 큰 객체(이미지, 사운드, 비디오같은 멀티미디어 객체) */
-		/* 우리가 이미지를 브라우저에 뿌려주기 위해서는 base64 encoded string으로 변환해 주어야 한다. */
 		reader.readAsDataURL(value.files[0]);
 	}
 }
 
+/* 상품 등록 버튼 */
 $("#enrollBtn").click(function(){
 	
 	if(confirm("상품을 등록하시겠습니까?") == true){
@@ -188,7 +187,6 @@ $("#enrollBtn").click(function(){
 				|| document.getElementById("goodsCategory").value == ""
 				|| document.getElementById("goodsCompany").value == ""
 				|| document.getElementById("goodsMoney").value == ""
-				|| document.getElementById("goodsMovie").value == ""
 				|| document.getElementById("goodsStock").value == ""
 				|| document.getElementById("goodsNationality").value == ""
 				|| document.getElementById("goodsShortInfo").value == ""

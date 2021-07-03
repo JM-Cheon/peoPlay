@@ -17,15 +17,15 @@
     </style>
 </head>
 <jsp:include page="../common/header.jsp"/>
-<!-- 뒤로가기로 회원가입 페이지 보는 것을 방지하기 위한 스크립트 -->
-
 	
 <body>
+<!-- 뒤로가기로 회원가입 페이지 보는 것을 방지하기 위한 스크립트 -->
 <script type = "text/javascript" >
       setTimeout(function(){
           window.history.forward();
        }, 0);   
 </script>
+
     <br><br><br><br><br>
     <div id="wrapper">
     <div class="mainText">주문 결제</div>
@@ -77,7 +77,6 @@
             </article>
         </div>
 
-
         <aside>
             <div class="mainText">결제예정금액</div>
             <fieldset class="orderfied">
@@ -105,8 +104,7 @@
                     <div align="center"><br>
                     	<form id="payGoods" action="${ pageContext.servletContext.contextPath }/goods/payGoods" method="post">
 						 	<div class="delivery">배송구분</div><br>
-                             <select id="deliveryCode" name="deliveryCode" style="font-size: 15px; align-content: center; position: relative;
-    left: -8px;" >
+                             <select id="deliveryCode" name="deliveryCode" style="font-size: 15px; align-content: center; position: relative; left: -8px;" >
 				                <option value="1" >집 앞에 놓아주세요.</option>
 				                <option value="2">경비실에 맡겨주세요.</option>
 				                <option value="3">부재시 문 앞에 놓아주세요.</option>
@@ -141,11 +139,9 @@
 <br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
 
 <script type="text/javascript">
+
 $(document).on('click', '.cancel', function() {
 	
 	const orderNum = document.getElementById("orderNo").value;
@@ -159,7 +155,7 @@ $(document).on('click', '.cancel', function() {
 	}
 });
 
-
+	/* 수량 변경 ajax */
 	$('.counts').on("click",function() {
 
 		var count = document.getElementById("counts").value;
@@ -209,6 +205,7 @@ $(document).on('click', '.cancel', function() {
 
 	});
 
+	/* 카카오 API 결제시 */
 	$(document).on('click', '.payKakao', function() {
 		
 		var $checkbox = $('#agreement'); 

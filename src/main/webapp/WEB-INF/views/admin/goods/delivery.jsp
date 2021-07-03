@@ -198,9 +198,9 @@
         <jsp:include page="../../common/footer.jsp"/>
 
 <script>
+/* 배송 상태 변환 메소드 (Ajax) */
 $('.AjaxdeliveryStatus').change(function() {
 	
-	/* var deliveryNum = this.parentsNode.parentNode;  */
 	const deliveryNum = $(this).parents("tr").find('td').eq(0).find('input').val();
 	const status = this.value;
 	
@@ -225,6 +225,7 @@ $('.AjaxdeliveryStatus').change(function() {
 	
 });
 
+/* 뒤로가기 버튼 */
 $("#gobackAdmin").click(function(){
 	location.href = "${ pageContext.servletContext.contextPath }/admin/goods";
 });

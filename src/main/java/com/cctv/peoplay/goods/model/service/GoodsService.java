@@ -19,7 +19,6 @@ import com.cctv.peoplay.goods.paging.PagenationDTO;
 
 public interface GoodsService {
 
-
 	/* 모든 굿즈 불러오기 */
 	List<GoodsDTO> selectAllGoods(PagenationDTO pageInfo);
 
@@ -145,11 +144,13 @@ public interface GoodsService {
 	/* 문의 사항 삭제 */
 	int deleteInquiry(int goodsInquiryNum);
 
+	/* 굿즈 전체 문의사항 답변 불러오는메소드 /
 	List<GoodsInquiryReplyDTO> selectInquiryReply(int goodsInquiryNo);
 
 	/* 구매 내역 확인 */
 	List<OrderDTO> paymentCheck(HashMap<String, Integer> order);
 
+	/* 굿즈 결제에 대해 전체 조회하는 메소드 */
 	List<PaymentDTO> paymentList(int orderNo);
 
 	/* 상품 좋아요 수 증가 */
@@ -158,6 +159,7 @@ public interface GoodsService {
 	/* 상품 좋아요 수 감소 */
 	int updateGoodsdisLikeCount(int goodsNum);
 
+	/* 인기상품에 대한 상품 사진 조회하는 메소드 */
 	List<GoodsAndFileDTO> selectPopular(int i);
 
 	/* 출고 된 상품을 inAndOut에 삽입 */
@@ -168,6 +170,9 @@ public interface GoodsService {
 
 	/* 상품 구매 후 장바구니 LIST 삭제 */
 	int deleteWishList(HashMap<String, Object> payment);
+
+	/* 굿즈 문의사항 댓글 전체 조회하는 메소드 */
+	List<GoodsInquiryReplyDTO> selectInquiryReply(int goodsNo);
 
 
 }
