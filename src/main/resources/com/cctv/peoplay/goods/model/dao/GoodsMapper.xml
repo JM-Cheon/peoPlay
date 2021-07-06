@@ -41,6 +41,7 @@
 	</resultMap>
 	
 	<select id="selectAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+	/* ccom.cctv.peoplay.goods.model.dao.GoodsMapper#selectAllGoods() */
 		SELECT
 	           C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
@@ -102,6 +103,7 @@
 		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectdcAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectdcAllGoods() */
 		SELECT
 		       C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
@@ -163,6 +165,7 @@
 		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectghibriAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectghibriAllGoods() */
 		SELECT
 		       C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
@@ -224,6 +227,7 @@
 		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectPixarAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectPixarAllGoods() */
 		SELECT
 		       C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
@@ -285,6 +289,7 @@
 		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectWbAllGoods" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectWbAllGoods() */
 		SELECT
 		       C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
@@ -347,6 +352,7 @@
 	</select>
 	
 	<select id="selectPopularGoods" resultMap="selectAllGoodsResult" parameterType="_int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectPopularGoods() */
 		SELECT
 		       B.GOODS_NUMBER
 		     , B.GOODS_CATEGORY_NUMBER
@@ -391,6 +397,7 @@
 		 WHERE B.RNUM  BETWEEN 1 AND 4
 	</select>
 	<select id="selectOneGoodsInfo" resultMap="selectAllGoodsResult" parameterType="GoodsDTO">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectOneGoodsInfo() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , A.GOODS_CATEGORY_NUMBER
@@ -417,6 +424,7 @@
 
 	
 	<select id="goodsAndFile" resultMap="goodsAndFileResultMap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#goodsAndFile() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , B.FILE_NO
@@ -430,6 +438,7 @@
 	</select>
 	
 	<insert id="insertcart" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#insertcart() */
 		INSERT 
 		  INTO TBL_GOODS_CART A
         (
@@ -442,6 +451,7 @@
 	</insert>
 	
 	<select id="cartList" resultMap="selectGoodscartByGoodsNo" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#cartList() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , A.USER_NO
@@ -468,6 +478,7 @@
 	</resultMap>
 	
 	<select id="seletReivewByGoodsNo" resultMap="selectAllGoodsReview" >
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#seletReivewByGoodsNo() */
 		SELECT
      	       A.GOODS_REVIEW_NUM
 	         , A.REVIEW_DATE
@@ -484,6 +495,7 @@
 	     ORDER BY A.GOODS_REVIEW_NUM DESC
 	</select>
 	<insert id="insertReply" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#insertReply() */
 		INSERT 
 		  INTO TBL_GOODS_REVIEW A
         (
@@ -498,6 +510,7 @@
 	</insert>
 	
 	<delete id="deleteReply" parameterType="_int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#deleteReply() */
 	    DELETE 
           FROM TBL_GOODS_REVIEW A
          WHERE A.GOODS_REVIEW_NUM = #{goodsReviewNum}
@@ -526,6 +539,7 @@
 	</resultMap>
 	
 	<select id="selectGoodsDetailFiles" resultMap="goodsDetailFileResultMap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectGoodsDetailFiles() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , B.DETAIL_FILE_NO
@@ -539,6 +553,7 @@
 		   AND B.DETAIL_FILE_TYPE = 'body'
 	</select>
 	<insert id="insertOrder" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#insertOrder() */
 		INSERT 
 		  INTO TBL_GOODS_ORDER
         (
@@ -553,6 +568,7 @@
 	</insert>
 	
 	<select id="selectOrderList" resultMap="GetcartResultMap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectOrderList() */
 		SELECT
 	           A.GOODS_NUMBER
 	         , A.USER_NO
@@ -581,6 +597,7 @@
 	</resultMap>
 	
 	<select id="doubleCheckOrder" resultMap="GetOrderNumResultMap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#doubleCheckOrder() */
 		SELECT
 	           A.ORDER_NUM
     	  FROM TBL_GOODS_ORDER A
@@ -590,6 +607,7 @@
 	</select>
 	
 	<select id="selectOrderNum" resultMap="GetOrderNumResultMap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectOrderNum() */
 		SELECT
 	           A.ORDER_NUM
     	  FROM TBL_GOODS_ORDER A
@@ -619,6 +637,7 @@
 	</resultMap>
 
 	<select id="orderInfo" resultMap="OrderListResultMap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#orderInfo() */
 		SELECT
     	       A.ORDER_NUM
     	     , A.GOODS_NUMBER
@@ -640,6 +659,7 @@
 	</select>
 	
 	<select id="selectGoodsLikeList" resultMap="GetGoodsLikeResultMap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectGoodsLikeList() */
 		SELECT
 	           A.GOODS_NUMBER
 	         , A.USER_NO
@@ -658,6 +678,7 @@
 	</resultMap>
 	
 	<insert id="insertLike" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#insertLike() */
 		INSERT 
 		  INTO TBL_GOODS_LIKE A
 		(
@@ -670,24 +691,28 @@
 	</insert>
 	
 	<delete id="dislikeList" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#dislikeList() */
 		DELETE 
 		  FROM TBL_GOODS_LIKE A
 		 WHERE A.GOODS_NUMBER = #{goodsNum}
 	</delete>
 	
 	<update id="replyUpdate" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#replyUpdate() */
 		UPDATE TBL_GOODS_REVIEW A
 		   SET A.GOODS_REVIEW_CONTENT = #{updateContent}
 	     WHERE A.GOODS_REVIEW_NUM = #{reviewNum}
 	</update>
 	
 	<update id="inquiryUpdate" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#inquiryUpdate() */
 		UPDATE TBL_GOODS_INQUIRY A
 		   SET A.GOODS_INQUIRY_CONTENT = #{inquiryUpdateContent}
 	     WHERE A.GOODS_INQUIRY_NO = #{inquiryNum}
 	</update>
 	
 	<select id="countTotalGoods" resultType="int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#countTotalGoods() */
 	    SELECT 	
 	           COUNT(*)
 	      FROM TBL_GOODS A
@@ -695,6 +720,7 @@
 	</select>
 	
 	<select id="searchCount" resultType="int" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#searchCount() */
         SELECT
                COUNT(*)
           FROM TBL_GOODS A
@@ -719,6 +745,7 @@
 	</sql>
 	
 	<select id="searchlist" resultMap="selectAllGoodsResult" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#searchlist() */
 		SELECT
 		       C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
@@ -796,6 +823,7 @@
 	</resultMap>
 	
 	<select id="selectInquiryByGoodsNo" resultMap="selectAllGoodsInquiry" >
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectInquiryByGoodsNo() */
 		SELECT
      	       A.GOODS_INQUIRY_NO
 	         , A.GOODS_CREATION_DATE
@@ -814,6 +842,7 @@
 	</select>
 	
 	<insert id="updatePayment" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#updatePayment() */
 		INSERT
 		  INTO TBL_PAYMENT A
 		( 
@@ -828,6 +857,7 @@
 	</insert>
 	
 	<update id="updatePaidGoods" parameterType="_int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#updatePaidGoods() */
 		UPDATE TBL_GOODS_ORDER A
 		   SET A.PAID_OR_NOT = 'Y'
 	     WHERE A.ORDER_NUM = #{orderNo}
@@ -841,6 +871,7 @@
 	</resultMap>
 
 	<insert id="updatedelivery" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#updatedelivery() */
 		<selectKey keyProperty="paymentNo" order="BEFORE" resultType="_int">
 	         SELECT
 	                SEQ_TBL_PAYMENT.CURRVAL
@@ -886,6 +917,7 @@
 	</resultMap>
 		
  	<select id="deliveryInfo" resultMap="selectDeliveryResultMap" >
+ 	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#deliveryInfo() */
 		SELECT
      	       A.DELIVERY_NUMBER
 	      FROM TBL_DELIVERY A
@@ -895,6 +927,7 @@
 	</select>
 	
 	<select id="selectDeliveryInfo" resultMap="selectDeliveryResultMap" >
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectDeliveryInfo() */
 		SELECT
      	       D.PAYMENT_NUM
              , B.GOODS_NUMBER
@@ -917,18 +950,21 @@
 	</select> 
 	
 	<update id="cancelOrder" parameterType="_int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#cancelOrder() */
 		UPDATE TBL_GOODS_ORDER A
 		   SET A.ORDER_CANCEL_OR_NOT = 'Y'
 	     WHERE A.ORDER_NUM = #{orderNum}
 	</update>
 	
 	<update id="insertRecalculate" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#insertRecalculate() */
 	    UPDATE TBL_GOODS_ORDER A
 		   SET A.ORDER_COUNT = #{count}
 	     WHERE A.ORDER_NUM = #{orderNo}
 	</update>
 	
 	<delete id="deleteWishlist" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#deleteWishlist() */
 	    DELETE 
           FROM TBL_GOODS_CART A
          WHERE A.GOODS_NUMBER = #{goodsNo}
@@ -936,6 +972,7 @@
 	</delete>
 	
 	<insert id="insertInquiry" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#insertInquiry() */
 		INSERT 
 		  INTO TBL_GOODS_INQUIRY A
         (
@@ -952,12 +989,14 @@
 	</insert>
 
 	<update id="deleteInquiry" parameterType="_int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#deleteInquiry() */
 		UPDATE TBL_GOODS_INQUIRY A
 		   SET A.GOODS_INQUIRY_STATUS_YN = 'N'
 	     WHERE A.GOODS_INQUIRY_NO = #{goodsInquiryNum}
 	</update>
 	
 	<insert id="reportReply" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#reportReply() */
       INSERT 
         INTO USER_REPORT A
       (
@@ -984,6 +1023,7 @@
 	</resultMap>
 	
 	<select id="selectInquiryReply" resultMap="selectInquiryReplyResultMap" >
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectInquiryReply() */
 		SELECT
 		       A.GOODS_REPLY_NO
 		     , A.GOODS_INQUIRY_NO
@@ -1010,6 +1050,7 @@
 	</resultMap>
 	
 	<select id="paymentCheck" resultMap="selectAllPaymentList">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#paymentCheck() */
 		SELECT
                A.ORDER_NUM
              , A.GOODS_NUMBER
@@ -1027,6 +1068,7 @@
 	</resultMap>
 	
 	<select id="paymentList" resultMap="selectPaidPaymentList">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#paymentList() */
 		SELECT
 			   A.PAYMENT_NUM
 		  FROM TBL_PAYMENT A
@@ -1034,11 +1076,13 @@
 	</select>
 	
 	<update id="updateGoodsLikeCount" parameterType="_int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#updateGoodsLikeCount() */
 		UPDATE TBL_GOODS A
 		   SET A.GOODS_LIKE_COUNT = A.GOODS_LIKE_COUNT + 1
 	     WHERE A.GOODS_NUMBER = #{goodsNo}
 	</update>
 	<update id="updateGoodsdisLikeCount" parameterType="_int">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#updateGoodsdisLikeCount() */
 		UPDATE TBL_GOODS A
 		   SET A.GOODS_LIKE_COUNT = A.GOODS_LIKE_COUNT - 1
 	     WHERE A.GOODS_NUMBER = #{goodsNum}
@@ -1057,6 +1101,7 @@
 	</resultMap>
 	
 	<select id="selectPopular" resultMap="goodsAndFileResultMap2">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#selectPopular() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , B.FILE_NO
@@ -1070,6 +1115,7 @@
 	</select>
 	
 	<insert id="insertOutGoods" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#insertOutGoods() */
 		INSERT 
 		  INTO TBL_GOODS_IN_AND_OUT A
         (
@@ -1084,11 +1130,13 @@
 	</insert>
 		
 	<update id="updateGoodsStock" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#updateGoodsStock() */
 		UPDATE TBL_GOODS A
 		   SET A.GOODS_STOCK = A.GOODS_STOCK - #{quantities}
 	     WHERE A.GOODS_NUMBER = #{goodsNum}
 	</update>
 	<delete id="deleteWishList" parameterType="hashmap">
+	/* com.cctv.peoplay.goods.model.dao.GoodsMapper#deleteWishList() */
 	    DELETE
           FROM TBL_GOODS_CART A
          WHERE A.GOODS_NUMBER = #{goodsNum}

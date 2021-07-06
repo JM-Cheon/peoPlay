@@ -551,16 +551,16 @@ public class GoodsController {
 		GoodsAndFileDTO goodsAndFile = goodsService.goodsAndFile(goodsNum);
 		session.setAttribute("goodsAndFile", goodsAndFile);
 
-		HashMap<String, Object> delivery2 = new HashMap<>();
-		delivery2.put("orderNo", orderNo);
-		delivery2.put("totalPrice", totalPrice2);
-		delivery2.put("goodsNum", goodsNum);
-		delivery2.put("deliveryCode", deliveryCode);
-		delivery2.put("memNum", loginMember.getUserNo());
+		HashMap<String, Object> delivery = new HashMap<>();
+		delivery.put("orderNo", orderNo);
+		delivery.put("totalPrice", totalPrice2);
+		delivery.put("goodsNum", goodsNum);
+		delivery.put("deliveryCode", deliveryCode);
+		delivery.put("memNum", loginMember.getUserNo());
 
-		int updatedelivery = goodsService.updatedelivery(delivery2);
+		int updatedelivery = goodsService.updatedelivery(delivery);
 
-		DeliveryDTO deliveryNo = goodsService.deliveryInfo(delivery2);
+		DeliveryDTO deliveryNo = goodsService.deliveryInfo(delivery);
 
 		DeliveryDTO selectDeliveryInfo = goodsService.selectDeliveryInfo(deliveryNo.getDeliveryNumber());
 

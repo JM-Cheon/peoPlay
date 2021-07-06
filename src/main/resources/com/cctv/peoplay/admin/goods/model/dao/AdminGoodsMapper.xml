@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper">
 
-	<resultMap id="selectAllGoodsResult" type="AdminGoodsDTO">
+	<resultMap id="selectAllGoodsResult" type="AdminGoodsDTO"> 
 		<id column="GOODS_NUMBER" property="goodsNum" />
 		<result column="MOVIE_NO2" property="movieNum" />
 		<result column="GOODS_NAME" property="goodsName" />
@@ -31,6 +31,7 @@
 	</resultMap>
 	
 	<select id="selectAdminAllGoods" resultMap="selectAllGoodsResult" parameterType="AdminGoodsDTO">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectAdminAllGoods() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , A.GOODS_CATEGORY_NUMBER
@@ -53,6 +54,7 @@
 	</select>
 	
 	<select id="selectGoodsInfoByGoodsNo" resultMap="selectGoodsInfoByGoodsNoResult" parameterType="AdminGoodsDTO">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectGoodsInfoByGoodsNo() */
 		SELECT
     	       A.GOODS_NUMBER
     	     , A.GOODS_CATEGORY_NUMBER
@@ -109,6 +111,7 @@
 	</resultMap>
 	
 	<select id="mainGoodsAndFile" resultMap="AdmingoodsAndFileResultMap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#mainGoodsAndFile() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , B.FILE_NO
@@ -121,6 +124,7 @@
 	</select>
 	
 	<select id="goodsAndFile" resultMap="AdmingoodsAndFileResultMap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#goodsAndFile() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , B.FILE_NO
@@ -145,6 +149,7 @@
 	</resultMap>
 	
 	<select id="goodsAndDetailFile" resultMap="AdmingoodsDetailFileResultMap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#goodsAndDetailFile() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , B.DETAIL_FILE_NO
@@ -157,11 +162,13 @@
 		 WHERE A.GOODS_NUMBER = #{goodsNo}
 	</select>
 	<update id="deleteGoods" parameterType="_int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#deleteGoods() */
 		UPDATE TBL_GOODS A
 		   SET A.GOODS_STATUS = 'N'
 		 WHERE A.GOODS_NUMBER = #{goodsNum}
 	</update>
 	<insert id="insertGoodsinfo">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#insertGoodsinfo() */
 		INSERT
 		  INTO TBL_GOODS A
 		(
@@ -182,6 +189,7 @@
 	</insert>
 	
 	<insert id="insertImageFiles">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#insertImageFiles() */
 		<selectKey keyProperty="goodsNum" order="BEFORE" resultType="_int">
 	         SELECT
 	                SEQ_TBL_GOODS.CURRVAL
@@ -219,6 +227,7 @@
 		</if>
 	</insert>
 	<insert id="goodsDetailFiles">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#goodsDetailFiles() */
 		INSERT 
 		  INTO TBL_GOODS_DETAIL_FILE
 		<selectKey keyProperty="goodsNum" order="BEFORE" resultType="_int">
@@ -240,11 +249,13 @@
 		)
 	</insert>
 	<select id="goodsCount" resultType="int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#goodsCount() */
 		SELECT
 		       COUNT(*)
 		  FROM TBL_GOODS
 	</select>
 	<select id="selectAdminAllGoodsPaging" resultMap="selectAllGoodsResult" parameterType="AdminGoodsDTO">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectAdminAllGoodsPaging() */
 	    SELECT
 		       C.GOODS_NUMBER
 		     , C.GOODS_CATEGORY_NUMBER
@@ -306,6 +317,7 @@
 	</select>
 	
 	<select id="searchCount" resultType="int" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchCount() */
         SELECT
                COUNT(*)
           FROM TBL_GOODS A
@@ -329,6 +341,7 @@
 	</sql>	
 	
 	<select id="searchlist" resultMap="selectAllGoodsResult" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchlist() */
 	    SELECT
 	           C.GOODS_NUMBER
 	         , C.GOODS_CATEGORY_NUMBER
@@ -405,6 +418,7 @@
 		</association>  
 	</resultMap>
 	<select id="paymentList" resultMap="selectAllPaymentResult" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#paymentList() */
 		SELECT
 		       Y.ORDER_NUM
              , Y.ORDER_DATE
@@ -453,12 +467,14 @@
 	</select>
 	
 	<select id="paymentgoodsCount" resultType="int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#paymentgoodsCount() */
 		SELECT
 		       COUNT(*)
 		  FROM TBL_GOODS_ORDER
 	</select>
 	
 	<select id="searchPaymentCount" resultType="int" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchPaymentCount() */
         SELECT
                COUNT(*)
           FROM TBL_GOODS_ORDER A
@@ -485,6 +501,7 @@
 	</sql>
 	
 	<select id="searchPaymentlist" resultMap="selectAllPaymentResult" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchPaymentlist() */
 		SELECT
 		       Y.ORDER_NUM
              , Y.ORDER_DATE
@@ -532,6 +549,7 @@
 		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<update id="updateGoodsinfo" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#updateGoodsinfo() */
 		UPDATE TBL_GOODS A
 	       SET A.GOODS_NAME = #{goodsName},
 	   	       A.GOODS_PRICE = #{goodsMoney},
@@ -544,6 +562,7 @@
 	</update>
 	
 	<insert id="updateImageFiles" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#updateImageFiles() */
 	    <if test="distinguish == 'head'">
 		INSERT 
 		  INTO TBL_GOODS_FILE A
@@ -579,6 +598,7 @@
 	</insert>  
 	
 	<insert id="updategoodsDetailFiles" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#updategoodsDetailFiles() */
 		INSERT 
 		  INTO TBL_GOODS_DETAIL_FILE A
 		(
@@ -595,6 +615,7 @@
 	</insert> 
 	
 	<select id="deliverygoodsCount" resultType="int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#deliverygoodsCount() */
 		SELECT
 		       COUNT(*)
 		  FROM TBL_DELIVERY
@@ -620,6 +641,7 @@
 	</resultMap>
 	
 	<select id="deliveryList" resultMap="selectDeliveryResult" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#deliveryList() */
 	     SELECT
                 Y.DELIVERY_NUMBER
               , Y.PAYMENT_PRICE
@@ -657,6 +679,7 @@
 	</select>
 	
 	<select id="searchDeliveryCount" resultType="int" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchDeliveryCount() */
         SELECT
                COUNT(*)
           FROM TBL_DELIVERY A
@@ -685,6 +708,7 @@
 	</sql>
 	
 	<select id="searchDeliverylist" resultMap="selectDeliveryResult" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchDeliverylist() */
 	     SELECT
                 Y.DELIVERY_NUMBER
               , Y.PAYMENT_PRICE
@@ -722,6 +746,7 @@
  		WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 
 	</select>
  	<update id="updateStatus" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#updateStatus() */
 		UPDATE TBL_DELIVERY
 	       SET SHIPMENT_CODE = #{status}
 	     WHERE DELIVERY_NUMBER= #{deliveryNum}
@@ -739,12 +764,14 @@
 	</resultMap> -->
 	
 	<select id="stockgoodsCount" resultType="int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#stockgoodsCount() */
 		SELECT
 		       COUNT(*)
 		  FROM TBL_GOODS_IN_AND_OUT
 	</select>
 	
 	<select id="inquiryList" resultType="int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#inquiryList() */
 		SELECT
 		       COUNT(*)
 		  FROM TBL_GOODS_INQUIRY
@@ -770,6 +797,7 @@
 		</collection> 
 	</resultMap>
 	<select id="inquiryListPaging" resultMap="inquiryListResultMap" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#inquiryListPaging() */
 		SELECT
                Y.GOODS_INQUIRY_NO
              , Y.GOODS_INQUIRY_CONTENT
@@ -818,6 +846,7 @@
 	</select>
 	
 	<insert id="updateInquiryAnswer" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#updateInquiryAnswer() */
 		INSERT
           INTO TBL_GOODS_INQUIRY_REPLY A
         (
@@ -832,6 +861,7 @@
 	</insert>
 	
 	<update id="updateYN" parameterType="_int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#updateYN() */
 		UPDATE TBL_GOODS_INQUIRY A
 		   SET A.GOODS_INQUIRY_YN = 'Y'
 	     WHERE A.GOODS_INQUIRY_NO = #{inquiryReplyNum}
@@ -847,6 +877,7 @@
 	</resultMap>
 	
 	<select id="selectInquiryReply" resultMap="selectInquiryReplyResultMap" >
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectInquiryReply() */
 		SELECT
 		       A.GOODS_REPLY_NO
 		     , A.GOODS_INQUIRY_NO
@@ -858,12 +889,14 @@
 	</select>
 	
 	<update id="resaleGoods" parameterType="_int">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#resaleGoods() */
 		UPDATE TBL_GOODS
 		   SET GOODS_STATUS = 'Y'
 	     WHERE GOODS_NUMBER = #{goodsNum}
 	</update>
 	
 	<select id="selectGoodsStock" resultMap="selectAllGoodsResult" parameterType="AdminGoodsDTO">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectGoodsStock() */
 		SELECT
 		       A.GOODS_NUMBER
 		     , A.GOODS_NAME
@@ -874,6 +907,7 @@
 	</select>
 	
 	<insert id="insertInitiate" parameterType="GoodsDTO">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#insertInitiate() */
 		INSERT 
 		  INTO TBL_GOODS_IN_AND_OUT A
         (
@@ -899,6 +933,7 @@
 	</resultMap>
 	
 	<select id="selectGoodsList" resultMap="stockResultMap" >
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectGoodsList() */
 		 SELECT
 		        Y.IN_AND_OUT_CODE
 		      , Y.GOODS_NAME
@@ -928,12 +963,14 @@
             WHERE Y.RNUM BETWEEN #{startRow} AND #{endRow} 	 
 	</select>
 	<select id="stockList" resultType="int">
+	/*com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#stockList() */
 		SELECT
 		       COUNT(*)
 		  FROM TBL_GOODS_IN_AND_OUT A
 	</select>
 	
 	<select id="searchStockSearch" resultType="int" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchStockSearch() */
         SELECT
 		       COUNT(*)
 		  FROM TBL_GOODS_IN_AND_OUT A
@@ -943,6 +980,7 @@
 	</select>
 	
 	<select id="selectStockPaging" resultMap="stockResultMap" >
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectStockPaging() */
 		 SELECT
 		        Y.IN_AND_OUT_CODE
 		      , Y.GOODS_NAME
@@ -995,17 +1033,20 @@
 	</sql>
 	
 	<delete id="deletePastImage">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#deletePastImage() */
 		DELETE
 		  FROM TBL_GOODS_FILE A
 		 WHERE A.GOODS_NUMBER = #{goodsNo}
 	</delete>
 	<delete id="deletedetailfile">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#deletedetailfile() */
 		DELETE
 		  FROM TBL_GOODS_DETAIL_FILE A
 		 WHERE A.GOODS_NUMBER = #{goodsNo}
 	</delete>
 	
 	<insert id="updateStockManage" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#updateStockManage() */
 		INSERT 
 		  INTO TBL_GOODS_IN_AND_OUT A
         (
@@ -1020,6 +1061,7 @@
 	</insert>
 	
 	<select id="searchInquirySearch" resultType="int" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#searchInquirySearch() */
 		SELECT
 		       COUNT(*)
 		  FROM TBL_GOODS_INQUIRY A
@@ -1030,6 +1072,7 @@
 	</select>
 	
 	<select id="selectInquiryPaging" resultMap="inquiryListResultMap" parameterType="hashmap">
+	/* com.cctv.peoplay.admin.goods.model.dao.AdminGoodsMapper#selectInquiryPaging() */
 		SELECT
                Y.GOODS_INQUIRY_NO
              , Y.GOODS_INQUIRY_CONTENT
